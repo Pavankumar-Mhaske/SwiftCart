@@ -155,4 +155,86 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser };
+const getAllUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.find({});
+
+  if (!users) {
+    throw new ApiError(404, "No users found");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, { users: users }, "Users fetched Successfully!")
+    );
+});
+
+const getAUser = asyncHandler(async (req, res, next) => {
+  const { userId } = req.params;
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new ApiError(404, "No user found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { user: user }, "User fetched Successfully!"));
+});
+
+const deleteAUser = asyncHandler(async (req, res, next) => {
+  const { userId } = req.params;
+  const user = await User.findByIdAndDelete(userId.trim());
+
+  if (!user) {
+    throw new ApiError(404, "No user found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { user: user }, "User deleted Successfully!"));
+});
+
+const updateAUser = asyncHandler(async (req, res, next) => {
+  const { userId } = req.params;
+
+  const user = await User.findById(userId.trim());
+
+  if (!user) {
+    throw new ApiError(404, "No user found");
+  }
+
+  const { firstname, lastname, email, password, mobile } = req.body;
+
+  // const updatedUser = await User.findByIdAndUpdate(
+  //   userId.trim(),
+  //   {
+  //     firstname,
+  //     lastname,
+  //     email,
+  //     password,
+  //     mobile,
+  //   },
+  //   { new: true }
+  // );
+
+  if (firstname) user.firstname = firstname;
+  if (lastname) user.lastname = lastname;
+  if (email) user.email = email;
+  if (password) user.password = password;
+  if (mobile) user.mobile = mobile;
+
+  await user.save();
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { user: user }, "User updated Successfully!"));
+});
+export {
+  registerUser,
+  loginUser,
+  getAllUsers,
+  getAUser,
+  deleteAUser,
+  updateAUser,
+};
