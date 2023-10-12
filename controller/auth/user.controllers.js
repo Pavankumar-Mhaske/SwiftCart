@@ -121,9 +121,9 @@ const loginUser = asyncHandler(async (req, res) => {
       user._id
     );
 
-    // const loggedInUser = await User.findById(user._id).select(
-    //   "-password -refreshToken -emailVerificationToken -emailVerificationExpiry"
-    // );
+    const loggedInUser = await User.findById(user._id).select(
+      "-password -refreshToken -emailVerificationToken -emailVerificationExpiry"
+    );
 
     // TODO: Add more options to make cookie more secure and reliable
     const options = {
@@ -140,7 +140,7 @@ const loginUser = asyncHandler(async (req, res) => {
       .json(
         new ApiResponse(
           200,
-          { user: user }, // send access and refresh token in response if client decides to save them by themselves
+          { user: loggedInUser }, // send access and refresh token in response if client decides to save them by themselves
           "User logged in successfully"
         )
       );
