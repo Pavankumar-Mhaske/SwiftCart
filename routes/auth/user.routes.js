@@ -7,6 +7,7 @@ import {
   getAUser,
   deleteAUser,
   updateAUser,
+  blockUnblockUser,
 } from "../../controller/auth/user.controllers.js";
 import {
   verifyJWT,
@@ -28,4 +29,7 @@ router
   .get(verifyJWT, getAUser)
   .delete(verifyJWT, verifyPermission([UserRolesEnum.ADMIN]), deleteAUser)
   .patch(verifyJWT, updateAUser);
+router
+  .route("/block-unblock/:userId")
+  .patch(verifyJWT, verifyPermission([UserRolesEnum.ADMIN]), blockUnblockUser);
 export default router;
