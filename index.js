@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { app } from "./app.js";
 dotenv.config();
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 8081;
 import connectDB from "./config/index.js";
 
 /**
@@ -12,11 +12,9 @@ import connectDB from "./config/index.js";
 const majorNodeVersion = +process.env.NODE_VERSION?.split(".")[0] || 0;
 
 const startServer = () => {
-  app.listen(PORT || 8080, () => {
+  app.listen(PORT, () => {
     console.info(
-      `📑 Visit the documentation at: http://localhost:${
-        PORT || 8080
-      }/api/v1/users`
+      `📑 Visit the documentation at: http://localhost:${PORT}/api/v1/users`
     );
     console.log("⚙️ Server is running on port: " + PORT);
   });
