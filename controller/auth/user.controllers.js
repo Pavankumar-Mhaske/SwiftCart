@@ -230,6 +230,32 @@ const updateAUser = asyncHandler(async (req, res, next) => {
     .status(200)
     .json(new ApiResponse(200, { user: user }, "User updated Successfully!"));
 });
+
+const blockUnblockUser = asyncHandler(async (req, res, next) => {
+  const { userId } = req.params;
+
+  const user = await User.findById(userId.trim());
+
+  if (!user) {
+    throw new ApiError(404, "No user found");
+  }
+
+  // if user is blocked then unblock it and vice versa
+  user.isBlocked = user.isBlocked ? false : true;
+
+  await user.save();
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { user: user },
+        `User ${user.isBlocked ? "Blocked" : "Unblocked"} Successfully!`
+      )
+    );
+});
+
 export {
   registerUser,
   loginUser,
@@ -237,4 +263,5 @@ export {
   getAUser,
   deleteAUser,
   updateAUser,
+  blockUnblockUser,
 };
