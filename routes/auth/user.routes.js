@@ -12,6 +12,7 @@ import {
   verifyJWT,
   verifyPermission,
 } from "../../middlewares/auth.middlewares.js";
+import { UserRolesEnum } from "../../constants.js";
 
 const router = Router();
 
@@ -25,6 +26,6 @@ router.route("/all-users").get(verifyJWT, getAllUsers);
 router
   .route("/:userId")
   .get(verifyJWT, getAUser)
-  .delete(verifyJWT, deleteAUser)
+  .delete(verifyJWT, verifyPermission([UserRolesEnum.ADMIN]), deleteAUser)
   .patch(verifyJWT, updateAUser);
 export default router;
