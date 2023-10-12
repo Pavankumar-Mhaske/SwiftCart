@@ -1,4 +1,5 @@
 import mongoose, { Schema, model } from "mongoose";
+import bcrypt from "bcryptjs";
 
 const userSchema = new Schema({
   firstname: {
@@ -29,6 +30,13 @@ const userSchema = new Schema({
     maxlength: [20, "Contact number can not be more than 20 digits"],
     trim: true,
   },
+});
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  const salt = await bcrypt.genSaltSync(10);
+  const hash = await bcrypt.hashSync(this.password, salt);
+  this.password = hash;
 });
 
 //  Registration of the User Model(userShema) with name 'User'
