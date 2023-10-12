@@ -54,6 +54,10 @@ const userSchema = new Schema(
       maxlength: [20, "Contact number can not be more than 20 digits"],
       trim: true,
     },
+    isBlocked: {
+      type: Boolean,
+      default: false,
+    },
     isEmailVerified: {
       type: Boolean,
       default: false,
