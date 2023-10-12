@@ -54,6 +54,7 @@
   "homepage": "https://github.com/Pavankumar-Mhaske/MultiVerse#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
