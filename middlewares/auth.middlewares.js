@@ -68,6 +68,7 @@ export const verifyPermission = (roles = []) =>
     if (!req.user?._id) {
       throw new ApiError(401, "Unauthorized request");
     }
+    console.log(req.user);
     if (roles.includes(req.user?.role)) {
       next();
     } else {
