@@ -1,5 +1,6 @@
 import mongoose, { Schema, model } from "mongoose";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 
 const userSchema = new Schema({
   firstname: {
@@ -34,10 +35,12 @@ const userSchema = new Schema({
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  const salt = await bcrypt.genSaltSync(10);
-  const hash = await bcrypt.hashSync(this.password, salt);
-  this.password = hash;
+  this.password = await bcrypt.hash(this.password, 10);
 });
+
+userSchema.methods.isPasswordCorrect = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 //  Registration of the User Model(userShema) with name 'User'
 export const User = model("User", userSchema);
