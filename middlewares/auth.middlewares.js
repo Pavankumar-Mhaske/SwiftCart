@@ -24,6 +24,7 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
       // Then they will get a new access token which will allow them to refresh the access token without logging out the user
       throw new ApiError(401, "Invalid access token");
     }
+    // setting the ⭐🌟⭐ req.user ⭐🌟⭐
     req.user = user;
     next();
   } catch (error) {
@@ -65,10 +66,10 @@ export const getLoggedInUserOrIgnore = asyncHandler(async (req, res, next) => {
  */
 export const verifyPermission = (roles = []) =>
   asyncHandler(async (req, res, next) => {
+    console.log("Currently Logged In user: => ✅ 😀 ", req.user);
     if (!req.user?._id) {
       throw new ApiError(401, "Unauthorized request");
     }
-    console.log(req.user);
     if (roles.includes(req.user?.role)) {
       next();
     } else {
