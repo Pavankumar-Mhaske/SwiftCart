@@ -3,6 +3,7 @@ import express from "express";
 const app = express();
 
 import userRouter from "./routes/auth/user.routes.js";
+import productRouter from "./routes/ecommerce/product.routes.js";
 import cors from "cors";
 // api routes
 import { notFound, errorHandler } from "./middlewares/error.middlewares.js";
@@ -20,7 +21,7 @@ app.use(cors());
 app.use(cookieParser());
 
 app.use("/api/v1/users", userRouter);
-
+app.use("/api/v1/products", productRouter);
 // common error handling middleware
 app.use(notFound);
 app.use(errorHandler);
