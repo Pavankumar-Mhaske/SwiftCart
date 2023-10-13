@@ -24,7 +24,7 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
       // Then they will get a new access token which will allow them to refresh the access token without logging out the user
       throw new ApiError(401, "Invalid access token");
     }
-    // setting the ⭐🌟⭐ req.user ⭐🌟⭐
+    // setting the ⭐🌟⭐ ✍🏻 req.user 🙋🏻‍♂️ ⭐🌟⭐
     req.user = user;
     next();
   } catch (error) {

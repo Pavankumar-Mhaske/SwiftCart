@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
   registerUser,
   loginUser,
+  logoutUser,
   getAllUsers,
   getAUser,
   deleteAUser,
@@ -54,15 +55,17 @@ router
     verifyPermission([UserRolesEnum.ADMIN]),
     deleteAUser
   )
+  .patch(mongoIdPathVariableValidator("userId"), verifyJWT, updateAUser);
+router
+  .route("/block-unblock/:userId")
   .patch(
     mongoIdPathVariableValidator("userId"),
     verifyJWT,
-    updateAUser
+    verifyPermission([UserRolesEnum.ADMIN]),
+    blockUnblockUser
   );
-router.route("/block-unblock/:userId").patch(
-  mongoIdPathVariableValidator("userId"),
-  verifyJWT,
-  verifyPermission([UserRolesEnum.ADMIN]),
-  blockUnblockUser
-);
+
+// Secured routes
+router.route("/logout").post(verifyJWT, logoutUser);
+
 export default router;
