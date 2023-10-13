@@ -1,5 +1,6 @@
 import cookieParser from "cookie-parser";
 import express from "express";
+import morgan from "morgan";
 const app = express();
 
 import userRouter from "./routes/auth/user.routes.js";
@@ -15,6 +16,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
