@@ -171,8 +171,8 @@ const getAllUsers = asyncHandler(async (req, res, next) => {
 
 const getAUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
+  // console.log(req.user);
   const user = await User.findById(userId);
-
   if (!user) {
     throw new ApiError(404, "No user found");
   }
