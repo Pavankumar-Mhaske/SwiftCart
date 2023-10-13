@@ -1,12 +1,12 @@
 import { Router } from "express";
 import {
   createProduct,
-  // deleteProduct,
-  // getAllProducts,
-  // getProductById,
+  getAllProducts,
+  getProductById,
   // getProductsByCategory,
   // removeProductSubImage,
-  // updateProduct,
+  updateProduct,
+  deleteProduct,
 } from "../../controller/ecommerce/product.controllers.js";
 
 import {
@@ -27,7 +27,7 @@ const router = Router();
 
 router
   .route("/")
-  // .get(getAllProducts)
+  .get(getAllProducts)
   .post(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
@@ -49,34 +49,34 @@ router
     createProduct
   );
 
-// router
-//   .route("/:productId")
-//   .get(mongoIdPathVariableValidator("productId"), validate, getProductById)
-//   .patch(
-//     verifyJWT,
-//     verifyPermission([UserRolesEnum.ADMIN]),
-//     upload.fields([
-//       {
-//         name: "mainImage",
-//         maxCount: 1,
-//       },
-//       {
-//         name: "subImages",
-//         maxCount: MAXIMUM_SUB_IMAGE_COUNT, // maximum number of subImages is 4
-//       },
-//     ]),
-//     mongoIdPathVariableValidator("productId"),
-//     updateProductValidator(),
-//     validate,
-//     updateProduct
-//   )
-//   .delete(
-//     verifyJWT,
-//     verifyPermission([UserRolesEnum.ADMIN]),
-//     mongoIdPathVariableValidator("productId"),
-//     validate,
-//     deleteProduct
-//   );
+router
+  .route("/:productId")
+  .get(mongoIdPathVariableValidator("productId"), validate, getProductById)
+  .patch(
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    //     upload.fields([
+    //       {
+    //         name: "mainImage",
+    //         maxCount: 1,
+    //       },
+    //       {
+    //         name: "subImages",
+    //         maxCount: MAXIMUM_SUB_IMAGE_COUNT, // maximum number of subImages is 4
+    //       },
+    //     ]),
+    mongoIdPathVariableValidator("productId"),
+    //     updateProductValidator(),
+    validate,
+    updateProduct
+  )
+  .delete(
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    mongoIdPathVariableValidator("productId"),
+    validate,
+    deleteProduct
+  );
 
 // router
 //   .route("/category/:categoryId")
