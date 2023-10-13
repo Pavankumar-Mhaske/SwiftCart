@@ -1,22 +1,24 @@
 import mongoose from "mongoose";
-
+import slugify from "slugify";
 import { Product } from "../../models/ecommerce/product.models.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
-// import {
-//   getLocalPath,
-//   getMongoosePaginationOptions,
-//   getStaticFilePath,
-//   removeLocalFile,
-// } from "../../../utils/helpers.js";
+import {
+  getLocalPath,
+  getMongoosePaginationOptions,
+  getStaticFilePath,
+  removeLocalFile,
+} from "../../utils/helpers.js";
 import { MAXIMUM_SUB_IMAGE_COUNT } from "../../constants.js";
 import { Category } from "../../models/ecommerce/category.models.js";
 
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, slug, description, price, stock, soldItems, category, brand } =
-    req.body;
+  const { name, description, price, stock, soldItems, brand } = req.body;
 
+  const slug = name ? slugify(name, { lower: true }) : undefined;
+
+  // name ? (req.body.slug = slugify(name, { lower: true })) : undefined;
   // const categoryToBeAdded = await Category.findById(category);
 
   // if (!categoryToBeAdded) {
@@ -50,7 +52,7 @@ const createProduct = asyncHandler(async (req, res) => {
   //       })
   //     : [];
 
-  // const owner = req.user._id;
+  const owner = req.user._id;
 
   const product = await Product.create({
     name,
@@ -61,6 +63,7 @@ const createProduct = asyncHandler(async (req, res) => {
     soldItems,
     // category,
     brand,
+    owner,
   });
   return res
     .status(201)
@@ -90,8 +93,16 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
 const updateProduct = asyncHandler(async (req, res) => {
   const { productId } = req.params;
-  const { name, description, category, price, stock } = req.body;
+  // const { name, description, category, price, stock } = req.body;
 
+  // const { name, description, price, stock, soldItems, category, brand } =
+  //   req.body;
+
+  // const slug = name ? slugify(name, { lower: true }) : undefined;
+
+  req.body.name
+    ? (req.body.slug = slugify(req.body.name, { lower: true }))
+    : undefined;
   const product = await Product.findById(productId);
 
   // Check the product existence
@@ -99,80 +110,83 @@ const updateProduct = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Product does not exist");
   }
 
-  const mainImage = req.files?.mainImage?.length
-    ? {
-        // If user has uploaded new main image then we have to create an object with new url and local path in the project
-        url: getStaticFilePath(req, req.files?.mainImage[0]?.filename),
-        localPath: getLocalPath(req.files?.mainImage[0]?.filename),
-      }
-    : product.mainImage; // if there is no new main image uploaded we will stay with the old main image of the product
+  // const mainImage = req.files?.mainImage?.length
+  //   ? {
+  //       // If user has uploaded new main image then we have to create an object with new url and local path in the project
+  //       url: getStaticFilePath(req, req.files?.mainImage[0]?.filename),
+  //       localPath: getLocalPath(req.files?.mainImage[0]?.filename),
+  //     }
+  //   : product.mainImage; // if there is no new main image uploaded we will stay with the old main image of the product
 
-  /**
-   * @type {{ url: string; localPath: string; }[]}
-   */
-  let subImages =
-    // If user has uploaded new sub images then we have to create an object with new url and local path in the array format
-    req.files?.subImages && req.files.subImages?.length
-      ? req.files.subImages.map((image) => {
-          const imageUrl = getStaticFilePath(req, image.filename);
-          const imageLocalPath = getLocalPath(image.filename);
-          return { url: imageUrl, localPath: imageLocalPath };
-        })
-      : []; // if there are no new sub images uploaded we want to keep an empty array
+  // /**
+  //  * @type {{ url: string; localPath: string; }[]}
+  //  */
+  // let subImages =
+  //   // If user has uploaded new sub images then we have to create an object with new url and local path in the array format
+  //   req.files?.subImages && req.files.subImages?.length
+  //     ? req.files.subImages.map((image) => {
+  //         const imageUrl = getStaticFilePath(req, image.filename);
+  //         const imageLocalPath = getLocalPath(image.filename);
+  //         return { url: imageUrl, localPath: imageLocalPath };
+  //       })
+  //     : []; // if there are no new sub images uploaded we want to keep an empty array
 
-  const existedSubImages = product.subImages.length; // total sub images already present in the project
-  const newSubImages = subImages.length; // Newly uploaded sub images
-  const totalSubImages = existedSubImages + newSubImages;
+  // const existedSubImages = product.subImages.length; // total sub images already present in the project
+  // const newSubImages = subImages.length; // Newly uploaded sub images
+  // const totalSubImages = existedSubImages + newSubImages;
 
-  if (totalSubImages > MAXIMUM_SUB_IMAGE_COUNT) {
-    // We want user to only add at max 4 sub images
-    // If the existing sub images + new sub images count exceeds 4
-    // We want to throw an error
+  // if (totalSubImages > MAXIMUM_SUB_IMAGE_COUNT) {
+  //   // We want user to only add at max 4 sub images
+  //   // If the existing sub images + new sub images count exceeds 4
+  //   // We want to throw an error
 
-    // Before throwing an error we need to do some cleanup
+  //   // Before throwing an error we need to do some cleanup
 
-    // remove the  newly uploaded sub images by multer as there is not updation happening
-    subImages?.map((img) => removeLocalFile(img.localPath));
-    if (product.mainImage.url !== mainImage.url) {
-      // If use has uploaded new main image remove the newly uploaded main image as there is no updation happening
-      removeLocalFile(mainImage.localPath);
-    }
-    throw new ApiError(
-      400,
-      "Maximum " +
-        MAXIMUM_SUB_IMAGE_COUNT +
-        " sub images are allowed for a product. There are already " +
-        existedSubImages +
-        " sub images attached to the product."
-    );
-  }
+  //   // remove the  newly uploaded sub images by multer as there is not updation happening
+  //   subImages?.map((img) => removeLocalFile(img.localPath));
+  //   if (product.mainImage.url !== mainImage.url) {
+  //     // If use has uploaded new main image remove the newly uploaded main image as there is no updation happening
+  //     removeLocalFile(mainImage.localPath);
+  //   }
+  //   throw new ApiError(
+  //     400,
+  //     "Maximum " +
+  //       MAXIMUM_SUB_IMAGE_COUNT +
+  //       " sub images are allowed for a product. There are already " +
+  //       existedSubImages +
+  //       " sub images attached to the product."
+  //   );
+  // }
 
-  // If above checks are passed. We need to merge the existing sub images and newly uploaded sub images
-  subImages = [...product.subImages, ...subImages];
+  // // If above checks are passed. We need to merge the existing sub images and newly uploaded sub images
+  // subImages = [...product.subImages, ...subImages];
 
   const updatedProduct = await Product.findByIdAndUpdate(
     productId,
-    {
-      $set: {
-        name,
-        description,
-        stock,
-        price,
-        category,
-        mainImage,
-        subImages,
-      },
-    },
+    // {
+    // $set: {
+    // name,
+    // description,
+    // stock,
+    // price,
+    // category,
+    // mainImage,
+    // subImages,
+
+    // },
+
+    // },
+    req.body,
     {
       new: true,
     }
   );
 
-  // Once the product is updated. Do some cleanup
-  if (product.mainImage.url !== mainImage.url) {
-    // If user is uploading new main image remove the previous one because we don't need that anymore
-    removeLocalFile(product.mainImage.localPath);
-  }
+  // // Once the product is updated. Do some cleanup
+  // if (product.mainImage.url !== mainImage.url) {
+  //   // If user is uploading new main image remove the previous one because we don't need that anymore
+  //   removeLocalFile(product.mainImage.localPath);
+  // }
 
   return res
     .status(200)
@@ -287,12 +301,12 @@ const deleteProduct = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Product does not exist");
   }
 
-  const productImages = [product.mainImage, ...product.subImages];
+  // const productImages = [product.mainImage, ...product.subImages];
 
-  productImages.map((image) => {
-    // remove images associated with the product that is being deleted
-    removeLocalFile(image.localPath);
-  });
+  // productImages.map((image) => {
+  //   // remove images associated with the product that is being deleted
+  //   removeLocalFile(image.localPath);
+  // });
 
   return res
     .status(200)
@@ -307,10 +321,10 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
 export {
   createProduct,
-  // deleteProduct,
-  // getAllProducts,
-  // getProductById,
+  getAllProducts,
+  getProductById,
   // getProductsByCategory,
-  // updateProduct,
+  updateProduct,
+  deleteProduct,
   // removeProductSubImage,
 };
