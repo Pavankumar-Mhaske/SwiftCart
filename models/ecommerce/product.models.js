@@ -1,6 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 import { User } from "../auth/user.models.js";
 import { Category } from "./category.models.js";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
+
 import {
   AvailableProductColors,
   ProductColorsEnum,
@@ -35,6 +37,7 @@ const productSchema = new Schema(
     soldItems: {
       type: Number,
       default: 0,
+      // select: false,
     },
     category: {
       type: Schema.Types.ObjectId,
@@ -79,6 +82,7 @@ const productSchema = new Schema(
             type: Number,
             min: 1,
             max: 5,
+            default: 5,
           },
           comment: String,
         },
@@ -86,12 +90,14 @@ const productSchema = new Schema(
       default: [],
     },
 
-    // owner: {
-    //   ref: "User",
-    //   type: Schema.Types.ObjectId,
-    // },
+    owner: {
+      ref: "User",
+      type: Schema.Types.ObjectId,
+    },
   },
   { timestamps: true }
 );
+
+productSchema.plugin(mongooseAggregatePaginate);
 
 export const Product = mongoose.model("Product", productSchema);
