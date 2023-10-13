@@ -155,6 +155,39 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+const logoutUser = asyncHandler(async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        $set: {
+          refreshToken: undefined,
+        },
+      },
+      { new: true }
+    );
+
+    const options = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    };
+
+    return res
+      .status(200)
+      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", options)
+      .json(new ApiResponse(200, {}, "User logged out"));
+  } catch (error) {
+    console.log("Error in logout user controller");
+    console.log("ERROR: ", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error,
+    });
+  }
+});
+
 const getAllUsers = asyncHandler(async (req, res, next) => {
   const users = await User.find({});
 
@@ -259,6 +292,7 @@ const blockUnblockUser = asyncHandler(async (req, res, next) => {
 export {
   registerUser,
   loginUser,
+  logoutUser,
   getAllUsers,
   getAUser,
   deleteAUser,
