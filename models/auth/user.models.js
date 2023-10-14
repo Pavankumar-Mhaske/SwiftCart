@@ -133,9 +133,12 @@ userSchema.methods.generateTemporaryToken = function () {
     .createHash("sha256")
     .update(unHashedToken)
     .digest("hex");
+
+  // this.forgotPasswordToken = hashedToken;
+
   // This is the expiry time for the token (20 minutes)
   const tokenExpiry = Date.now() + USER_TEMPORARY_TOKEN_EXPIRY;
-
+  // this.forgotPasswordExpiry = tokenExpiry;
   return { unHashedToken, hashedToken, tokenExpiry };
 };
 
