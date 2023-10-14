@@ -1,9 +1,10 @@
+import crypto from "crypto";
 import { User } from "../../models/auth/user.models.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { UserRolesEnum } from "../../constants.js";
-
+import { sendEmail, forgotPasswordMailgenContent } from "../../utils/mail.js";
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
     const user = await User.findById(userId);
@@ -369,7 +370,6 @@ const resetForgottenPassword = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, {}, "Password reset successfully"));
 });
-
 
 export {
   registerUser,
