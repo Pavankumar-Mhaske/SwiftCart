@@ -38,11 +38,12 @@ const sendEmail = async (options) => {
   // });
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 8080,
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
     auth: {
-      user: "ellie86@ethereal.email",
-      pass: "xKTfN9G8VZ85VUBwaN",
+      user: process.env.MAILTRAP_SMTP_USER,
+      pass: process.env.MAILTRAP_SMTP_PASS,
     },
   });
 
@@ -114,6 +115,7 @@ const forgotPasswordMailgenContent = (username, passwordResetUrl) => {
           color: "#22BC66", // Optional action button color
           text: "Reset password",
           link: passwordResetUrl,
+          type: "POST",
         },
       },
       outro:
