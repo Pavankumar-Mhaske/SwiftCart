@@ -5,6 +5,7 @@ const app = express();
 
 import userRouter from "./routes/auth/user.routes.js";
 import productRouter from "./routes/ecommerce/product.routes.js";
+import blogRouter from "./routes/ecommerce/blog.routes.js";
 import cors from "cors";
 // api routes
 import { notFound, errorHandler } from "./middlewares/error.middlewares.js";
@@ -24,6 +25,7 @@ app.use(cookieParser());
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
+app.use("/api/v1/blogs", blogRouter);
 // common error handling middleware
 app.use(notFound);
 app.use(errorHandler);
