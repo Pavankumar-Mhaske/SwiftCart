@@ -321,8 +321,12 @@ const forgotPasswordRequest = asyncHandler(async (req, res) => {
       `${req.protocol}://${req.get(
         "host"
       )}/api/v1/users/reset-password/${unHashedToken}`
+      // `http://localhost:8080/api/v1/users/reset-password/${unHashedToken}`
     ),
   });
+  // console.log("protocol", req.protocol);
+  // console.log("host", req.get("host"));
+  console.log("Mail sent successfully:", unHashedToken);
   return res
     .status(200)
     .json(
