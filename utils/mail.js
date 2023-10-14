@@ -1,18 +1,21 @@
 import Mailgen from "mailgen";
 import nodemailer from "nodemailer";
-// import { Product } from "../models/apps/ecommerce/product.models.js";
+import { Product } from "../models/ecommerce/product.models.js";
 
 /**
  *
  * @param {{email: string; subject: string; mailgenContent: Mailgen.Content; }} options
  */
 const sendEmail = async (options) => {
+  // let testAccount = await nodemailer.createTestAccount();
+
   // Initialize mailgen instance with default theme and brand configuration
   const mailGenerator = new Mailgen({
     theme: "default",
     product: {
-      name: "FreeAPI",
-      link: "https://freeapi.app",
+      name: "E-commerce App",
+      // link: "https://freeapi.app",
+      link: "https://mailgen.js/",
     },
   });
 
@@ -24,18 +27,28 @@ const sendEmail = async (options) => {
   const emailHtml = mailGenerator.generate(options.mailgenContent);
 
   // Create a nodemailer transporter instance which is responsible to send a mail
+  // const transporter = nodemailer.createTransport({
+  //   host: process.env.MAILTRAP_SMTP_HOST,
+  //   port: process.env.MAILTRAP_SMTP_PORT,
+  //   secure: true,
+  //   auth: {
+  //     user: process.env.MAILTRAP_SMTP_USER,
+  //     pass: process.env.MAILTRAP_SMTP_PASS,
+  //   },
+  // });
+
   const transporter = nodemailer.createTransport({
-    host: process.env.MAILTRAP_SMTP_HOST,
-    port: process.env.MAILTRAP_SMTP_PORT,
+    host: "smtp.ethereal.email",
+    port: 8080,
     auth: {
-      user: process.env.MAILTRAP_SMTP_USER,
-      pass: process.env.MAILTRAP_SMTP_PASS,
+      user: "ellie86@ethereal.email",
+      pass: "xKTfN9G8VZ85VUBwaN",
     },
   });
 
   const mail = {
-    from: "api.service@gmail.com", // We can name this anything. The mail will go to your Mailtrap inbox
-    to: options.email, // receiver's mail
+    from: "Muliverse  <support@multiverse.com>", // We can name this anything. The mail will go to your Mailtrap inbox
+    to: options.email, // receiver's mail eg- to: "bar@example.com, baz@example.com", // list of receivers
     subject: options.subject, // mail subject
     text: emailTextual, // mailgen content textual variant
     html: emailHtml, // mailgen content html variant
