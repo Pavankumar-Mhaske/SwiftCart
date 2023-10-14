@@ -14,7 +14,7 @@ import { MAXIMUM_SUB_IMAGE_COUNT } from "../../constants.js";
 import { Category } from "../../models/ecommerce/category.models.js";
 
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, description, price, stock, soldItems, brand } = req.body;
+  const { name, description, price, stock, soldItems, brand, color } = req.body;
 
   const slug = name ? slugify(name, { lower: true }) : undefined;
 
@@ -62,6 +62,7 @@ const createProduct = asyncHandler(async (req, res) => {
     stock,
     soldItems,
     // category,
+    color,
     brand,
     owner,
   });
@@ -71,8 +72,74 @@ const createProduct = asyncHandler(async (req, res) => {
 });
 
 const getAllProducts = asyncHandler(async (req, res) => {
+  /**
+   * page: which page to show ( only Products respective to that page will be fetched )
+   * limit: how many products to show in a page
+   */
   const { page = 1, limit = 10 } = req.query;
-  const productAggregate = Product.aggregate([{ $match: {} }]);
+  // Filtering
+  const queryObj = { ...req.query };
+  // console.log(queryObj);
+
+  const excludedFields = ["page", "limit", "sort", "fields"];
+  excludedFields.forEach((el) => delete queryObj[el]);
+  // console.log(queryObj);
+
+  let queryStr = JSON.stringify(queryObj);
+  queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+  // console.log(JSON.parse(queryStr));
+
+  const priceCriteria = JSON.parse(queryStr);
+  // console.log(priceCriteria.price);
+
+  /**
+   * @type {{ price: { $gte: number; $lte: number; }; }}
+   * - if the the query contains price in which alphabetical operator have value is in string form then convert it to a number
+   */
+  for (const key in priceCriteria) {
+    if (key === "price") {
+      // console.log(priceCriteria[key]);
+      const value = priceCriteria[key];
+      // Convert the value to a number if it's a string
+      for (const innerkey in value) {
+        if (typeof value[innerkey] === "string") {
+          priceCriteria[key][innerkey] = parseFloat(value[innerkey]);
+          // console.log(priceCriteria[key]);
+        }
+      }
+      // console.log(priceCriteria[key]);
+    }
+  }
+
+  // const productAggregate = Product.aggregate([{ $match: {color:color} }]);
+  // const productAggregate = Product.aggregate([{ $match: queryObj }]);
+  let productAggregate = Product.aggregate([{ $match: priceCriteria }]);
+  // const productAggregate = Product.find(priceCriteria);
+
+  // Sorting
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(",").join(" ");
+    console.log(sortBy);
+    /**
+     * Sorting according to the given criteria
+     * - display the product according to the given criteria
+     */
+    productAggregate = productAggregate.sort(sortBy);
+  } else {
+    /**
+     * Sorting according to the createdAt
+     * - display the latest product first/at the top
+     */
+    productAggregate = productAggregate.sort("-createdAt");
+  }
+
+  // Field limiting
+  if (req.query.fields) {
+    const fields = req.query.fields.split(",").join(" ");
+    productAggregate = productAggregate.project(fields);
+  } else {
+    productAggregate = productAggregate.project("-__v");
+  }
 
   const products = await Product.aggregatePaginate(
     productAggregate,
