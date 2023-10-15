@@ -5,7 +5,7 @@ import {
   deleteCategory,
   updateCategory,
   getCategoryById,
-} from "../../controller/ecommerce/category.controllers.js";
+} from "../../controller/ecommerce/productCategory.controllers.js";
 import { categoryRequestBodyValidator } from "../../validators/ecommerce/category.validators.js";
 import { validate } from "../../validators/validate.js";
 import {
