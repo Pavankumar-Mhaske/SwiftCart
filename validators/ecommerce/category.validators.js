@@ -9,4 +9,8 @@ const categoryRequestBodyValidator = () => {
   ];
 };
 
-export { categoryRequestBodyValidator };
+const brandRequestBodyValidator = () => {
+  return [body("name").trim().notEmpty().withMessage("Brand name is required")];
+};
+
+export { categoryRequestBodyValidator, brandRequestBodyValidator };
