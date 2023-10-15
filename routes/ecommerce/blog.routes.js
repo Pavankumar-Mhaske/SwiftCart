@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
   createBlog,
-  // getAllBlogs,
+  getAllBlogs,
   getBlogById,
   updateBlog,
   // deleteBlog,
@@ -22,7 +22,8 @@ router
     verifyPermission([UserRolesEnum.ADMIN]),
     validate,
     createBlog
-  );
+  )
+  .get(validate, getAllBlogs);
 
 router
   .route("/:blogId")
@@ -35,8 +36,8 @@ router
   )
   .post(
     mongoIdPathVariableValidator("blogId"),
-    verifyJWT,
-    verifyPermission([UserRolesEnum.ADMIN]),
+    // verifyJWT,
+    // verifyPermission([UserRolesEnum.ADMIN]),
     validate,
     getBlogById
   );
