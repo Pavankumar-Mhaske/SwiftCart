@@ -7,6 +7,7 @@ import userRouter from "./routes/auth/user.routes.js";
 import productRouter from "./routes/ecommerce/product.routes.js";
 import blogRouter from "./routes/ecommerce/blog.routes.js";
 import productCategoryRouter from "./routes/ecommerce/productCategory.routes.js";
+import blogCategoryRouter from "./routes/ecommerce/blogCategory.routes.js";
 import cors from "cors";
 // api routes
 import { notFound, errorHandler } from "./middlewares/error.middlewares.js";
@@ -28,6 +29,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/blogs", blogRouter);
 app.use("/api/v1/product-categories", productCategoryRouter);
+app.use("/api/v1/blog-categories", blogCategoryRouter);
 // common error handling middleware
 app.use(notFound);
 app.use(errorHandler);
