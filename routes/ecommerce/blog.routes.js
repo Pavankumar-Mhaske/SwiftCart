@@ -3,7 +3,7 @@ import {
   createBlog,
   // getAllBlogs,
   // getBlogById,
-  // updateBlog,
+  updateBlog,
   // deleteBlog,
 } from "../../controller/ecommerce/blog.controllers.js";
 import {
@@ -22,6 +22,15 @@ router
     verifyPermission([UserRolesEnum.ADMIN]),
     validate,
     createBlog
+  );
+
+router
+  .route("/:blogId")
+  .patch(
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    validate,
+    updateBlog
   );
 
 export default router;
