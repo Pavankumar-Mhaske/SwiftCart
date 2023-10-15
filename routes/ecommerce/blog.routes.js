@@ -4,7 +4,7 @@ import {
   getAllBlogs,
   getBlogById,
   updateBlog,
-  // deleteBlog,
+  deleteBlog,
 } from "../../controller/ecommerce/blog.controllers.js";
 import {
   verifyPermission,
@@ -40,6 +40,13 @@ router
     // verifyPermission([UserRolesEnum.ADMIN]),
     validate,
     getBlogById
+  )
+  .delete(
+    mongoIdPathVariableValidator("blogId"),
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    validate,
+    deleteBlog
   );
 
 export default router;
