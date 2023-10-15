@@ -73,7 +73,7 @@ const getBlogById = asyncHandler(async (req, res) => {
       blogId,
       { $inc: { numberOfViews: 1 } }, // 👻$inc: Increment the numberOfViews property by 1
       { new: true }
-    );
+    ).populate("likes dislikes");
 
     if (!updatedViewsBlog) {
       throw new ApiError(404, "Error in updating the views");
