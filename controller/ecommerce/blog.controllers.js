@@ -3,6 +3,7 @@ import { User } from "../../models/auth/user.models.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
+import { getMongoosePaginationOptions } from "../../utils/helpers.js";
 
 const createBlog = asyncHandler(async (req, res) => {
   try {
@@ -95,7 +96,26 @@ const getBlogById = asyncHandler(async (req, res) => {
 // get all blogs
 const getAllBlogs = asyncHandler(async (req, res) => {
   try {
-    const blogs = await Blog.find({});
+    /*
+     const blogs = await Blog.find({});
+     or
+    */
+
+    const { page = 1, limit = 10 } = req.query;
+    // $match operation is using an empty object {} as the condition, which means that it will match all documents in the Blog collection.
+    const blogAggregate = Blog.aggregate([{ $match: {} }]);
+
+    const blogs = await Blog.aggregatePaginate(
+      blogAggregate,
+      getMongoosePaginationOptions({
+        page,
+        limit,
+        customLabels: {
+          totalDocs: "totalBlogs",
+          docs: "blogs",
+        },
+      })
+    );
 
     return res
       .status(200)
