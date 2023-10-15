@@ -5,6 +5,7 @@ import {
   getBlogById,
   updateBlog,
   deleteBlog,
+  likeDisLikeBlog,
 } from "../../controller/ecommerce/blog.controllers.js";
 import {
   verifyPermission,
@@ -47,6 +48,16 @@ router
     verifyPermission([UserRolesEnum.ADMIN]),
     validate,
     deleteBlog
+  );
+
+router
+  .route("/like-dislike/:blogId")
+  .post(
+    mongoIdPathVariableValidator("blogId"),
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    validate,
+    likeDisLikeBlog
   );
 
 export default router;
