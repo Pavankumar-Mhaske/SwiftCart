@@ -20,4 +20,4 @@ const categorySchema = new Schema(
 
 categorySchema.plugin(mongooseAggregatePaginate);
 
-export const Category = mongoose.model("Category", categorySchema);
+export const ProductCategory = mongoose.model("ProductCategory", categorySchema);
