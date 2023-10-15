@@ -26,4 +26,26 @@ const createBlog = asyncHandler(async (req, res) => {
   }
 });
 
-export { createBlog };
+//  Update blog
+const updateBlog = asyncHandler(async (req, res) => {
+  try {
+    const { blogId } = req.params;
+    /**Using $set allows selective field updates without overwriting the entire document, while not using it replaces the entire document with the provided data, potentially removing fields not included. */
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      blogId,
+      { $set: req.body },
+      { new: true }
+    );
+    if (!updatedBlog) {
+      throw new ApiError(404, "Blog not found");
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, updateBlog, "Blog updated successfully"));
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+});
+
+export { createBlog, updateBlog };
