@@ -11,7 +11,7 @@ import {
   removeLocalFile,
 } from "../../utils/helpers.js";
 import { MAXIMUM_SUB_IMAGE_COUNT } from "../../constants.js";
-import { Category } from "../../models/ecommerce/category.models.js";
+import { ProductCategory } from "../../models/ecommerce/productCategory.models.js";
 
 const createProduct = asyncHandler(async (req, res) => {
   const { name, description, price, stock, soldItems, brand, color } = req.body;
