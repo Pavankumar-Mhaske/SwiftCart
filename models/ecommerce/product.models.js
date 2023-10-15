@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { User } from "../auth/user.models.js";
-import { Category } from "./category.models.js";
+import { ProductCategory } from "./productCategory.models.js";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 import {
@@ -41,7 +41,7 @@ const productSchema = new Schema(
     },
     category: {
       type: Schema.Types.ObjectId,
-      ref: "Category",
+      ref: "ProductCategory",
       // required: true,
     },
     brand: {
