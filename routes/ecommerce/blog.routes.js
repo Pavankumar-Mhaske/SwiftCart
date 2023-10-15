@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   createBlog,
   // getAllBlogs,
-  // getBlogById,
+  getBlogById,
   updateBlog,
   // deleteBlog,
 } from "../../controller/ecommerce/blog.controllers.js";
@@ -27,10 +27,18 @@ router
 router
   .route("/:blogId")
   .patch(
+    mongoIdPathVariableValidator("blogId"),
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
     validate,
     updateBlog
+  )
+  .post(
+    mongoIdPathVariableValidator("blogId"),
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    validate,
+    getBlogById
   );
 
 export default router;
