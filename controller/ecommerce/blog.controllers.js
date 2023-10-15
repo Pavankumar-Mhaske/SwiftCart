@@ -92,6 +92,17 @@ const getBlogById = asyncHandler(async (req, res) => {
   }
 });
 
+// get all blogs
+const getAllBlogs = asyncHandler(async (req, res) => {
+  try {
+    const blogs = await Blog.find({});
 
+    return res
+      .status(200)
+      .json(new ApiResponse(200, blogs, "Blogs fetched successfully"));
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+});
 
 export { createBlog, updateBlog, getBlogById, getAllBlogs };
