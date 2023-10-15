@@ -122,4 +122,66 @@ const deleteBlog = asyncHandler(async (req, res) => {
   }
 });
 
-export { createBlog, updateBlog, getBlogById, getAllBlogs, deleteBlog };
+// like-disLike blog
+const likeDisLikeBlog = asyncHandler(async (req, res) => {
+  try {
+    const { blogId } = req.params;
+    const userId = req.user?._id;
+    console.log(userId);
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      throw new ApiError(404, "Blog not found");
+    }
+
+    // Check if the user has already liked or disliked the blog
+    const isLiked = blog.likes.includes(userId);
+    const isDisliked = blog.dislikes.includes(userId);
+
+    // Check if the user's action is a like 👍🏻 or dislike 👎🏻
+    const { userAction } = req.body; // Use an action parameter in the request body
+
+    if (userAction === "like") {
+      if (isLiked) {
+        // User has already liked, remove the like
+        blog.likes.pull(userId);
+        blog.isLiked = false;
+      } else {
+        // User hasn't liked, add the like and remove any previous dislike
+        blog.likes.push(userId);
+        blog.dislikes.pull(userId);
+        blog.isLiked = true;
+        blog.isDisliked = false;
+      }
+    } else if (userAction === "dislike") {
+      if (isDisliked) {
+        // User has already disliked, remove the dislike
+        blog.dislikes.pull(userId);
+        blog.isDisliked = false;
+      } else {
+        // User hasn't disliked, add the dislike and remove any previous like
+        blog.dislikes.push(userId);
+        blog.likes.pull(userId);
+        blog.isDisliked = true;
+        blog.isLiked = false;
+      }
+    }
+
+    // Save the updated document
+    await blog.save();
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, blog, "Blog action updated successfully"));
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+});
+
+export {
+  createBlog,
+  updateBlog,
+  getBlogById,
+  getAllBlogs,
+  deleteBlog,
+  likeDisLikeBlog,
+};
