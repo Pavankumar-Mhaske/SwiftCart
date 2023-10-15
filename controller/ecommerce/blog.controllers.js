@@ -105,4 +105,21 @@ const getAllBlogs = asyncHandler(async (req, res) => {
   }
 });
 
-export { createBlog, updateBlog, getBlogById, getAllBlogs };
+// delete blog
+const deleteBlog = asyncHandler(async (req, res) => {
+  try {
+    const { blogId } = req.params;
+    const deletedBlog = await Blog.findByIdAndDelete(blogId);
+    if (!deletedBlog) {
+      throw new ApiError(404, "Blog not found");
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, deletedBlog, "Blog deleted successfully"));
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+});
+
+export { createBlog, updateBlog, getBlogById, getAllBlogs, deleteBlog };
