@@ -26,7 +26,7 @@ router
     validate,
     createCategory
   )
-  .get(getAllCategories);
+  .get(validate, getAllCategories);
 
 router
   .route("/:categoryId")
