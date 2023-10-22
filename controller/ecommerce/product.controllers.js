@@ -429,6 +429,83 @@ const addRemoveProductInWishList = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * 
+    reviews: {
+      type: [
+        {
+          user: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+          },
+          rating: {
+            type: Number,
+            min: 1,
+            max: 5,
+            default: 5,
+          },
+          comment: String,
+        },
+      ],
+      default: [],
+    }
+ */
+const reviewsAndRating = asyncHandler(async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const userId = req.user._id;
+
+    //check if the product exists
+    const product = await Product.findById(productId);
+    if (!product) {
+      throw new ApiError(404, "Product not found");
+    }
+
+    //check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    const { rating, comment } = req.body;
+
+    // check if the user has already reviewed the product if yes then update the review
+    const alreadyReviewed = product.reviews.find(
+      (review) => review.user.toString() === userId.toString()
+    );
+
+    if (alreadyReviewed) {
+      // update the review
+      alreadyReviewed.rating = Number(rating);
+      alreadyReviewed.comment = comment;
+    } else {
+      // add the review
+      const review = {
+        user: userId,
+        rating: Number(rating),
+        comment,
+      };
+
+      product.reviews.push(review);
+    }
+
+    const totalReviews = product.reviews.length;
+    const totalRating = product.reviews.reduce((acc, item) => {
+      return item.rating + acc;
+    }, 0);
+
+    product.rating = totalRating / totalReviews;
+
+    await product.save();
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, product, "Review added successfully"));
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+});
+
 export {
   createProduct,
   getAllProducts,
@@ -438,4 +515,5 @@ export {
   deleteProduct,
   // removeProductSubImage,
   addRemoveProductInWishList,
+  reviewsAndRating,
 };
