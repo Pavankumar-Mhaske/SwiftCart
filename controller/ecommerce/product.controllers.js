@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import slugify from "slugify";
 import { Product } from "../../models/ecommerce/product.models.js";
+import { User } from "../../models/auth/user.models.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
@@ -386,6 +387,48 @@ const deleteProduct = asyncHandler(async (req, res) => {
     );
 });
 
+// Product Add or Remove from wishList
+const addRemoveProductInWishList = asyncHandler(async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const userId = req.user._id;
+
+    //check if the product exists
+    const product = await Product.findById(productId);
+    if (!product) {
+      throw new ApiError(404, "Product not found");
+    }
+
+    //check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    //check if the product is already in the wishlist of the user
+
+    const isProductInWishlist = user.wishlist.includes(productId);
+
+    if (isProductInWishlist) {
+      // If product is already in wishList, remove it
+      user.wishlist.pull(productId);
+    } else {
+      // If product is not in wishList, add it
+      user.wishlist.push(productId);
+    }
+
+    await user.save();
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(200, user, "Product added to wishList successfully")
+      );
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+});
+
 export {
   createProduct,
   getAllProducts,
@@ -394,4 +437,5 @@ export {
   updateProduct,
   deleteProduct,
   // removeProductSubImage,
+  addRemoveProductInWishList,
 };
