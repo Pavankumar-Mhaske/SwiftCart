@@ -30,3 +30,13 @@ export const DB_NAME = "ecommerce";
 export const USER_TEMPORARY_TOKEN_EXPIRY = 20 * 60 * 1000; // 20 minutes
 
 export const MAXIMUM_SUB_IMAGE_COUNT = 10;
+
+/**
+ * @type {{ FLAT:"FLAT"; } as const}
+ */
+export const CouponTypeEnum = {
+  FLAT: "FLAT",
+  PERCENTAGE: "PERCENTAGE",
+};
+
+export const AvailableCouponTypes = Object.values(CouponTypeEnum);
