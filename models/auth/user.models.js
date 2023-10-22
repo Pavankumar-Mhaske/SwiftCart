@@ -1,5 +1,8 @@
 import mongoose, { Schema, model } from "mongoose";
 // import bcrypt from "bcryptjs";
+import { Address } from "../ecommerce/address.models.js";
+import { Cart } from "../ecommerce/cart.models.js";
+import { Product } from "../ecommerce/product.models.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {
@@ -57,6 +60,31 @@ const userSchema = new Schema(
     isBlocked: {
       type: Boolean,
       default: false,
+    },
+    cart: {
+      type: Schema.Types.ObjectId,
+      ref: "Cart",
+      // default: [],
+    },
+    // wishlist: is array of product ids
+    wishlist: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+        },
+      ],
+      default: [],
+    },
+    // address: is array of address ids
+    address: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Address",
+        },
+      ],
+      default: [],
     },
     isEmailVerified: {
       type: Boolean,
