@@ -7,6 +7,7 @@ import {
   // removeProductSubImage,
   updateProduct,
   deleteProduct,
+  addRemoveProductInWishList,
 } from "../../controller/ecommerce/product.controllers.js";
 
 import {
@@ -23,7 +24,6 @@ import { validate } from "../../validators/validate.js";
 import { MAXIMUM_SUB_IMAGE_COUNT, UserRolesEnum } from "../../constants.js";
 import { mongoIdPathVariableValidator } from "../../validators/common/mongodb.validators.js";
 const router = Router();
-
 
 router
   .route("/")
@@ -77,6 +77,14 @@ router
     validate,
     deleteProduct
   );
+
+router.route("/wishlist/:productId").post(
+  verifyJWT,
+  // verifyPermission([UserRolesEnum.ADMIN]),
+  mongoIdPathVariableValidator("productId"),
+  validate,
+  addRemoveProductInWishList
+);
 
 // router
 //   .route("/category/:categoryId")
