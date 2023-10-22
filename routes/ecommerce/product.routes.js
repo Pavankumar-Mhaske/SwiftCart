@@ -8,6 +8,7 @@ import {
   updateProduct,
   deleteProduct,
   addRemoveProductInWishList,
+  reviewsAndRating,
 } from "../../controller/ecommerce/product.controllers.js";
 
 import {
@@ -84,6 +85,14 @@ router.route("/wishlist/:productId").post(
   mongoIdPathVariableValidator("productId"),
   validate,
   addRemoveProductInWishList
+);
+
+router.route("/review-rating/:productId").post(
+  verifyJWT,
+  // verifyPermission([UserRolesEnum.ADMIN]),
+  mongoIdPathVariableValidator("productId"),
+  validate,
+  reviewsAndRating
 );
 
 // router
