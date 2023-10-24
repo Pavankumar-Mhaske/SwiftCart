@@ -9,6 +9,7 @@ import {
   deleteProduct,
   addRemoveProductInWishList,
   reviewsAndRating,
+  uploadImages,
 } from "../../controller/ecommerce/product.controllers.js";
 
 import {
@@ -24,6 +25,10 @@ import {
 import { validate } from "../../validators/validate.js";
 import { MAXIMUM_SUB_IMAGE_COUNT, UserRolesEnum } from "../../constants.js";
 import { mongoIdPathVariableValidator } from "../../validators/common/mongodb.validators.js";
+import {
+  productImgResize,
+  uploadPhoto,
+} from "../../middlewares/uploadImages.js";
 const router = Router();
 
 router
@@ -94,6 +99,18 @@ router.route("/review-rating/:productId").post(
   validate,
   reviewsAndRating
 );
+
+router
+  .route("/upload/:productId")
+  .put(
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    mongoIdPathVariableValidator("productId"),
+    validate,
+    uploadPhoto.array("productImages", 10),
+    productImgResize,
+    uploadImages
+  );
 
 // router
 //   .route("/category/:categoryId")
