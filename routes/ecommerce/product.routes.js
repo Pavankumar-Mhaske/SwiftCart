@@ -107,7 +107,7 @@ router
     verifyPermission([UserRolesEnum.ADMIN]),
     mongoIdPathVariableValidator("productId"),
     validate,
-    uploadPhoto.array("productImages", 10),
+    uploadPhoto.array("images", 10),
     productImgResize,
     uploadImages
   );
