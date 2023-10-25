@@ -507,7 +507,8 @@ const reviewsAndRating = asyncHandler(async (req, res) => {
 });
 
 const uploadImages = asyncHandler(async (req, res) => {
-  console.log(req.files);
+  // console.log(req.files);
+  res.status(200).json({ message: "Images uploaded successfully" });
 });
 
 export {
