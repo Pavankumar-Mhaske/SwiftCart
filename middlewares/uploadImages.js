@@ -20,6 +20,7 @@ const multerStorage = multer.diskStorage({
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
+    // console.log("inside the multerFilter:", req.files);
   } else {
     cb(
       {
@@ -39,7 +40,7 @@ const uploadPhoto = multer({
   storage: multerStorage,
   fileFilter: multerFilter,
   limits: {
-    fieldSize: 2000000,
+    fieldSize: 5000000,
   },
 });
 
@@ -48,6 +49,7 @@ const productImgResize = async (req, res, next) => {
   console.log("req.files", req.files),
     await Promise.all(
       req.files.map(async (file) => {
+        // console.log("file", file);
         const outputFilename = `${file.fieldname}-${Date.now()}.jpeg`; // Create a unique filename
         await sharp(file.path)
           .resize(300, 300)
