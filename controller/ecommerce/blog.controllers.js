@@ -3,7 +3,12 @@ import { User } from "../../models/auth/user.models.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { getMongoosePaginationOptions } from "../../utils/helpers.js";
+import {
+  getMongoosePaginationOptions,
+  removeLocalFile,
+} from "../../utils/helpers.js";
+import { cloudinaryUploadImg } from "../../utils/cloudinary.js";
+import fs from "fs";
 
 const createBlog = asyncHandler(async (req, res) => {
   try {
@@ -197,6 +202,36 @@ const likeDisLikeBlog = asyncHandler(async (req, res) => {
   }
 });
 
+const uploadImages = asyncHandler(async (req, res) => {
+  try {
+    const { blogId } = req.params;
+    const uploader = async (path) => await cloudinaryUploadImg(path, "Images");
+
+    const urls = [];
+    const files = req.files;
+    console.log("files inside the uploadImages controller", files);
+    for (const file of files) {
+      const { path } = file;
+      const newPath = await uploader(path);
+      urls.push(newPath);
+      removeLocalFile(path);
+      // fs.unlinkSync(path);
+    }
+    // find the product by id and update it's subImages with the urls array values...
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      throw new ApiError(404, "Product not found");
+    }
+    blog.images = urls;
+    await blog.save();
+    res
+      .status(200)
+      .json(new ApiResponse(200, blog, "Images uploaded successfully"));
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+});
+
 export {
   createBlog,
   updateBlog,
@@ -204,4 +239,5 @@ export {
   getAllBlogs,
   deleteBlog,
   likeDisLikeBlog,
+  uploadImages,
 };
