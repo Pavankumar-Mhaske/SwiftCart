@@ -7,8 +7,14 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/**
+ * there are two types of the storage in multer
+ * 1. memory storage
+ * 2. disk storage
+ */
 const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
+    //  cb stands for callback function
     cb(null, path.join(__dirname, "../public/images/products"));
   },
   filename: function (req, file, cb) {
@@ -33,10 +39,6 @@ const multerFilter = (req, file, cb) => {
 };
 
 const uploadPhoto = multer({
-  // storage: multer.memoryStorage(),
-  // limits: {
-  //     fileSize: 1024 * 1024 * 5,
-  // },
   storage: multerStorage,
   fileFilter: multerFilter,
   limits: {
