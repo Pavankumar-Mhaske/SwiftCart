@@ -102,7 +102,7 @@ router.route("/review-rating/:productId").post(
 
 router
   .route("/upload/:productId")
-  .put(
+  .post(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
     mongoIdPathVariableValidator("productId"),
