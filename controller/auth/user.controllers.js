@@ -217,7 +217,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
     console.log("ERROR: ", error);
     res.status(500).json({
       success: false,
-      message: "Internal Server Error",
+      message: `Internal Server Error - ${error}}`,
       error: error,
     });
   }
