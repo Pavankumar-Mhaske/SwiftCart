@@ -496,10 +496,17 @@ const addItemOrUpdateItemQuantity = asyncHandler(async (req, res) => {
       quantity,
     });
   }
+
   // Finally save the cart
   await cart.save({ validateBeforeSave: true });
-
+  // console.log("before save", cart);
   const newCart = await getCart(req.user._id); // structure the user cart
+
+  cart.totalCartPrice = newCart.cartTotal;
+  cart.discountedCartPrice = newCart.discountedTotal;
+  // updating the cupon value in the cart is pending 🤔💭🕜
+  await cart.save({ validateBeforeSave: false });
+  console.log("after save", cart);
 
   return res
     .status(200)
