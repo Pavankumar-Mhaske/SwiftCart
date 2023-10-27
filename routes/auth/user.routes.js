@@ -12,6 +12,7 @@ import {
   forgotPasswordRequest,
   resetForgottenPassword,
   loginAdmin,
+  getUserWishlist,
 } from "../../controller/auth/user.controllers.js";
 import {
   verifyJWT,
@@ -44,6 +45,48 @@ router.route("/register").post(validate, registerUser);
 router.route("/login").post(validate, loginUser);
 router.route("/admin-login").post(validate, loginAdmin);
 router.route("/all-users").get(verifyJWT, getAllUsers);
+router.route("/wishlist/").get(verifyJWT, getUserWishlist);
+
+// 🔑🔐 Secured routes 🔐 🔑
+router.route("/logout").post(verifyJWT, logoutUser);
+
+/**
+   - userForgotPasswordValidator() is a function that returns an array of validation checks
+   - When you pass validate without parentheses, you are indicating to Express that it should treat validate as a middleware function and execute it in the middleware chain. 
+     Express will automatically call the validate function with the appropriate req, res, and next arguments when the route is processed.
+   */
+router
+  .route("/forgot-password")
+  .post(userForgotPasswordValidator(), validate, forgotPasswordRequest);
+
+/** Route Precedence Order:
+1. Specific routes - for 👉🏻👉🏻 '/users/wishlist'
+
+  1️⃣app.get('/users/wishlist', (req, res) => {
+        res.send('Welcome to the wishlist page!');
+      });
+      
+
+2. Routes with parameters - for 👉🏻👉🏻 '/users/:userId'
+   
+  2️⃣app.get('/users/:userId', (req, res) => {
+        res.send('Welcome to the user page!');
+      });
+      
+
+ 3. Catch-all routes - for 👉🏻👉🏻 '/*'
+    
+  3️⃣app.get('/*', (req, res) => {
+        res.send('Welcome to all other unmatched routes!');
+      });
+
+    📑📑📑💡💡💡
+    this is the reason the routes are not working properly, so i have to change the order of the routes
+    1st - router.route("/wishlist/")  - specific routes
+    2nd - router.route("/:userId") - routes with parameters
+    3rd - router.route("/*") - catch-all routes
+*/
+
 /**
 * Middleware Execution Order:
   - It's essential to ensure that the middleware responsible for setting req.user is executed before any middleware that relies on req.user. Middleware order matters.
@@ -67,6 +110,7 @@ router
     deleteAUser
   )
   .patch(mongoIdPathVariableValidator("userId"), verifyJWT, updateAUser);
+
 router
   .route("/block-unblock/:userId")
   .patch(
@@ -76,15 +120,6 @@ router
     blockUnblockUser
   );
 
-/**
-   - userForgotPasswordValidator() is a function that returns an array of validation checks
-   - When you pass validate without parentheses, you are indicating to Express that it should treat validate as a middleware function and execute it in the middleware chain. 
-     Express will automatically call the validate function with the appropriate req, res, and next arguments when the route is processed.
-   */
-router
-  .route("/forgot-password")
-  .post(userForgotPasswordValidator(), validate, forgotPasswordRequest);
-
 router
   .route("/reset-password/:resetToken")
   .post(
@@ -92,9 +127,5 @@ router
     validate,
     resetForgottenPassword
   );
-
-// Secured routes
-
-router.route("/logout").post(verifyJWT, logoutUser);
 
 export default router;
