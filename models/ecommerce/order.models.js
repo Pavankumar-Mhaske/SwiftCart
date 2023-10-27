@@ -60,7 +60,7 @@ const orderSchema = new Schema(
     paymentProvider: {
       type: String,
       enum: AvailablePaymentProviders,
-      default: PaymentProviderEnum.UNKNOWN,
+      default: PaymentProviderEnum.COD,
     },
     paymentId: {
       type: String,

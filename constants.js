@@ -59,6 +59,7 @@ export const PaymentProviderEnum = {
   UNKNOWN: "UNKNOWN",
   RAZORPAY: "RAZORPAY",
   PAYPAL: "PAYPAL",
+  COD: "COD",
 };
 
 export const AvailablePaymentProviders = Object.values(PaymentProviderEnum);
