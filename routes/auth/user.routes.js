@@ -14,12 +14,13 @@ import {
   loginAdmin,
   getUserWishlist,
   getUserAddress,
+  getUserCart,
 } from "../../controller/auth/user.controllers.js";
 import {
   verifyJWT,
   verifyPermission,
 } from "../../middlewares/auth.middlewares.js";
-
+// import { getUserCart } from "../../controller/ecommerce/cart.controllers.js";
 import {
   userForgotPasswordValidator,
   userResetForgottenPasswordValidator,
@@ -42,12 +43,13 @@ router.route("/").get((req, res) => {
   res.send("Welcome to the E-commerce App!");
 });
 
-router.route("/register").post(validate, registerUser);
-router.route("/login").post(validate, loginUser);
+router.route("/register").post(userRegisterValidator(), validate, registerUser);
+router.route("/login").post(userLoginValidator(), validate, loginUser);
 router.route("/admin-login").post(validate, loginAdmin);
 router.route("/all-users").get(verifyJWT, getAllUsers);
 router.route("/wishlist").get(verifyJWT, getUserWishlist);
 router.route("/address").get(verifyJWT, getUserAddress);
+router.route("/cart").get(verifyJWT, getUserCart);
 
 // 🔑🔐 Secured routes 🔐 🔑
 router.route("/logout").post(verifyJWT, logoutUser);
