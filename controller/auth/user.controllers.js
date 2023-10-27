@@ -156,6 +156,73 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+const loginAdmin = asyncHandler(async (req, res) => {
+  try {
+    const { mobile, email, password } = req.body;
+
+    if (!email || !mobile) {
+      throw new ApiError(400, "Please provide email or mobile");
+    }
+    if (!password) {
+      throw new ApiError(400, "Please provide password");
+    }
+
+    const user = await User.findOne({
+      $or: [{ mobile }, { email }],
+    });
+
+    if (!user) {
+      throw new ApiError(404, "User does not exist");
+    }
+
+    const isPasswordValid = await user.isPasswordCorrect(password);
+
+    if (!isPasswordValid) {
+      throw new ApiError(401, "Invalid user credentials");
+    }
+
+    if (user.role !== UserRolesEnum.ADMIN) {
+      throw new ApiError(401, "You are not authorized to login as admin");
+    }
+
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+      user._id
+    );
+
+    const loggedInUser = await User.findById(user._id).select(
+      "-password -refreshToken -emailVerificationToken -emailVerificationExpiry"
+    );
+
+    // TODO: Add more options to make cookie more secure and reliable
+    const options = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    };
+    console.log("accessToken: ", accessToken);
+    console.log("refreshToken: ", refreshToken);
+
+    return res
+      .status(200)
+      .cookie("accessToken", accessToken, options) // set the access token in the cookie
+      .cookie("refreshToken", refreshToken, options) // set the refresh token in the cookie
+      .json(
+        new ApiResponse(
+          200,
+          { user: loggedInUser }, // send access and refresh token in response if client decides to save them by themselves
+          "User logged in successfully"
+        )
+      );
+  } catch (error) {
+    console.log("Error in login user controller");
+    console.log("ERROR: ", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error,
+    });
+  }
+});
+
 const logoutUser = asyncHandler(async (req, res) => {
   try {
     await User.findByIdAndUpdate(
@@ -386,4 +453,5 @@ export {
   blockUnblockUser,
   forgotPasswordRequest,
   resetForgottenPassword,
+  loginAdmin,
 };
