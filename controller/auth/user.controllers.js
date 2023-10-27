@@ -475,6 +475,35 @@ const getUserWishlist = asyncHandler(async (req, res) => {
   }
 });
 
+// get the all user address
+const getUserAddress = asyncHandler(async (req, res) => {
+  try{
+    const { _id } = req.user;
+    const user = await User.findById(_id).populate("address");
+    if (!user) {
+      throw new ApiError(404, "No user found");
+    }
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          { address: user.address },
+          "User address fetched Successfully!"
+        )
+      );
+  }
+  catch(error){
+    console.log("Error in get user address controller");
+    console.log("ERROR: ", error);
+    res.status(500).json({
+      success: false,
+      message: `Internal Server Error-${error}`,
+      error: error,
+    });
+  }
+});
+
 export {
   registerUser,
   loginUser,
@@ -488,4 +517,5 @@ export {
   resetForgottenPassword,
   loginAdmin,
   getUserWishlist,
+  getUserAddress,
 };
