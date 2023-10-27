@@ -31,6 +31,16 @@ const cartSchema = new Schema(
       ref: "Coupon",
       default: null,
     },
+    totalCartPrice: {
+      type: Number,
+      default: 0,
+      // required: true,
+    },
+    discountedCartPrice: {
+      type: Number,
+      default: 0,
+      // required: true,
+    },
   },
 
   { timestamps: true }
