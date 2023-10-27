@@ -5,6 +5,7 @@ import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { UserRolesEnum } from "../../constants.js";
 import { sendEmail, forgotPasswordMailgenContent } from "../../utils/mail.js";
+
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
     const user = await User.findById(userId);
@@ -442,6 +443,38 @@ const resetForgottenPassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Password reset successfully"));
 });
 
+// get the user wishlist
+const getUserWishlist = asyncHandler(async (req, res) => {
+  try {
+    // const {_id } = req.user;
+    const userId = req.user._id;
+
+    const user = await User.findById(userId).populate("wishlist");
+
+    if (!user) {
+      throw new ApiError(404, "No user found");
+    }
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          { wishlist: user.wishlist },
+          "User wishlist fetched Successfully!"
+        )
+      );
+  } catch (error) {
+    console.log("Error in get user wishlist controller");
+    console.log("ERROR: ", error);
+    res.status(500).json({
+      success: false,
+      message: `Internal Server Error-${error}`,
+      error: error,
+    });
+  }
+});
+
 export {
   registerUser,
   loginUser,
@@ -454,4 +487,5 @@ export {
   forgotPasswordRequest,
   resetForgottenPassword,
   loginAdmin,
+  getUserWishlist,
 };
