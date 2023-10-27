@@ -11,6 +11,7 @@ import {
   blockUnblockUser,
   forgotPasswordRequest,
   resetForgottenPassword,
+  loginAdmin,
 } from "../../controller/auth/user.controllers.js";
 import {
   verifyJWT,
@@ -40,10 +41,8 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/register").post(validate, registerUser);
-router.route("/login").post(
-  // validate,
-  loginUser
-);
+router.route("/login").post(validate, loginUser);
+router.route("/admin-login").post(validate, loginAdmin);
 router.route("/all-users").get(verifyJWT, getAllUsers);
 /**
 * Middleware Execution Order:
@@ -77,7 +76,7 @@ router
     blockUnblockUser
   );
 
-  /**
+/**
    - userForgotPasswordValidator() is a function that returns an array of validation checks
    - When you pass validate without parentheses, you are indicating to Express that it should treat validate as a middleware function and execute it in the middleware chain. 
      Express will automatically call the validate function with the appropriate req, res, and next arguments when the route is processed.
