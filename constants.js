@@ -40,3 +40,25 @@ export const CouponTypeEnum = {
 };
 
 export const AvailableCouponTypes = Object.values(CouponTypeEnum);
+
+/**
+ * @type {{ PENDING: "PENDING"; CANCELLED: "CANCELLED"; DELIVERED: "DELIVERED" } as const}
+ */
+export const OrderStatusEnum = {
+  PENDING: "PENDING",
+  CANCELLED: "CANCELLED",
+  DELIVERED: "DELIVERED",
+};
+
+export const AvailableOrderStatuses = Object.values(OrderStatusEnum);
+
+/**
+ * @type {{ UNKNOWN:"UNKNOWN"; RAZORPAY: "RAZORPAY"; PAYPAL: "PAYPAL"; } as const}
+ */
+export const PaymentProviderEnum = {
+  UNKNOWN: "UNKNOWN",
+  RAZORPAY: "RAZORPAY",
+  PAYPAL: "PAYPAL",
+};
+
+export const AvailablePaymentProviders = Object.values(PaymentProviderEnum);
