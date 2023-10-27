@@ -13,6 +13,7 @@ import {
   resetForgottenPassword,
   loginAdmin,
   getUserWishlist,
+  getUserAddress,
 } from "../../controller/auth/user.controllers.js";
 import {
   verifyJWT,
@@ -45,7 +46,8 @@ router.route("/register").post(validate, registerUser);
 router.route("/login").post(validate, loginUser);
 router.route("/admin-login").post(validate, loginAdmin);
 router.route("/all-users").get(verifyJWT, getAllUsers);
-router.route("/wishlist/").get(verifyJWT, getUserWishlist);
+router.route("/wishlist").get(verifyJWT, getUserWishlist);
+router.route("/address").get(verifyJWT, getUserAddress);
 
 // 🔑🔐 Secured routes 🔐 🔑
 router.route("/logout").post(verifyJWT, logoutUser);
