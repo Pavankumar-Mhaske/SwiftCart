@@ -63,3 +63,13 @@ export const PaymentProviderEnum = {
 };
 
 export const AvailablePaymentProviders = Object.values(PaymentProviderEnum);
+
+/**
+ * @type {{ GOOGLE: "GOOGLE"; GITHUB: "GITHUB"; EMAIL_PASSWORD: "EMAIL_PASSWORD"} as const}
+ */
+export const UserLoginType = {
+  GOOGLE: "GOOGLE",
+  GITHUB: "GITHUB",
+  EMAIL_PASSWORD: "EMAIL_PASSWORD",
+};
+export const AvailableSocialLogins = Object.values(UserLoginType);
