@@ -206,7 +206,10 @@ const applyCoupon = asyncHandler(async (req, res) => {
   const coupon = aggregatedCoupon[0];
 
   if (!coupon) {
-    throw new ApiError(404, "Invalid coupon code");
+    throw new ApiError(
+      404,
+      "Invalid coupon code or coupon is expired(Coupon is Inactive!)"
+    );
   }
 
   // get the user cart
@@ -224,7 +227,7 @@ const applyCoupon = asyncHandler(async (req, res) => {
 
   // if all the above checks are passed
   // Find the user cart and apply coupon to it
-  await Cart.findOneAndUpdate(
+  const cart = await Cart.findOneAndUpdate(
     {
       owner: req.user._id,
     },
@@ -236,7 +239,15 @@ const applyCoupon = asyncHandler(async (req, res) => {
     { new: true }
   );
 
+  if (!cart) {
+    throw new ApiError(404, "Cart does not exist");
+  }
+
   const newCart = await getCart(req.user._id);
+
+  cart.discountedCartPrice = newCart.discountedTotal;
+  await cart.save({ validateBeforeSave: false });
+  console.log(cart);
 
   return res
     .status(200)
@@ -245,7 +256,7 @@ const applyCoupon = asyncHandler(async (req, res) => {
 
 const removeCouponFromCart = asyncHandler(async (req, res) => {
   // Find the user cart and remove the coupon from it
-  await Cart.findOneAndUpdate(
+  const cart = await Cart.findOneAndUpdate(
     {
       owner: req.user._id,
     },
@@ -259,14 +270,18 @@ const removeCouponFromCart = asyncHandler(async (req, res) => {
 
   const newCart = await getCart(req.user._id);
 
+  cart.discountedCartPrice = newCart.discountedTotal;
+  await cart.save({ validateBeforeSave: false });
+  console.log(cart);
+
   return res
     .status(200)
     .json(new ApiResponse(200, newCart, "Coupon removed successfully"));
 });
 
 const updateCouponActiveStatus = asyncHandler(async (req, res) => {
-  const { isActive } = req.body;
   const { couponId } = req.params;
+  const { isActive } = req.body;
 
   const updatedCoupon = await Coupon.findByIdAndUpdate(
     couponId,
@@ -297,6 +312,7 @@ const getValidCouponsForCustomer = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
 
   const userCart = await getCart(req.user._id);
+  console.log("userCart - 🛒:", userCart);
   const cartTotal = userCart.cartTotal;
   const couponAggregate = Coupon.aggregate([
     {
