@@ -1,16 +1,20 @@
-import mongoose, { Schema, model } from "mongoose";
-// import bcrypt from "bcryptjs";
-import { Address } from "../ecommerce/address.models.js";
-import { Cart } from "../ecommerce/cart.models.js";
-import { Product } from "../ecommerce/product.models.js";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import mongoose, { Schema, model } from "mongoose";
 import {
+  AvailableSocialLogins,
   AvailableUserRoles,
   USER_TEMPORARY_TOKEN_EXPIRY,
+  UserLoginType,
   UserRolesEnum,
 } from "../../constants.js";
-import crypto from "crypto";
+
+import { Address } from "../ecommerce/address.models.js";
+import { Cart } from "../ecommerce/cart.models.js";
+import { EcomProfile } from "../ecommerce/profile.models.js";
+import { Product } from "../ecommerce/product.models.js";
+
 const userSchema = new Schema(
   {
     avatar: {
@@ -50,6 +54,11 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    loginType: {
+      type: String,
+      enum: AvailableSocialLogins,
+      default: UserLoginType.EMAIL_PASSWORD,
+    },
     mobile: {
       type: String,
       required: true,
@@ -64,7 +73,7 @@ const userSchema = new Schema(
     cart: {
       type: Schema.Types.ObjectId,
       ref: "Cart",
-      // default: [],
+      default: null,
     },
     // wishlist: is array of product ids
     wishlist: {
@@ -119,6 +128,35 @@ const userSchema = new Schema(
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);
+});
+
+userSchema.post("save", async function (user, next) {
+  // ! Generally, querying data on every user save is not a good idea and not necessary when you are working on a specific application which has concrete models which are tightly coupled
+  // ! However, in this application this user model is being referenced in many loosely coupled models so we need to do some initial setups before proceeding to make sure the data consistency and integrity
+  const ecomProfile = await EcomProfile.findOne({ owner: user._id });
+  // const socialProfile = await SocialProfile.findOne({ owner: user._id });
+  const cart = await Cart.findOne({ owner: user._id });
+
+  // Setup necessary ecommerce models for the user
+  if (!ecomProfile) {
+    await EcomProfile.create({
+      owner: user._id,
+    });
+  }
+  if (!cart) {
+    await Cart.create({
+      owner: user._id,
+      items: [],
+    });
+  }
+
+  // Setup necessary social media models for the user
+  // if (!socialProfile) {
+  //   await SocialProfile.create({
+  //     owner: user._id,
+  //   });
+  // }
+  next();
 });
 
 userSchema.methods.isPasswordCorrect = async function (password) {
