@@ -306,7 +306,7 @@ const updateAUser = asyncHandler(async (req, res, next) => {
     throw new ApiError(404, "No user found");
   }
 
-  const { firstname, lastname, email, password, mobile } = req.body;
+  const { firstname, lastname, email, password, mobile, cart } = req.body;
 
   // const updatedUser = await User.findByIdAndUpdate(
   //   userId.trim(),
@@ -325,9 +325,11 @@ const updateAUser = asyncHandler(async (req, res, next) => {
   if (email) user.email = email;
   if (password) user.password = password;
   if (mobile) user.mobile = mobile;
+  if (cart) user.cart = cart;
 
   await user.save();
 
+  // const updatedUser = user.populate("cart");
   return res
     .status(200)
     .json(new ApiResponse(200, { user: user }, "User updated Successfully!"));
@@ -477,7 +479,7 @@ const getUserWishlist = asyncHandler(async (req, res) => {
 
 // get the all user address
 const getUserAddress = asyncHandler(async (req, res) => {
-  try{
+  try {
     const { _id } = req.user;
     const user = await User.findById(_id).populate("address");
     if (!user) {
@@ -492,9 +494,36 @@ const getUserAddress = asyncHandler(async (req, res) => {
           "User address fetched Successfully!"
         )
       );
-  }
-  catch(error){
+  } catch (error) {
     console.log("Error in get user address controller");
+    console.log("ERROR: ", error);
+    res.status(500).json({
+      success: false,
+      message: `Internal Server Error-${error}`,
+      error: error,
+    });
+  }
+});
+
+// get user cart
+const getUserCart = asyncHandler(async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const user = await User.findById(_id).populate("cart");
+    if (!user) {
+      throw new ApiError(404, "No user found");
+    }
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          { cart: user.cart },
+          "User cart fetched Successfully!"
+        )
+      );
+  } catch (error) {
+    console.log("Error in get user cart controller");
     console.log("ERROR: ", error);
     res.status(500).json({
       success: false,
@@ -518,4 +547,5 @@ export {
   loginAdmin,
   getUserWishlist,
   getUserAddress,
+  getUserCart,
 };
