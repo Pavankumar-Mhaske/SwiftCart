@@ -3,7 +3,7 @@ import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { getMongoosePaginationOptions } from "../../utils/helpers.js";
-
+import { User } from "../../models/auth/user.models.js";
 const createAddress = asyncHandler(async (req, res) => {
   const { addressLine1, addressLine2, city, country, pincode, state } =
     req.body;
@@ -19,9 +19,38 @@ const createAddress = asyncHandler(async (req, res) => {
     state,
   });
 
+  if (!address) {
+    throw new ApiError(500, "Address could not be created");
+  }
+
+  /**find the user from its id and push the address id to the user's addresses array
+  where address: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Address",
+        },
+      ],
+      default: [],
+    },
+    */
+  // const user = await User.findById(owner);
+  // user.addresses.push(address._id);
+  // await user.save();
+
+  const user = await User.findOneAndUpdate(
+    { _id: owner },
+    { $push: { address: address._id } },
+    { new: true }
+  ).populate("address");
+
+  if (!user) {
+    throw new ApiError(500, "User could not be updated");
+  }
+
   return res
     .status(201)
-    .json(new ApiResponse(200, address, "Address created successfully"));
+    .json(new ApiResponse(200, user, "Address created successfully"));
 });
 
 const getAllAddresses = asyncHandler(async (req, res) => {
@@ -121,6 +150,18 @@ const deleteAddress = asyncHandler(async (req, res) => {
 
   if (!address) {
     throw new ApiError(404, "Address does not exist");
+  }
+
+  // on deletion of the address, remove the address id from the user's address array as well
+
+  const user = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $pull: { address: addressId } },
+    { new: true }
+  );
+
+  if (!user) {
+    throw new ApiError(500, "User could not be updated");
   }
 
   return res
