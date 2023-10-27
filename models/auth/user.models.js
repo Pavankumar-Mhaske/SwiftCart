@@ -144,10 +144,17 @@ userSchema.post("save", async function (user, next) {
     });
   }
   if (!cart) {
-    await Cart.create({
+    const newCart = await Cart.create({
       owner: user._id,
       items: [],
     });
+
+    // const myUser = await User.findById(newCart.owner);
+    // myUser.cart = newCart._id || cart._id;
+    // await myUser.save();
+
+    user.cart = newCart._id || cart._id;
+    await user.save();
   }
 
   // Setup necessary social media models for the user
