@@ -25,7 +25,10 @@ import {
 // } from "../../../validators/apps/ecommerce/product.validators.js";
 import { validate } from "../../validators/validate.js";
 import { MAXIMUM_SUB_IMAGE_COUNT, UserRolesEnum } from "../../constants.js";
-import { mongoIdPathVariableValidator } from "../../validators/common/mongodb.validators.js";
+import {
+  mongoIdPathVariableValidator,
+  publicIdPathVariableValidator,
+} from "../../validators/common/mongodb.validators.js";
 import {
   productImgResize,
   uploadPhoto,
@@ -69,13 +72,15 @@ router
     uploadImages
   );
 
-router.route("/delete/:publicId").delete(
-  verifyJWT,
-  verifyPermission([UserRolesEnum.ADMIN]),
-  // mongoIdPathVariableValidator("publicId"),
-  validate,
-  deleteImages
-);
+router
+  .route("/delete/:publicId")
+  .delete(
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    publicIdPathVariableValidator("publicId"),
+    validate,
+    deleteImages
+  );
 
 router
   .route("/:productId")
