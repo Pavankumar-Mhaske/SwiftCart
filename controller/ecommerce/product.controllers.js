@@ -13,7 +13,10 @@ import {
 } from "../../utils/helpers.js";
 import { MAXIMUM_SUB_IMAGE_COUNT } from "../../constants.js";
 import { ProductCategory } from "../../models/ecommerce/productCategory.models.js";
-import { cloudinaryUploadImg } from "../../utils/cloudinary.js";
+import {
+  cloudinaryUploadImg,
+  cloudinaryDeleteImg,
+} from "../../utils/cloudinary.js";
 import fs from "fs";
 
 const createProduct = asyncHandler(async (req, res) => {
@@ -554,6 +557,7 @@ const reviewsAndRating = asyncHandler(async (req, res) => {
 //     throw new ApiError(400, error.message);
 //   }
 // });
+
 const uploadImages = asyncHandler(async (req, res) => {
   try {
     // const { productId } = req.params;
@@ -588,6 +592,20 @@ const uploadImages = asyncHandler(async (req, res) => {
   }
 });
 
+const deleteImages = asyncHandler(async (req, res) => {
+  try {
+    const { publicId } = req.params;
+    const deletedImage = await cloudinaryDeleteImg(publicId, "Images");
+
+    console.log(deleteImages);
+    res
+      .status(200)
+      .json(new ApiResponse(200, deletedImage, "Images deleted successfully"));
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+});
+
 export {
   createProduct,
   getAllProducts,
@@ -599,4 +617,5 @@ export {
   addRemoveProductInWishList,
   reviewsAndRating,
   uploadImages,
+  deleteImages,
 };
