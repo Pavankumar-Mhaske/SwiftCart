@@ -29,12 +29,12 @@ router
   .get(validate, getAllBrands);
 
 router
-  .route("/:categoryId")
-  .get(mongoIdPathVariableValidator("categoryId"), validate, getBrandById)
+  .route("/:brandId")
+  .get(mongoIdPathVariableValidator("brandId"), validate, getBrandById)
   .delete(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    mongoIdPathVariableValidator("categoryId"),
+    mongoIdPathVariableValidator("brandId"),
     validate,
     deleteBrand
   )
@@ -42,7 +42,7 @@ router
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
     brandRequestBodyValidator(),
-    mongoIdPathVariableValidator("categoryId"),
+    mongoIdPathVariableValidator("brandId"),
     validate,
     updateBrand
   );
