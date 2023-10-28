@@ -686,6 +686,9 @@ const updateCashOnDeliveryOrderStatus = asyncHandler(async (req, res) => {
       throw new ApiError(400, "Order is already delivered");
     }
 
+    // need to install uniqid package
+    // const paymentId = uniqid();
+
     /** Update order status if status is delivered then update paymentId and isPaymentDone flag
       else just update the status
   */
