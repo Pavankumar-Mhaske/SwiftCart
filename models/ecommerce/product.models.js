@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { User } from "../auth/user.models.js";
+import { Color } from "./color.models.js";
 import { ProductCategory } from "./productCategory.models.js";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
@@ -66,10 +67,14 @@ const productSchema = new Schema(
       ],
       default: [],
     },
-    color: {
-      type: String,
-      enum: AvailableProductColors,
-      default: ProductColorsEnum.WHITE,
+    colors: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Color",
+        },
+      ],
+      default: [],
     },
     reviews: {
       type: [
