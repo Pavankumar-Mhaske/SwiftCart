@@ -5,10 +5,10 @@ import { ProductCategory } from "./productCategory.models.js";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 import {
-  AvailableProductColors,
-  ProductColorsEnum,
   AvailableProductBrands,
   ProductBrandsEnum,
+  ProductTagsEnum,
+  AvailableProductTags,
 } from "../../constants.js";
 
 const productSchema = new Schema(
@@ -43,7 +43,8 @@ const productSchema = new Schema(
     category: {
       type: Schema.Types.ObjectId,
       ref: "ProductCategory",
-      // required: true,
+      required: true,
+      // default: null,
     },
     brand: {
       type: String,
@@ -72,6 +73,17 @@ const productSchema = new Schema(
         {
           type: Schema.Types.ObjectId,
           ref: "Color",
+        },
+      ],
+      default: [],
+    },
+    // tags fields will be for filtering products by tags like "new", "hot", "sale", "featured", "popular", "latest", etc.
+    tags: {
+      type: [
+        {
+          type: String,
+          enum: AvailableProductTags,
+          default: ProductTagsEnum.NEW,
         },
       ],
       default: [],
