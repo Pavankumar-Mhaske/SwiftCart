@@ -521,9 +521,42 @@ const reviewsAndRating = asyncHandler(async (req, res) => {
   }
 });
 
+// const uploadImages = asyncHandler(async (req, res) => {
+//   try {
+//     const { productId } = req.params;
+//     const uploader = async (path) => await cloudinaryUploadImg(path, "Images");
+
+//     const urls = [];
+//     const files = req.files;
+//     console.log("files inside the uploadImages controller", files);
+//     for (const file of files) {
+//       const { path } = file;
+//       const newPath = await uploader(path);
+//       urls.push(newPath);
+//       removeLocalFile(path);
+//       // fs.unlinkSync(path);
+//     }
+//     // // find the product by id and update it's subImages with the urls array values...
+//     // const product = await Product.findById(productId);
+//     // if (!product) {
+//     //   throw new ApiError(404, "Product not found");
+//     // }
+//     // product.subImages = urls;
+//     // await product.save();
+
+//     const images = urls.map((url) => {
+//       return { url };
+//     });
+//     res
+//       .status(200)
+//       .json(new ApiResponse(200, images, "Images uploaded successfully"));
+//   } catch (error) {
+//     throw new ApiError(400, error.message);
+//   }
+// });
 const uploadImages = asyncHandler(async (req, res) => {
   try {
-    const { productId } = req.params;
+    // const { productId } = req.params;
     const uploader = async (path) => await cloudinaryUploadImg(path, "Images");
 
     const urls = [];
@@ -536,16 +569,20 @@ const uploadImages = asyncHandler(async (req, res) => {
       removeLocalFile(path);
       // fs.unlinkSync(path);
     }
-    // find the product by id and update it's subImages with the urls array values...
-    const product = await Product.findById(productId);
-    if (!product) {
-      throw new ApiError(404, "Product not found");
-    }
-    product.subImages = urls;
-    await product.save();
+    // // find the product by id and update it's subImages with the urls array values...
+    // const product = await Product.findById(productId);
+    // if (!product) {
+    //   throw new ApiError(404, "Product not found");
+    // }
+    // product.subImages = urls;
+    // await product.save();
+
+    const images = urls.map((url) => {
+      return { url };
+    });
     res
       .status(200)
-      .json(new ApiResponse(200, product, "Images uploaded successfully"));
+      .json(new ApiResponse(200, images, "Images uploaded successfully"));
   } catch (error) {
     throw new ApiError(400, error.message);
   }
