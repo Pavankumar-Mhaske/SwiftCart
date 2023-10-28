@@ -17,8 +17,17 @@ import { cloudinaryUploadImg } from "../../utils/cloudinary.js";
 import fs from "fs";
 
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, description, price, stock, soldItems, brand, colors } =
-    req.body;
+  const {
+    name,
+    description,
+    price,
+    stock,
+    soldItems,
+    category,
+    brand,
+    colors,
+    tags,
+  } = req.body;
 
   const slug = name ? slugify(name, { lower: true }) : undefined;
 
@@ -65,10 +74,11 @@ const createProduct = asyncHandler(async (req, res) => {
     price,
     stock,
     soldItems,
-    // category,
+    category,
     colors,
     brand,
     owner,
+    tags,
   });
   return res
     .status(201)
@@ -282,10 +292,12 @@ const getProductsByCategory = asyncHandler(async (req, res) => {
 
   const { page = 1, limit = 10 } = req.query;
 
-  const category = await Category.findById(categoryId).select("name _id");
+  const category = await ProductCategory.findById(categoryId).select(
+    "name _id"
+  );
 
   if (!category) {
-    throw new ApiError(404, "Category does not exist");
+    throw new ApiError(404, "ProductCategory does not exist");
   }
 
   const productAggregate = Product.aggregate([
