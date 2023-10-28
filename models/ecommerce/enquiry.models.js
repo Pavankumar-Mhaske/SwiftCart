@@ -1,7 +1,10 @@
 import mongoose, { Schema, model } from "mongoose";
 import { User } from "../auth/user.models.js";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
-
+import {
+  EnquiryStatusEnum,
+  AvailableEnquiryStatuses,
+} from "../../constants.js";
 const enquirySchema = new Schema(
   {
     name: {
@@ -26,6 +29,12 @@ const enquirySchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
+    },
+    // enquiry status
+    status: {
+      type: String,
+      enum: AvailableEnquiryStatuses,
+      default: EnquiryStatusEnum.SUBMITTED,
     },
   },
   { timestamps: true }
