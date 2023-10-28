@@ -57,8 +57,8 @@ router
   );
 
 router
-  // .route("/upload/:productId")
-  .route("/upload")
+  .route("/upload/:productId")
+  // .route("/upload")
   .post(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
