@@ -41,7 +41,6 @@ router
   .patch(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    enquiryRequestBodyValidator(),
     mongoIdPathVariableValidator("enquiryId"),
     validate,
     updateEnquiry
