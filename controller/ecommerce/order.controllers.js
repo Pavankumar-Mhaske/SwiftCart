@@ -717,7 +717,7 @@ const updateCashOnDeliveryOrderStatus = asyncHandler(async (req, res) => {
       new ApiResponse(
         200,
         {
-          status,
+          order,
         },
         "Order status changed successfully"
       )
