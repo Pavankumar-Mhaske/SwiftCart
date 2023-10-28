@@ -560,12 +560,12 @@ const reviewsAndRating = asyncHandler(async (req, res) => {
 
 const uploadImages = asyncHandler(async (req, res) => {
   try {
-    // const { productId } = req.params;
+    const { productId } = req.params;
     const uploader = async (path) => await cloudinaryUploadImg(path, "Images");
 
     const urls = [];
     const files = req.files;
-    console.log("files inside the uploadImages controller", files);
+    // console.log("files inside the uploadImages controller", files);
     for (const file of files) {
       const { path } = file;
       const newPath = await uploader(path);
@@ -580,16 +580,24 @@ const uploadImages = asyncHandler(async (req, res) => {
     // }
     // product.subImages = urls;
     // await product.save();
+    // console.log("urls", urls);
 
     const images = urls.map((url) => {
       return { url };
     });
+    console.log("images", images);
 
     // TODO:save the images in the database
+    const product = await Product.findById(productId);
+    if (!product) {
+      throw new ApiError(404, "Product not found");
+    }
+    product.subImages = urls;
+    await product.save();
 
     res
       .status(200)
-      .json(new ApiResponse(200, images, "Images uploaded successfully"));
+      .json(new ApiResponse(200, product, "Images uploaded successfully"));
   } catch (error) {
     throw new ApiError(400, error.message);
   }
@@ -601,6 +609,7 @@ const deleteImages = asyncHandler(async (req, res) => {
     const deletedImage = await cloudinaryDeleteImg(publicId, "Images");
 
     console.log(deleteImages);
+    // TODO: need to delete the images from the database
     res
       .status(200)
       .json(new ApiResponse(200, deletedImage, "Images deleted successfully"));
