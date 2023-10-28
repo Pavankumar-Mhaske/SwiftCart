@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { User } from "../auth/user.models.js";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
+import {BlogCategoryEnum, AvailableBlogCategories} from "../../constants.js";
 
 const categorySchema = new Schema(
   {
