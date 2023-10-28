@@ -6,7 +6,7 @@ import {
   updateColor,
   deleteColor,
 } from "../../controller/ecommerce/color.controllers.js";
-import { colorRequestBodyValidator } from "../../validators/ecommerce/category.validators.js";
+import { colorRequestBodyValidator } from "../../validators/ecommerce/color.validators.js";
 import { validate } from "../../validators/validate.js";
 import {
   verifyPermission,
@@ -29,12 +29,12 @@ router
   .get(validate, getAllColors);
 
 router
-  .route("/:categoryId")
-  .get(mongoIdPathVariableValidator("categoryId"), validate, getColorById)
+  .route("/:colorId")
+  .get(mongoIdPathVariableValidator("colorId"), validate, getColorById)
   .delete(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    mongoIdPathVariableValidator("categoryId"),
+    mongoIdPathVariableValidator("colorId"),
     validate,
     deleteColor
   )
@@ -42,7 +42,7 @@ router
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
     colorRequestBodyValidator(),
-    mongoIdPathVariableValidator("categoryId"),
+    mongoIdPathVariableValidator("colorId"),
     validate,
     updateColor
   );
