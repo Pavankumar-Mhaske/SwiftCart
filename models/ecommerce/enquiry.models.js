@@ -1,7 +1,7 @@
-// enquiry model
-
 import mongoose, { Schema, model } from "mongoose";
 import { User } from "../auth/user.models.js";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
+
 const enquirySchema = new Schema(
   {
     name: {
@@ -30,5 +30,7 @@ const enquirySchema = new Schema(
   },
   { timestamps: true }
 );
+
+enquirySchema.plugin(mongooseAggregatePaginate);
 
 export const Enquiry = model("Enquiry", enquirySchema);
