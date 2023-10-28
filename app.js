@@ -13,6 +13,7 @@ import couponRouter from "./routes/ecommerce/coupon.routes.js";
 import addressRouter from "./routes/ecommerce/address.routes.js";
 import cartRouter from "./routes/ecommerce/cart.routes.js";
 import orderRouter from "./routes/ecommerce/order.routes.js";
+import colorRouter from "./routes/ecommerce/color.routes.js";
 
 import cors from "cors";
 // api routes
@@ -41,6 +42,7 @@ app.use("/api/v1/coupons", couponRouter);
 app.use("/api/v1/addresses", addressRouter);
 app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/colors", colorRouter);
 
 // common error handling middleware
 app.use(notFound);
