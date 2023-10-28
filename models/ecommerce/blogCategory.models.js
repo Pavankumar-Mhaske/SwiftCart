@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { User } from "../auth/user.models.js";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
-import {BlogCategoryEnum, AvailableBlogCategories} from "../../constants.js";
+import { BlogCategoryEnum, AvailableBlogCategories } from "../../constants.js";
 
 const categorySchema = new Schema(
   {
@@ -10,6 +10,8 @@ const categorySchema = new Schema(
       required: true,
       unique: true,
       index: true,
+      enum: AvailableBlogCategories,
+      default: BlogCategoryEnum.MENTAL_HEALTH,
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -21,7 +23,4 @@ const categorySchema = new Schema(
 
 categorySchema.plugin(mongooseAggregatePaginate);
 
-export const BlogCategory = mongoose.model(
-  "BlogCategory",
-  categorySchema
-);
+export const BlogCategory = mongoose.model("BlogCategory", categorySchema);
