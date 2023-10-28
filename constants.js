@@ -25,6 +25,20 @@ export const OrderStatusEnum = {
 
 export const AvailableOrderStatuses = Object.values(OrderStatusEnum);
 
+export const EnquiryStatusEnum = {
+  SUBMITTED: "SUBMITTED",
+  PENDING: "PENDING",
+  AWAITING_RESPONSE: "AWAITING_RESPONSE",
+  IN_PROGRESS: "IN_PROGRESS",
+  ON_HOLD: "ON_HOLD",
+  COMPLETED: "COMPLETED",
+  CANCELED: "CANCELED",
+  CLOSED: "CLOSED",
+  ARCHIVED: "ARCHIVED",
+};
+
+export const AvailableEnquiryStatuses = Object.values(EnquiryStatusEnum);
+
 /**
  * @type {{ UNKNOWN:"UNKNOWN"; RAZORPAY: "RAZORPAY"; PAYPAL: "PAYPAL"; } as const}
  */
