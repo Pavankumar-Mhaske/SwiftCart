@@ -44,7 +44,7 @@ app.use("/api/v1/addresses", addressRouter);
 app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/colors", colorRouter);
-app.use("/api/v1/enquiry", enquiryRouter);
+app.use("/api/v1/enquirys", enquiryRouter);
 
 // common error handling middleware
 app.use(notFound);
