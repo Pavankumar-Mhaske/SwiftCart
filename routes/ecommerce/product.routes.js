@@ -10,6 +10,7 @@ import {
   addRemoveProductInWishList,
   reviewsAndRating,
   uploadImages,
+  deleteImages,
 } from "../../controller/ecommerce/product.controllers.js";
 
 import {
@@ -56,6 +57,27 @@ router
   );
 
 router
+  // .route("/upload/:productId")
+  .route("/upload")
+  .post(
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    // mongoIdPathVariableValidator("productId"),
+    validate,
+    uploadPhoto.array("images", 10),
+    productImgResize,
+    uploadImages
+  );
+
+router.route("/delete/:publicId").delete(
+  verifyJWT,
+  verifyPermission([UserRolesEnum.ADMIN]),
+  // mongoIdPathVariableValidator("publicId"),
+  validate,
+  deleteImages
+);
+
+router
   .route("/:productId")
   .get(mongoIdPathVariableValidator("productId"), validate, getProductById)
   .patch(
@@ -99,19 +121,6 @@ router.route("/review-rating/:productId").post(
   validate,
   reviewsAndRating
 );
-
-router
-  // .route("/upload/:productId")
-  .route("/upload")
-  .post(
-    verifyJWT,
-    verifyPermission([UserRolesEnum.ADMIN]),
-    // mongoIdPathVariableValidator("productId"),
-    validate,
-    uploadPhoto.array("images", 10),
-    productImgResize,
-    uploadImages
-  );
 
 // router
 //   .route("/category/:categoryId")
