@@ -64,6 +64,8 @@ const productSchema = new Schema(
         {
           url: String,
           localPath: String,
+          asset_id: String, // Adding asset_id field
+          public_id: String, // Adding public_id field
         },
       ],
       default: [],
