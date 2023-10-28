@@ -2,11 +2,11 @@ import { Router } from "express";
 import {
   generatePaypalOrder,
   generateRazorpayOrder,
-  getOrderById,
-  getOrderListAdmin,
-  updateOrderStatus,
   verifyPaypalPayment,
   verifyRazorpayPayment,
+  updateOrderStatus,
+  getOrderById,
+  getOrderListAdmin,
   generateCashOnDeliveryOrder,
   updateCashOnDeliveryOrderStatus,
 } from "../../controller/ecommerce/order.controllers.js";
