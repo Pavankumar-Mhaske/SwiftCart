@@ -101,11 +101,12 @@ router.route("/review-rating/:productId").post(
 );
 
 router
-  .route("/upload/:productId")
+  // .route("/upload/:productId")
+  .route("/upload")
   .post(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    mongoIdPathVariableValidator("productId"),
+    // mongoIdPathVariableValidator("productId"),
     validate,
     uploadPhoto.array("images", 10),
     productImgResize,
