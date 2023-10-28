@@ -1,3 +1,56 @@
+export const DB_NAME = "ecommerce";
+
+export const USER_TEMPORARY_TOKEN_EXPIRY = 20 * 60 * 1000; // 20 minutes
+
+export const MAXIMUM_SUB_IMAGE_COUNT = 10;
+
+/**
+ * @type {{ FLAT:"FLAT"; } as const}
+ */
+export const CouponTypeEnum = {
+  FLAT: "FLAT",
+  PERCENTAGE: "PERCENTAGE",
+};
+
+export const AvailableCouponTypes = Object.values(CouponTypeEnum);
+
+/**
+ * @type {{ PENDING: "PENDING"; CANCELLED: "CANCELLED"; DELIVERED: "DELIVERED" } as const}
+ */
+export const OrderStatusEnum = {
+  PENDING: "PENDING",
+  CANCELLED: "CANCELLED",
+  DELIVERED: "DELIVERED",
+};
+
+export const AvailableOrderStatuses = Object.values(OrderStatusEnum);
+
+/**
+ * @type {{ UNKNOWN:"UNKNOWN"; RAZORPAY: "RAZORPAY"; PAYPAL: "PAYPAL"; } as const}
+ */
+export const PaymentProviderEnum = {
+  UNKNOWN: "UNKNOWN",
+  RAZORPAY: "RAZORPAY",
+  PAYPAL: "PAYPAL",
+  COD: "COD",
+};
+
+export const paypalBaseUrl = {
+  sandbox: "https://api-m.sandbox.paypal.com",
+};
+
+export const AvailablePaymentProviders = Object.values(PaymentProviderEnum);
+
+/**
+ * @type {{ GOOGLE: "GOOGLE"; GITHUB: "GITHUB"; EMAIL_PASSWORD: "EMAIL_PASSWORD"} as const}
+ */
+export const UserLoginType = {
+  GOOGLE: "GOOGLE",
+  GITHUB: "GITHUB",
+  EMAIL_PASSWORD: "EMAIL_PASSWORD",
+};
+export const AvailableSocialLogins = Object.values(UserLoginType);
+
 /**
  * @type {{ ADMIN: "ADMIN"; USER: "USER"} as const}
  */
@@ -70,16 +123,7 @@ export const ProductColorsEnum = {
   BEETROOT: "BEETROOT",
   CANARY_YELLOW: "CANARY_YELLOW",
 };
-
 export const AvailableProductColors = Object.values(ProductColorsEnum);
-
-// export const ProductBrandsEnum = {
-//   APPLE: "APPLE",
-//   LENOVO: "LENOVO",
-//   SAMSUNG: "SAMSUNG",
-//   MI: "MI",
-//   TESLA: "TESLA",
-// };
 
 export const ProductBrandsEnum = {
   // ELECTRONICS - comment for understanding category change for the brand
@@ -450,86 +494,3 @@ export const BlogCategoryEnum = {
 };
 
 export const AvailableBlogCategories = Object.values(BlogCategoryEnum);
-
-export const DB_NAME = "ecommerce";
-
-export const USER_TEMPORARY_TOKEN_EXPIRY = 20 * 60 * 1000; // 20 minutes
-
-export const MAXIMUM_SUB_IMAGE_COUNT = 10;
-
-/**
- * @type {{ FLAT:"FLAT"; } as const}
- */
-export const CouponTypeEnum = {
-  FLAT: "FLAT",
-  PERCENTAGE: "PERCENTAGE",
-};
-
-export const AvailableCouponTypes = Object.values(CouponTypeEnum);
-
-/**
- * @type {{ PENDING: "PENDING"; CANCELLED: "CANCELLED"; DELIVERED: "DELIVERED" } as const}
- */
-export const OrderStatusEnum = {
-  PENDING: "PENDING",
-  CANCELLED: "CANCELLED",
-  DELIVERED: "DELIVERED",
-};
-
-export const AvailableOrderStatuses = Object.values(OrderStatusEnum);
-
-/**
- * @type {{ UNKNOWN:"UNKNOWN"; RAZORPAY: "RAZORPAY"; PAYPAL: "PAYPAL"; } as const}
- */
-export const PaymentProviderEnum = {
-  UNKNOWN: "UNKNOWN",
-  RAZORPAY: "RAZORPAY",
-  PAYPAL: "PAYPAL",
-  COD: "COD",
-};
-
-export const paypalBaseUrl = {
-  sandbox: "https://api-m.sandbox.paypal.com",
-};
-
-export const AvailablePaymentProviders = Object.values(PaymentProviderEnum);
-
-/**
- * @type {{ GOOGLE: "GOOGLE"; GITHUB: "GITHUB"; EMAIL_PASSWORD: "EMAIL_PASSWORD"} as const}
- */
-export const UserLoginType = {
-  GOOGLE: "GOOGLE",
-  GITHUB: "GITHUB",
-  EMAIL_PASSWORD: "EMAIL_PASSWORD",
-};
-export const AvailableSocialLogins = Object.values(UserLoginType);
-
-// HEALTH_AND_WELLNESS
-// then add the brands list the brands avilable in respective category
-// SPORTS_AND_OUTDOORS
-// then add the brands list the brands avilable in respective category
-// BOOKS_AND_MEDIA
-// then add the brands list the brands avilable in respective category
-// TOYS_AND_GAMES
-// then add the brands list the brands avilable in respective category
-// JEWELRY_AND_ACCESSORIES
-// then add the brands list the brands avilable in respective category
-// FURNITURE
-// then add the brands list the brands avilable in respective category
-// PET_SUPPLIES
-// then add the brands list the brands avilable in respective category
-// OFFICE_SUPPLIES
-// then add the brands list the brands avilable in respective category
-// MUSIC_AND_MUSICAL_INSTRUMENTS
-// then add the brands list the brands avilable in respective category
-// ART_AND_CRAFT_SUPPLIES
-// then add the brands list the brands avilable in respective category
-// BABY_AND_MATERNITY
-// then add the brands list the brands avilable in respective category
-// INDUSTRIAL_AND_SCIENTIFIC
-// then add the brands list the brands avilable in respective category
-// TRAVEL_AND_LUGGAGE
-// then add the brands list the brands avilable in respective category
-// GENERAL
-// then add the brands list the brands avilable in respective category
-//
