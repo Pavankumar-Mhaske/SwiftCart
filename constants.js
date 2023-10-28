@@ -137,6 +137,43 @@ export const ProductCategoryEnum = {
 
 export const AvailableProductCategories = Object.values(ProductCategoryEnum);
 
+export const BlogCategoryEnum = {
+  TECHNOLOGY: "TECHNOLOGY",
+  LIFESTYLE: "LIFESTYLE",
+  HEALTH: "HEALTH",
+  TRAVEL: "TRAVEL",
+  FASHION: "FASHION",
+  FOOD: "FOOD",
+  SPORTS: "SPORTS",
+  ENTERTAINMENT: "ENTERTAINMENT",
+  BUSINESS: "BUSINESS",
+  SCIENCE: "SCIENCE",
+  EDUCATION: "EDUCATION",
+  FINANCE: "FINANCE",
+  ART: "ART",
+  BOOKS: "BOOKS",
+  MUSIC: "MUSIC",
+  PARENTING: "PARENTING",
+  DIY: "DIY",
+  NEWS: "NEWS",
+  ENVIRONMENT: "ENVIRONMENT",
+  POLITICS: "POLITICS",
+  RELIGION: "RELIGION",
+  TRAVEL: "TRAVEL",
+  HISTORY: "HISTORY",
+  CULTURE: "CULTURE",
+  PHILOSOPHY: "PHILOSOPHY",
+  SPORTS: "SPORTS",
+  TECHNOLOGY: "TECHNOLOGY",
+  GAMING: "GAMING",
+  HOBBIES: "HOBBIES",
+  MENTAL_HEALTH: "MENTAL_HEALTH",
+  SELF_IMPROVEMENT: "SELF_IMPROVEMENT",
+  CELEBRITIES: "CELEBRITIES",
+};
+
+export const AvailableBlogCategories = Object.values(BlogCategoryEnum);
+
 export const DB_NAME = "ecommerce";
 
 export const USER_TEMPORARY_TOKEN_EXPIRY = 20 * 60 * 1000; // 20 minutes
