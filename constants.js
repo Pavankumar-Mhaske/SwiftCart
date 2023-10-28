@@ -52,7 +52,6 @@ export const OrderStatusEnum = {
 
 export const AvailableOrderStatuses = Object.values(OrderStatusEnum);
 
-
 /**
  * @type {{ UNKNOWN:"UNKNOWN"; RAZORPAY: "RAZORPAY"; PAYPAL: "PAYPAL"; } as const}
  */
@@ -61,6 +60,10 @@ export const PaymentProviderEnum = {
   RAZORPAY: "RAZORPAY",
   PAYPAL: "PAYPAL",
   COD: "COD",
+};
+
+export const paypalBaseUrl = {
+  sandbox: "https://api-m.sandbox.paypal.com",
 };
 
 export const AvailablePaymentProviders = Object.values(PaymentProviderEnum);
