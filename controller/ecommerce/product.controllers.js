@@ -17,7 +17,8 @@ import { cloudinaryUploadImg } from "../../utils/cloudinary.js";
 import fs from "fs";
 
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, description, price, stock, soldItems, brand, color } = req.body;
+  const { name, description, price, stock, soldItems, brand, colors } =
+    req.body;
 
   const slug = name ? slugify(name, { lower: true }) : undefined;
 
@@ -65,7 +66,7 @@ const createProduct = asyncHandler(async (req, res) => {
     stock,
     soldItems,
     // category,
-    color,
+    colors,
     brand,
     owner,
   });
