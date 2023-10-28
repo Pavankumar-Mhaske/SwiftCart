@@ -1,7 +1,7 @@
 // enquiry model
 
 import mongoose, { Schema, model } from "mongoose";
-
+import { User } from "../auth/user.models.js";
 const enquirySchema = new Schema(
   {
     name: {
@@ -22,6 +22,10 @@ const enquirySchema = new Schema(
     comment: {
       type: String,
       required: true,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }
