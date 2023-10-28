@@ -25,6 +25,17 @@ export const mongoIdPathVariableValidator = (idName) => {
   ];
 };
 
+// publicId is used for validating cloudinary public id
+
+export const publicIdPathVariableValidator = (idName) => {
+  return [
+    param(idName)
+      .notEmpty()
+      .isLength({ min: 2, max: 255 })
+      .withMessage(`Invalid ${idName}`),
+  ];
+};
+
 /**
  *
  * @param {string} idName
