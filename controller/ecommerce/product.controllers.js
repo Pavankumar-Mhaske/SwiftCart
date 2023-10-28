@@ -584,6 +584,9 @@ const uploadImages = asyncHandler(async (req, res) => {
     const images = urls.map((url) => {
       return { url };
     });
+
+    // TODO:save the images in the database
+
     res
       .status(200)
       .json(new ApiResponse(200, images, "Images uploaded successfully"));
