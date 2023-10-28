@@ -64,6 +64,7 @@ const orderSchema = new Schema(
     },
     paymentId: {
       type: String,
+      unique: true,
     },
     // This field shows if the payment is done or not
     isPaymentDone: {
