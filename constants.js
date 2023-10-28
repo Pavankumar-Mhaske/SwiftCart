@@ -52,6 +52,7 @@ export const OrderStatusEnum = {
 
 export const AvailableOrderStatuses = Object.values(OrderStatusEnum);
 
+
 /**
  * @type {{ UNKNOWN:"UNKNOWN"; RAZORPAY: "RAZORPAY"; PAYPAL: "PAYPAL"; } as const}
  */
