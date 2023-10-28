@@ -58,7 +58,7 @@ const generatePaypalAccessToken = async () => {
 const orderFulfillmentHelper = async (orderPaymentId, req) => {
   const order = await EcomOrder.findOneAndUpdate(
     {
-      paymentId: orderPaymentId,
+      paymentId: orderPaymentId, // peymentId is unique for each order
     },
     {
       $set: {
@@ -81,11 +81,11 @@ const orderFulfillmentHelper = async (orderPaymentId, req) => {
 
   // Logic to handle product's stock change once order is placed
   let bulkStockUpdates = userCart.items.map((item) => {
-    // Reduce the products stock
+    // Reduce the products stock and increase the soldItems
     return {
       updateOne: {
         filter: { _id: item.product?._id },
-        update: { $inc: { stock: -item.quantity } }, // subtract the item quantity
+        update: { $inc: { stock: -item.quantity, soldItems: +item.quantity } }, // subtract the item quantity
       },
     };
   });
@@ -108,7 +108,8 @@ const orderFulfillmentHelper = async (orderPaymentId, req) => {
 
   cart.items = []; // empty the cart
   cart.coupon = null; // remove the associated coupon
-
+  cart.totalCartPrice = 0; // reset the total cart price
+  cart.discountedCartPrice = 0; // reset the discounted cart price
   await cart.save({ validateBeforeSave: false });
   return order;
 };
@@ -699,11 +700,12 @@ const updateCashOnDeliveryOrderStatus = asyncHandler(async (req, res) => {
           $set: {
             status,
             paymentId,
-            isPaymentDone: true,
+            // isPaymentDone: true,
           },
         },
         { new: true }
       );
+      order = await orderFulfillmentHelper(paymentId, req);
     } else {
       order = await EcomOrder.findByIdAndUpdate(
         orderId,
