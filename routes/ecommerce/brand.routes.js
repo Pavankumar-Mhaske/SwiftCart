@@ -6,7 +6,7 @@ import {
   updateBrand,
   deleteBrand,
 } from "../../controller/ecommerce/brand.controllers.js";
-import { brandRequestBodyValidator } from "../../validators/ecommerce/category.validators.js";
+import { brandRequestBodyValidator } from "../../validators/ecommerce/brand.validators.js";
 import { validate } from "../../validators/validate.js";
 import {
   verifyPermission,
