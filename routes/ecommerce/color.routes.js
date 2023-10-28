@@ -1,12 +1,12 @@
 import { Router } from "express";
 import {
-  createBrand,
-  getAllBrands,
-  getBrandById,
-  updateBrand,
-  deleteBrand,
-} from "../../controller/ecommerce/brand.controllers.js";
-import { brandRequestBodyValidator } from "../../validators/ecommerce/category.validators.js";
+  createColor,
+  getAllColors,
+  getColorById,
+  updateColor,
+  deleteColor,
+} from "../../controller/ecommerce/color.controllers.js";
+import { colorRequestBodyValidator } from "../../validators/ecommerce/category.validators.js";
 import { validate } from "../../validators/validate.js";
 import {
   verifyPermission,
@@ -22,29 +22,29 @@ router
   .post(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    brandRequestBodyValidator(),
+    colorRequestBodyValidator(),
     validate,
-    createBrand
+    createColor
   )
-  .get(validate, getAllBrands);
+  .get(validate, getAllColors);
 
 router
   .route("/:categoryId")
-  .get(mongoIdPathVariableValidator("categoryId"), validate, getBrandById)
+  .get(mongoIdPathVariableValidator("categoryId"), validate, getColorById)
   .delete(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
     mongoIdPathVariableValidator("categoryId"),
     validate,
-    deleteBrand
+    deleteColor
   )
   .patch(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    brandRequestBodyValidator(),
+    colorRequestBodyValidator(),
     mongoIdPathVariableValidator("categoryId"),
     validate,
-    updateBrand
+    updateColor
   );
 
 export default router;
