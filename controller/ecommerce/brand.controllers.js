@@ -35,9 +35,13 @@ const getAllBrands = asyncHandler(async (req, res) => {
       page,
       limit,
       customLabels: {
-        totalDocs: "totalCategories",
-        docs: "categories",
+        totalDocs: "totalBrands",
+        docs: "brands",
       },
+      // customLabels: {
+      //   totalDocs: "totalCategories",
+      //   docs: "categories",
+      // },
     })
   );
   return res
