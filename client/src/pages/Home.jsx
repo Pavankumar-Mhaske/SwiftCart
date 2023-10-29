@@ -144,6 +144,80 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <section className="home-wrapper-2 py-5">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <div className="categories d-flex justify-content-between flex-wrap align-items-center">
+                {/* 🍉🍉 Category - 1 🍉🍉 */}
+                <div className="d-flex gap-30 align-items-center">
+                  <div>
+                    <h6>Computers & Laptop</h6>
+                    <p>10 Items</p>
+                  </div>
+                  <img src="/images/laptop.jpg" alt="camera" />
+                </div>
+                {/* 🍉🍉 Category - 2 🍉🍉 */}
+                <div className="d-flex gap-30 align-items-center">
+                  <div>
+                    <h6>Cameras & Videos</h6>
+                    <p>10 Items</p>
+                  </div>
+                  <img src="/images/camera.jpg" alt="camera" />
+                </div>
+                {/* 🍉🍉 Category - 3 🍉🍉 */}
+                <div className="d-flex gap-30 align-items-center">
+                  <div>
+                    <h6>Smart Television</h6>
+                    <p>10 Items</p>
+                  </div>
+                  <img src="/images/tv.jpg" alt="camera" />
+                </div>
+                {/* 🍉🍉 Category - 4 🍉🍉 */}
+                <div className="d-flex gap-30 align-items-center">
+                  <div>
+                    <h6>Accessories</h6>
+                    <p>10 Items</p>
+                  </div>
+                  <img src="/images/acc.jpg" alt="camera" />
+                </div>
+                {/* 🍉🍉 Category - 5 🍉🍉 */}
+                <div className="d-flex gap-30 align-items-center">
+                  <div>
+                    <h6>Portable Speakers</h6>
+                    <p>10 Items</p>
+                  </div>
+                  <img src="/images/speaker.jpg" alt="camera" />
+                </div>
+                {/* 🍉🍉 Category - 6 🍉🍉 */}
+                <div className="d-flex gap-30 align-items-center">
+                  <div>
+                    <h6>Home Appliances</h6>
+                    <p>10 Items</p>
+                  </div>
+                  <img src="/images/homeapp.jpg" alt="camera" />
+                </div>
+                {/* 🍉🍉 Category - 7 🍉🍉 */}
+                <div className="d-flex gap-30 align-items-center">
+                  <div>
+                    <h6>Smartwatches</h6>
+                    <p>10 Items</p>
+                  </div>
+                  <img src="/images/acc.jpg" alt="camera" />
+                </div>
+                {/* 🍉🍉 Category - 8 🍉🍉 */}
+                <div className="d-flex gap-30 align-items-center">
+                  <div>
+                    <h6>Cameras</h6>
+                    <p>10 Items</p>
+                  </div>
+                  <img src="/images/camera.jpg" alt="camera" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
