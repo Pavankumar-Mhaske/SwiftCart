@@ -4,13 +4,91 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color-131921: #131921;
+  --color-3b4149: #3b4149;
+  --color-febd69: #febd69;
+  --color-232f3e: #232f3e;
+}
+
 body {
   font-family: "Rubik", sans-serif;
-  color: #000;
 }
 
 a {
   text-decoration: none;
   display: inline-block;
-  /* color: #000; */
 }
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: inherit;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+.gap-15 {
+  gap: 15px;
+}
+
+.gap-30 {
+  gap: 30px;
+}
+
+/* Header Part */
+.header-top-strip {
+  border-bottom: 1px solid var(--color-3b4149);
+  background-color: var(--color-131921);
+}
+
+.header-upper {
+  background-color: var(--color-131921);
+}
+
+.header-bottom {
+  background-color: var(--color-232f3e);
+}
+
+.header-upper .input-group-text {
+  background-color: var(--color-febd69);
+}
+
+.header-upper .header-upper-links img {
+  width: 35px;
+  height: 35px;
+}
+
+/* here a refers to the Link, NavLinks, etc */
+.header-bottom .menu-links a,
+.header-bottom .dropdown button {
+  color: #fff;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0.3;
+  text-transform: uppercase;
+}
+
+.header-bottom .dropdown button:focus {
+  box-shadow: none;
+}
+
+.header-bottom .dropdown-menu {
+  background-color: var(--color-131921);
+  width: 100%;
+  transform: translate3d(0px, 57px, 0px) !important;
+}
+
+/* remove hover effect */
+.header-bottom .dropdown-item {
+  padding: 20px;
+  /* margin-bottom:3px; */
+  border: 1px solid var(--color-3b4149);
+}
+.header-bottom .dropdown-item:hover {
+  background-color: transparent;
+  color:var(--color-febd69) !important;
+}
+/* Header Part End Here */
