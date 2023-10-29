@@ -12,6 +12,7 @@
   --color-bf4800: #bf4800;
   --color-232f3e: #232f3e;
   --color-f5f5f7: #f5f5f7;
+  --color-ededed: #ededed;
 }
 
 body {
@@ -196,11 +197,45 @@ footer .input-group-text {
 }
 /*🌺🌺 Home Wrapper 1 ends 🌺🌺 */
 
-
 /* 🌹🌹 Home Wrapper 2 🌹🌹*/
 .home-wrapper-2 {
   background-color: var(--color-f5f5f7);
 }
-
 /*🌺🌺 Home Wrapper 2 ends 🌺🌺 */
+
+/* 🌹🌹 Categories Section 🌹🌹*/
+.categories {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #0000001a;
+  padding: 15px;
+}
+
+.categories > div {
+  width: 25%;
+  padding: 10px 10px 10px 20px;
+}
+
+.categories > div > div {
+  width: 60%;
+}
+
+.categories > div:nth-child(1),
+.categories > div:nth-child(2),
+.categories > div:nth-child(3),
+.categories > div:nth-child(4) {
+  border-bottom: 1px solid var(--color-ededed);
+}
+
+.categories > div:nth-child(1),
+.categories > div:nth-child(2),
+.categories > div:nth-child(3) {
+  border-right: 1px solid var(--color-ededed);
+}
+
+.categories > div:nth-child(5),
+.categories > div:nth-child(6),
+.categories > div:nth-child(7) {
+  border-right: 1px solid var(--color-ededed);
+}
+/*🌺🌺  Categories Section ends here 🌺🌺 */
 /* Home Page Ends Here */
