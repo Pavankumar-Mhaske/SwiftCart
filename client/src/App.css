@@ -89,6 +89,22 @@ a {
 }
 .header-bottom .dropdown-item:hover {
   background-color: transparent;
-  color:var(--color-febd69) !important;
+  color: var(--color-febd69) !important;
 }
 /* Header Part End Here */
+
+/* Footer Part  */
+footer {
+  background-color: var(--color-232f3e);
+}
+
+footer:not(:first-child) {
+  border-top: 1px solid rgba(225, 225, 225, 0.1);
+}
+
+footer .input-group-text {
+  background-color: var(--color-232f3e);
+  color: #fff;
+  padding: 8px 17px;
+}
+/* Footer Part Ends Here */
