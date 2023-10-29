@@ -11,6 +11,7 @@
   --color-232f3e: #232f3e;
   --color-bf4800: #bf4800;
   --color-232f3e: #232f3e;
+  --color-f5f5f7: #f5f5f7;
 }
 
 body {
@@ -125,6 +126,8 @@ footer .input-group-text {
 /* Footer Part Ends Here */
 
 /* Home Page */
+
+/* 🌹🌹 Home Wrapper 1 🌹🌹*/
 /* *** 💪🏻 main-banner */
 .main-banner-content {
   top: 15%;
@@ -148,6 +151,7 @@ footer .input-group-text {
   letter-spacing: -2px;
   text-transform: none;
 }
+
 .main-banner-content p {
   font-size: 18px;
   line-height: 28px;
@@ -171,6 +175,7 @@ footer .input-group-text {
   letter-spacing: 0.3px;
   text-transform: uppercase;
 }
+
 .small-banner-content h5 {
   font-size: 22px;
   line-height: 34px;
@@ -178,6 +183,7 @@ footer .input-group-text {
   font-weight: 500;
   text-transform: none;
 }
+
 .small-banner-content p {
   font-size: 14px;
   line-height: 22px;
@@ -185,8 +191,16 @@ footer .input-group-text {
   color: var(--color-131921);
 }
 
-.small-banner{
-  width:49%;
+.small-banner {
+  width: 49%;
+}
+/*🌺🌺 Home Wrapper 1 ends 🌺🌺 */
+
+
+/* 🌹🌹 Home Wrapper 2 🌹🌹*/
+.home-wrapper-2 {
+  background-color: var(--color-f5f5f7);
 }
 
+/*🌺🌺 Home Wrapper 2 ends 🌺🌺 */
 /* Home Page Ends Here */
