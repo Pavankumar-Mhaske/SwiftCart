@@ -236,6 +236,71 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <section className="famous-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-3">
+              <div className="famous-card black-background position-relative ">
+                <img
+                  src="images/watch5.jpg"
+                  className="img-fluid"
+                  alt="watch"
+                />
+                <div className="famous-content position-absolute ">
+                  <h5 className="black-background">Big Screen</h5>
+                  <h6 className="black-background">Smart Watch Series 7</h6>
+                  <p className="black-background">
+                    From $399 or $16.62/mo. for 24 mo.*
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                {/* <img src="images/watch2.webp" alt="" /> */}
+                <img
+                  src="images/mobile1.jpg"
+                  className="img-fluid"
+                  alt="watch"
+                />
+                <div className="famous-content position-absolute">
+                  <h5 className="text-dark">Smartphones</h5>
+                  <h6 className="text-dark">Smartpnone 13 Pro</h6>
+                  <p className="text-dark">
+                    Now in blue, silver, gold, and red. From $699 or $29.12/mo.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="famous-card position-relative  ">
+                <img
+                  src="images/alexa1.jpg"
+                  className="img-fluid"
+                  alt="watch"
+                />
+                <div className="famous-content position-absolute">
+                  <h5 className="text-dark">Home Speakers</h5>
+                  <h6 className="text-dark">Room-filling Sound</h6>
+                  <p className="text-dark">
+                    From $699 or $116.58/mo. for 12 mo.{" "}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="famous-card position-relative  ">
+                <img src="images/tv1.jpg" className="img-fluid" alt="watch" />
+                <div className="famous-content position-absolute">
+                  <h5 className="text-dark">Studio display</h5>
+                  <h6 className="text-dark">600 nits of brightness</h6>
+                  <p className="text-dark">27-inch 5k Ratina display</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Special Products */}
       <section className="special-wrapper py-5 home-wrapper-2">
         <div className="container-xxl">
@@ -246,6 +311,23 @@ const Home = () => {
             <SpecialProduct />
             <SpecialProduct />
             <SpecialProduct />
+            <SpecialProduct />
+          </div>
+        </div>
+      </section>
+      {/* Popular Products */}
+      <section className="popular-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="section-heading">Our Popular Products</h3>
+            </div>
+          </div>
+          <div className="row">
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
           </div>
         </div>
       </section>
