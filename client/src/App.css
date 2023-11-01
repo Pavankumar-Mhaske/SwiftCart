@@ -27,7 +27,7 @@ body {
   font-weight: 500;
   margin-bottom: 30px;
   letter-spacing: 0.3px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   color: var(--color-131921);
 }
 
@@ -373,3 +373,75 @@ footer .input-group-text {
 }
 
 /* 🌺🌺 Special Product Ends here 🌺🌺 */
+
+/* 🌹🌹 Famous Card 🌹🌹 */
+.famous-card .famous-content {
+  top: 10%;
+  left: 10%;
+}
+.black-background {
+  background-color: #000000 !important;
+  color: #fff !important;
+}
+
+.famous-card img {
+  border-radius: 10px;
+}
+
+.famous-content {
+  flex: 1;
+  padding: 10px;
+}
+
+.famous-content h5 {
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400px;
+  color: #fff;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+}
+.famous-content h6 {
+  font-size: 24px;
+  line-height: 38px;
+  font-weight: 500;
+  color: #fff;
+}
+.famous-content p {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 100;
+  color: #fff;
+}
+
+/* arranging the image at the bottom and content at the top of the famous card component */
+.famous-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 430px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 15px #0000001a;
+}
+
+.famous-card .famous-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #000000;
+  /* border: 1px solid black; */
+}
+
+.famous-card img {
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  /* border: 1px solid black; */
+}
+
+/* 🌺🌺 Famous Card Ends here 🌺🌺 */
