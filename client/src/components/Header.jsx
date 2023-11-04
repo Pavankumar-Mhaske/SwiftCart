@@ -5,6 +5,7 @@ import { BsSearch } from "react-icons/bs";
 const Header = () => {
   return (
     <>
+      {/* 1️⃣1️⃣1️⃣ Header - 1 1️⃣1️⃣1️⃣ */}
       <header className="header-top-strip py-3">
         <div className="container-xxl">
           <div className="row">
@@ -24,6 +25,8 @@ const Header = () => {
           </div>
         </div>
       </header>
+
+      {/* 2️⃣2️⃣2️⃣ Header - 2 2️⃣2️⃣2️⃣ */}
       <header className="header-upper py-3">
         <div className="container-xxl">
           <div className="row align-items-center">
@@ -48,6 +51,7 @@ const Header = () => {
             </div>
             <div className="col-5">
               <div className="header-upper-links d-flex align-items-center justify-content-between">
+                {/*🕗🕗🕜🕜  Compare Product 🕗🕗🕜🕜 */}
                 <div>
                   <Link
                     to="/compare-product"
@@ -61,6 +65,7 @@ const Header = () => {
                     </p>
                   </Link>
                 </div>
+                {/*🕗🕗🕜🕜  Favourite Wishlist 🕗🕗🕜🕜 */}
                 <div>
                   <Link
                     to="/wishlist"
@@ -72,6 +77,7 @@ const Header = () => {
                     </p>
                   </Link>
                 </div>
+                {/*🕗🕗🕜🕜  Login My Account 🕗🕗🕜🕜 */}
                 <div>
                   <Link
                     to="/login"
@@ -83,6 +89,7 @@ const Header = () => {
                     </p>
                   </Link>
                 </div>
+                {/*🕗🕗🕜🕜  Cart 🕗🕗🕜🕜 */}
                 <div>
                   <Link
                     to="/cart"
@@ -101,6 +108,7 @@ const Header = () => {
         </div>
       </header>
 
+      {/* 3️⃣3️⃣3️⃣ Header - 3 3️⃣3️⃣3️⃣ */}
       <header className="header-bottom py-3">
         <div className="container-xxl">
           <div className="row">
