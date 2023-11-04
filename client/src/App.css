@@ -350,6 +350,12 @@ footer .input-group-text {
   font-size: 15px;
   color: var(--color-1c1c1b);
 }
+
+.product-card .product-details p.description {
+  font-size: 13px;
+  color: var(--color-777777);
+  margin-right: 20px;
+}
 .product-card .product-details p {
   font-size: 16px;
   color: var(--color-1c1c1b);
@@ -523,6 +529,7 @@ footer .input-group-text {
   background-color: var(--color-f2f2f2);
   padding: 8px;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .gr-12 {
@@ -539,6 +546,44 @@ footer .input-group-text {
 
 .gr-3 {
   width: 24%;
+}
+/* 🌺🌺  THIS TWO THINGS JUST I NEED TO REMOVE TO MAKE THE FULL VIEW OF THE PRODUCT IMAGE  🌺🌺 */
+.gr-12 .product-card {
+  display: flex; /* 🌺🌺 */
+  gap: 20px;
+}
+
+.gr-6 .product-image {
+  width: 100%;
+}
+
+.gr-6 .product-image img {
+  margin: auto;
+  display: block;
+}
+
+.gr-12 .product-card .product-image {
+  width: 30%; /* 🌺🌺 */
+  /* width: 270px; */
+}
+
+/* .gr-12 .product-card .product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+} */
+
+.gr-12 .product-card .product-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.gr-12 .action-bar {
+  top: 20%;
+  /* right: -20px; */
+  /* transition: 0.3s; */
 }
 /* 🌺🌺 Our Store Ends here 🌺🌺 */
 
