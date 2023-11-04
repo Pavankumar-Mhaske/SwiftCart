@@ -15,6 +15,7 @@
   --color-ededed: #ededed;
   --color-777777: #777777;
   --color-1c1c1b: #1c1c1b;
+  --color-f2f2f2: #f2f2f2;
 }
 
 body {
@@ -317,8 +318,8 @@ footer .input-group-text {
 }
 
 .product-card .product-image {
-  height: 180px;
-  width: 280px;
+  /* height: 180px;
+  width: 280px; */
 }
 .product-card .product-image img {
   object-fit: contain;
@@ -507,6 +508,20 @@ footer .input-group-text {
 }
 .random-products:first-child {
   border-bottom: 1px solid var(--color-ededed);
+}
+
+.filter-sort-grid {
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.grid img {
+  width: 35px;
+  height: 35px;
+  background-color: var(--color-f2f2f2);
+  padding: 8px;
+  border-radius: 3px;
 }
 
 /* 🌺🌺 Our Store Ends here 🌺🌺 */
