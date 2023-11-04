@@ -315,6 +315,7 @@ footer .input-group-text {
   box-shadow: 0px 0px 10px #0000001a;
   border-radius: 10px;
   overflow: hidden;
+  width: 100%;
 }
 
 .product-card .product-image {
@@ -524,6 +525,21 @@ footer .input-group-text {
   border-radius: 3px;
 }
 
+.gr-12 {
+  width: 100%;
+}
+
+.gr-6 {
+  width: 49%;
+}
+
+.gr-4 {
+  width: 32%;
+}
+
+.gr-3 {
+  width: 24%;
+}
 /* 🌺🌺 Our Store Ends here 🌺🌺 */
 
 /* 🌹🌹 Our Store 🌹🌹 */
