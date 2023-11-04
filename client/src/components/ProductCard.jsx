@@ -44,6 +44,12 @@ const ProductCard = (props) => {
               edit={false}
               activeColor="#ffd700"
             />
+            <p className={`description ${grid === 12 ? `d-block` : `d-none`}`}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+              quibusdam, voluptatum, quia, quod voluptatem a -- a-- eligendi voluptates
+              voluptas doloribus quos quae natus?
+            </p>
+
             <p className="price">$100</p>
           </div>
           <div className="action-bar position-absolute">
