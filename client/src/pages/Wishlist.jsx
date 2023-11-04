@@ -7,6 +7,7 @@ const Wishlist = () => {
     <>
       <Meta title={"Wishlist"} />
       <BreadCrumb title="Wishlist" />
+      {/* ⭐⭐⭐⭐ wishlist-wrapper  ⭐⭐⭐⭐ */}
       <div className="wishlist-wrapper home-wrapper-2 py-5">
         <div className="container-xxl">
           <div className="row">
