@@ -5,6 +5,7 @@
 }
 
 :root {
+  --color-ffffff: #ffffff;
   --color-131921: #131921;
   --color-3b4149: #3b4149;
   --color-febd69: #febd69;
@@ -33,7 +34,7 @@ body {
 }
 
 .card-wrapper {
-  background-color: #fff;
+  background-color: var(--color-ffffff);
   box-shadow: 0px 0px 10px #0000001a;
   padding: 15px;
 }
@@ -69,7 +70,7 @@ a {
 
 .button {
   background-color: var(--color-232f3e);
-  color: #fff;
+  color: var(--color-ffffff);
   font-size: 14px;
   padding: 13px 33px;
   border-radius: 25px;
@@ -106,7 +107,7 @@ a {
 /* here a refers to the Link, NavLinks, etc */
 .header-bottom .menu-links a,
 .header-bottom .dropdown button {
-  color: #fff;
+  color: var(--color-ffffff);
   font-size: 14px;
   line-height: 18px;
   font-weight: 400;
@@ -147,7 +148,7 @@ footer:not(:first-child) {
 
 footer .input-group-text {
   background-color: var(--color-232f3e);
-  color: #fff;
+  color: var(--color-ffffff);
   padding: 8px 17px;
 }
 /* Footer Part Ends Here */
@@ -231,7 +232,7 @@ footer .input-group-text {
 
 /* 🌹🌹 Categories Section 🌹🌹*/
 .categories {
-  background-color: #fff;
+  background-color: var(--color-ffffff);
   box-shadow: 0px 0px 10px #0000001a;
   padding: 15px;
 }
@@ -268,7 +269,7 @@ footer .input-group-text {
 
 /* 🌹🌹 Blog Part 🌹🌹 */
 .blog-card {
-  background-color: #fff;
+  background-color: var(--color-ffffff);
   /* padding: 15px; */
   border-radius: 10px;
   box-shadow: 0px 0px 10px #0000001a;
@@ -314,7 +315,7 @@ footer .input-group-text {
 /* 🌹🌹 Product Part 🌹🌹 */
 .product-card {
   padding: 15px;
-  background-color: #fff;
+  background-color: var(--color-ffffff);
   box-shadow: 0px 0px 10px #0000001a;
   border-radius: 10px;
   overflow: hidden;
@@ -380,7 +381,7 @@ footer .input-group-text {
 .special-product-card {
   padding: 20px 10px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: var(--color-ffffff);
 }
 
 /* 🌺🌺 Special Product Ends here 🌺🌺 */
@@ -392,7 +393,7 @@ footer .input-group-text {
 }
 .black-background {
   background-color: #000000 !important;
-  color: #fff !important;
+  color: var(--color-ffffff) !important;
 }
 
 .famous-card img {
@@ -408,7 +409,7 @@ footer .input-group-text {
   font-size: 13px;
   line-height: 20px;
   font-weight: 400px;
-  color: #fff;
+  color: var(--color-ffffff);
   margin-bottom: 7px;
   text-transform: uppercase;
 }
@@ -416,13 +417,13 @@ footer .input-group-text {
   font-size: 24px;
   line-height: 38px;
   font-weight: 500;
-  color: #fff;
+  color: var(--color-ffffff);
 }
 .famous-content p {
   font-size: 16px;
   line-height: 24px;
   font-weight: 100;
-  color: #fff;
+  color: var(--color-ffffff);
 }
 
 /* arranging the image at the bottom and content at the top of the famous card component */
@@ -459,7 +460,7 @@ footer .input-group-text {
 
 /* 🌹🌹 Our Store 🌹🌹 */
 .filter-card {
-  background-color: #fff;
+  background-color: var(--color-ffffff);
   border-radius: 10px;
   padding: 15px 15px 25px;
 }
@@ -522,7 +523,7 @@ footer .input-group-text {
 
 .filter-sort-grid {
   padding: 10px;
-  background-color: #fff;
+  background-color: var(--color-ffffff);
   border-radius: 10px;
 }
 
@@ -647,7 +648,7 @@ footer .input-group-text {
 /* 🌹🌹 Compare Product and Wishlist 🌹🌹 */
 .compare-product-card {
   padding: 20px 15px;
-  background-color: #fff;
+  background-color: var(--color-ffffff);
   box-shadow: 0px 0px 10px #0000001a;
   border-radius: 10px;
   overflow: hidden;
@@ -697,7 +698,7 @@ footer .input-group-text {
 /* 🌹🌹 Wishlist 🌹🌹 */
 .wishlist-card {
   padding: 20px 15px;
-  background-color: #fff;
+  background-color: var(--color-ffffff);
   box-shadow: 0px 0px 10px #0000001a;
   border-radius: 10px;
   overflow: hidden;
@@ -705,3 +706,76 @@ footer .input-group-text {
 }
 
 /* 🌺🌺 Wishlist Ends here 🌺🌺 */
+
+/* 🌹🌹 Auth Card 🌹🌹 */
+.auth-card {
+  padding: 20px;
+  background-color: var(--color-ffffff);
+  width: 500px;
+  margin: 30px auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #0000001a;
+  overflow: hidden;
+}
+
+.auth-card h3 {
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--color-777777);
+  text-transform: capitalize;
+}
+
+.auth-card p {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-777777);
+  margin-bottom: 20px;
+}
+
+.auth-card .form-control {
+  height: 50px;
+  background-color: var(--color-f5f5f7);
+  color: var(--color-131921);
+  font-size: 14px;
+  border-radius: 25px;
+  border: 1px solid var(--color-ededed);
+  padding: 15px 20px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0.3;
+  text-transform: capitalize;
+}
+
+.auth-card a {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-1c1c1b);
+  text-transform: capitalize;
+}
+.auth-card a:hover {
+  text-decoration: underline;
+}
+
+.auth-card .signup {
+  background-color: var(--color-febd69);
+  color: var(--color-131921);
+}
+.auth-card .signup:hover {
+  background-color: var(--color-131921);
+  color: var(--color-ffffff);
+  text-decoration: none;
+}
+
+.auth-card .cancel {
+  background-color: var(--color-ffffff);
+  color: var(--color-131921);
+  /* text-decoration: none; */
+  border: 1px solid var(--color-ffffff);
+}
+.auth-card .cancel:hover {
+  border: 1px solid var(--color-ededed);
+  text-decoration: none;
+  box-shadow: 0px 0px 1px #0000001a;
+}
+
+/* 🌺🌺 Auth Card Ends here 🌺🌺 */
