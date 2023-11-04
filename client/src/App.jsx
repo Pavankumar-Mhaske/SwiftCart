@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import OurStore from "./pages/OurStore";
 import Blog from "./pages/Blog";
+import CompareProduct from "./pages/CompareProduct";
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 function App() {
   const [count, setCount] = useState(0);
@@ -20,8 +21,9 @@ function App() {
             <Route index element={<Home />} />
             <Route path="store" element={<OurStore />} />
             <Route path="blogs" element={<Blog />} />
-            <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="compare-product" element={<CompareProduct />} />
+            <Route path="about" element={<About />} />
           </Route>
         </Routes>
       </Router>
