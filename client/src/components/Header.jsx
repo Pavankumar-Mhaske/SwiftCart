@@ -94,6 +94,7 @@ const Header = () => {
           <div className="row">
             <div className="col-12">
               <div className="menu-bottom d-flex align-items-center gap-30">
+                {/*🔗🔗🔗🔗 dropdown list 🔗🔗🔗🔗 */}
                 <div>
                   <div className="dropdown">
                     <button
@@ -130,13 +131,13 @@ const Header = () => {
                     </ul>
                   </div>
                 </div>
-
+                {/*🏡🏠🛒📜💁🏻‍♂️📞 sections 🏡🏠🛒📜💁🏻‍♂️📞  */}
                 <div className="menu-links">
                   <div className="d-flex align-items-center gap-15">
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/store">Our Store</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
-                    <NavLink to="/">contact</NavLink>
+                    <NavLink to="/contact">contact</NavLink>
                   </div>
                 </div>
               </div>
