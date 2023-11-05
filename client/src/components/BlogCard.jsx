@@ -13,7 +13,7 @@ function BlogCard() {
           You're Only As Good As Your Last Collection. Which is An Enomous
           Pressure. I Think there is Something About...
         </p>
-        <Link className="button" to="/">
+        <Link to="/blog/:id" className="button">
           READ MORE
         </Link>
       </div>
