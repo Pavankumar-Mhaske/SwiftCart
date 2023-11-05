@@ -18,6 +18,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPolicy from "./pages/RefundPolicy";
 import ShipingPolicy from "./pages/ShipingPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
+import SingleProduct from "./pages/SingleProduct";
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 function App() {
   const [count, setCount] = useState(0);
@@ -29,7 +30,10 @@ function App() {
           <Route path="/" element={<Layout />}>
             {/* Whatever we pass inside this Router it will be available in the Layout component as a prop called children that is Outlet */}
             <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
             <Route path="store" element={<OurStore />} />
+            <Route path="product/:id" element={<SingleProduct />} />
             <Route path="blogs" element={<Blog />} />
             <Route path="blog/:id" element={<SingleBlog />} />
             <Route path="compare-product" element={<CompareProduct />} />
@@ -46,7 +50,6 @@ function App() {
               path="terms-and-conditions"
               element={<TermsAndConditions />}
             />
-            <Route path="about" element={<About />} />
           </Route>
         </Routes>
       </Router>
