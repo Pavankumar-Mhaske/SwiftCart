@@ -931,10 +931,31 @@ footer .input-group-text {
 .main-product-image > div {
   width: 100%;
   height: 100%;
+  object-fit: cover;
   /* border : 1px solid var(--color-ededed); */
   border: 1px solid rgba(0, 0, 0, 0.25);
-  /* width: 200px;
-  height: 200px; */
+}
+
+.other-product-images {
+  padding: 20px;
+  background-color: var(--color-ffffff);
+  /* box-shadow: 0px 0px 10px #0000001a; */
+}
+
+.main-product-image .enlargedImageContainer {
+  width: 123% !important;
+  margin-top: -40px !important;
+  height: 110% !important;
+  border: 1px solid var(--color-777777) !important;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 10px !important;
+  margin-left: 40px !important;
+}
+.other-product-images > div {
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 48%;
 }
 
 /* 🌺🌺 Main Product Page Ends here 🌺🌺 */
