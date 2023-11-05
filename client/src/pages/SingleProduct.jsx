@@ -1,20 +1,54 @@
 import React, { useState } from "react";
+import ReactDOM from "react-dom";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
+// import ReactImageZoom from "react-image-zoom";
+import ReactImageMagnify from "react-image-magnify";
 
 const SingleProduct = () => {
+  // const props = {
+  //   width: 400,
+  //   height: 250,
+  //   zoomWidth: 500,
+  //   zoomPosition: "right",
+  //   img: "https://cdn.anscommerce.com/catalog/brandstore/johnson/17_7_20/Sale.jpg",
+  // };
+
   const [orderedProduct, setOrderedProduct] = useState(true);
   return (
     <>
       <Meta title={"Product Name dynamically"} />
       <BreadCrumb title="Product Name dynamically" />
 
+      {/* Product Details */}
       <div className="main-product-wrapper py-5 home-wrapper-2">
         <div className="container-xxl">
           <div className="row">
-            <div className="col-6"></div>
+            <div className="col-6">
+              <div className="main-product-image">
+                <div>
+                  {/* <ReactImageZoom {...props} /> */}
+                  {/* <img src="/images/watch.jpg" alt="watch" /> */}
+                  <ReactImageMagnify
+                    {...{
+                      smallImage: {
+                        alt: "Wristwatch by Ted Baker London",
+                        isFluidWidth: true,
+                        src: "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713300/Croma%20Assets/Communication/Wearable%20Devices/Images/300848_0_hyu5ar.png?tr=w-640",
+                      },
+                      largeImage: {
+                        src: "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713300/Croma%20Assets/Communication/Wearable%20Devices/Images/300848_0_hyu5ar.png?tr=w-640",
+                        width: 1200,
+                        height: 1200,
+                        alt: "Wristwatch by Ted Baker London",
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
             <div className="col-6"></div>
           </div>
         </div>
