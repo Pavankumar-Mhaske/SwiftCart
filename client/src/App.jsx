@@ -14,6 +14,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 import SignUp from "./pages/SignUp";
 import ResetPassword from "./pages/ResetPassword";
 import SingleBlog from "./pages/SingleBlog";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RefundPolicy from "./pages/RefundPolicy";
+import ShipingPolicy from "./pages/ShipingPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 function App() {
   const [count, setCount] = useState(0);
@@ -34,6 +38,14 @@ function App() {
             <Route path="signup" element={<SignUp />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="reset-password" element={<ResetPassword />} />
+            {/* Policies  */}
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="refund-policy" element={<RefundPolicy />} />
+            <Route path="shiping-policy" element={<ShipingPolicy />} />
+            <Route
+              path="terms-and-conditions"
+              element={<TermsAndConditions />}
+            />
             <Route path="about" element={<About />} />
           </Route>
         </Routes>
