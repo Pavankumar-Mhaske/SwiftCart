@@ -13,7 +13,7 @@ const ProductCard = (props) => {
       <div
         className={`${location.pathname === "/store" ? `gr-${grid}` : "col-3"}`}
       >
-        <Link className="product-card position-relative">
+        <Link to="/product/:id" className="product-card position-relative">
           <div className="wishlist-icon position-absolute">
             <Link>
               <img src="/images/wish.svg" alt="wishlist" />
@@ -46,8 +46,8 @@ const ProductCard = (props) => {
             />
             <p className={`description ${grid === 12 ? `d-block` : `d-none`}`}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-              quibusdam, voluptatum, quia, quod voluptatem a -- a-- eligendi voluptates
-              voluptas doloribus quos quae natus?
+              quibusdam, voluptatum, quia, quod voluptatem a -- a-- eligendi
+              voluptates voluptas doloribus quos quae natus?
             </p>
 
             <p className="price">$100</p>
