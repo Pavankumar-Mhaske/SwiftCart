@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import SignUp from "./pages/SignUp";
 import ResetPassword from "./pages/ResetPassword";
+import SingleBlog from "./pages/SingleBlog";
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 function App() {
   const [count, setCount] = useState(0);
@@ -26,7 +27,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="store" element={<OurStore />} />
             <Route path="blogs" element={<Blog />} />
-            <Route path="contact" element={<Contact />} />
+            <Route path="blog/:id" element={<SingleBlog />} />
             <Route path="compare-product" element={<CompareProduct />} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="login" element={<Login />} />
