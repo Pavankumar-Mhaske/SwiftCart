@@ -4,6 +4,7 @@ import { BsLinkedin, BsGithub, BsYoutube, BsInstagram } from "react-icons/bs";
 const Footer = () => {
   return (
     <>
+      {/* 🦶👢🦶👢🦶👢🦶 Footer - 1  🦶👢🦶👢🦶👢🦶 */}
       <footer className="py-4">
         <div className="container-xxl">
           <div className="row align-items-center">
@@ -30,9 +31,11 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+      {/* 🦶👢🦶👢🦶👢🦶 Footer - 2  🦶👢🦶👢🦶👢🦶 */}
       <footer className="py-4">
         <div className="container-xxl">
           <div className="row">
+            {/* column - 1 */}
             <div className="col-4">
               <h4 className="text-white mb-4">Contact Us</h4>
               <div>
@@ -69,20 +72,31 @@ const Footer = () => {
                 </div>
               </div>
             </div>
+            {/* column - 2 */}
             <div className="col-3">
               <h4 className="text-white mb-4">Information</h4>
               <div>
                 <div className="footer-link d-flex flex-column">
-                  <Link className="text-white py-2 mb-1">Privacy Policy</Link>
-                  <Link className="text-white py-2 mb-1">Refund Policy</Link>
-                  <Link className="text-white py-2 mb-1">Shiping Policy</Link>
-                  <Link className="text-white py-2 mb-1">
+                  <Link to="privacy-policy" className="text-white py-2 mb-1">
+                    Privacy Policy
+                  </Link>
+                  <Link to="refund-policy" className="text-white py-2 mb-1">
+                    Refund Policy
+                  </Link>
+                  <Link to="shiping-policy" className="text-white py-2 mb-1">
+                    Shiping Policy
+                  </Link>
+                  <Link
+                    to="terms-and-conditions"
+                    className="text-white py-2 mb-1"
+                  >
                     Terms & Conditions
                   </Link>
                   <Link className="text-white py-2 mb-1">Blogs</Link>
                 </div>
               </div>
             </div>
+            {/* column - 3 */}
             <div className="col-3">
               <h4 className="text-white mb-4">Account</h4>
               <div>
@@ -95,6 +109,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
+            {/* column - 4 */}
             <div className="col-2">
               <h4 className="text-white mb-4">Quick Links</h4>
               <div className="footer-link d-flex flex-column">
@@ -108,6 +123,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+      {/* 🦶👢🦶👢🦶👢🦶 Footer - 3  🦶👢🦶👢🦶👢🦶 */}
       <footer className="py-4">
         <div className="container-xxl">
           <div className="row">
