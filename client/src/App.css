@@ -812,3 +812,10 @@ footer .input-group-text {
 }
 
 /* 🌺🌺 Auth Card Ends here 🌺🌺 */
+
+/* 🌹🌹 Policy Pages 🌹🌹 */
+.policy {
+  background-color: var(--color-ffffff);
+  padding: 30px;
+}
+/* 🌺🌺 Policy Pages Ends here 🌺🌺 */
