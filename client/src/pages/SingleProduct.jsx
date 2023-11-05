@@ -27,10 +27,9 @@ const SingleProduct = () => {
         <div className="container-xxl">
           <div className="row">
             <div className="col-6">
+              {/* 📸📷📸 Main Product Images 📸📷📸 */}
               <div className="main-product-image">
                 <div>
-                  {/* <ReactImageZoom {...props} /> */}
-                  {/* <img src="/images/watch.jpg" alt="watch" /> */}
                   <ReactImageMagnify
                     {...{
                       smallImage: {
@@ -44,7 +43,47 @@ const SingleProduct = () => {
                         height: 1200,
                         alt: "Wristwatch by Ted Baker London",
                       },
+                      enlargedImageContainerClassName: "enlargedImageContainer",
                     }}
+                  />
+                </div>
+              </div>
+              {/* 📸📷📸 Other Product Images 📸📷📸 */}
+              <div className="other-product-images d-flex flex-wrap gap-15 ">
+                {/* 🎀🎀🎀 Image - 1  🎀🎀🎀 */}
+                <div>
+                  <img
+                    className="img-fluid"
+                    // src="/images/watch.jpg"
+                    src="https://m.media-amazon.com/images/I/71YdE55GwjL._SX679_.jpg"
+                    alt="watch"
+                  />
+                </div>
+                {/* 🎀🎀🎀 Image - 2  🎀🎀🎀 */}
+                <div>
+                  <img
+                    className="img-fluid"
+                    // src="/images/watch.jpg"
+                    src="https://m.media-amazon.com/images/I/71Fh4UiXnUL._SX679_.jpg"
+                    alt="watch"
+                  />
+                </div>
+                {/* 🎀🎀🎀 Image - 3  🎀🎀🎀 */}
+                <div>
+                  <img
+                    className="img-fluid"
+                    // src="/images/watch.jpg"
+                    src="https://m.media-amazon.com/images/I/811GOkDSOaL._SX679_.jpg"
+                    alt="watch"
+                  />
+                </div>
+                {/* 🎀🎀🎀 Image - 4  🎀🎀🎀 */}
+                <div>
+                  <img
+                    className="img-fluid"
+                    // src="/images/watch.jpg"
+                    src="https://m.media-amazon.com/images/I/71Q-4X6lBhL._SX679_.jpg"
+                    alt="watch"
                   />
                 </div>
               </div>
