@@ -111,7 +111,7 @@ const SingleProduct = () => {
                 </div>
                 {/* Price, Ratings and Write a Review */}
                 <div className="border-bottom py-3">
-                  <p className="price">$ 100</p>
+                  <p className="price">$100.00</p>
                   <div className="d-flex align-items-center gap-10">
                     <ReactStars
                       count={5}
