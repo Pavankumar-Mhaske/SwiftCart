@@ -1058,3 +1058,77 @@ footer .input-group-text {
   max-width: 300px; /* Adjust the max-width to your design needs */
 }
 /* 🌺🌺 Main Product Page Ends here 🌺🌺 */
+
+/* 🌹🌹 Cart Page 🌹🌹 */
+.cart-header {
+  /* border-bottom: 1px solid #eaeaea; */
+}
+
+.cart-header h4 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-777777);
+}
+
+.cart-col-1 {
+  width: 40%;
+}
+
+.cart-col-2 {
+  width: 10%;
+}
+
+.cart-col-3 {
+  width: 15%;
+}
+
+.cart-col-4 {
+  width: 15%;
+}
+
+.delete-img {
+  cursor: pointer;
+}
+
+.cart-wrapper .title {
+  font-size: 15px;
+  color: var(--color-777777);
+  margin-bottom: 0px;
+}
+
+.cart-wrapper .product-heading {
+  color: var(--color-777777);
+}
+
+.cart-wrapper p.price {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  margin-bottom: 0px;
+  color: var(--color-1c1c1b);
+}
+
+.cart-wrapper .cart-border-bottom {
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.25); */
+  border-bottom: 1px solid #eaeaea !important;
+}
+
+.product-heading {
+  font-size: 14px;
+  color: var(--color-1c1c1b);
+  margin-bottom: 0px;
+}
+
+.product-data {
+  font-size: 13px;
+  color: var(--color-777777);
+  margin-bottom: 0px;
+}
+
+.cart-wrapper .button {
+  font-size: 15px;
+  font-weight: 450;
+  letter-spacing: 1px;
+}
+
+/* 🌺🌺 Cart Page Ends here 🌺🌺 */
