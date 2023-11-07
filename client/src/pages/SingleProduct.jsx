@@ -10,9 +10,16 @@ import Color from "../components/Color";
 import { Link } from "react-router-dom";
 import { IoGitCompare } from "react-icons/io5";
 import { AiOutlineHeart } from "react-icons/ai";
+import { FcShipped } from "react-icons/fc";
+import { GiMaterialsScience } from "react-icons/gi";
+import { RxDimensions } from "react-icons/rx";
+import { MdOutlineHealthAndSafety } from "react-icons/md";
+import { AiOutlineLink } from "react-icons/ai";
+
 import CopyToClipboard from "../components/copy.jsx";
 
 const SingleProduct = () => {
+  const grid = 4;
   const [copiedText, setCopiedText] = useState(""); // State to hold the text to be copied
   const pRef = useRef(); // Create a ref for the <p> element
   useEffect(() => {
@@ -199,7 +206,8 @@ const SingleProduct = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="d-flex align-items-center gap-15 ">
+                  {/* Add to Compare | Add to Wishlist */}
+                  <div className="d-flex align-items-center gap-15 mt-4 mb-3">
                     <div>
                       <a href="">
                         {" "}
@@ -215,7 +223,7 @@ const SingleProduct = () => {
                   </div>
                   {/* Accordion  */}
                   <div
-                    className="accordion"
+                    className="accordion py-5"
                     id="accordionPanelsStayOpenExample"
                   >
                     {/* Shiping & Returns */}
@@ -232,7 +240,7 @@ const SingleProduct = () => {
                           aria-expanded="true"
                           aria-controls="panelsStayOpen-collapseOne"
                         >
-                          Shiping & Returns
+                          <FcShipped className="fs-5 me-2" /> Shiping & Returns
                         </button>
                       </h2>
                       <div
@@ -264,7 +272,7 @@ const SingleProduct = () => {
                           aria-expanded="false"
                           aria-controls="panelsStayOpen-collapseTwo"
                         >
-                          Materials
+                          <GiMaterialsScience className="fs-5 me-2" /> Materials
                         </button>
                       </h2>
                       <div
@@ -292,7 +300,7 @@ const SingleProduct = () => {
                           aria-expanded="false"
                           aria-controls="panelsStayOpen-collapseThree"
                         >
-                          Dimensions
+                          <RxDimensions className="fs-5 me-2" /> Dimensions
                         </button>
                       </h2>
                       <div
@@ -322,6 +330,7 @@ const SingleProduct = () => {
                           aria-expanded="false"
                           aria-controls="panelsStayOpen-collapseThree"
                         >
+                          <MdOutlineHealthAndSafety className="fs-5 me-2" />{" "}
                           Care Instructions
                         </button>
                       </h2>
@@ -341,8 +350,13 @@ const SingleProduct = () => {
                     </div>
                     {/* Shipping */}
                   </div>
+                  {/* Copy Product Link */}
                   <div className="d-flex gap-10 justify-content-between align-items-center my-2 mx-3 ">
-                    <h3 className="product-heading">Copy Product Link :</h3>
+                    <h3 className="product-heading">
+                      {" "}
+                      <AiOutlineLink className="fs-5 me-2" /> Copy Product Link
+                      :
+                    </h3>
                     <p ref={pRef} className="product-data product-link">
                       https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713300/Croma%20Assets/Communication/Wearable%20Devices/Images/300848_0_hyu5ar.png?tr=w-640
                     </p>
@@ -495,19 +509,21 @@ const SingleProduct = () => {
           </div>
         </div>
       </section>
-      {/* Popular Products */}
+      {/* You may also like */}
       <section className="popular-wrapper py-5 home-wrapper-2">
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">
-              <h3 className="section-heading">Our Popular Products</h3>
+              <h3 className="section-heading">You May Also Like</h3>
             </div>
           </div>
           <div className="row">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            <ProductCard grid={grid} />
+            <ProductCard grid={grid} />
+            <ProductCard grid={grid} />
+            <ProductCard grid={grid} />
+            <ProductCard grid={grid} />
+            <ProductCard grid={grid} />
           </div>
         </div>
       </section>
