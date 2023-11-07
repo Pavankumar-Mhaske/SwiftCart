@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
@@ -8,16 +8,19 @@ import ReactStars from "react-rating-stars-component";
 import ReactImageMagnify from "react-image-magnify";
 import Color from "../components/Color";
 import { Link } from "react-router-dom";
+import { IoGitCompare } from "react-icons/io5";
+import { AiOutlineHeart } from "react-icons/ai";
+import CopyToClipboard from "../components/copy.jsx";
+
 const SingleProduct = () => {
-  // const props = {
-  //   width: 400,
-  //   height: 250,
-  //   zoomWidth: 500,
-  //   zoomPosition: "right",
-  //   img: "https://cdn.anscommerce.com/catalog/brandstore/johnson/17_7_20/Sale.jpg",
-  // };
+  const [copiedText, setCopiedText] = useState(""); // State to hold the text to be copied
+  const pRef = useRef(); // Create a ref for the <p> element
+  useEffect(() => {
+    setCopiedText(pRef.current.textContent);
+  }, []);
 
   const [orderedProduct, setOrderedProduct] = useState(true);
+
   return (
     <>
       <Meta title={"Product Name dynamically"} />
@@ -194,6 +197,157 @@ const SingleProduct = () => {
                       <button to="/signup" className="button signup">
                         Buy It Now
                       </button>
+                    </div>
+                  </div>
+                  <div className="d-flex align-items-center gap-15 ">
+                    <div>
+                      <a href="">
+                        {" "}
+                        <IoGitCompare className="fs-5 me-2" /> Add to Compare
+                      </a>
+                    </div>
+                    <div>
+                      <a href="">
+                        {" "}
+                        <AiOutlineHeart className="fs-5 me-2" /> Add to Wishlist
+                      </a>
+                    </div>
+                  </div>
+                  {/* Accordion  */}
+                  <div
+                    className="accordion"
+                    id="accordionPanelsStayOpenExample"
+                  >
+                    {/* Shiping & Returns */}
+                    <div className="accordion-item">
+                      <h2
+                        className="accordion-header"
+                        id="panelsStayOpen-headingOne"
+                      >
+                        <button
+                          className="accordion-button"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#panelsStayOpen-collapseOne"
+                          aria-expanded="true"
+                          aria-controls="panelsStayOpen-collapseOne"
+                        >
+                          Shiping & Returns
+                        </button>
+                      </h2>
+                      <div
+                        id="panelsStayOpen-collapseOne"
+                        className="accordion-collapse collapse show"
+                        aria-labelledby="panelsStayOpen-headingOne"
+                      >
+                        <div className="accordion-body">
+                          <p>
+                            Free shipping and returns available on all orders!{" "}
+                            <br />
+                            WE ship all Us domestic orders within{" "}
+                            <strong>5-10 business days!</strong>{" "}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Materials */}
+                    <div className="accordion-item">
+                      <h2
+                        className="accordion-header"
+                        id="panelsStayOpen-headingTwo"
+                      >
+                        <button
+                          className="accordion-button collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#panelsStayOpen-collapseTwo"
+                          aria-expanded="false"
+                          aria-controls="panelsStayOpen-collapseTwo"
+                        >
+                          Materials
+                        </button>
+                      </h2>
+                      <div
+                        id="panelsStayOpen-collapseTwo"
+                        className="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-headingTwo"
+                      >
+                        <div className="accordion-body">
+                          Crafted with top-quality and durable materials. Our
+                          products are built to last and withstand everyday use.
+                        </div>
+                      </div>
+                    </div>
+                    {/* Dimensions */}
+                    <div className="accordion-item">
+                      <h2
+                        className="accordion-header"
+                        id="panelsStayOpen-headingThree"
+                      >
+                        <button
+                          className="accordion-button collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#panelsStayOpen-collapseThree"
+                          aria-expanded="false"
+                          aria-controls="panelsStayOpen-collapseThree"
+                        >
+                          Dimensions
+                        </button>
+                      </h2>
+                      <div
+                        id="panelsStayOpen-collapseThree"
+                        className="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-headingThree"
+                      >
+                        <div className="accordion-body">
+                          Product dimensions: 10" x 12". Designed to fit
+                          seamlessly into your space and provide the perfect
+                          size for your needs.
+                          {/* <code>.accordion-body</code> */}
+                        </div>
+                      </div>
+                    </div>
+                    {/* Care Instruction */}
+                    <div className="accordion-item">
+                      <h2
+                        className="accordion-header"
+                        id="panelsStayOpen-headingThree"
+                      >
+                        <button
+                          className="accordion-button collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#panelsStayOpen-collapseThree"
+                          aria-expanded="false"
+                          aria-controls="panelsStayOpen-collapseThree"
+                        >
+                          Care Instructions
+                        </button>
+                      </h2>
+                      <div
+                        id="panelsStayOpen-collapseThree"
+                        className="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-headingThree"
+                      >
+                        <div className="accordion-body">
+                          For longevity, hand wash the product in cold water
+                          with mild detergent. Air dry the item for best
+                          results, avoiding excessive heat or direct sunlight.
+                          Refer to our care instructions for more specific
+                          product maintenance tips.
+                        </div>
+                      </div>
+                    </div>
+                    {/* Shipping */}
+                  </div>
+                  <div className="d-flex gap-10 justify-content-between align-items-center my-2 mx-3 ">
+                    <h3 className="product-heading">Copy Product Link :</h3>
+                    <p ref={pRef} className="product-data product-link">
+                      https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713300/Croma%20Assets/Communication/Wearable%20Devices/Images/300848_0_hyu5ar.png?tr=w-640
+                    </p>
+                    <div className="copyIcon">
+                      <CopyToClipboard textData={copiedText} />
                     </div>
                   </div>
                 </div>
