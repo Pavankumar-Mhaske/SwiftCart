@@ -184,14 +184,16 @@ const SingleProduct = () => {
                     <h3 className="product-heading">Color :</h3>
                     <Color />
                   </div>
+                  {/* Quantity Input , ADD TO CART, BUY IT NOW */}
                   <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3 ">
                     <h3 className="product-heading">Quantity :</h3>
                     <div className="">
                       <input
                         type="number"
-                        name=""
+                        name="quntity"
                         min={1}
                         max={10}
+                        defaultValue={1} // Set the default value to 1
                         className="form-control"
                         style={{ width: "70px" }}
                         id=""
