@@ -1014,4 +1014,27 @@ footer .input-group-text {
 .cart-buy .signup {
   text-transform: capitalize;
 }
+
+.main-product-details a {
+  font-size: 14px;
+  color: var(--color-777777);
+}
+.accordion-body {
+  font-size: 14px;
+  color: var(--color-777777);
+  margin: 0px 33px 0px 0px;
+}
+.copyIcon {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.product-link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px; /* Adjust the max-width to your design needs */
+}
 /* 🌺🌺 Main Product Page Ends here 🌺🌺 */
