@@ -584,6 +584,10 @@ footer .input-group-text {
 .gr-3 {
   width: 24%;
 }
+
+.gr-2 {
+  width: 16%;
+}
 /* 🌺🌺  THIS TWO THINGS JUST I NEED TO REMOVE TO MAKE THE FULL VIEW OF THE PRODUCT IMAGE  🌺🌺 */
 .gr-12 .product-card {
   display: flex; /* 🌺🌺 */
@@ -621,6 +625,22 @@ footer .input-group-text {
   top: 20%;
   /* right: -20px; */
   /* transition: 0.3s; */
+}
+
+/* When the product-card is expreemly small then reduce down the fonts also */
+.gr-2 .product-card .product-details h6 {
+  color: var(--color-bf4800);
+  font-size: 12px;
+}
+
+.gr-2 .product-card .product-details h5 {
+  font-size: 13px;
+  color: var(--color-1c1c1b);
+}
+
+.gr-2 .product-card .product-details p {
+  font-size: 15px;
+  color: var(--color-1c1c1b);
 }
 /* 🌺🌺 Our Store Ends here 🌺🌺 */
 

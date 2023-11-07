@@ -19,7 +19,7 @@ import { AiOutlineLink } from "react-icons/ai";
 import CopyToClipboard from "../components/copy.jsx";
 
 const SingleProduct = () => {
-  const grid = 4;
+  const grid = 2;
   const [copiedText, setCopiedText] = useState(""); // State to hold the text to be copied
   const pRef = useRef(); // Create a ref for the <p> element
   useEffect(() => {
@@ -348,7 +348,6 @@ const SingleProduct = () => {
                         </div>
                       </div>
                     </div>
-                    {/* Shipping */}
                   </div>
                   {/* Copy Product Link */}
                   <div className="d-flex gap-10 justify-content-between align-items-center my-2 mx-3 ">
@@ -518,6 +517,7 @@ const SingleProduct = () => {
             </div>
           </div>
           <div className="row">
+            <ProductCard grid={grid} />
             <ProductCard grid={grid} />
             <ProductCard grid={grid} />
             <ProductCard grid={grid} />
