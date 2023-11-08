@@ -1144,4 +1144,88 @@ footer .input-group-text {
   color: var(--color-777777);
   /* font-size: 20px; */
 }
+
+.checkout-wrapper .cart-title {
+  font-size: 15px;
+  color: var(--color-131921);
+  margin-bottom: 10px;
+  line-height: 1.7;
+}
+
+.checkout-wrapper .cart-sub-title {
+  font-size: 13px;
+  color: var(--color-777777);
+  margin-bottom: 0px;
+}
+
+.checkout-wrapper .total {
+  font-size: 14px;
+  color: var(--color-1c1c1b);
+}
+.final-pricing {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  justify-content: flex-end;
+}
+
+.checkout-wrapper .total-price {
+  font-size: 24px;
+  color: var(--color-131921);
+}
+
+.checkout-wrapper .total-price span {
+  font-size: 14px;
+  color: var(--color-bf4800);
+}
+
+.checkout-wrapper .subtotal,
+.checkout-wrapper .shipping {
+  font-size: 16px;
+  color: var(--color-777777);
+}
+
+.checkout-wrapper .shipping-total,
+.checkout-wrapper .shipping-price,
+.checkout-wrapper .final-products-price {
+  font-size: 16px;
+  color: var(--color-131921);
+}
+
+.checkout-wrapper .address-title {
+  font-size: 20px;
+  color: var(--color-1c1c1b);
+  /* margin-bottom: 10px; */
+  line-height: 1.7;
+}
+
+.checkout-wrapper .title {
+  font-size: 15px;
+  color: var(--color-1c1c1b);
+  /* margin-bottom: 0px; */
+}
+
+.checkout-wrapper .user-details {
+  font-size: 15px;
+  color: var(--color-1c1c1b);
+  /* margin-bottom: 0px; */
+}
+
+.order-info {
+  background-color: #f2f2f2;
+  /* border on left only */
+  border-left: 1px solid #cbcbcb;
+  padding-left: 40px;
+}
+.form-control {
+  /* border-radius: 10px; */
+  border-radius: 20px;
+  border: 1px solid var(--color-ededed);
+  padding: 15px 20px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
 /* 🌺🌺 Checkout Page Ends here 🌺🌺 */
