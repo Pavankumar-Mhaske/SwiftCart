@@ -1132,3 +1132,16 @@ footer .input-group-text {
 }
 
 /* 🌺🌺 Cart Page Ends here 🌺🌺 */
+
+/* 🌹🌹 Checkout Page 🌹🌹 */
+.breadcrumb-item {
+  font-size: 15px;
+  color: var(--color-777777);
+  margin-bottom: 0px;
+}
+
+.breadcrumb-item .cart-link {
+  color: var(--color-777777);
+  /* font-size: 20px; */
+}
+/* 🌺🌺 Checkout Page Ends here 🌺🌺 */
