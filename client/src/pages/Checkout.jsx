@@ -9,7 +9,7 @@ const Checkout = () => {
       <div className="checkout-wrapper home-wrapper-2">
         <div className="container-xxl">
           <div className="row">
-            {/* Customer Information */}
+            {/* ⛪⛪⛪ Customer Information ⛪⛪⛪ */}
             <div className="col-7 py-5">
               <div className="checkout-left-data">
                 <h3 className="website-name">Dev Corner</h3>
@@ -163,7 +163,7 @@ const Checkout = () => {
                 </form>
               </div>
             </div>
-            {/* Order Information */}
+            {/* 💰🛒🛒🛒 Order Information 🛒🛒🛒💰 */}
             <div className="col-5 order-info py-5">
               {/* Cart Section */}
               <div className="border-bottom py-4">
