@@ -143,7 +143,7 @@ const Cart = () => {
                       <h4 className="cart-product-data">$4000</h4>
                     </div>
                     <p>Taxes and Shipping calculated at chackout</p>
-                    <Link to="/checkout" className="button">
+                    <Link to="/checkouts" className="button">
                       Checkout
                     </Link>
                   </div>
