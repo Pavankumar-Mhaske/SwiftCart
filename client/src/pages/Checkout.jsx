@@ -2,13 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import { IoIosArrowForward } from "react-icons/io";
-
+import watch from "../../public/images/watch.jpg";
 const Checkout = () => {
   return (
     <>
       <div className="checkout-wrapper py-5 home-wrapper-2">
         <div className="container-xxl">
           <div className="row">
+            {/* Customer Information */}
             <div className="col-7">
               <div className="checkout-left-data">
                 <h3 className="website-name">Dev Corner</h3>
@@ -132,7 +133,49 @@ const Checkout = () => {
                 </form>
               </div>
             </div>
-            <div className="col-5"></div>
+            {/* Order Information */}
+            <div className="col-5">
+              {/* Cart Section */}
+              <div className="border-bottom py-4">
+                <div className="d-flex gap-10 mb-2 align-items-center">
+                  <div className="w-75 d-flex gap-10">
+                    <div className="w-25 position-relative">
+                      <span
+                        style={{ top: "-10px", right: "2px" }}
+                        className="badge bg-secondary text-white rounded-circle position-absolute"
+                      >
+                        1
+                      </span>
+                      <img className="img-fluid" src={watch} alt="Products" />
+                    </div>
+                    <div className="w-75 position-relative border border-2">
+                      <h5 className="title">
+                        Honor T1 7.0 1GB RAM 8GB ROM 7 inch with Wi-Fi+3G Tablet
+                      </h5>
+                      <p>S / #B5CEDE</p>
+                    </div>
+                  </div>
+                  <div className="w-25 flex-grow-1 border border-2">
+                    <h5>$100</h5>
+                  </div>
+                </div>
+              </div>
+              {/* Pricing Section */}
+              <div className="border-bottom py-4">
+                <div className="d-flex justify-content-between align-items-center">
+                  <p>SubTotal</p>
+                  <p>$ 410.00</p>
+                </div>
+                <div className="d-flex justify-content-between align-items-center">
+                  <p className="mb-0">Shipping</p>
+                  <p className="mb-0">$ 19.00</p>
+                </div>
+              </div>
+              <div className="border-bottom py-4 d-flex justify-content-between align-items-center">
+                <h4 className="total">Total</h4>
+                <h5 className="total-price">$ 429.00</h5>
+              </div>
+            </div>
           </div>
         </div>
       </div>
