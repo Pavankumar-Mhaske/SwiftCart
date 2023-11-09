@@ -5,7 +5,7 @@ import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/specialProduct";
 import Container from "../components/Container";
-
+import { services } from "../utils/Data";
 const Home = () => {
   return (
     <>
@@ -104,46 +104,23 @@ const Home = () => {
         <div className="row">
           <div className="col-12">
             <div className="services d-flex align-items-center justify-content-between">
-              {/* 🎁🎁 Service -1 🎁🎁 */}
-              <div className="d-flex align-items-center gap-15">
-                <img src="/images/service.png" alt="services" />
-                <div>
-                  <h6>Free Shipping</h6>
-                  <p className="mb-0">From all orders over %100</p>
-                </div>
-              </div>
-              {/* 🎁🎁 Service -2 🎁🎁 */}
-              <div className="d-flex align-items-center gap-15">
-                <img src="/images/service-02.png" alt="services" />
-                <div>
-                  <h6>Dialy Surprise Offers</h6>
-                  <p className="mb-0">Save up to 25% off</p>
-                </div>
-              </div>
-              {/* 🎁🎁 Service -3 🎁🎁 */}
-              <div className="d-flex align-items-center gap-15">
-                <img src="/images/service-03.png" alt="services" />
-                <div>
-                  <h6>Support 24/7</h6>
-                  <p className="mb-0">Ship with an expert</p>
-                </div>
-              </div>
-              {/* 🎁🎁 Service -4 🎁🎁 */}
-              <div className="d-flex align-items-center gap-15">
-                <img src="/images/service-04.png" alt="services" />
-                <div>
-                  <h6>Affordable Prices</h6>
-                  <p className="mb-0">Get Factory Default price</p>
-                </div>
-              </div>
-              {/* 🎁🎁 Service -5 🎁🎁 */}
-              <div className="d-flex align-items-center gap-15">
-                <img src="/images/service-05.png" alt="services" />
-                <div>
-                  <h6>Secure Payments</h6>
-                  <p className="mb-0">100% Protected Payments</p>
-                </div>
-              </div>
+              {services?.map((service, index) => {
+                return (
+                  <>
+                    {/* 🎁🎁 Service 🎁🎁 */}
+                    <div
+                      key={index}
+                      className="d-flex align-items-center gap-15"
+                    >
+                      <img src={service.image} alt="services" />
+                      <div>
+                        <h6>{service.title}</h6>
+                        <p className="mb-0">{service.tagline}</p>
+                      </div>
+                    </div>
+                  </>
+                );
+              })}
             </div>
           </div>
         </div>
