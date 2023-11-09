@@ -3,14 +3,15 @@ import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import { Link } from "react-router-dom";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import Container from "../components/Container";
 const SingleBlog = () => {
   return (
+    
     <>
       <Meta title={"Dynamic Blog Name"} />
       <BreadCrumb title="Dynamic Blog Name" />
 
-      <div className="blog-wrapper home-wrapper-2 py-5  ">
-        <div className="container-xxl">
+      <Container class1="blog-wrapper home-wrapper-2 py-5  ">
           <div className="row">
             {/* 🍓🍒🍓 Filter-Card 🍓🍒🍓 */}
             <div className="col-3">
@@ -55,8 +56,7 @@ const SingleBlog = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </Container>
     </>
   );
 };
