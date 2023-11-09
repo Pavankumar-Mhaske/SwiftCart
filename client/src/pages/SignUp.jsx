@@ -3,6 +3,7 @@ import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
+import CustomInput from "../components/CustomInput";
 
 const SignUp = () => {
   return (
@@ -18,48 +19,37 @@ const SignUp = () => {
               {/* 📜📜📜 Form 📜📜📜 */}
               <form action="" className="d-flex flex-column gap-15">
                 {/* 📧📧📧 Name 📧📧📧 */}
-                <div className="form-group">
-                  {/* <label htmlFor="email">Email</label> */}
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Enter your Name"
-                    className="form-control"
-                  />
-                </div>
+
+                <CustomInput
+                  type="text"
+                  name="name"
+                  placeholder="Enter your Name"
+                  className="form-control"
+                />
 
                 {/* 📧📧📧 Email 📧📧📧 */}
-                <div className="form-group">
-                  {/* <label htmlFor="email">Email</label> */}
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    className="form-control"
-                  />
-                </div>
+                <CustomInput
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  className="form-control"
+                />
 
                 {/* 📞📞📞 Mobile 📞📞📞 */}
-                <div className="form-group mt-1 ">
-                  {/* <label htmlFor="password">Password</label> */}
-                  <input
-                    type="tel"
-                    name="mobile"
-                    placeholder="Enter your Mobile Number"
-                    className="form-control "
-                  />
-                </div>
+                <CustomInput
+                  type="tel"
+                  name="mobile"
+                  placeholder="Enter your Mobile Number"
+                  className="form-control "
+                />
 
                 {/* 🔐🔐🔐 Password 🔐🔐🔐 */}
-                <div className="form-group mt-1 ">
-                  {/* <label htmlFor="password">Password</label> */}
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Enter your password"
-                    className="form-control "
-                  />
-                </div>
+                <CustomInput
+                  type="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  className="form-control "
+                />
 
                 {/* 🔘🔘🔘 Buttons 🔘🔘🔘 */}
                 <div className="form-group">
