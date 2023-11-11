@@ -322,24 +322,24 @@ const SingleProduct = () => {
                   <div className="accordion-item">
                     <h2
                       className="accordion-header"
-                      id="panelsStayOpen-headingThree"
+                      id="panelsStayOpen-headingFour"
                     >
                       <button
                         className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseThree"
+                        data-bs-target="#panelsStayOpen-collapseFour"
                         aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseThree"
+                        aria-controls="panelsStayOpen-collapseFour"
                       >
                         <MdOutlineHealthAndSafety className="fs-5 me-2" /> Care
                         Instructions
                       </button>
                     </h2>
                     <div
-                      id="panelsStayOpen-collapseThree"
+                      id="panelsStayOpen-collapseFour"
                       className="accordion-collapse collapse"
-                      aria-labelledby="panelsStayOpen-headingThree"
+                      aria-labelledby="panelsStayOpen-headingFour"
                     >
                       <div className="accordion-body">
                         For longevity, hand wash the product in cold water with
