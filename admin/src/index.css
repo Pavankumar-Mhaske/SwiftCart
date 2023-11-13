@@ -3,7 +3,7 @@ body {
   font-family: Rubik, sans-serif;
 }
 
-.trigger {
+/* .trigger {
   padding: 0 24px;
   font-size: 18px;
   line-height: 64px;
@@ -19,7 +19,7 @@ body {
   height: 32px;
   background: rgba(255, 255, 255, 0.3);
   margin: 16px;
-}
+} */
 
 .ant-layout {
   min-height: 100vh;
