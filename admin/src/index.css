@@ -14,13 +14,73 @@ body {
 .trigger:hover {
   color: #1890ff;
 }
+*/
 
-.logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.3);
-  margin: 16px;
-} */
+.demo-logo-vertical {
+  height: 64px;
+  margin: 2px;
+  background-color: #ffd333;
+  /* margin: 0; */
+}
 
 .ant-layout {
   min-height: 100vh;
+}
+
+.ant-layout-sider {
+  flex: 0 0 250px !important;
+  max-width: 250px !important;
+  min-width: 250px !important;
+  width: 250px !important;
+}
+
+.ant-layout-sider-collapsed {
+  flex: 0 0 80px !important;
+  max-width: 80px !important;
+  min-width: 80px !important;
+  width: 80px !important;
+}
+/* addd transition to the logo lg and sm */
+
+.sm-logo {
+  display: none;
+  transition: all 0.3s;
+}
+
+.ant-layout-sider-collapsed .sm-logo {
+  display: block;
+  transition: all 1s;
+}
+
+.lg-logo {
+  display: block;
+  transition: all 1s;
+}
+
+.ant-layout-sider-collapsed .lg-logo {
+  display: none;
+  transition: all 1s;
+}
+
+main {
+  overflow-y: scroll;
+}
+
+.ant-menu-title-content {
+  font-size: 16px;
+}
+
+.ant-layout-header h5 {
+  line-height: 30px;
+  font-size: 14px;
+}
+
+.ant-layout-header p {
+  line-height: 20px;
+  font-size: 13px;
+}
+
+.ant-layout-header div .badge {
+  top: 16px;
+  right: -3px;
 }
