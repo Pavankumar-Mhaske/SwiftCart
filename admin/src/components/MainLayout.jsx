@@ -221,7 +221,7 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         >
-          <Outlet> </Outlet>
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
