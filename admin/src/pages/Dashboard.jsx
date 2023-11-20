@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Column } from "@ant-design/plots";
-import { Button, Table, Tag } from "antd";
+import {  Table, Tag } from "antd";
 
 // icons
 import { BsArrowDownRight } from "react-icons/bs";
