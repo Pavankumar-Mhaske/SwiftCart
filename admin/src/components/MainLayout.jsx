@@ -153,7 +153,7 @@ const MainLayout = () => {
               ],
             },
             {
-              key: "enquiqry",
+              key: "enquiries",
               // icon: <UserOutlined />,
               icon: <BsChatDots className="fs-4" />,
               label: "Enquiries",
