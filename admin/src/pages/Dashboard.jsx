@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Column } from "@ant-design/plots";
-import { Button, Table } from "antd";
+import { Button, Table, Tag } from "antd";
 
 // icons
 import { BsArrowDownRight } from "react-icons/bs";
@@ -91,16 +91,75 @@ const Dashboard = () => {
 
   const columns = [
     {
-      title: "Name",
+      title: "O_No",
+      dataIndex: "key",
+    },
+    {
+      title: "Products",
+      dataIndex: "productId",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      render: (status) => {
+        let color = "";
+
+        switch (status) {
+          case "Pending":
+            color = "orange";
+            break;
+          case "Hold":
+            color = "blue";
+            break;
+          case "Canceled":
+            color = "red";
+            break;
+          case "Completed":
+            color = "green";
+            break;
+          case "Processing":
+            color = "cyan";
+            break;
+          case "Shipped":
+            color = "geekblue";
+            break;
+          case "Delivered":
+            color = "purple";
+            break;
+          case "Refunded":
+            color = "magenta";
+            break;
+          case "On Hold":
+            color = "gold";
+            break;
+          case "Partially Shipped":
+            color = "volcano";
+            break;
+          // Add more cases as needed...
+
+          default:
+            color = "default";
+        }
+
+        return <Tag color={color}>{status}</Tag>;
+      },
+    },
+    {
+      title: "Co.",
+      dataIndex: "countryOfOrigin",
+    },
+    {
+      title: "Customer",
       dataIndex: "name",
     },
     {
-      title: "Age",
-      dataIndex: "age",
+      title: "Date",
+      dataIndex: "date",
     },
+
     {
-      title: "Address",
-      dataIndex: "address",
+      title: "Total",
+      dataIndex: "totalPrice",
     },
   ];
 
@@ -108,9 +167,14 @@ const Dashboard = () => {
   for (let i = 0; i < 46; i++) {
     data1.push({
       key: i,
+      status: "Processing",
+      countryOfOrigin: `India`,
       name: `Edward King ${i}`,
-      age: 32,
-      address: `London, Park Lane no. ${i}`,
+      date: `10/10/2021`,
+      // age: 32,
+      // address: `London, Park Lane no. ${i}`,
+      productId: `#00745${i}`,
+      totalPrice: `$${i + 100}.00`,
     });
   }
 
@@ -163,6 +227,14 @@ const Dashboard = () => {
         <div>
           {" "}
           <Table columns={columns} dataSource={data1} />
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <h3 className="mb-4">Recent Reviews</h3>
+        <div className="d-flex">
+          <div className=""></div>
+          <div></div>
         </div>
       </div>
     </div>
