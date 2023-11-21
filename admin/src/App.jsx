@@ -10,6 +10,8 @@ import BlogList from "./pages/BlogList";
 import BlogCategoryList from "./pages/BlogCategoryList";
 import Orders from "./pages/Orders";
 import Customers from "./pages/Customers";
+import ColorList from "./pages/ColorList";
+
 function App() {
   return (
     <Router>
@@ -24,6 +26,7 @@ function App() {
           <Route path="blog-category-list" element={<BlogCategoryList />} />
           <Route path="orders" element={<Orders />} />
           <Route path="customers" element={<Customers />} />
+          <Route path="color-list" element={<ColorList />} />
         </Route>
 
         {/* <Route path="*" element={<h1>Not Found</h1>} /> */}
