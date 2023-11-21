@@ -14,11 +14,15 @@
 .green {
   color: var(--color-47ad24);
   font-weight: bold;
+  font-size: 14px;
+  font-family: Roboto !important;
 }
 
 .red {
   color: var(--color-e52e2e);
   font-weight: bold;
+  font-size: 14px;
+  font-family: Roboto !important;
 }
 
 Table {
@@ -37,4 +41,15 @@ Table {
 .title {
   font: 28px;
   font-family: Roboto !important;
+}
+
+.sub-title {
+  font: 24px;
+  font-family: Roboto !important;
+}
+
+.description {
+  font: 24px;
+  font-family: Roboto !important;
+  color: var(--color-828599);
 }
