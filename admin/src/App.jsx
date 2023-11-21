@@ -11,6 +11,7 @@ import BlogCategoryList from "./pages/BlogCategoryList";
 import Orders from "./pages/Orders";
 import Customers from "./pages/Customers";
 import ColorList from "./pages/ColorList";
+import CategoryList from "./pages/CategoryList";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="orders" element={<Orders />} />
           <Route path="customers" element={<Customers />} />
           <Route path="color-list" element={<ColorList />} />
+          <Route path="category-list" element={<CategoryList />} />
         </Route>
 
         {/* <Route path="*" element={<h1>Not Found</h1>} /> */}
