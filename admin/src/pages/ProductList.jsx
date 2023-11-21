@@ -93,7 +93,7 @@ for (let i = 0; i < 46; i++) {
 const ProductList = () => {
   return (
     <div>
-      <h3 className="mb-4">ProductList</h3>
+      <h3 className="mb-4 title">ProductList</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>

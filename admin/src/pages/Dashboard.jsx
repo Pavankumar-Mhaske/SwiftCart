@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Column } from "@ant-design/plots";
-import {  Table, Tag } from "antd";
+import { Table, Tag } from "antd";
 
 // icons
 import { BsArrowDownRight } from "react-icons/bs";
@@ -180,11 +180,12 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h3 className="mb-4">Dashboard</h3>
+      <h3 className="mb-4 title">Dashboard</h3>
+      {/* 📈📉📊 Three months Analysis Graphs 📈📉📊 */}
       <div className="d-flex justify-content-between align-items-center gap-3">
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
           <div>
-            <p className="">Total</p> <h4 className="mb-0">$100</h4>
+            <p className="">Total</p> <h4 className="mb-0">$100.00</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6 className="red">
@@ -195,7 +196,7 @@ const Dashboard = () => {
         </div>
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
           <div>
-            <p className="">Total</p> <h4 className="mb-0">$100</h4>
+            <p className="">Total</p> <h4 className="mb-0">$100.00</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6 className="red">
@@ -206,7 +207,7 @@ const Dashboard = () => {
         </div>
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
           <div>
-            <p className="">Total</p> <h4 className="mb-0">$100</h4>
+            <p className="">Total</p> <h4 className="mb-0">$100.00</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6 className="green">
@@ -216,12 +217,15 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="mt-4">
+      {/* <div className="d-flex justify-content-between align-items-center gap-3"> */}
+      {/* 💸💸💸💰 Income Statestics 💰💸💸💸*/}
+      <div className="mt-4 flex-grow-1">
         <h3 className="mb-4">Income Statics</h3>
         <div className="">
           <Column {...config} />
         </div>
       </div>
+      {/* 📦📦📦 Recent Orders 📦📦📦 */}
       <div className="mt-4">
         <h3 className="mb-4">Recent Orders</h3>
         <div>
@@ -229,7 +233,8 @@ const Dashboard = () => {
           <Table columns={columns} dataSource={data1} />
         </div>
       </div>
-
+      {/* </div> */}
+      {/* 📝📝📝 Recent Reviews 📝📝📝 */}
       <div className="mt-4">
         <h3 className="mb-4">Recent Reviews</h3>
         <div className="d-flex">
