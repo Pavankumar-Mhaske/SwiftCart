@@ -47,7 +47,7 @@ const AddBlog = () => {
         ]}
         activeStep={1}
       /> */}
-      <div stylename="">
+      <div>
         <form action="">
           {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
           <Dragger {...props}>
@@ -78,7 +78,12 @@ const AddBlog = () => {
               handleDescription(event);
             }}
           />
-          <button className="btn btn-success rounded-3 my-5">Add Blog</button>
+          <button
+            className="btn btn-success border-0 rounded-3 my-5"
+            type="submit"
+          >
+            Add Blog
+          </button>
         </form>
       </div>
     </div>
