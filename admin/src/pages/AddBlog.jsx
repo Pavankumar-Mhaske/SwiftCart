@@ -1,35 +1,84 @@
 import React, { useRef, useState } from "react";
 import CustomInput from "../components/CustomInput";
-import RichTextEditor from "react-rte";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+// import { Stepper } from "react-form-stepper";
+/** upload images */
+import { InboxOutlined } from "@ant-design/icons";
+import { message, Upload } from "antd";
+const { Dragger } = Upload;
+const props = {
+  name: "file",
+  multiple: true,
+  action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
+  onChange(info) {
+    const { status } = info.file;
+    if (status !== "uploading") {
+      console.log(info.file, info.fileList);
+    }
+    if (status === "done") {
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === "error") {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+  onDrop(e) {
+    console.log("Dropped files", e.dataTransfer.files);
+  },
+};
 
 const AddBlog = () => {
-  const [description, setDescription] = useState(
-    RichTextEditor.createEmptyValue()
-  );
+  const [description, setDescription] = useState();
   // Use useRef for the "leaf" ref
-//   const leafRef = useRef(null);
+  //   const leafRef = useRef(null);
 
   const handleDescription = (value) => {
     setDescription(value);
-    console.log(value);
+    // console.log(value);
   };
   return (
     <div>
       <h3 className="mb-4">Add Blog</h3>
+      {/* <Stepper
+        steps={[
+          { label: "Add Blog Details" },
+          { label: "Upload Images" },
+          { label: "Finish" },
+        ]}
+        activeStep={1}
+      /> */}
       <div stylename="">
         <form action="">
-          <CustomInput type="text" label="Enter Blog title" />
-          <select name="" id="">
+          {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
+          <Dragger {...props}>
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">
+              Click or drag file to this area to upload
+            </p>
+            <p className="ant-upload-hint">
+              Support for a single or bulk upload. Strictly prohibited from
+              uploading company data or other banned files.
+            </p>
+          </Dragger>
+          {/* ✔✔✔ Input ✔✔✔ */}
+          <div className="mt-4">
+            <CustomInput type="text" label="Enter Blog title" />
+          </div>
+          {/*📂📂📂 Select blog Category 📂📂📂 */}
+          <select name="" className="form-control py-3 mb-3" id="">
             <option value="">Select Blog Category</option>
           </select>
-          <RichTextEditor
+          {/* 📝📝📝✍🏻✍🏻✍🏻 Description ✍🏻✍🏻✍🏻📝📝📝 */}
+          <ReactQuill
+            theme="snow"
             value={description}
             onChange={(event) => {
-              handleDescription(event.target.value);
+              handleDescription(event);
             }}
-            // Attach the ref to the "leaf" element (if required by the component)
-            // leafRef={leafRef}
           />
+          <button className="btn btn-success rounded-3 my-5">Add Blog</button>
         </form>
       </div>
     </div>
