@@ -78,7 +78,7 @@ const MainLayout = () => {
               label: "Catalog",
               children: [
                 {
-                  key: "products",
+                  key: "product",
                   icon: <AiOutlineShoppingCart className="fs-4" />,
                   label: "Add Product",
                 },

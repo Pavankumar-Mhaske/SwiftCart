@@ -29,8 +29,6 @@ const props = {
 
 const AddBlog = () => {
   const [description, setDescription] = useState();
-  // Use useRef for the "leaf" ref
-  //   const leafRef = useRef(null);
 
   const handleDescription = (value) => {
     setDescription(value);
@@ -66,7 +64,7 @@ const AddBlog = () => {
           <div className="mt-4">
             <CustomInput type="text" label="Enter Blog title" />
           </div>
-          {/*📂📂📂 Select blog Category 📂📂📂 */}
+          {/*✅✅✅ Select blog Category ✅✅✅ */}
           <select name="" className="form-control py-3 mb-3" id="">
             <option value="">Select Blog Category</option>
           </select>
