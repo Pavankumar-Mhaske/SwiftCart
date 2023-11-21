@@ -177,6 +177,7 @@ const MainLayout = () => {
           className="d-flex justify-content-between ps-1 pe-5"
           style={{ padding: 0, background: colorBgContainer }}
         >
+          {/* 🔘🔘🔘 MenuFold button 🔘🔘🔘*/}
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -187,8 +188,9 @@ const MainLayout = () => {
               height: 64,
             }}
           />
-
+          {/* 👉🏻👉🏻👉🏻 Section at Right Side 👉🏻👉🏻👉🏻*/}
           <div className="d-flex gap-3 align-items-center">
+            {/* 🔔🔔🔔 Notificatoins 🔔🔔🔔 */}
             <div className="position-relative">
               {" "}
               <IoIosNotifications className="fs-3" />
@@ -196,6 +198,7 @@ const MainLayout = () => {
                 3
               </span>
             </div>
+            {/* 👩🏻‍🏫👩🏻‍🏫 Profile Image and Profile Information👩🏻‍🏫👩🏻‍🏫 */}
             <div className="d-flex gap-3 align-items-center dropdown">
               {/* 👨🏻‍⚖️👨🏻‍⚖️👨🏻‍⚖️ Profile Image 👨🏻‍⚖️👨🏻‍⚖️👨🏻‍⚖️ */}
               <div className="profile-image">
