@@ -4,8 +4,10 @@ import { Column } from "@ant-design/plots";
 import { Table, Tag } from "antd";
 
 // icons
-import { BsArrowDownRight } from "react-icons/bs";
-import { BsArrowUpRight } from "react-icons/bs";
+import { ImArrowDownRight2 } from "react-icons/im";
+import { ImArrowUpRight2 } from "react-icons/im";
+import { FaArrowTrendDown } from "react-icons/fa6";
+import { FaArrowTrendUp } from "react-icons/fa6";
 
 const Dashboard = () => {
   const data = [
@@ -171,7 +173,7 @@ const Dashboard = () => {
       countryOfOrigin: `India`,
       name: `Edward King ${i}`,
       date: `10/10/2021`,
-      // age: 32,
+      // age: 32.9,
       // address: `London, Park Lane no. ${i}`,
       productId: `#00745${i}`,
       totalPrice: `$${i + 100}.00`,
@@ -183,51 +185,60 @@ const Dashboard = () => {
       <h3 className="mb-4 title">Dashboard</h3>
       {/* 📈📉📊 Three months Analysis Graphs 📈📉📊 */}
       <div className="d-flex justify-content-between align-items-center gap-3">
+        {/* 📅📅📅 Month 1️⃣ 📅📅📅 */}
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
           <div>
-            <p className="">Total</p> <h4 className="mb-0">$100.00</h4>
+            <p className=" description">Total</p>{" "}
+            <h4 className="mb-0 sub-title">$100.00</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6 className="red">
-              <BsArrowDownRight /> 32%
+              {/* <ImArrowDownRight2 /> 32.9% */}
+              <FaArrowTrendDown /> 32.9%
             </h6>
-            <p className="mb-0">Compared To April 2022 </p>
+            <p className="mb-0 description">Compared To April 2022 </p>
           </div>
         </div>
+        {/* 📅📅📅 Month 2️⃣ 📅📅📅 */}
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
           <div>
-            <p className="">Total</p> <h4 className="mb-0">$100.00</h4>
+            <p className=" description">Total</p>{" "}
+            <h4 className="mb-0 sub-title ">$100.00</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6 className="red">
-              <BsArrowDownRight /> 32%
+              {/* <ImArrowDownRight2 /> 32.9% */}
+              <FaArrowTrendDown /> 32.9%
             </h6>
-            <p className="mb-0">Compared To April 2022 </p>
+            <p className="mb-0 description">Compared To April 2022 </p>
           </div>
         </div>
+        {/* 📅📅📅 Month 3️⃣ 📅📅📅 */}
         <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
           <div>
-            <p className="">Total</p> <h4 className="mb-0">$100.00</h4>
+            <p className=" description">Total</p>{" "}
+            <h4 className="mb-0 sub-title ">$100.00</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <h6 className="green">
-              <BsArrowUpRight /> 32%
+              {/* <ImArrowUpRight2 /> 32.9% */}
+              <FaArrowTrendUp /> 32.9%
             </h6>
-            <p className="mb-0">Compared To April 2022 </p>
+            <p className="mb-0 description">Compared To April 2022 </p>
           </div>
         </div>
       </div>
       {/* <div className="d-flex justify-content-between align-items-center gap-3"> */}
       {/* 💸💸💸💰 Income Statestics 💰💸💸💸*/}
       <div className="mt-4 flex-grow-1">
-        <h3 className="mb-4">Income Statics</h3>
+        <h3 className="mb-5">Income Statics</h3>
         <div className="">
           <Column {...config} />
         </div>
       </div>
       {/* 📦📦📦 Recent Orders 📦📦📦 */}
       <div className="mt-4">
-        <h3 className="mb-4">Recent Orders</h3>
+        <h3 className="mb-5">Recent Orders</h3>
         <div>
           {" "}
           <Table columns={columns} dataSource={data1} />
