@@ -8,6 +8,7 @@ import MainLayout from "./components/MainLayout";
 import Enquiries from "./pages/Enquiries";
 import BlogList from "./pages/BlogList";
 import BlogCategoryList from "./pages/BlogCategoryList";
+import Orders from "./pages/Orders";
 function App() {
   return (
     <Router>
@@ -20,6 +21,7 @@ function App() {
           <Route path="enquiries" element={<Enquiries />} />
           <Route path="blog-list" element={<BlogList />} />
           <Route path="blog-category-list" element={<BlogCategoryList />} />
+          <Route path="orders" element={<Orders />} />
         </Route>
 
         {/* <Route path="*" element={<h1>Not Found</h1>} /> */}
