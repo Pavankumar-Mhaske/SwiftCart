@@ -1,5 +1,7 @@
 import React from "react";
 import { Table, Tag } from "antd";
+import { BiEdit } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
 
 const columns = [
   {
