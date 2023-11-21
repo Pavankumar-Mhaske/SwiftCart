@@ -6,7 +6,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { Layout, Menu, Button, theme } from "antd";
 // icons
 import { AiOutlineDashboard } from "react-icons/ai";
@@ -171,6 +171,7 @@ const MainLayout = () => {
           ]}
         />
       </Sider>
+
       <Layout>
         <Header
           className="d-flex justify-content-between ps-1 pe-5"
@@ -195,7 +196,8 @@ const MainLayout = () => {
                 3
               </span>
             </div>
-            <div className="d-flex gap-3 align-items-center">
+            <div className="d-flex gap-3 align-items-center dropdown">
+              {/* 👨🏻‍⚖️👨🏻‍⚖️👨🏻‍⚖️ Profile Image 👨🏻‍⚖️👨🏻‍⚖️👨🏻‍⚖️ */}
               <div className="profile-image">
                 <img
                   width={70}
@@ -206,9 +208,46 @@ const MainLayout = () => {
                   alt="person"
                 />
               </div>
-              <div className="">
+              {/* 📄📄📄 ℹ Person Information ℹ 📄📄📄*/}
+              <div
+                className=""
+                role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 <h5 className="mb-0">Pavan</h5>
                 <p className="mb-0">mhaskepavankumar@gmail.com</p>
+              </div>
+              {/* 💧💧💧⏬⏬⏬ DropDown List 💧💧💧⏬⏬⏬ */}
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li className="">
+                  <Link
+                    className="dropdown-item py-1 mb-1"
+                    style={{ height: "auto", lineHeight: "30px" }}
+                    href="#"
+                  >
+                    View Profile
+                  </Link>
+                </li>
+                <li className="">
+                  <Link
+                    className="dropdown-item py-1 mb-1"
+                    style={{ height: "auto", lineHeight: "30px" }}
+                    href="#"
+                  >
+                    Settings
+                  </Link>
+                </li>
+                <li className="">
+                  <Link
+                    className="dropdown-item py-1 mb-1"
+                    style={{ height: "auto", lineHeight: "30px" }}
+                    href="#"
+                  >
+                    SignOut
+                  </Link>
+                </li>
               </div>
             </div>
           </div>
