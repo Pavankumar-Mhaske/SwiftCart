@@ -9,6 +9,7 @@ import Enquiries from "./pages/Enquiries";
 import BlogList from "./pages/BlogList";
 import BlogCategoryList from "./pages/BlogCategoryList";
 import Orders from "./pages/Orders";
+import Customers from "./pages/Customers";
 function App() {
   return (
     <Router>
@@ -22,6 +23,7 @@ function App() {
           <Route path="blog-list" element={<BlogList />} />
           <Route path="blog-category-list" element={<BlogCategoryList />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="customers" element={<Customers />} />
         </Route>
 
         {/* <Route path="*" element={<h1>Not Found</h1>} /> */}
