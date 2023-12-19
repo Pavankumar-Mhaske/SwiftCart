@@ -4,7 +4,7 @@ import { base_url } from "../../utils/base_url";
 const login = async (userData) => {
   const url = `${base_url}users/admin-login/`;
   const response = await axios.post(url, userData);
-  console.log(response.data);
+  console.log("Response in auth is : ", response.data);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
