@@ -96,8 +96,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
   try {
-    const { mobile, email, password } = req.body;
-
+    const { email, password, mobile } = req.body;
     if (!email || !mobile) {
       throw new ApiError(400, "Please provide email or mobile");
     }
@@ -159,7 +158,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const loginAdmin = asyncHandler(async (req, res) => {
   try {
-    const { mobile, email, password } = req.body;
+    const { email, password, mobile = "1234567890" } = req.body;
+    console.log("req.body: ", req.body);
 
     if (!email || !mobile) {
       throw new ApiError(400, "Please provide email or mobile");
