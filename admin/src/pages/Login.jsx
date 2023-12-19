@@ -29,9 +29,9 @@ const Login = () => {
     },
   });
 
-  const authState = useSelector((state) => state.auth);
+  const authState = useSelector((state) => state);
 
-  const { user, isLoading, isError, isSuccess, message } = authState;
+  const { user, isLoading, isError, isSuccess, message } = authState.auth;
   useEffect(() => {
     if (!user == null || isSuccess) {
       navigate("/admin");
