@@ -4,7 +4,11 @@ import { base_url } from "../../utils/base_url";
 const login = async (userData) => {
   const url = `${base_url}users/admin-login/`;
   const response = await axios.post(url, userData);
-  // return response.data;
+  console.log(response.data);
+  if (response.data) {
+    localStorage.setItem("user", JSON.stringify(response.data));
+  }
+  return response.data;
 };
 
 const authService = {
