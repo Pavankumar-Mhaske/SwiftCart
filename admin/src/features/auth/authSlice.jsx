@@ -27,6 +27,7 @@ export const login = createAsyncThunk(
   "auth/admin-login",
   async (user, thunkAPI) => {
     try {
+      console.log("thunkAPI in authSlice is : ", thunkAPI);
       const response = await authService.login(user);
       return response;
     } catch (error) {
