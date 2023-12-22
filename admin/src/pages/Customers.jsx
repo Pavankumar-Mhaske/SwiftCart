@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Table, Tag } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../features/customers/customerSlice";
 
 const columns = [
@@ -97,7 +97,8 @@ const Customers = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-
+  const state = useSelector((state) => state.customer.customers);
+  console.log("State in customer is : ", state);
   return (
     <div>
       {" "}
