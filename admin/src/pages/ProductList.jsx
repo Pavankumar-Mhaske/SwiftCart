@@ -5,77 +5,88 @@ import { MdDelete } from "react-icons/md";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/product/productSlice";
+import { base_url } from "../utils/base_url";
+import axios from "axios";
+
+const getColorById = async (colorId) => {
+  const url = `${base_url}colors/${colorId}`;
+  const response = await axios.get(url);
+  console.log("Response in productService is : ", response.data.data.name);
+  return response.data.data.name;
+};
+
 const columns = [
   {
-    title: "O_No",
+    title: "S_No",
     dataIndex: "key",
   },
   {
-    title: "Products",
-    dataIndex: "productId",
+    title: "Name",
+    dataIndex: "name",
+  },
+  {
+    title: "Price",
+    dataIndex: "price",
+  },
+  {
+    title: "Brand",
+    dataIndex: "brand",
+  },
+  {
+    title: "Color",
+    dataIndex: "color",
+    render: (color) => (
+      <>
+        {color.map((color, index) => {
+          return (
+            <Tag key={index} color="blue">
+              {color}
+            </Tag>
+          );
+        })}
+      </>
+    ),
+  },
+
+  {
+    title: "Ratings",
+    dataIndex: "ratings",
   },
   {
     title: "Status",
     dataIndex: "status",
-    render: (status) => {
-      let color = "";
-
-      switch (status) {
-        case "Pending":
-          color = "orange";
-          break;
-        case "Hold":
-          color = "blue";
-          break;
-        case "Canceled":
-          color = "red";
-          break;
-        case "Completed":
-          color = "green";
-          break;
-        case "Processing":
-          color = "cyan";
-          break;
-        case "Shipped":
-          color = "geekblue";
-          break;
-        case "Delivered":
-          color = "purple";
-          break;
-        case "Refunded":
-          color = "magenta";
-          break;
-        case "On Hold":
-          color = "gold";
-          break;
-        case "Partially Shipped":
-          color = "volcano";
-          break;
-        // Add more cases as needed...
-
-        default:
-          color = "default";
-      }
-
-      return <Tag color={color}>{status}</Tag>;
-    },
+    render: (stock) => (
+      <>
+        {stock > 0 ? (
+          <Tag color="green">{`InStock`}</Tag>
+        ) : (
+          <Tag color="red">{`OutOfStock`}</Tag>
+        )}
+      </>
+    ),
   },
   {
-    title: "Co.",
-    dataIndex: "countryOfOrigin",
+    title: "Stock",
+    dataIndex: "stock",
   },
   {
-    title: "Customer",
-    dataIndex: "name",
+    title: "Sold Items",
+    dataIndex: "soldItems",
   },
   {
-    title: "Date",
-    dataIndex: "date",
+    title: "Category",
+    dataIndex: "category",
   },
 
   {
-    title: "Total",
-    dataIndex: "totalPrice",
+    title: "Action",
+    dataIndex: "action",
+    render: () => (
+      <>
+        <BiEdit className="me-3" />
+        <MdDelete />
+      </>
+    ),
   },
 ];
 
@@ -87,18 +98,21 @@ const ProductList = () => {
 
   const productState = useSelector((state) => state.product.products);
   console.log("productState in product is : ", productState);
+
   const data1 = [];
   for (let i = 0; i < productState.length; i++) {
     data1.push({
       key: i + 1,
-      status: "Processing",
-      countryOfOrigin: `India`,
-      name: `Edward King ${i}`,
-      date: `10/10/2021`,
-      // age: 32,
-      // address: `London, Park Lane no. ${i}`,
-      productId: `#00745${i}`,
-      totalPrice: `$${i + 100}.00`,
+      name: productState[i].name,
+      price: productState[i].price,
+      brand: productState[i].brand,
+      color: productState[i].colors,
+      ratings: productState[i].rating,
+      status: productState[i].stock,
+      stock: productState[i].stock,
+      soldItems: productState[i].soldItems,
+      // category: productState[i].category,
+      category: "abc",
     });
   }
 
