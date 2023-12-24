@@ -2,7 +2,9 @@ import React from "react";
 import { Table, Tag } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../features/product/productSlice";
 const columns = [
   {
     title: "O_No",
@@ -77,22 +79,29 @@ const columns = [
   },
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    status: "Processing",
-    countryOfOrigin: `India`,
-    name: `Edward King ${i}`,
-    date: `10/10/2021`,
-    // age: 32,
-    // address: `London, Park Lane no. ${i}`,
-    productId: `#00745${i}`,
-    totalPrice: `$${i + 100}.00`,
-  });
-}
-
 const ProductList = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
+  const productState = useSelector((state) => state.product.products);
+  console.log("productState in product is : ", productState);
+  const data1 = [];
+  for (let i = 0; i < productState.length; i++) {
+    data1.push({
+      key: i + 1,
+      status: "Processing",
+      countryOfOrigin: `India`,
+      name: `Edward King ${i}`,
+      date: `10/10/2021`,
+      // age: 32,
+      // address: `London, Park Lane no. ${i}`,
+      productId: `#00745${i}`,
+      totalPrice: `$${i + 100}.00`,
+    });
+  }
+
   return (
     <div>
       <h3 className="mb-4 title">ProductList</h3>
