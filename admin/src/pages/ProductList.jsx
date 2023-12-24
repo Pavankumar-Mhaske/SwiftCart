@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/product/productSlice";
 import { base_url } from "../utils/base_url";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const getColorById = async (colorId) => {
   const url = `${base_url}colors/${colorId}`;
@@ -23,14 +24,19 @@ const columns = [
   {
     title: "Name",
     dataIndex: "name",
+    // defaultSortOrder: "descend",
+    sorter: (a, b) => a.name.length - b.name.length,
   },
   {
     title: "Price",
     dataIndex: "price",
+    // defaultSortOrder: "descend",
+    sorter: (a, b) => a.price - b.price,
   },
   {
     title: "Brand",
     dataIndex: "brand",
+    sorter: (a, b) => a.brand.length - b.brand.length,
   },
   {
     title: "Color",
@@ -51,6 +57,7 @@ const columns = [
   {
     title: "Ratings",
     dataIndex: "ratings",
+    sorter: (a, b) => a.ratings - b.ratings,
   },
   {
     title: "Status",
@@ -72,6 +79,7 @@ const columns = [
   {
     title: "Sold Items",
     dataIndex: "soldItems",
+    sorter: (a, b) => a.soldItems - b.soldItems,
   },
   {
     title: "Category",
@@ -83,8 +91,12 @@ const columns = [
     dataIndex: "action",
     render: () => (
       <>
-        <BiEdit className="me-3" />
-        <MdDelete />
+        <Link to="#">
+          <BiEdit className="fs-5 ms-3 me-5 " />
+        </Link>
+        <Link to="#">
+          <MdDelete className="fs-5 ms-3 me-5 text-danger" />
+        </Link>
       </>
     ),
   },
@@ -113,6 +125,7 @@ const ProductList = () => {
       soldItems: productState[i].soldItems,
       // category: productState[i].category,
       category: "abc",
+      action: "action",
     });
   }
 
