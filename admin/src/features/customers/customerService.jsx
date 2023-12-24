@@ -7,7 +7,7 @@ const getUsers = async () => {
   //   const token = Cookies.get("user");
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTI3ZjBmOWE1Y2IzZGFlZTk5MzU4MGMiLCJlbWFpbCI6Im1oYXNrZXBhdmFua3VtYXJAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzAzMTUwNDI3LCJleHAiOjE3MDMyMzY4Mjd9.QwVMfGgrBrx3_rV0x07q5wObERnXnNuZqXOtO9i2GM8";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTI3ZjBmOWE1Y2IzZGFlZTk5MzU4MGMiLCJlbWFpbCI6Im1oYXNrZXBhdmFua3VtYXJAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzAzMjM2OTg0LCJleHAiOjE3MDMzMjMzODR9.zDEWxUIf9WLSyUUhIyFxgAcbXhQazL9lxnEnE7gCnwQ";
   console.log("token in customer is : ", token);
   const url = `${base_url}users/all-users/`;
   const response = await axios.get(url, {

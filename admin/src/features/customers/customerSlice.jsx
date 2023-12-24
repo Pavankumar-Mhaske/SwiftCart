@@ -36,7 +36,11 @@ export const customerSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.customers = action.payload;
+        state.customers = action.payload.data.users;
+        console.log(
+          "action.payload in customerSlice is : ",
+          action.payload.data.users
+        );
       })
       // ;builder
       .addCase(getUsers.rejected, (state, action) => {
