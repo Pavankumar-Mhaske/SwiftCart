@@ -5,100 +5,42 @@ import { getUsers } from "../features/customers/customerSlice";
 
 const columns = [
   {
-    title: "O_No",
+    title: "S_No",
     dataIndex: "key",
   },
   {
-    title: "Products",
-    dataIndex: "productId",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    render: (status) => {
-      let color = "";
-
-      switch (status) {
-        case "Pending":
-          color = "orange";
-          break;
-        case "Hold":
-          color = "blue";
-          break;
-        case "Canceled":
-          color = "red";
-          break;
-        case "Completed":
-          color = "green";
-          break;
-        case "Processing":
-          color = "cyan";
-          break;
-        case "Shipped":
-          color = "geekblue";
-          break;
-        case "Delivered":
-          color = "purple";
-          break;
-        case "Refunded":
-          color = "magenta";
-          break;
-        case "On Hold":
-          color = "gold";
-          break;
-        case "Partially Shipped":
-          color = "volcano";
-          break;
-        // Add more cases as needed...
-
-        default:
-          color = "default";
-      }
-
-      return <Tag color={color}>{status}</Tag>;
-    },
-  },
-  {
-    title: "Co.",
-    dataIndex: "countryOfOrigin",
-  },
-  {
-    title: "Customer",
+    title: "Name",
     dataIndex: "name",
   },
   {
-    title: "Date",
-    dataIndex: "date",
+    title: "Email",
+    dataIndex: "email",
   },
-
   {
-    title: "Total",
-    dataIndex: "totalPrice",
+    title: "Mobile",
+    dataIndex: "mobile",
   },
 ];
-
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    status: "Processing",
-    countryOfOrigin: `India`,
-    name: `Edward King ${i}`,
-    date: `10/10/2021`,
-    // age: 32,
-    // address: `London, Park Lane no. ${i}`,
-    productId: `#00745${i}`,
-    totalPrice: `$${i + 100}.00`,
-  });
-}
 
 const Customers = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  const state = useSelector((state) => state.customer.customers);
-  console.log("State in customer is : ", state);
+  const customerState = useSelector((state) => state.customer.customers);
+  console.log("customerState in customer is : ", customerState);
+
+  const data1 = [];
+  for (let i = 0; i < customerState.length; i++) {
+    if (customerState[i].role === "ADMIN") continue;
+    data1.push({
+      key: i + 1,
+      name: customerState[i].firstname + " " + customerState[i].lastname,
+      email: customerState[i].email,
+      mobile: customerState[i].mobile,
+    });
+  }
+
   return (
     <div>
       {" "}
