@@ -11,13 +11,13 @@ import BlogCategoryList from "./pages/BlogCategoryList";
 import Orders from "./pages/Orders";
 import Customers from "./pages/Customers";
 import ColorList from "./pages/ColorList";
-import CategoryList from "./pages/CategoryList";
+import ProductCategoryList from "./pages/ProductCategoryList";
 import BrandList from "./pages/BrandList";
 import ProductList from "./pages/ProductList";
 import AddBlog from "./pages/AddBlog";
 import AddBlogCategory from "./pages/AddBlogCategory";
 import AddColor from "./pages/AddColor";
-import AddCategory from "./pages/AddCategory";
+import AddProductCategory from "./pages/AddProductCategory";
 import AddBrand from "./pages/AddBrand";
 import AddProduct from "./pages/AddProduct";
 
@@ -41,8 +41,8 @@ function App() {
           <Route path="product-list" element={<ProductList />} />
           <Route path="brand" element={<AddBrand />} />
           <Route path="brand-list" element={<BrandList />} />
-          <Route path="category" element={<AddCategory />} />
-          <Route path="category-list" element={<CategoryList />} />
+          <Route path="prodcut-category" element={<AddProductCategory />} />
+          <Route path="prodcut-category-list" element={<ProductCategoryList />} />
           <Route path="color" element={<AddColor />} />
           <Route path="color-list" element={<ColorList />} />
         </Route>
