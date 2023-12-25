@@ -1,95 +1,92 @@
 import React from "react";
 import { Table, Tag } from "antd";
+import { BiEdit } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { getBlogs } from "../features/blog/BlogSlice";
 
 const columns = [
   {
-    title: "O_No",
+    title: "S_No",
     dataIndex: "key",
   },
   {
-    title: "Products",
-    dataIndex: "productId",
+    title: "Title",
+    dataIndex: "title",
+    sorter: (a, b) => a.title.length - b.title.length,
   },
+  // Category
   {
-    title: "Status",
-    dataIndex: "status",
-    render: (status) => {
-      let color = "";
-
-      switch (status) {
-        case "Pending":
-          color = "orange";
-          break;
-        case "Hold":
-          color = "blue";
-          break;
-        case "Canceled":
-          color = "red";
-          break;
-        case "Completed":
-          color = "green";
-          break;
-        case "Processing":
-          color = "cyan";
-          break;
-        case "Shipped":
-          color = "geekblue";
-          break;
-        case "Delivered":
-          color = "purple";
-          break;
-        case "Refunded":
-          color = "magenta";
-          break;
-        case "On Hold":
-          color = "gold";
-          break;
-        case "Partially Shipped":
-          color = "volcano";
-          break;
-        // Add more cases as needed...
-
-        default:
-          color = "default";
-      }
-
-      return <Tag color={color}>{status}</Tag>;
-    },
+    title: "Category",
+    dataIndex: "category",
+    sorter: (a, b) => a.category.length - b.category.length,
   },
+  // numberOfViews
   {
-    title: "Co.",
-    dataIndex: "countryOfOrigin",
+    title: "Views",
+    dataIndex: "views",
+    sorter: (a, b) => a.views - b.views,
   },
+  // likes
   {
-    title: "Customer",
-    dataIndex: "name",
+    title: "Likes",
+    dataIndex: "likes",
+    sorter: (a, b) => a.likes - b.likes,
   },
+  // dislikes
   {
-    title: "Date",
-    dataIndex: "date",
+    title: "Dislikes",
+    dataIndex: "dislikes",
+    sorter: (a, b) => a.dislikes - b.dislikes,
   },
-
+  // author
   {
-    title: "Total",
-    dataIndex: "totalPrice",
+    title: "Author",
+    dataIndex: "author",
+    sorter: (a, b) => a.author.length - b.author.length,
+  },
+  // Action
+  {
+    title: "Action",
+    dataIndex: "action",
+    render: () => (
+      <>
+        <Link to="#">
+          <BiEdit className="fs-5 ms-3 me-5 " />
+        </Link>
+        <Link to="#">
+          <MdDelete className="fs-5 ms-3 me-5 text-danger" />
+        </Link>
+      </>
+    ),
   },
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    status: "Processing",
-    countryOfOrigin: `India`,
-    name: `Edward King ${i}`,
-    date: `10/10/2021`,
-    // age: 32,
-    // address: `London, Park Lane no. ${i}`,
-    productId: `#00745${i}`,
-    totalPrice: `$${i + 100}.00`,
-  });
-}
 const BlogList = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBlogs());
+  }, []);
+
+  const blogState = useSelector((state) => state.blog.blogs);
+  console.log("blogState in blogList is : ", blogState);
+
+  const data1 = [];
+  for (let i = 0; i < blogState.length; i++) {
+    data1.push({
+      key: i + 1,
+      title: blogState[i].title,
+      category: blogState[i].category,
+      views: blogState[i].numberOfViews,
+      likes: blogState[i].likes.length,
+      dislikes: blogState[i].dislikes.length,
+      author: blogState[i].author,
+      action: "action",
+    });
+  }
+
   return (
     <div>
       <h3 className="mb-4 title">Blogs List</h3>
