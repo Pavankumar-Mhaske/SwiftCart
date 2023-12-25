@@ -5,7 +5,7 @@ import { Token } from "../token";
 const getProducts = async () => {
   const token = Token;
 
-  console.log("token in customer is : ", token);
+  console.log("token in productService is : ", token);
   const url = `${base_url}products/`;
   const response = await axios.get(url, {
     headers: { Authorization: `Bearer ${token}` },
