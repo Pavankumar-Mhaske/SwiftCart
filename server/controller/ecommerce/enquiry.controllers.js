@@ -32,20 +32,20 @@ const getAllEnquirys = asyncHandler(async (req, res) => {
   // $match operation is using an empty object {} as the condition, which means that it will match all documents in the Enquiry collection.
   const enquiryAggregate = Enquiry.aggregate([{ $match: {} }]);
 
-  const enquirys = await Enquiry.aggregatePaginate(
+  const enquiries = await Enquiry.aggregatePaginate(
     enquiryAggregate,
     getMongoosePaginationOptions({
       page,
       limit,
       customLabels: {
         totalDocs: "totalEnquirys",
-        docs: "enquirys",
+        docs: "enquiries",
       },
     })
   );
   return res
     .status(200)
-    .json(new ApiResponse(200, enquirys, "Categories fetched successfully"));
+    .json(new ApiResponse(200, enquiries, "Categories fetched successfully"));
 });
 
 const getEnquiryById = asyncHandler(async (req, res) => {
