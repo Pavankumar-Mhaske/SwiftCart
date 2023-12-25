@@ -99,14 +99,14 @@ const MainLayout = () => {
                   label: "Brand List",
                 },
                 {
-                  key: "category",
+                  key: "prodcut-category",
                   icon: <BiCategoryAlt className="fs-4" />,
-                  label: "Category",
+                  label: "Add Product Category",
                 },
                 {
-                  key: "category-list",
+                  key: "prodcut-category-list",
                   icon: <BiCategoryAlt className="fs-4" />,
-                  label: "Category List",
+                  label: "Product Category List",
                 },
                 {
                   key: "color",
