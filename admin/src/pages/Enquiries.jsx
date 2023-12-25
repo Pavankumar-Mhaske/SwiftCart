@@ -32,10 +32,10 @@ const columns = [
   //   dataIndex: "comment",
   // },
   // owner
-  {
-    title: "Owner",
-    dataIndex: "owner",
-  },
+  // {
+  //   title: "Owner",
+  //   dataIndex: "owner",
+  // },
   // Status
   {
     title: "Status",
@@ -139,7 +139,7 @@ const Enquiries = () => {
       email: enquiryState[i].email,
       mobile: enquiryState[i].mobile,
       // comment: enquiryState[i].comment,
-      owner: enquiryState[i].owner,
+      // owner: enquiryState[i].owner,
       status: enquiryState[i].status,
       date: enquiryState[i].createdAt,
       action: "action",
