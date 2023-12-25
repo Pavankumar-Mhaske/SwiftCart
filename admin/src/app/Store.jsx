@@ -4,9 +4,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import customerReducer from "../features/customers/CustomerSlice";
 import productReducer from "../features/product/ProductSlice";
 import brandReducer from "../features/brand/BrandSlice";
-import ProductCategoryReducer from "../features/product-category/ProductCategorySlice";
+import productCategoryReducer from "../features/product-category/ProductCategorySlice";
 import colorReducer from "../features/color/ColorSlice";
 import blogReducer from "../features/blog/BlogSlice";
+import blogCategoryReducer from "../features/blog-category/BlogCategorySlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,8 +15,9 @@ export const store = configureStore({
     customer: customerReducer,
     product: productReducer,
     brand: brandReducer,
-    productCategory: ProductCategoryReducer,
+    productCategory: productCategoryReducer,
     color: colorReducer,
     blog: blogReducer,
+    blogCategory: blogCategoryReducer,
   },
 });
