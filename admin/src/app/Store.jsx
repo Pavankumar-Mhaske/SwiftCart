@@ -8,6 +8,7 @@ import productCategoryReducer from "../features/product-category/ProductCategory
 import colorReducer from "../features/color/ColorSlice";
 import blogReducer from "../features/blog/BlogSlice";
 import blogCategoryReducer from "../features/blog-category/BlogCategorySlice";
+import enquiryReducer from "../features/enquiry/EnquirySlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,5 +20,6 @@ export const store = configureStore({
     color: colorReducer,
     blog: blogReducer,
     blogCategory: blogCategoryReducer,
+    enquiry: enquiryReducer,
   },
 });
