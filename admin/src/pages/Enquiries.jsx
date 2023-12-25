@@ -1,16 +1,42 @@
 import React from "react";
 import { Table, Tag } from "antd";
-
+import { BiEdit } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { getEnquiries } from "../features/enquiry/EnquirySlice";
 
 const columns = [
   {
-    title: "O_No",
+    title: "S_No",
     dataIndex: "key",
   },
   {
-    title: "Products",
-    dataIndex: "productId",
+    title: "Name",
+    dataIndex: "name",
   },
+  // Email
+  {
+    title: "Email",
+    dataIndex: "email",
+  },
+  // Mobile
+  {
+    title: "Mobile",
+    dataIndex: "mobile",
+  },
+  // Comment
+  // {
+  //   title: "Comment",
+  //   dataIndex: "comment",
+  // },
+  // owner
+  {
+    title: "Owner",
+    dataIndex: "owner",
+  },
+  // Status
   {
     title: "Status",
     dataIndex: "status",
@@ -18,35 +44,32 @@ const columns = [
       let color = "";
 
       switch (status) {
-        case "Pending":
-          color = "orange";
-          break;
-        case "Hold":
+        case "SUBMITTED":
           color = "blue";
           break;
-        case "Canceled":
-          color = "red";
+        case "PENDING":
+          color = "orange";
           break;
-        case "Completed":
-          color = "green";
-          break;
-        case "Processing":
-          color = "cyan";
-          break;
-        case "Shipped":
+        case "AWAITING_RESPONSE":
           color = "geekblue";
           break;
-        case "Delivered":
-          color = "purple";
+        case "IN_PROGRESS":
+          color = "cyan";
           break;
-        case "Refunded":
-          color = "magenta";
-          break;
-        case "On Hold":
+        case "ON_HOLD":
           color = "gold";
           break;
-        case "Partially Shipped":
-          color = "volcano";
+        case "COMPLETED":
+          color = "green";
+          break;
+        case "CANCELED":
+          color = "red";
+          break;
+        case "CLOSED":
+          color = "purple";
+          break;
+        case "ARCHIVED":
+          color = "silver";
           break;
         // Add more cases as needed...
 
@@ -57,40 +80,89 @@ const columns = [
       return <Tag color={color}>{status}</Tag>;
     },
   },
+  // date
   {
-    title: "Co.",
-    dataIndex: "countryOfOrigin",
-  },
-  {
-    title: "Customer",
-    dataIndex: "name",
-  },
-  {
-    title: "Date",
+    title: "Date (IST)",
     dataIndex: "date",
-  },
+    // convert in the form of 29/10/2023, 24:41:25 IST
+    render: (date) => {
+      const originalDate = new Date(date);
 
+      // Convert to IST (UTC+5:30)
+      const istDate = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true, // Use 24-hour format
+      });
+
+      const formattedDate = `${istDate.format(originalDate)}`;
+
+      return <>{formattedDate}</>;
+    },
+  },
+  // Action
   {
-    title: "Total",
-    dataIndex: "totalPrice",
+    title: "Action",
+    dataIndex: "action",
+    render: () => (
+      <>
+        <Link to="#">
+          <BiEdit className="fs-5 ms-3 me-5 " />
+        </Link>
+        <Link to="#">
+          <MdDelete className="fs-5 ms-3 me-5 text-danger" />
+        </Link>
+      </>
+    ),
   },
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    status: "Processing",
-    countryOfOrigin: `India`,
-    name: `Edward King ${i}`,
-    date: `10/10/2021`,
-    // age: 32,
-    // address: `London, Park Lane no. ${i}`,
-    productId: `#00745${i}`,
-    totalPrice: `$${i + 100}.00`,
-  });
-}
 const Enquiries = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getEnquiries());
+  }, []);
+
+  const enquiryState = useSelector((state) => state.enquiry.enquiries);
+  console.log("enquiryState in enquiryList is : ", enquiryState);
+  const originalDate = new Date("2023-10-28T19:11:25.414Z");
+
+  // Convert to IST (UTC+5:30)
+  const istDate = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: false, // Use 24-hour format
+  });
+
+  const formattedDate = `${istDate.format(originalDate)} IST`;
+
+  console.log("new formated date:", formattedDate);
+
+  const data1 = [];
+  for (let i = 0; i < enquiryState.length; i++) {
+    data1.push({
+      key: i + 1,
+      name: enquiryState[i].name,
+      email: enquiryState[i].email,
+      mobile: enquiryState[i].mobile,
+      // comment: enquiryState[i].comment,
+      owner: enquiryState[i].owner,
+      status: enquiryState[i].status,
+      date: enquiryState[i].createdAt,
+      action: "action",
+    });
+  }
+
   return (
     <div>
       <h3 className="mb-4 title">Enquiries</h3>
