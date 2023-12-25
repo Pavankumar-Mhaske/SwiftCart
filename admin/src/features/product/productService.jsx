@@ -1,10 +1,10 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
-import {  Token } from "../token";
+import { Token } from "../token";
 
 const getProducts = async () => {
-  const token = token;
-    
+  const token = Token;
+
   console.log("token in customer is : ", token);
   const url = `${base_url}products/`;
   const response = await axios.get(url, {

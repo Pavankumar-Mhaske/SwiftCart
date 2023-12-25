@@ -9,12 +9,12 @@ import { base_url } from "../utils/base_url";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const getColorById = async (colorId) => {
-  const url = `${base_url}colors/${colorId}`;
-  const response = await axios.get(url);
-  console.log("Response in productService is : ", response.data.data.name);
-  return response.data.data.name;
-};
+// const getColorById = async (colorId) => {
+//   const url = `${base_url}colors/${colorId}`;
+//   const response = await axios.get(url);
+//   console.log("Response in productService is : ", response.data.data.name);
+//   return response.data.data.name;
+// };
 
 const columns = [
   {
