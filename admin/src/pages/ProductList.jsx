@@ -4,10 +4,10 @@ import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../features/product/productSlice";
 import { base_url } from "../utils/base_url";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { getProducts } from "../features/product/productSlice";
 
 // const getColorById = async (colorId) => {
 //   const url = `${base_url}colors/${colorId}`;
