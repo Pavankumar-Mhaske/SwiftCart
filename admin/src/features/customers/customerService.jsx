@@ -7,7 +7,7 @@ const getUsers = async () => {
   //   const token = Cookies.get("user");
 
   const token = Token;
-  console.log("token in customer is : ", token);
+  console.log("token in customerService is : ", token);
   const url = `${base_url}users/all-users/`;
   const response = await axios.get(url, {
     headers: { Authorization: `Bearer ${token}` },
