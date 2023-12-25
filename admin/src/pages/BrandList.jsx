@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { base_url } from "../utils/base_url";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { getBrands } from "../features/brand/brandSlice";
+import { getBrands } from "../features/brand/BrandSlice";
 
 const columns = [
   {

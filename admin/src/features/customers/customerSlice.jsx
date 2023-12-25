@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import customerService from "./customerService";
+import customerService from "./CustomerService";
 
 export const getUsers = createAsyncThunk(
   "customers/get-customers",

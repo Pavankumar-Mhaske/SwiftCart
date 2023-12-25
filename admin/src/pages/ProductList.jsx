@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { base_url } from "../utils/base_url";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { getProducts } from "../features/product/productSlice";
+import { getProducts } from "../features/product/ProductSlice";
 
 // const getColorById = async (colorId) => {
 //   const url = `${base_url}colors/${colorId}`;

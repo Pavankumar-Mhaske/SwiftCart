@@ -1,6 +1,6 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
-import { Token } from "../token";
+import { Token } from "../Token";
 
 const getBrands = async () => {
   const token = Token;
