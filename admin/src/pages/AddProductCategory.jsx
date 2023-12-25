@@ -1,7 +1,7 @@
 import React from "react";
 import CustomInput from "../components/CustomInput";
 
-const AddCategory = () => {
+const AddProductCategory = () => {
   return (
     <div>
       <h3 className="mb-4 title">Add Product Category</h3>
@@ -20,4 +20,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default AddProductCategory;

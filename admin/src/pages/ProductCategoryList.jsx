@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Table, Tag } from "antd";
 
 const columns = [
@@ -91,10 +90,10 @@ for (let i = 0; i < 46; i++) {
   });
 }
 
-const CategoryList = () => {
+const ProductCategoryList = () => {
   return (
     <div>
-      <h3 className="mb-4 title">CategoryList</h3>
+      <h3 className="mb-4 title">ProductCategoryList</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -102,4 +101,4 @@ const CategoryList = () => {
   );
 };
 
-export default CategoryList;
+export default ProductCategoryList;
