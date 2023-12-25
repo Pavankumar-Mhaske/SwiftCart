@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getProductCategories } from "../features/product-category/ProductCategorySlice";
+
 const columns = [
   {
     title: "S_No",
@@ -20,7 +21,6 @@ const columns = [
     title: "Owner",
     dataIndex: "owner",
     sorter: (a, b) => a.owner.length - b.owner.length,
-
     render: (owner) => (
       <>
         <Tag color="blue">{owner}</Tag>
