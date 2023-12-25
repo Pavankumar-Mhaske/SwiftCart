@@ -1,15 +1,53 @@
 import React from "react";
 import { Table, Tag } from "antd";
+import { BiEdit } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { getOrders } from "../features/order/OrderSlice";
 
 const columns = [
   {
-    title: "O_No",
+    title: "S_No",
     dataIndex: "key",
   },
+  // PaymentId
   {
-    title: "Products",
-    dataIndex: "productId",
+    title: "PaymentId",
+    dataIndex: "paymentId",
   },
+  // IsPaymentDone
+  {
+    title: "P. Status",
+    dataIndex: "isPaymentDone",
+    render: (isPaymentDone) => {
+      let color = "";
+      let paymentDone = "";
+      switch (isPaymentDone) {
+        case true:
+          color = "green";
+          paymentDone = "Done";
+          break;
+
+        case false:
+          color = "red";
+          paymentDone = "Not Done";
+          break;
+
+        default:
+          color = "default";
+      }
+
+      return <Tag color={color}>{paymentDone}</Tag>;
+    },
+  },
+  // PaymentProvider
+  {
+    title: "P. Provider",
+    dataIndex: "paymentProvider",
+  },
+  // Status
   {
     title: "Status",
     dataIndex: "status",
@@ -17,37 +55,17 @@ const columns = [
       let color = "";
 
       switch (status) {
-        case "Pending":
-          color = "orange";
-          break;
-        case "Hold":
+        case "PENDING":
           color = "blue";
           break;
-        case "Canceled":
+
+        case "CANCELLED":
           color = "red";
           break;
-        case "Completed":
+
+        case "DELIVERED":
           color = "green";
           break;
-        case "Processing":
-          color = "cyan";
-          break;
-        case "Shipped":
-          color = "geekblue";
-          break;
-        case "Delivered":
-          color = "purple";
-          break;
-        case "Refunded":
-          color = "magenta";
-          break;
-        case "On Hold":
-          color = "gold";
-          break;
-        case "Partially Shipped":
-          color = "volcano";
-          break;
-        // Add more cases as needed...
 
         default:
           color = "default";
@@ -56,41 +74,68 @@ const columns = [
       return <Tag color={color}>{status}</Tag>;
     },
   },
+  // OrderPrice
   {
-    title: "Co.",
-    dataIndex: "countryOfOrigin",
+    title: "OP",
+    dataIndex: "orderPrice",
   },
+  // discountedOrderPrice
+  {
+    title: "DOP",
+    dataIndex: "discountedOrderPrice",
+  },
+  // coupon
+  {
+    title: "Coupon",
+    dataIndex: "coupon",
+  },
+  // customer
   {
     title: "Customer",
-    dataIndex: "name",
+    dataIndex: "customer",
   },
+  // Action
   {
-    title: "Date",
-    dataIndex: "date",
-  },
-
-  {
-    title: "Total",
-    dataIndex: "totalPrice",
+    title: "Action",
+    dataIndex: "action",
+    render: () => (
+      <>
+        <Link to="#">
+          <BiEdit className="fs-5 ms-0 me-0 " />
+        </Link>
+        <Link to="#">
+          <MdDelete className="fs-5 ms-3 me-0 text-danger" />
+        </Link>
+      </>
+    ),
   },
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    status: "Processing",
-    countryOfOrigin: `India`,
-    name: `Edward King ${i}`,
-    date: `10/10/2021`,
-    // age: 32,
-    // address: `London, Park Lane no. ${i}`,
-    productId: `#00745${i}`,
-    totalPrice: `$${i + 100}.00`,
-  });
-}
-
 const Orders = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getOrders());
+  }, []);
+
+  const orderState = useSelector((state) => state.order.orders);
+  console.log("orderState in Orders is : ", orderState);
+
+  const data1 = [];
+  for (let i = 0; i < orderState.length; i++) {
+    data1.push({
+      key: i + 1,
+      paymentId: orderState[i].paymentId,
+      isPaymentDone: orderState[i].isPaymentDone,
+      paymentProvider: orderState[i].paymentProvider,
+      status: orderState[i].status,
+      orderPrice: orderState[i].orderPrice,
+      discountedOrderPrice: orderState[i].discountedOrderPrice,
+      coupon: orderState[i].coupon?.couponCode,
+      customer: orderState[i].customer?._id,
+      action: "action",
+    });
+  }
+
   return (
     <div>
       <h3 className="mb-4 title">Orders</h3>
