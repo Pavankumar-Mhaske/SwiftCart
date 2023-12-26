@@ -11,6 +11,7 @@ import { getBrands } from "../features/brand/BrandSlice";
 import Multiselect from "react-widgets/Multiselect";
 import "react-widgets/styles.css";
 import Dropzone from "react-dropzone";
+import { uploadImages } from "../features/upload-product-images/UploadSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is required"),
@@ -35,14 +36,14 @@ let schema = yup.object().shape({
 });
 
 const AddProduct = () => {
-  const displatch = useDispatch();
+  const dispatch = useDispatch();
   const [color, setColor] = useState([]);
   // console.log("color in color : ", color);
 
   useEffect(() => {
-    displatch(getBrands());
-    displatch(getProductCategories());
-    displatch(getColors());
+    dispatch(getBrands());
+    dispatch(getProductCategories());
+    dispatch(getColors());
     formik.values.color = color;
   }, []);
 
@@ -208,7 +209,7 @@ const AddProduct = () => {
           {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
 
           <div className="bg-white border-1 p-5 text-center">
-            <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
+            <Dropzone onDrop={(acceptedFiles) => dispatch(uploadImages(acceptedFiles))}>
               {({ getRootProps, getInputProps }) => (
                 <section>
                   <div {...getRootProps()}>
