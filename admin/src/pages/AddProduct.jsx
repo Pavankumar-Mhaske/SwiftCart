@@ -55,6 +55,12 @@ const AddProduct = () => {
   const colorState = useSelector((state) => state.color.colors);
   // console.log("colorState : ", colorState);
 
+  const brandState = useSelector((state) => state.brand.brands);
+  // console.log("brandState : ", brandState);
+
+  const imageState = useSelector((state) => state.uploadProductImage.images);
+  console.log("imageState : ", imageState);
+
   const colors = [];
   colorState.forEach((color, key) => {
     colors.push({
@@ -63,9 +69,6 @@ const AddProduct = () => {
     });
   });
   // console.log("colors : ", colors);
-
-  const brandState = useSelector((state) => state.brand.brands);
-  // console.log("brandState : ", brandState);
 
   const formik = useFormik({
     initialValues: {
@@ -209,7 +212,9 @@ const AddProduct = () => {
           {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
 
           <div className="bg-white border-1 p-5 text-center">
-            <Dropzone onDrop={(acceptedFiles) => dispatch(uploadImages(acceptedFiles))}>
+            <Dropzone
+              onDrop={(acceptedFiles) => dispatch(uploadImages(acceptedFiles))}
+            >
               {({ getRootProps, getInputProps }) => (
                 <section>
                   <div {...getRootProps()}>
@@ -221,6 +226,19 @@ const AddProduct = () => {
                 </section>
               )}
             </Dropzone>
+          </div>
+          <div className="showImages d-flex flex-wrap ">
+            {imageState.map((image, key) => {
+              return (
+                <div key={key} className="uploadedImage p-1 col-4 ">
+                  <img
+                    src={image.url}
+                    alt="Uploaded Image"
+                    className="img-fluid"
+                  />
+                </div>
+              );
+            })}
           </div>
           <button
             className="btn btn-success border-0 rounded-3 my-5"
