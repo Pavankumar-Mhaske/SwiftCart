@@ -53,3 +53,7 @@ Table {
   font-family: Roboto !important;
   color: var(--color-828599);
 }
+
+.uploadedImage {
+  /* padding: 2px; */
+}
