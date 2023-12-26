@@ -27,12 +27,12 @@ const columns = [
       switch (isPaymentDone) {
         case true:
           color = "green";
-          paymentDone = "Done";
+          paymentDone = "Paid";
           break;
 
         case false:
           color = "red";
-          paymentDone = "Not Done";
+          paymentDone = "Unpaid";
           break;
 
         default:
