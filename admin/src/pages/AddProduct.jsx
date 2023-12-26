@@ -3,28 +3,28 @@ import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 /** upload images */
-import { InboxOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
-const { Dragger } = Upload;
-const props = {
-  name: "file",
-  multiple: true,
-  action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
+// import { InboxOutlined } from "@ant-design/icons";
+// import { message, Upload } from "antd";
+// const { Dragger } = Upload;
+// const props = {
+//   name: "file",
+//   multiple: true,
+//   action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
+//   onChange(info) {
+//     const { status } = info.file;
+//     if (status !== "uploading") {
+//       console.log(info.file, info.fileList);
+//     }
+//     if (status === "done") {
+//       message.success(`${info.file.name} file uploaded successfully.`);
+//     } else if (status === "error") {
+//       message.error(`${info.file.name} file upload failed.`);
+//     }
+//   },
+//   onDrop(e) {
+//     console.log("Dropped files", e.dataTransfer.files);
+//   },
+// };
 
 const AddProduct = () => {
   const [description, setDescription] = useState();
@@ -69,7 +69,7 @@ const AddProduct = () => {
           <CustomInput type="number" label="Enter Product Quantity" />
 
           {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
-          <Dragger {...props}>
+          {/* <Dragger {...props}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
             </p>
@@ -80,7 +80,7 @@ const AddProduct = () => {
               Support for a single or bulk upload. Strictly prohibited from
               uploading company data or other banned files.
             </p>
-          </Dragger>
+          </Dragger> */}
           <button
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
