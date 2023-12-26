@@ -1,21 +1,22 @@
 import React, { useEffect } from "react";
 import CustomInput from "../components/CustomInput";
 import { Link, useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
 import * as yup from "yup";
+import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
+
+let schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
 
 const Login = () => {
   const displatch = useDispatch();
   const navigate = useNavigate();
-  let schema = yup.object().shape({
-    email: yup
-      .string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: yup.string().required("Password is required"),
-  });
 
   const formik = useFormik({
     initialValues: {
