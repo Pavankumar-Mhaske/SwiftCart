@@ -43,7 +43,7 @@ const AddProduct = () => {
     displatch(getProductCategories());
     displatch(getColors());
     formik.values.color = color;
-  }, [color]);
+  }, []);
 
   const productCategoryState = useSelector(
     (state) => state.productCategory.productCategories
