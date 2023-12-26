@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -16,7 +16,19 @@ let schema = yup.object().shape({
   description: yup.string().required("Description is required"),
   price: yup.number().required("Price is required"),
   category: yup.string().required("Category is required"),
-  color: yup.string().required("Color is required"),
+  // color: yup.array().required("Colors are required"),
+  color: yup
+    .array()
+    .of(
+      yup.object().shape({
+        id: yup.number().required("Color ID is required"),
+        color: yup.string().required("Color name is required"),
+      })
+    )
+    .min(1, "At least one color must be selected") // Adjust the minimum number of selected colors
+    .required("Colors are required"),
+  // other fields
+
   brand: yup.string().required("Brand is required"),
   quantity: yup.number().required("Quantity is required"),
 });
@@ -24,15 +36,14 @@ let schema = yup.object().shape({
 const AddProduct = () => {
   const displatch = useDispatch();
   const [color, setColor] = useState([]);
-  console.log("color in color : ", color);
-  // Create a ref for the Multiselect component
-  const multiselectRef = useRef();
+  // console.log("color in color : ", color);
 
   useEffect(() => {
     displatch(getBrands());
     displatch(getProductCategories());
     displatch(getColors());
-  }, []);
+    formik.values.color = color;
+  }, [color]);
 
   const productCategoryState = useSelector(
     (state) => state.productCategory.productCategories
@@ -60,21 +71,13 @@ const AddProduct = () => {
       description: "",
       price: "",
       category: "",
-      color: "",
+      color: [],
       brand: "",
       quantity: "",
     },
     validationSchema: schema,
 
     onSubmit: (values) => {
-      const selectedColors = multiselectRef.current.state.values;
-
-      // Include the selected colors in the form submission
-      const valuesWithColors = {
-        ...values,
-        color: selectedColors,
-      };
-
       alert(JSON.stringify(valuesWithColors, null, 2));
       // displatch(login(values));
     },
@@ -115,7 +118,6 @@ const AddProduct = () => {
               name="description"
               value={formik.values.description}
               onChange={formik.handleChange("description")}
-              onBlur={formik.handleBlur("description")}
             />
           </div>
           <div className="error">
@@ -135,7 +137,14 @@ const AddProduct = () => {
           </div>
           {/* 👑👑👑 Category, Color, Brand❓👑👑👑 */}
           {/*✅✅✅ Select Category ✅✅✅ */}
-          <select name="" className="form-control py-3 mb-3" id="">
+          <select
+            name="category"
+            value={formik.values.category}
+            onChange={formik.handleChange("category")}
+            onBlur={formik.handleBlur("category")}
+            className="form-control py-3 mb-3"
+            id=""
+          >
             <option value="">Select Category</option>
             {productCategoryState.map((category, key) => {
               return (
@@ -145,8 +154,12 @@ const AddProduct = () => {
               );
             })}
           </select>
+          <div className="error">
+            {formik.touched.category && formik.errors.category}
+          </div>
           {/*✅✅✅ Select Color ✅✅✅ */}
           <Multiselect
+            name="color"
             dataKey="id"
             textField="color"
             defaultValue={[1]}
@@ -154,11 +167,19 @@ const AddProduct = () => {
             onChange={(event) => {
               setColor(event);
             }}
-            // Attach the ref to the Multiselect component
-            ref={multiselectRef}
           />
+          <div className="error">
+            {formik.touched.color && formik.errors.color}
+          </div>
           {/* ✅✅✅ Select Brand ✅✅✅ */}
-          <select name="" className="form-control py-3 mb-3" id="">
+          <select
+            name="brand"
+            value={formik.values.brand}
+            onChange={formik.handleChange("brand")}
+            onBlur={formik.handleBlur("brand")}
+            className="form-control py-3 mb-3"
+            id=""
+          >
             <option value="">Select Brand</option>
             {brandState.map((brand, key) => {
               return (
@@ -168,6 +189,9 @@ const AddProduct = () => {
               );
             })}
           </select>
+          <div className="error">
+            {formik.touched.brand && formik.errors.brand}
+          </div>
           {/*📈📈📈📈📈📈📈📈 Quantity 📈📈📈📈📈📈📈📈 */}
           <CustomInput
             type="number"
