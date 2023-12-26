@@ -10,6 +10,7 @@ import { getColors } from "../features/color/ColorSlice";
 import { getBrands } from "../features/brand/BrandSlice";
 import Multiselect from "react-widgets/Multiselect";
 import "react-widgets/styles.css";
+import Dropzone from "react-dropzone";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is required"),
@@ -205,18 +206,21 @@ const AddProduct = () => {
             {formik.touched.quantity && formik.errors.quantity}
           </div>
           {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
-          {/* <Dragger {...props}>
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">
-              Click or drag file to this area to upload
-            </p>
-            <p className="ant-upload-hint">
-              Support for a single or bulk upload. Strictly prohibited from
-              uploading company data or other banned files.
-            </p>
-          </Dragger> */}
+
+          <div className="bg-white border-1 p-5 text-center">
+            <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
+              {({ getRootProps, getInputProps }) => (
+                <section>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <p>
+                      Drag 'n' drop some files here, or click to select files
+                    </p>
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+          </div>
           <button
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
