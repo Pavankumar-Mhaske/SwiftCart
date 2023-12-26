@@ -1,34 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-/** upload images */
-// import { InboxOutlined } from "@ant-design/icons";
-// import { message, Upload } from "antd";
-// const { Dragger } = Upload;
-// const props = {
-//   name: "file",
-//   multiple: true,
-//   action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-//   onChange(info) {
-//     const { status } = info.file;
-//     if (status !== "uploading") {
-//       console.log(info.file, info.fileList);
-//     }
-//     if (status === "done") {
-//       message.success(`${info.file.name} file uploaded successfully.`);
-//     } else if (status === "error") {
-//       message.error(`${info.file.name} file upload failed.`);
-//     }
-//   },
-//   onDrop(e) {
-//     console.log("Dropped files", e.dataTransfer.files);
-//   },
-// };
+import * as yup from "yup";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductCategories } from "../features/product-category/ProductCategorySlice";
+import { getColors } from "../features/color/ColorSlice";
+import { getBrands } from "../features/brand/BrandSlice";
+import Multiselect from "react-widgets/Multiselect";
+import "react-widgets/styles.css";
+
+let schema = yup.object().shape({
+  title: yup.string().required("Title is required"),
+  description: yup.string().required("Description is required"),
+  price: yup.number().required("Price is required"),
+  category: yup.string().required("Category is required"),
+  color: yup.string().required("Color is required"),
+  brand: yup.string().required("Brand is required"),
+  quantity: yup.number().required("Quantity is required"),
+});
 
 const AddProduct = () => {
-  const [description, setDescription] = useState();
+  const displatch = useDispatch();
+  const [color, setColor] = useState([]);
+  console.log("color in color : ", color);
+  // Create a ref for the Multiselect component
+  const multiselectRef = useRef();
 
+  useEffect(() => {
+    displatch(getBrands());
+    displatch(getProductCategories());
+    displatch(getColors());
+  }, []);
+
+  const productCategoryState = useSelector(
+    (state) => state.productCategory.productCategories
+  );
+  // console.log("productCategoryState : ", productCategoryState);
+
+  const colorState = useSelector((state) => state.color.colors);
+  // console.log("colorState : ", colorState);
+
+  const colors = [];
+  colorState.forEach((color, key) => {
+    colors.push({
+      id: key + 1,
+      color: color.name,
+    });
+  });
+  // console.log("colors : ", colors);
+
+  const brandState = useSelector((state) => state.brand.brands);
+  // console.log("brandState : ", brandState);
+
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+      price: "",
+      category: "",
+      color: "",
+      brand: "",
+      quantity: "",
+    },
+    validationSchema: schema,
+
+    onSubmit: (values) => {
+      const selectedColors = multiselectRef.current.state.values;
+
+      // Include the selected colors in the form submission
+      const valuesWithColors = {
+        ...values,
+        color: selectedColors,
+      };
+
+      alert(JSON.stringify(valuesWithColors, null, 2));
+      // displatch(login(values));
+    },
+  });
+
+  const [description, setDescription] = useState();
   const handleDescription = (value) => {
     setDescription(value);
     // console.log(value);
@@ -38,36 +90,96 @@ const AddProduct = () => {
     <div>
       <h3 className="mb-4 title">Add Product</h3>
       <div>
-        <form action="">
+        <form
+          action=""
+          onSubmit={formik.handleSubmit}
+          className="d-flex flex-column gap-3"
+        >
           {/* title, description, price, category, color, brand, quantity, images, */}
-          <CustomInput type="text" label="Enter Product Title" />
+          {/* 🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻 title 🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻 */}
+          <CustomInput
+            type="text"
+            label="Enter Product Title"
+            name="title"
+            value={formik.values.title}
+            onChange={formik.handleChange("title")}
+            onBlur={formik.handleBlur("title")}
+          />
+          <div className="error">
+            {formik.touched.title && formik.errors.title}
+          </div>
           {/* 📝📝📝✍🏻✍🏻✍🏻 Description ✍🏻✍🏻✍🏻📝📝📝 */}
-          <div className="mb-3">
+          <div className="mb-0">
             <ReactQuill
               theme="snow"
-              value={description}
-              onChange={(event) => {
-                handleDescription(event);
-              }}
+              name="description"
+              value={formik.values.description}
+              onChange={formik.handleChange("description")}
+              onBlur={formik.handleBlur("description")}
             />
           </div>
-          <CustomInput type="number" label="Enter Product Price" />
+          <div className="error">
+            {formik.touched.description && formik.errors.description}
+          </div>
+          {/* 💸💸💸💰💰💰  Price 💸💸💸💰💰💰  */}
+          <CustomInput
+            type="number"
+            label="Enter Product Price"
+            name="price"
+            value={formik.values.price}
+            onChange={formik.handleChange("price")}
+            onBlur={formik.handleBlur("price")}
+          />
+          <div className="error">
+            {formik.touched.price && formik.errors.price}
+          </div>
           {/* 👑👑👑 Category, Color, Brand❓👑👑👑 */}
           {/*✅✅✅ Select Category ✅✅✅ */}
           <select name="" className="form-control py-3 mb-3" id="">
             <option value="">Select Category</option>
+            {productCategoryState.map((category, key) => {
+              return (
+                <option key={key} value={category.name}>
+                  {category.name}
+                </option>
+              );
+            })}
           </select>
           {/*✅✅✅ Select Color ✅✅✅ */}
-          <select name="" className="form-control py-3 mb-3" id="">
-            <option value="">Select Color</option>
-          </select>
-          {/*✅✅✅ Select Brand ✅✅✅ */}
+          <Multiselect
+            dataKey="id"
+            textField="color"
+            defaultValue={[1]}
+            data={colors}
+            onChange={(event) => {
+              setColor(event);
+            }}
+            // Attach the ref to the Multiselect component
+            ref={multiselectRef}
+          />
+          {/* ✅✅✅ Select Brand ✅✅✅ */}
           <select name="" className="form-control py-3 mb-3" id="">
             <option value="">Select Brand</option>
+            {brandState.map((brand, key) => {
+              return (
+                <option key={key} value={brand.name}>
+                  {brand.name}
+                </option>
+              );
+            })}
           </select>
-
-          <CustomInput type="number" label="Enter Product Quantity" />
-
+          {/*📈📈📈📈📈📈📈📈 Quantity 📈📈📈📈📈📈📈📈 */}
+          <CustomInput
+            type="number"
+            label="Enter Product Quantity"
+            name="quantity"
+            value={formik.values.quantity}
+            onChange={formik.handleChange("quantity")}
+            onBlur={formik.handleBlur("quantity")}
+          />
+          <div className="error">
+            {formik.touched.quantity && formik.errors.quantity}
+          </div>
           {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
           {/* <Dragger {...props}>
             <p className="ant-upload-drag-icon">
