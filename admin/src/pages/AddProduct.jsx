@@ -12,6 +12,7 @@ import Multiselect from "react-widgets/Multiselect";
 import "react-widgets/styles.css";
 import Dropzone from "react-dropzone";
 import { uploadImages } from "../features/upload-product-images/UploadSlice";
+// import { deleteImages } from "../features/upload-product-images/UploadSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is required"),
@@ -44,6 +45,7 @@ const AddProduct = () => {
     dispatch(getBrands());
     dispatch(getProductCategories());
     dispatch(getColors());
+    dispatch(uploadImages());
     formik.values.color = color;
   }, []);
 
@@ -235,8 +237,9 @@ const AddProduct = () => {
                   className="uploadedImage p-1 col-4 position-relative "
                 >
                   <button
+                    // onClick={() => dispatch(deleteImages(image.public_id))}
                     className="removeImage btn-close position-absolute rounded-circle "
-                    style={{ top: "5px", right: "5px" }}
+                    style={{ top: "10px", right: "10px" }}
                   ></button>
                   <img
                     src={image.url}
