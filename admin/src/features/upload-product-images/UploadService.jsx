@@ -4,25 +4,25 @@ import { Token } from "../Token";
 
 const uploadImages = async (data) => {
   const token = Token;
-  console.log("token in uploadService is : ", token);
-  console.log("data in uploadService is : ", data);
+  // console.log("token in uploadService is : ", token);
+  // console.log("data in uploadService is : ", data);
   const url = `${base_url}products/upload/`;
   const response = await axios.post(url, data, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  console.log("response in uploadService is : ", response);
+  // console.log("response in uploadService is : ", response);
   return response.data;
 };
 
 const deleteImages = async (id) => {
   const token = Token;
-  console.log("token in deleteService is : ", token);
-  console.log("id in deleteService is : ", id);
+  // console.log("token in deleteService is : ", token);
+  // console.log("id in deleteService is : ", id);
   const url = `${base_url}products/delete/${id}`;
   const response = await axios.delete(url, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  console.log("response in deleteService is : ", response);
+  // console.log("response in deleteService is : ", response);
   return response.data;
 };
 
