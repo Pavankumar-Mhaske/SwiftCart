@@ -1,40 +1,28 @@
-``` as the code given below... just before the form submit the garbageImageStates array will be filled with the public_id's 
-    but just after the form submit the garbageImageStates array will be empty... I don't know why this is happening... ```
-const garbageImageStates = [];
-
-const removeImageFromContainer = (publicId) => {
-  garbageImageStates.push(publicId);
-  console.log(
-    "garbageImageStates inside removeImagefunction : ",
-    garbageImageStates
-  );
-  // Filter newImageState without modifying it directly
-  setNewImageState((prevImageState) =>
-    prevImageState.filter((image) => image.public_id !== publicId)
-  );
-};
-
-const formik = useFormik({
-  // some code
-  onSubmit: (values) => {
-    // Delete all the images which are in the garbageImageStates array from the cloudinary
-    alert(JSON.stringify(values, null, 2));
-    console.log("garbageImageStates before: ", garbageImageStates);
-    console.log("garbageImageStates after: ", garbageImageStates);
-  },
+const colors = [];
+colorState.forEach((color, key) => {
+  colors.push({
+    id: key + 1,
+    color: color.name,
+  });
 });
 
-<form onSubmit={formik.handleSubmit}>
-  {/* ... some code */}
-  return (
-  <div key={key} className="uploadedImage p-1 col-4 position-relative ">
-    <button
-      onClick={() => removeImageFromContainer(image.public_id)}
-      className="removeImage btn-close position-absolute rounded-circle "
-      style={{ top: "10px", right: "10px" }}
-      type="button"
-    ></button>
-    <img src={image.url} alt="Uploaded Image" className="img-fluid border  " />
-  </div>
-  );
-</form>;
+const initialValues = {
+  // some code
+  color: colors.length > 0 ? [colors[0]] : [],
+  // some code
+};
+
+// console.log("initialValues : ", initialValues);
+const formik = useFormik({
+  initialValues: initialValues,
+  // some code
+});
+console.log("formik.values.color at begining 🌎 : ", formik.values.color);
+
+useEffect(() => {
+  formik.values.color = initialValues.color;
+  console.log("formik.values.color ❗💥❗💥: ", formik.values.color);
+}, []);
+
+``` i am confused, that how can i set the initial value of formik.values.color to initialValues.color at the starting only,
+  because when i trying this way .... it is not working, it is not setting the initial value of formik.values.color to initialValues.color at the starting only. moreoveer it's seting to [] empty array.```;

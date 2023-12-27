@@ -129,24 +129,13 @@ const AddProduct = () => {
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
-      // alert(JSON.stringify(values, null, 2));
+      alert(JSON.stringify(values, null, 2));
       console.log("garbageImageStates before: ", garbageImageStates);
       await handleDeleteImages();
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       console.log("garbageImageStates after: ", garbageImageStates);
     },
-  });
-
-  formik.values.color = initialValues.color;
-  useEffect(() => {
-    console.log("formik.values.color ❗💥❗💥: ", formik.values.color);
-  }, [formik]);
-
-  const [description, setDescription] = useState();
-  const handleDescription = (value) => {
-    setDescription(value);
-    // console.log(value);
-  };
+  });  
 
   return (
     <div>
@@ -225,6 +214,7 @@ const AddProduct = () => {
             data={colors}
             onChange={(event) => {
               formik.setFieldValue("color", event);
+              console.log("event 🔴🟢⚪ : ", event);
               // setColor(event);
               // console.log("color event 🔴🟢⚪ : ", color);
             }}
