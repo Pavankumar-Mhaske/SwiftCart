@@ -609,7 +609,9 @@ const deleteImages = asyncHandler(async (req, res) => {
     const deletedImage = await cloudinaryDeleteImg(publicId, "Images");
 
     console.log(deleteImages);
-    // TODO: need to delete the images from the database
+    // TODO: need to delete the images from the database -
+    // as commited above why we need to delete the images from the database event if during uploading time we are storing urls from cludinary into in data base...? 
+    // answer - because we are storing the urls in the database not the images itself
     res
       .status(200)
       .json(new ApiResponse(200, deletedImage, "Images deleted successfully"));
