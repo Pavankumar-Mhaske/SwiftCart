@@ -12,7 +12,7 @@ import Multiselect from "react-widgets/Multiselect";
 import "react-widgets/styles.css";
 import Dropzone from "react-dropzone";
 import { uploadImages } from "../features/upload-product-images/UploadSlice";
-// import { deleteImages } from "../features/upload-product-images/UploadSlice";
+import { deleteImages } from "../features/upload-product-images/UploadSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is required"),
@@ -39,6 +39,8 @@ let schema = yup.object().shape({
 const AddProduct = () => {
   const dispatch = useDispatch();
   const [color, setColor] = useState([]);
+  const [newImageState, setNewImageState] = useState([]);
+
   // console.log("color in color : ", color);
 
   useEffect(() => {
@@ -46,8 +48,9 @@ const AddProduct = () => {
     dispatch(getProductCategories());
     dispatch(getColors());
     dispatch(uploadImages());
-    formik.values.color = color;
-  }, []);
+    // dispatch(deleteImages());
+    // formik.values.color = color;
+  }, [dispatch]);
 
   const productCategoryState = useSelector(
     (state) => state.productCategory.productCategories
@@ -62,6 +65,37 @@ const AddProduct = () => {
 
   const imageState = useSelector((state) => state.uploadProductImage.images);
   console.log("imageState : ", imageState);
+
+  // extract all the objects from imageState in imageContainer array
+  // let newImageState = imageState.map((image) => {
+  //   return image.url;
+  // });
+
+  // function to delete the images on button click
+  // const removeImageFromContainer = (publicId) => {
+  //   console.log("publicId in removeImageFromContainer : ", publicId);
+  //   // and also remove the image object which matches it's pulic_id with the publicId
+  //   newImageState = newImageState.filter((image) => {
+  //     return image.public_id !== publicId;
+  //   });
+  //   dispatch(deleteImages(publicId));
+  // };
+
+  useEffect(() => {
+    // Extract URLs from imageState and update newImageState
+    setNewImageState(imageState.map((image) => image.url));
+  }, [imageState]);
+  console.log("newImageState : ", newImageState);
+
+  const removeImageFromContainer = (publicId) => {
+    // Filter newImageState without modifying it directly
+    setNewImageState((prevImageState) =>
+      prevImageState.filter((image) => image.public_id !== publicId)
+    );
+
+    // Dispatch deleteImages action
+    // dispatch(deleteImages(publicId));
+  };
 
   const colors = [];
   colorState.forEach((color, key) => {
@@ -230,16 +264,18 @@ const AddProduct = () => {
             </Dropzone>
           </div>
           <div className="showImages d-flex flex-wrap ">
-            {imageState.map((image, key) => {
+            {newImageState?.map((image, key) => {
+              console.log("Image in the imageState : ", image);
               return (
                 <div
                   key={key}
                   className="uploadedImage p-1 col-4 position-relative "
                 >
                   <button
-                    // onClick={() => dispatch(deleteImages(image.public_id))}
+                    onClick={() => removeImageFromContainer(image.public_id)}
                     className="removeImage btn-close position-absolute rounded-circle "
                     style={{ top: "10px", right: "10px" }}
+                    type="button"
                   ></button>
                   <img
                     src={image.url}
