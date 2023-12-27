@@ -13,8 +13,20 @@ const uploadImages = async (data) => {
   return response.data;
 };
 
+// const deleteImages = async (id) => {
+//   const token = Token;
+//   console.log("token in deleteService is : ", token);
+//   const url = `${base_url}products/delete/${id}/`;
+//   const response = await axios.delete(url, id, {
+//     headers: { Authorization: `Bearer ${token}` },
+//   });
+//   console.log("response in deleteService is : ", response);
+//   return response.data;
+// };
+
 const uploadService = {
   uploadImages,
+  // deleteImages,
 };
 
 export default uploadService; // export the service
