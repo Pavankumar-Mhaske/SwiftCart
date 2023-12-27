@@ -60,8 +60,8 @@ router
   );
 
 router
-  .route("/upload/:productId")
-  // .route("/upload")
+  // .route("/upload/:productId") // we will receive productId in the url
+  .route("/upload/")
   .post(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
