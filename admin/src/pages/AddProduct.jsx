@@ -230,11 +230,18 @@ const AddProduct = () => {
           <div className="showImages d-flex flex-wrap ">
             {imageState.map((image, key) => {
               return (
-                <div key={key} className="uploadedImage p-1 col-4 ">
+                <div
+                  key={key}
+                  className="uploadedImage p-1 col-4 position-relative "
+                >
+                  <button
+                    className="removeImage btn-close position-absolute rounded-circle "
+                    style={{ top: "5px", right: "5px" }}
+                  ></button>
                   <img
                     src={image.url}
                     alt="Uploaded Image"
-                    className="img-fluid"
+                    className="img-fluid border  "
                   />
                 </div>
               );
