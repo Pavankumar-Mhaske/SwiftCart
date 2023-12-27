@@ -37,7 +37,6 @@ export const deleteImages = createAsyncThunk(
 
 const initialState = {
   images: [],
-  productId: "",
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -59,7 +58,6 @@ export const uploadSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.images = action.payload.data.images;
-        // state.productId = action.payload.data._id;
         // console.log("action.payload in uploadSlice is : ", action.payload.data.images);
       })
       // ;builder
@@ -81,7 +79,6 @@ export const uploadSlice = createSlice({
         state.isSuccess = true;
         // state.images = action.payload.data == {} ? [] : action.payload.data.subImages;
         state.images = [];
-        // state.productId = action.payload.data;
         // console.log(
         //   "action.payload in delete deleteUploadSlice is : ",
         //   action.payload.data
