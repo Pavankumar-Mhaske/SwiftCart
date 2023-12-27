@@ -38,7 +38,7 @@ let schema = yup.object().shape({
 
 const AddProduct = () => {
   const dispatch = useDispatch();
-  const [color, setColor] = useState([]);
+  // const [color, setColor] = useState([]);
   const [newImageState, setNewImageState] = useState([]);
 
   // console.log("color in color : ", color);
@@ -48,9 +48,8 @@ const AddProduct = () => {
     dispatch(getProductCategories());
     dispatch(getColors());
     dispatch(uploadImages());
-    // dispatch(deleteImages());
-    // formik.values.color = color;
-  }, [dispatch]);
+    dispatch(deleteImages());
+  }, []);
 
   const productCategoryState = useSelector(
     (state) => state.productCategory.productCategories
@@ -66,20 +65,7 @@ const AddProduct = () => {
   const imageState = useSelector((state) => state.uploadProductImage.images);
   console.log("imageState : ", imageState);
 
-  // extract all the objects from imageState in imageContainer array
-  // let newImageState = imageState.map((image) => {
-  //   return image.url;
-  // });
-
-  // function to delete the images on button click
-  // const removeImageFromContainer = (publicId) => {
-  //   console.log("publicId in removeImageFromContainer : ", publicId);
-  //   // and also remove the image object which matches it's pulic_id with the publicId
-  //   newImageState = newImageState.filter((image) => {
-  //     return image.public_id !== publicId;
-  //   });
-  //   dispatch(deleteImages(publicId));
-  // };
+  const garbageImageStates = [];
 
   useEffect(() => {
     // Extract URLs from imageState and update newImageState
@@ -88,13 +74,11 @@ const AddProduct = () => {
   console.log("newImageState : ", newImageState);
 
   const removeImageFromContainer = (publicId) => {
+    garbageImageStates.push(publicId);
     // Filter newImageState without modifying it directly
     setNewImageState((prevImageState) =>
       prevImageState.filter((image) => image.public_id !== publicId)
     );
-
-    // Dispatch deleteImages action
-    // dispatch(deleteImages(publicId));
   };
 
   const colors = [];
@@ -104,25 +88,69 @@ const AddProduct = () => {
       color: color.name,
     });
   });
-  // console.log("colors : ", colors);
 
+  const deleteImageAsync = (publicId) => {
+    try {
+      console.log("Deleting image: ", publicId);
+      dispatch(deleteImages(publicId));
+      console.log("Image deleted successfully: ", publicId);
+    } catch (error) {
+      console.error("Error deleting image: ", publicId, error);
+      // Handle the error as needed
+    }
+  };
+  const handleDeleteImages = () => {
+    for (const publicId of garbageImageStates) {
+      deleteImageAsync(publicId);
+    }
+
+    console.log("All images deleted");
+  };
+
+  const initialValues = {
+    title: "",
+    description: "",
+    price: "",
+    category: "",
+    color: colors.length > 0 ? [colors[0]] : [],
+    brand: "",
+    quantity: "",
+  };
+
+  console.log("initialValues : ", initialValues);
   const formik = useFormik({
-    initialValues: {
-      title: "",
-      description: "",
-      price: "",
-      category: "",
-      color: [],
-      brand: "",
-      quantity: "",
-    },
+    initialValues: initialValues,
     validationSchema: schema,
-
     onSubmit: (values) => {
-      alert(JSON.stringify(valuesWithColors, null, 2));
-      // displatch(login(values));
+      // Delete all the images which are in the garbageImageStates array from the cloudinary
+      alert(JSON.stringify(values, null, 2));
+      handleDeleteImages();
+
+      console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
     },
   });
+
+  /* 
+  hook for setting the 
+  title in the formik.values.title
+  description in the formik.values.description
+  price in the formik.values.price
+  category in the formik.values.category
+  color in the formik.values.color
+  brand in the formik.values.brand
+  quantity in the formik.values.quantity
+*/
+  formik.values.color = initialValues.color;
+
+  useEffect(() => {
+    // formik.values.color = color;
+    // console.log("formik.values.color : ", formik.values.color);
+    // setColor(formik.values.color);
+    // console.log("Color on entry: ", color);
+    // formik.setFieldValue("color", color);
+
+    console.log("formik.values.color ❗💥❗💥: ", formik.values.color);
+  }, [formik]);
 
   const [description, setDescription] = useState();
   const handleDescription = (value) => {
@@ -198,7 +226,7 @@ const AddProduct = () => {
           <div className="error">
             {formik.touched.category && formik.errors.category}
           </div>
-          {/*✅✅✅ Select Color ✅✅✅ */}
+          {/*✅✅✅🔴🟠🟡🟢🔵🟣🟤⚫🔘⬛⬜ Select Color 🔴🟠🟡🟢🔵🟣🟤⚫🔘⬛⬜ ✅✅✅ */}
           <Multiselect
             name="color"
             dataKey="id"
@@ -206,7 +234,9 @@ const AddProduct = () => {
             defaultValue={[1]}
             data={colors}
             onChange={(event) => {
-              setColor(event);
+              formik.setFieldValue("color", event);
+              // setColor(event);
+              // console.log("color event 🔴🟢⚪ : ", color);
             }}
           />
           <div className="error">
@@ -265,7 +295,9 @@ const AddProduct = () => {
           </div>
           <div className="showImages d-flex flex-wrap ">
             {newImageState?.map((image, key) => {
-              console.log("Image in the imageState : ", image);
+              {
+                /* console.log("Image in the imageState : ", image); */
+              }
               return (
                 <div
                   key={key}
@@ -289,6 +321,7 @@ const AddProduct = () => {
           <button
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
+            onClick={() => console.log("on sumbit click , 🌺🌺color : ", color)}
           >
             Add Product
           </button>
