@@ -14,6 +14,7 @@ import Dropzone from "react-dropzone";
 import { uploadImages } from "../features/upload-product-images/UploadSlice";
 import { deleteImages } from "../features/upload-product-images/UploadSlice";
 
+// ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
@@ -40,7 +41,7 @@ const AddProduct = () => {
   const dispatch = useDispatch();
   // const [color, setColor] = useState([]);
   const [newImageState, setNewImageState] = useState([]);
-
+  const [garbageImageStates, setGarbageImageStates] = useState([]);
   // console.log("color in color : ", color);
 
   useEffect(() => {
@@ -65,8 +66,6 @@ const AddProduct = () => {
   const imageState = useSelector((state) => state.uploadProductImage.images);
   console.log("imageState : ", imageState);
 
-  const garbageImageStates = [];
-
   useEffect(() => {
     // Extract URLs from imageState and update newImageState
     setNewImageState(imageState.map((image) => image.url));
@@ -74,7 +73,8 @@ const AddProduct = () => {
   console.log("newImageState : ", newImageState);
 
   const removeImageFromContainer = (publicId) => {
-    garbageImageStates.push(publicId);
+    // Use the setGarbageImageStates function to update the state
+    setGarbageImageStates((prevValues) => [...prevValues, publicId]);
     // Filter newImageState without modifying it directly
     setNewImageState((prevImageState) =>
       prevImageState.filter((image) => image.public_id !== publicId)
@@ -89,21 +89,28 @@ const AddProduct = () => {
     });
   });
 
-  const deleteImageAsync = (publicId) => {
+  const deleteImageAsync = async (publicId) => {
     try {
       console.log("Deleting image: ", publicId);
-      dispatch(deleteImages(publicId));
+      await dispatch(deleteImages(publicId));
       console.log("Image deleted successfully: ", publicId);
     } catch (error) {
       console.error("Error deleting image: ", publicId, error);
       // Handle the error as needed
     }
   };
-  const handleDeleteImages = () => {
-    for (const publicId of garbageImageStates) {
-      deleteImageAsync(publicId);
-    }
 
+  const handleDeleteImages = async () => {
+    // for (const publicId of garbageImageStates) {
+    while (garbageImageStates.length > 0) {
+      // Remove the first element (pop) and get its value
+      const publicId = garbageImageStates.shift();
+      await deleteImageAsync(publicId);
+      console.log(
+        "garbageImageStates in handleDeleteImages is 💔: ",
+        garbageImageStates
+      );
+    }
     console.log("All images deleted");
   };
 
@@ -117,38 +124,21 @@ const AddProduct = () => {
     quantity: "",
   };
 
-  console.log("initialValues : ", initialValues);
+  // console.log("initialValues : ", initialValues);
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: schema,
-    onSubmit: (values) => {
-      // Delete all the images which are in the garbageImageStates array from the cloudinary
-      alert(JSON.stringify(values, null, 2));
-      handleDeleteImages();
-
+    onSubmit: async (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      console.log("garbageImageStates before: ", garbageImageStates);
+      await handleDeleteImages();
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
+      console.log("garbageImageStates after: ", garbageImageStates);
     },
   });
 
-  /* 
-  hook for setting the 
-  title in the formik.values.title
-  description in the formik.values.description
-  price in the formik.values.price
-  category in the formik.values.category
-  color in the formik.values.color
-  brand in the formik.values.brand
-  quantity in the formik.values.quantity
-*/
   formik.values.color = initialValues.color;
-
   useEffect(() => {
-    // formik.values.color = color;
-    // console.log("formik.values.color : ", formik.values.color);
-    // setColor(formik.values.color);
-    // console.log("Color on entry: ", color);
-    // formik.setFieldValue("color", color);
-
     console.log("formik.values.color ❗💥❗💥: ", formik.values.color);
   }, [formik]);
 
@@ -321,7 +311,6 @@ const AddProduct = () => {
           <button
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
-            onClick={() => console.log("on sumbit click , 🌺🌺color : ", color)}
           >
             Add Product
           </button>
