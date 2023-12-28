@@ -74,9 +74,9 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createdProduct = action.payload;
+        state.createdProduct = action.payload.data;
         // state.user = action.payload.data.user;
-        console.log("action.payload in userSlice is : ", action.payload);
+        console.log("action.payload in userSlice is : ", action.payload.data);
       })
       // ;builder
       .addCase(createProduct.rejected, (state, action) => {
