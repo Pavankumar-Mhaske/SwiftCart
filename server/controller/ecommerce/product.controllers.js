@@ -21,14 +21,14 @@ import fs from "fs";
 
 const createProduct = asyncHandler(async (req, res) => {
   const {
-    name,
-    description,
-    price,
-    stock,
+    name, // done
+    description, // done
+    price, // done
+    stock, // done
     soldItems,
-    category,
-    brand,
-    colors,
+    category, // done
+    brand, // done
+    colors, // done
     tags,
   } = req.body;
 
