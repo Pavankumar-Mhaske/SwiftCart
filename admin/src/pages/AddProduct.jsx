@@ -16,6 +16,7 @@ import { uploadImages } from "../features/upload-product-images/UploadSlice";
 import { deleteImages } from "../features/upload-product-images/UploadSlice";
 import { createProduct } from "../features/product/ProductSlice";
 import { ProductTagsEnum } from "../features/product/ProductTagsEnum";
+import { useNavigate } from "react-router-dom";
 
 const validMongoDBIdRegex = /^[0-9a-fA-F]{24}$/;
 const validTagValues = Object.values(ProductTagsEnum);
@@ -53,6 +54,7 @@ let schema = yup.object().shape({
 
 const AddProduct = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // const [color, setColor] = useState([]);
   const [newImageState, setNewImageState] = useState([]);
   const [garbageImageStates, setGarbageImageStates] = useState([]);
@@ -157,7 +159,18 @@ const AddProduct = () => {
       await handleDeleteImages();
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       console.log("garbageImageStates after: ", garbageImageStates);
-      dispatch(createProduct(values));
+      // dispatch(createProduct(values));
+      formik.resetForm();
+      // setTimeout(() => {
+      //   navigate("/admin/product-list");
+      // }, 3000);
+      // chack all the created/ possible variables or arrays to be reseted
+      setNewImageState([]);
+      setGarbageImageStates([]);
+      colorOptions.length = 0;
+      tagOptions.length = 0;
+      // colorState.length = 0;
+      // `);
     },
   });
 
@@ -171,7 +184,14 @@ const AddProduct = () => {
   // console.log("colorOptions 🔴🟢⚪ : ", colorOptions);
   // console.log("formik.values.colors 🔴🟢⚪ : ", formik.values.colors);
   // console.log("formik.values.tags 💊💊💊 : ", formik.values.tags);
+  console.log(` ⭐⭐⭐⭐
+  garbageImageStates : ", ${garbageImageStates}
+  newImageState : ", ${newImageState}
+  colorOptions : ", ${colorOptions.length}
+  tagOptions : ", ${tagOptions.length}
+  colorState : ", ${colorState.length}
 
+  `);
   const handleColorsChange = (event) => {
     // console.log("event 🔴🟢⚪ : ", event);
     formik.setFieldValue("colors", event);
