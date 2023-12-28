@@ -33,28 +33,14 @@
 
 {
   "name": "2",
-  "description": "<p>2</p>",
-  "price": -1,
+  "description": "2",
+  "price": 0,
   "stock": 2,
-  "category": "652b9ce6b8fd6a63e2dcd856",
-  "brand": "APPLE",
+  "category": "652b9cedb8fd6a63e2dcd85a",
+  "brand": "LENOVO",
   "colors": [
-      "653cedcf7d3bc7fc1be0efd5",
       "653cee117d3bc7fc1be0efdd",
+      "653cedcf7d3bc7fc1be0efd5",
       "653cee827d3bc7fc1be0efe1"
   ]
 }
-
-
-``` during the changes in the ReactQuill i am able to set the value of the formik.values.description 
-like - "<p>hello this is new product</p>" but i just want the value of it without tag (<p> </p>) that is only "hello this is new product"
-for reference i have provoided the code below
-
-              <ReactQuill
-              theme="snow"
-              name="description"
-              value={formik.values.description}
-              onChange={formik.handleChange("description")}
-            />
-          
-            ```

@@ -135,10 +135,10 @@ const AddProduct = () => {
       console.log("values : ", values);
       alert(JSON.stringify(values, null, 2));
       console.log("garbageImageStates before: ", garbageImageStates);
-      // await handleDeleteImages();
+      await handleDeleteImages();
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       console.log("garbageImageStates after: ", garbageImageStates);
-      // dispatch(createProduct(values));
+      dispatch(createProduct(values));
     },
   });
 
