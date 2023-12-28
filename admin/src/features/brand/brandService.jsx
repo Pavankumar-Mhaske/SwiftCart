@@ -16,8 +16,24 @@ const getBrands = async () => {
   return response.data;
 };
 
+const createBrand = async (brand) => {
+  const token = Token;
+
+  console.log("token in brandService is : ", token);
+  console.log("brand in brandService is : ", brand);
+  const url = `${base_url}brands/`;
+  const response = await axios.post(url, brand, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  console.log("Response in brandService is : ", response);
+
+  return response.data;
+};
+
 const BrandService = {
   getBrands,
+  createBrand,
 };
 
 export default BrandService; // export the service
