@@ -61,6 +61,8 @@ let schema = yup.object().shape({
 const AddProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loadingToastId, setLoadingToastId] = useState(null);
+
   // const [color, setColor] = useState([]);
   const [newImageState, setNewImageState] = useState([]);
   const [garbageImageStates, setGarbageImageStates] = useState([]);
@@ -88,17 +90,16 @@ const AddProduct = () => {
   const imageState = useSelector((state) => state.uploadProductImage.images);
   console.log("imageState : ", imageState);
 
-  let toastId = "";
   const newProduct = useSelector((state) => state.product);
   const { createdProduct, isSuccess, isLoading, isError } = newProduct;
 
   useEffect(() => {
-    if (isSuccess && createProduct) {
-      console.log("toastId : ", toastId);
-      showToastSuccess("Product Created Successfully", toastId);
+    if (isSuccess && createdProduct) {
+      console.log("loadingToastId : ", loadingToastId);
+      showToastSuccess("Product Created Successfully", loadingToastId);
     }
     if (isError) {
-      showToastError("Product Creation Failed", toastId);
+      showToastError("Product Creation Failed");
     }
   }, [createdProduct, isSuccess, isLoading, isError]);
 
@@ -183,7 +184,8 @@ const AddProduct = () => {
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
-      toastId = showToastLoading("Creating Product");
+      const toastId = showToastLoading("Creating Product");
+      setLoadingToastId(toastId);
       console.log("values : ", values);
       // alert(JSON.stringify(values, null, 2));
       console.log("garbageImageStates before: ", garbageImageStates);
@@ -196,9 +198,9 @@ const AddProduct = () => {
       setNewImageState([]);
       setGarbageImageStates([]);
       // showToastSuccess("Product Created Successfully", toastId);
-      setTimeout(() => {
-        navigate("/admin/product-list");
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/admin/product-list");
+      // }, 3000);
       // chack all the created/ possible variables or arrays to be reseted
 
       // `);
