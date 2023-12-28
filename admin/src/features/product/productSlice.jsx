@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productService from "./ProductService";
-
 export const getProducts = createAsyncThunk(
   "products/get-products",
   async (thunkAPI) => {
@@ -36,6 +35,7 @@ const initialState = {
   isSuccess: false,
   message: "",
 };
+// variable which changes the value of the variable which is from another file by it's setter function of useState
 
 export const productSlice = createSlice({
   name: "users",
@@ -76,7 +76,10 @@ export const productSlice = createSlice({
         state.isSuccess = true;
         state.createdProduct = action.payload.data;
         // state.user = action.payload.data.user;
-        console.log("action.payload in userSlice is : ", action.payload.data);
+        console.log(
+          "action.payload in userSlice is 🌹🌹🌹🌹 : ",
+          action.payload.data
+        );
       })
       // ;builder
       .addCase(createProduct.rejected, (state, action) => {
