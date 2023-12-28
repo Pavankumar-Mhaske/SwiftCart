@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductCategories } from "../features/product-category/ProductCategorySlice";
 import { getColors } from "../features/color/ColorSlice";
 import { getBrands } from "../features/brand/BrandSlice";
-import Multiselect from "react-widgets/Multiselect";
-import "react-widgets/styles.css";
+// import Multiselect from "react-widgets/Multiselect";
+// import "react-widgets/styles.css";
+import { Select } from "antd";
 import Dropzone from "react-dropzone";
 import { uploadImages } from "../features/upload-product-images/UploadSlice";
 import { deleteImages } from "../features/upload-product-images/UploadSlice";
@@ -84,14 +85,6 @@ const AddProduct = () => {
     );
   };
 
-  const colors = [];
-  colorState.forEach((color, key) => {
-    colors.push({
-      id: key + 1,
-      color: color.name,
-    });
-  });
-
   const deleteImageAsync = async (publicId) => {
     try {
       console.log("Deleting image: ", publicId);
@@ -117,6 +110,14 @@ const AddProduct = () => {
     console.log("All images deleted");
   };
 
+  const colorOptions = [];
+  colorState.forEach((color, key) => {
+    colorOptions.push({
+      label: color.name,
+      value: color._id,
+    });
+  });
+
   const initialValues = {
     name: "",
     description: "",
@@ -124,10 +125,9 @@ const AddProduct = () => {
     stock: "",
     category: "",
     brand: "",
-    colors: colorState.length > 0 ? [colorState[0]] : [],
+    colors: [],
   };
 
-  // console.log("initialValues : ", initialValues);
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: schema,
@@ -147,6 +147,14 @@ const AddProduct = () => {
     const tempElement = document.createElement("div");
     tempElement.innerHTML = htmlString;
     return tempElement.textContent || tempElement.innerText;
+  };
+
+  // console.log("colorOptions 🔴🟢⚪ : ", colorOptions);
+  // console.log("formik.values.colors 🔴🟢⚪ : ", formik.values.colors);
+
+  const handleColorsChange = (event) => {
+    // console.log("event 🔴🟢⚪ : ", event);
+    formik.setFieldValue("colors", event);
   };
 
   return (
@@ -227,7 +235,7 @@ const AddProduct = () => {
             {formik.touched.category && formik.errors.category}
           </div>
           {/*✅✅✅🔴🟠🟡🟢🔵🟣🟤⚫🔘⬛⬜ Select Color 🔴🟠🟡🟢🔵🟣🟤⚫🔘⬛⬜ ✅✅✅ */}
-          <Multiselect
+          {/* <Multiselect
             name="colors"
             dataKey="id"
             textField="color"
@@ -251,6 +259,17 @@ const AddProduct = () => {
               formik.setFieldValue("colors", colorIds);
               // formik.setFieldValue("colors", event);
             }}
+          /> */}
+          <Select
+            mode="multiple"
+            allowClear
+            className="w-100"
+            style={{ width: "100%" }}
+            placeholder="Select Colors"
+            onChange={(event) => {
+              handleColorsChange(event);
+            }}
+            options={colorOptions}
           />
           <div className="error">
             {formik.touched.colors && formik.errors.colors}
