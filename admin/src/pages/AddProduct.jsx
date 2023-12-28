@@ -22,7 +22,7 @@ let schema = yup.object().shape({
   price: yup.number().required("Price is required"),
   category: yup.string().required("Category is required"),
   // color: yup.array().required("Colors are required"),
-  color: yup
+  colors: yup
     .array()
     .of(
       yup.object().shape({
@@ -122,7 +122,7 @@ const AddProduct = () => {
     stock: "",
     category: "",
     brand: "",
-    color: colors.length > 0 ? [colors[0]] : [],
+    colors: colors.length > 0 ? [colors[0]] : [],
   };
 
   // console.log("initialValues : ", initialValues);
@@ -209,20 +209,20 @@ const AddProduct = () => {
           </div>
           {/*✅✅✅🔴🟠🟡🟢🔵🟣🟤⚫🔘⬛⬜ Select Color 🔴🟠🟡🟢🔵🟣🟤⚫🔘⬛⬜ ✅✅✅ */}
           <Multiselect
-            name="color"
+            name="colors"
             dataKey="id"
             textField="color"
             defaultValue={[1]}
             data={colors}
             onChange={(event) => {
-              formik.setFieldValue("color", event);
+              formik.setFieldValue("colors", event);
               console.log("event 🔴🟢⚪ : ", event);
               // setColor(event);
               // console.log("color event 🔴🟢⚪ : ", color);
             }}
           />
           <div className="error">
-            {formik.touched.color && formik.errors.color}
+            {formik.touched.colors && formik.errors.colors}
           </div>
           {/* ✅✅✅ Select Brand ✅✅✅ */}
           <select
