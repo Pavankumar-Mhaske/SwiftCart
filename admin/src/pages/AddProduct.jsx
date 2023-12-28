@@ -13,10 +13,11 @@ import "react-widgets/styles.css";
 import Dropzone from "react-dropzone";
 import { uploadImages } from "../features/upload-product-images/UploadSlice";
 import { deleteImages } from "../features/upload-product-images/UploadSlice";
+import { createProduct } from "../features/product/ProductSlice";
 
 // ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
-  title: yup.string().required("Title is required"),
+  name: yup.string().required("name is required"),
   description: yup.string().required("Description is required"),
   price: yup.number().required("Price is required"),
   category: yup.string().required("Category is required"),
@@ -34,7 +35,7 @@ let schema = yup.object().shape({
   // other fields
 
   brand: yup.string().required("Brand is required"),
-  quantity: yup.number().required("Quantity is required"),
+  stock: yup.number().required("stock is required"),
 });
 
 const AddProduct = () => {
@@ -115,13 +116,13 @@ const AddProduct = () => {
   };
 
   const initialValues = {
-    title: "",
+    name: "",
     description: "",
     price: "",
+    stock: "",
     category: "",
-    color: colors.length > 0 ? [colors[0]] : [],
     brand: "",
-    quantity: "",
+    color: colors.length > 0 ? [colors[0]] : [],
   };
 
   // console.log("initialValues : ", initialValues);
@@ -134,8 +135,9 @@ const AddProduct = () => {
       await handleDeleteImages();
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       console.log("garbageImageStates after: ", garbageImageStates);
+      dispatch(createProduct(values));
     },
-  });  
+  });
 
   return (
     <div>
@@ -146,18 +148,18 @@ const AddProduct = () => {
           onSubmit={formik.handleSubmit}
           className="d-flex flex-column gap-3"
         >
-          {/* title, description, price, category, color, brand, quantity, images, */}
-          {/* 🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻 title 🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻 */}
+          {/* name, description, price, category, color, brand, stock, images, */}
+          {/* 🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻 name 🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻 */}
           <CustomInput
             type="text"
-            label="Enter Product Title"
-            name="title"
-            value={formik.values.title}
-            onChange={formik.handleChange("title")}
-            onBlur={formik.handleBlur("title")}
+            label="Enter Product name"
+            name="name"
+            value={formik.values.name}
+            onChange={formik.handleChange("name")}
+            onBlur={formik.handleBlur("name")}
           />
           <div className="error">
-            {formik.touched.title && formik.errors.title}
+            {formik.touched.name && formik.errors.name}
           </div>
           {/* 📝📝📝✍🏻✍🏻✍🏻 Description ✍🏻✍🏻✍🏻📝📝📝 */}
           <div className="mb-0">
@@ -243,17 +245,17 @@ const AddProduct = () => {
           <div className="error">
             {formik.touched.brand && formik.errors.brand}
           </div>
-          {/*📈📈📈📈📈📈📈📈 Quantity 📈📈📈📈📈📈📈📈 */}
+          {/*📈📈📈📈📈📈📈📈 stock 📈📈📈📈📈📈📈📈 */}
           <CustomInput
             type="number"
-            label="Enter Product Quantity"
-            name="quantity"
-            value={formik.values.quantity}
-            onChange={formik.handleChange("quantity")}
-            onBlur={formik.handleBlur("quantity")}
+            label="Enter Product stock"
+            name="stock"
+            value={formik.values.stock}
+            onChange={formik.handleChange("stock")}
+            onBlur={formik.handleBlur("stock")}
           />
           <div className="error">
-            {formik.touched.quantity && formik.errors.quantity}
+            {formik.touched.stock && formik.errors.stock}
           </div>
           {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
 
