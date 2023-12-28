@@ -25,10 +25,16 @@ const AddProductCategory = () => {
   const newProductCategory = useSelector((state) => state.productCategory);
   const { createdProductCategory, isSuccess, isLoading, isError } =
     newProductCategory;
-  console.log(
-    "createdProductCategory in AddProductCategory is : ",
-    createdProductCategory
-  );
+
+  useEffect(() => {
+    if (isSuccess && createdProductCategory) {
+      console.log("loadingToastId 💘💘 : ", loadingToastId);
+      showToastSuccess("ProductCategory Created Successfully", loadingToastId);
+    }
+    if (isError) {
+      showToastError("ProductCategory Creation Failed");
+    }
+  }, [createdProductCategory, isSuccess, isLoading, isError]);
 
   // async functions for dispatching createProductCategory
   const handleCreateProductCategory = async (values) => {
@@ -54,30 +60,13 @@ const AddProductCategory = () => {
       // alert(JSON.stringify(values, null, 2));
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       await handleCreateProductCategory(values);
-      // formik.resetForm();
+      formik.resetForm();
       // showToastSuccess("ProductCategory Created Successfully", toastId);
       // setTimeout(() => {
       //   navigate("/admin/product-category-list");
       // }, 3000);
     },
   });
-
-  useEffect(() => {
-    if (formik.isSubmitting) {
-      if (isSuccess && createdProductCategory) {
-        console.log("loadingToastId 💘💘 : ", loadingToastId);
-        showToastSuccess(
-          "ProductCategory Created Successfully",
-          loadingToastId
-        );
-      }
-      if (isError) {
-        showToastError("ProductCategory Creation Failed", loadingToastId);
-      }
-    } else {
-      console.log("formik.isSubmitting is false 💘💘");
-    }
-  }, [createdProductCategory, isSuccess, isLoading, isError]);
 
   return (
     <div>
