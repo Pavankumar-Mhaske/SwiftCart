@@ -33,7 +33,7 @@ const AddBrand = () => {
       showToastError("Brand Creation Failed", toastId);
     }
   }, [createdBrand, isSuccess, isLoading, isError]);
-  
+
   // async functions for dispatching createBrand
   const handleCreateBrand = async (values) => {
     try {
@@ -58,9 +58,9 @@ const AddBrand = () => {
       await handleCreateBrand(values);
       formik.resetForm();
       // showToastSuccess("Brand Created Successfully", toastId);
-      // setTimeout(() => {
-      //   navigate("/admin/brand-list");
-      // }, 3000);
+      setTimeout(() => {
+        navigate("/admin/brand-list");
+      }, 3000);
     },
   });
 
