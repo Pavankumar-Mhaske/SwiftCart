@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,18 +19,18 @@ let schema = yup.object().shape({
 const AddBrand = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loadingToastId, setLoadingToastId] = useState(null);
 
-  let toastId = "";
   const newBrand = useSelector((state) => state.brand);
   const { createdBrand, isSuccess, isLoading, isError } = newBrand;
-  console.log("createdBrand in AddBrand is : ", createdBrand);
+  // console.log("createdBrand in AddBrand is : ", createdBrand);
   useEffect(() => {
     if (isSuccess && createdBrand) {
-      console.log("toastId : ", toastId);
-      showToastSuccess("Brand Created Successfully", toastId);
+      console.log("toastId : ", loadingToastId);
+      showToastSuccess("Brand Created Successfully", loadingToastId);
     }
     if (isError) {
-      showToastError("Brand Creation Failed", toastId);
+      showToastError("Brand Creation Failed");
     }
   }, [createdBrand, isSuccess, isLoading, isError]);
 
@@ -51,16 +51,17 @@ const AddBrand = () => {
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
-      toastId = showToastLoading("Creating Brand");
+      const toastId = showToastLoading("Creating Brand");
+      setLoadingToastId(toastId);
       console.log("values : ", values);
       // alert(JSON.stringify(values, null, 2));
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       await handleCreateBrand(values);
       formik.resetForm();
       // showToastSuccess("Brand Created Successfully", toastId);
-      setTimeout(() => {
-        navigate("/admin/brand-list");
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/admin/brand-list");
+      // }, 3000);
     },
   });
 
