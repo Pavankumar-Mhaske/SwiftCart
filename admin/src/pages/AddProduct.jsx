@@ -88,6 +88,20 @@ const AddProduct = () => {
   const imageState = useSelector((state) => state.uploadProductImage.images);
   console.log("imageState : ", imageState);
 
+  let toastId = "";
+  const newProduct = useSelector((state) => state.product);
+  const { createdProduct, isSuccess, isLoading, isError } = newProduct;
+
+  useEffect(() => {
+    if (isSuccess && createProduct) {
+      console.log("toastId : ", toastId);
+      showToastSuccess("Product Created Successfully", toastId);
+    }
+    if (isError) {
+      showToastError("Product Creation Failed", toastId);
+    }
+  }, [createdProduct, isSuccess, isLoading, isError]);
+
   useEffect(() => {
     // Extract URLs from imageState and update newImageState
     setNewImageState(imageState.map((image) => image.url));
@@ -169,7 +183,7 @@ const AddProduct = () => {
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
-      const toastId = showToastLoading("Creating Product");
+      toastId = showToastLoading("Creating Product");
       console.log("values : ", values);
       // alert(JSON.stringify(values, null, 2));
       console.log("garbageImageStates before: ", garbageImageStates);
@@ -181,7 +195,7 @@ const AddProduct = () => {
       formik.resetForm();
       setNewImageState([]);
       setGarbageImageStates([]);
-      showToastSuccess("Product Created Successfully", toastId);
+      // showToastSuccess("Product Created Successfully", toastId);
       setTimeout(() => {
         navigate("/admin/product-list");
       }, 3000);
