@@ -16,8 +16,25 @@ const getProductCategories = async () => {
   return response.data;
 };
 
+const createProductCategory = async (productCategory) => {
+  const token = Token;
+  console.log("token in productCategoryService is : ", token);
+  console.log("productCategory in productCategoryService is : ", productCategory);
+  const url = `${base_url}product-categories/`;
+  
+  const response = await axios.post(url, productCategory, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  console.log("Response in productCategoryService is : ", response);
+
+  return response.data;
+};
+
+
 const ProductCategoryService = {
     getProductCategories,
+    createProductCategory,
 };
 
 export default ProductCategoryService; // export the service
