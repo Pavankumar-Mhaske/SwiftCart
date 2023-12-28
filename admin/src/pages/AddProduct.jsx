@@ -22,7 +22,7 @@ import {
   showToastSuccess,
   showToastError,
   Toast,
-} from "../utils/HotHandler";
+} from "../utils/HotToastHandler";
 
 const validMongoDBIdRegex = /^[0-9a-fA-F]{24}$/;
 const validTagValues = Object.values(ProductTagsEnum);
@@ -155,21 +155,33 @@ const AddProduct = () => {
     tags: [],
   };
 
+  // async functions for dispatching createProduct
+  const handleCreateProduct = async (values) => {
+    try {
+      const response = await dispatch(createProduct(values));
+      console.log("response : ", response);
+    } catch (error) {
+      console.log("error : ", error);
+    }
+  };
+
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
+      const toastId = showToastLoading("Creating Product");
       console.log("values : ", values);
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       console.log("garbageImageStates before: ", garbageImageStates);
       await handleDeleteImages();
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       console.log("garbageImageStates after: ", garbageImageStates);
-      dispatch(createProduct(values));
+      await handleCreateProduct(values);
       console.log("Product created successfully 🎉🍾🎊🎉🍾🎊🎉🍾🎊🎉🍾🎊");
       formik.resetForm();
       setNewImageState([]);
       setGarbageImageStates([]);
+      showToastSuccess("Product Created Successfully", toastId);
       setTimeout(() => {
         navigate("/admin/product-list");
       }, 3000);
@@ -202,6 +214,7 @@ const AddProduct = () => {
 
   return (
     <div>
+      <Toast />
       <h3 className="mb-4 title">Add Product</h3>
       <div>
         <form
