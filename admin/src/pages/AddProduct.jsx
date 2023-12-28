@@ -15,8 +15,10 @@ import Dropzone from "react-dropzone";
 import { uploadImages } from "../features/upload-product-images/UploadSlice";
 import { deleteImages } from "../features/upload-product-images/UploadSlice";
 import { createProduct } from "../features/product/ProductSlice";
+import { ProductTagsEnum } from "../features/product/ProductTagsEnum";
 
 const validMongoDBIdRegex = /^[0-9a-fA-F]{24}$/;
+const validTagValues = Object.values(ProductTagsEnum);
 
 // ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
@@ -24,7 +26,6 @@ let schema = yup.object().shape({
   description: yup.string().required("Description is required"),
   price: yup.number().required("Price is required"),
   category: yup.string().required("Category is required"),
-  // color: yup.array().required("Colors are required"),
   colors: yup
     .array()
     .of(
@@ -35,7 +36,16 @@ let schema = yup.object().shape({
     )
     .min(1, "At least one color must be selected") // Adjust the minimum number of selected colors
     .required("Colors are required"),
-  // other fields
+  tags: yup
+    .array()
+    .of(
+      yup
+        .string()
+        .oneOf(validTagValues, "Invalid Tag value")
+        .required("Tag ID is required")
+    )
+    .min(1, "At least one tag must be selected") // Adjust the minimum number of selected tags
+    .required("Tags are required"),
 
   brand: yup.string().required("Brand is required"),
   stock: yup.number().required("stock is required"),
@@ -118,6 +128,14 @@ const AddProduct = () => {
     });
   });
 
+  const tagOptions = [];
+  Object.keys(ProductTagsEnum).forEach((tag, key) => {
+    tagOptions.push({
+      label: tag,
+      value: ProductTagsEnum[tag],
+    });
+  });
+  console.log("tagOptions 💊💊💊 : ", tagOptions);
   const initialValues = {
     name: "",
     description: "",
@@ -126,6 +144,7 @@ const AddProduct = () => {
     category: "",
     brand: "",
     colors: [],
+    tags: [],
   };
 
   const formik = useFormik({
@@ -151,10 +170,16 @@ const AddProduct = () => {
 
   // console.log("colorOptions 🔴🟢⚪ : ", colorOptions);
   // console.log("formik.values.colors 🔴🟢⚪ : ", formik.values.colors);
+  // console.log("formik.values.tags 💊💊💊 : ", formik.values.tags);
 
   const handleColorsChange = (event) => {
     // console.log("event 🔴🟢⚪ : ", event);
     formik.setFieldValue("colors", event);
+  };
+
+  const handleTagsChange = (event) => {
+    // console.log("event 💊💊💊 : ", event);
+    formik.setFieldValue("tags", event);
   };
 
   return (
@@ -212,7 +237,7 @@ const AddProduct = () => {
           <div className="error">
             {formik.touched.price && formik.errors.price}
           </div>
-          {/* 👑👑👑 Category, Color, Brand❓👑👑👑 */}
+          {/* 👑👑👑 Category, Color, Brand, Tag❓👑👑👑 */}
           {/*✅✅✅ Select Category ✅✅✅ */}
           <select
             name="category"
@@ -270,6 +295,21 @@ const AddProduct = () => {
               handleColorsChange(event);
             }}
             options={colorOptions}
+          />
+          <div className="error">
+            {formik.touched.colors && formik.errors.colors}
+          </div>
+          {/* 💊💊💊 Select Tag 💊💊💊*/}
+          <Select
+            mode="multiple"
+            allowClear
+            className="w-100"
+            style={{ width: "100%" }}
+            placeholder="Select Tag"
+            onChange={(event) => {
+              handleTagsChange(event);
+            }}
+            options={tagOptions}
           />
           <div className="error">
             {formik.touched.colors && formik.errors.colors}
