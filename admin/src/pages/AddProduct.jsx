@@ -15,6 +15,8 @@ import { uploadImages } from "../features/upload-product-images/UploadSlice";
 import { deleteImages } from "../features/upload-product-images/UploadSlice";
 import { createProduct } from "../features/product/ProductSlice";
 
+const validMongoDBIdRegex = /^[0-9a-fA-F]{24}$/;
+
 // ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
   name: yup.string().required("name is required"),
@@ -25,10 +27,10 @@ let schema = yup.object().shape({
   colors: yup
     .array()
     .of(
-      yup.object().shape({
-        id: yup.number().required("Color ID is required"),
-        color: yup.string().required("Color name is required"),
-      })
+      yup
+        .string()
+        .matches(validMongoDBIdRegex, "Invalid MongoDB ID")
+        .required("Color ID is required")
     )
     .min(1, "At least one color must be selected") // Adjust the minimum number of selected colors
     .required("Colors are required"),
@@ -59,7 +61,7 @@ const AddProduct = () => {
   // console.log("productCategoryState : ", productCategoryState);
 
   const colorState = useSelector((state) => state.color.colors);
-  // console.log("colorState : ", colorState);
+  console.log("colorState : ", colorState);
 
   const brandState = useSelector((state) => state.brand.brands);
   // console.log("brandState : ", brandState);
@@ -122,7 +124,7 @@ const AddProduct = () => {
     stock: "",
     category: "",
     brand: "",
-    colors: colors.length > 0 ? [colors[0]] : [],
+    colors: colorState.length > 0 ? [colorState[0]] : [],
   };
 
   // console.log("initialValues : ", initialValues);
@@ -130,14 +132,22 @@ const AddProduct = () => {
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
+      console.log("values : ", values);
       alert(JSON.stringify(values, null, 2));
       console.log("garbageImageStates before: ", garbageImageStates);
-      await handleDeleteImages();
+      // await handleDeleteImages();
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       console.log("garbageImageStates after: ", garbageImageStates);
-      dispatch(createProduct(values));
+      // dispatch(createProduct(values));
     },
   });
+
+  // Function to extract text from HTML string
+  const extractTextFromHTML = (htmlString) => {
+    const tempElement = document.createElement("div");
+    tempElement.innerHTML = htmlString;
+    return tempElement.textContent || tempElement.innerText;
+  };
 
   return (
     <div>
@@ -166,8 +176,17 @@ const AddProduct = () => {
             <ReactQuill
               theme="snow"
               name="description"
-              value={formik.values.description}
-              onChange={formik.handleChange("description")}
+              // value={formik.values.description}
+              // onChange={formik.handleChange("description")}
+              onChange={(htmlValue) => {
+                // Extract text without HTML tags
+                console.log("htmlValue : ", htmlValue);
+                const plainText = extractTextFromHTML(htmlValue).trim();
+                console.log("plainText : ", plainText);
+                // Set the plain text value to formik
+                formik.setFieldValue("description", plainText);
+                // formik.handleChange("description")
+              }}
             />
           </div>
           <div className="error">
@@ -198,7 +217,7 @@ const AddProduct = () => {
             <option value="">Select Category</option>
             {productCategoryState.map((category, key) => {
               return (
-                <option key={key} value={category.name}>
+                <option key={key} value={category._id}>
                   {category.name}
                 </option>
               );
@@ -215,10 +234,22 @@ const AddProduct = () => {
             defaultValue={[1]}
             data={colors}
             onChange={(event) => {
-              formik.setFieldValue("colors", event);
               console.log("event 🔴🟢⚪ : ", event);
-              // setColor(event);
-              // console.log("color event 🔴🟢⚪ : ", color);
+
+              const colorIds = [];
+              event.map((color, key) => {
+                // console.log("color 🔴🟢⚪ : ", color);
+                // from this id find id in the colorState
+                const parentColor = colorState.find(
+                  (colorState) => colorState.name === color.color
+                );
+                // and map this id's into the formik.values.colors array
+                // console.log(`parentColor ${key} 🔴🟢⚪ : `, parentColor);
+                colorIds.push(parentColor._id);
+              });
+              // console.log("colorIds 🔴🟢⚪ : ", colorIds);
+              formik.setFieldValue("colors", colorIds);
+              // formik.setFieldValue("colors", event);
             }}
           />
           <div className="error">
