@@ -16,8 +16,24 @@ const getProducts = async () => {
   return response.data;
 };
 
+const createProduct = async (product) => {
+  const token = Token;
+
+  console.log("token in productService is : ", token);
+  // const url = `${base_url}products/`;
+  // const response = await axios.post(url, product, {
+  //   headers: { Authorization: `Bearer ${token}` },
+  // });
+  //   const response = await axios.get(url);
+  // console.log("Response in productService is : ", response);
+
+  // return response.data;
+  console.log("product in productService is : ", product);
+};
+
 const productService = {
   getProducts,
+  createProduct,
 };
 
 export default productService; // export the service
