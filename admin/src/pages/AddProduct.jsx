@@ -159,17 +159,16 @@ const AddProduct = () => {
       await handleDeleteImages();
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       console.log("garbageImageStates after: ", garbageImageStates);
-      // dispatch(createProduct(values));
+      dispatch(createProduct(values));
+      console.log("Product created successfully 🎉🍾🎊🎉🍾🎊🎉🍾🎊🎉🍾🎊");
       formik.resetForm();
-      // setTimeout(() => {
-      //   navigate("/admin/product-list");
-      // }, 3000);
-      // chack all the created/ possible variables or arrays to be reseted
       setNewImageState([]);
       setGarbageImageStates([]);
-      colorOptions.length = 0;
-      tagOptions.length = 0;
-      // colorState.length = 0;
+      setTimeout(() => {
+        navigate("/admin/product-list");
+      }, 3000);
+      // chack all the created/ possible variables or arrays to be reseted
+
       // `);
     },
   });
@@ -184,14 +183,7 @@ const AddProduct = () => {
   // console.log("colorOptions 🔴🟢⚪ : ", colorOptions);
   // console.log("formik.values.colors 🔴🟢⚪ : ", formik.values.colors);
   // console.log("formik.values.tags 💊💊💊 : ", formik.values.tags);
-  console.log(` ⭐⭐⭐⭐
-  garbageImageStates : ", ${garbageImageStates}
-  newImageState : ", ${newImageState}
-  colorOptions : ", ${colorOptions.length}
-  tagOptions : ", ${tagOptions.length}
-  colorState : ", ${colorState.length}
 
-  `);
   const handleColorsChange = (event) => {
     // console.log("event 🔴🟢⚪ : ", event);
     formik.setFieldValue("colors", event);
