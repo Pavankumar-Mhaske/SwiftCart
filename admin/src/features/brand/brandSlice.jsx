@@ -75,7 +75,7 @@ export const brandSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.createdBrand = action.payload.data;
-        console.log("action.payload in brandSlice is : ", action.payload.data);
+        console.log("action.payload in created brandSlice is : ", action.payload.data);
       })
       // ;builder
       .addCase(createBrand.rejected, (state, action) => {
