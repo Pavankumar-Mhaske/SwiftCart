@@ -26,7 +26,7 @@ const AddColor = () => {
   }, []);
 
   const colorState = useSelector((state) => state.color.colors);
-  console.log("colorState : ", colorState);
+  // console.log("colorState : ", colorState);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,12 +53,12 @@ const AddColor = () => {
       value: color,
       label: color,
     }));
-  console.log("anotherChoice : ", colorOptions);
+  // console.log("anotherChoice : ", colorOptions);
 
   useEffect(() => {
     if (formik.isSubmitting) {
       if (isSuccess && createdColor) {
-        console.log("loadingToastId 💘💘 : ", loadingToastId);
+        // console.log("loadingToastId 💘💘 : ", loadingToastId);
         showToastSuccess("Color Created Successfully", loadingToastId);
       }
       if (isError) {
@@ -85,7 +85,7 @@ const AddColor = () => {
     validationSchema: schema,
     onSubmit: async (values) => {
       const toastId = showToastLoading("Creating Color");
-      console.log("toastId during formik operation 🚚🚚 : ", toastId);
+      // console.log("toastId during formik operation 🚚🚚 : ", toastId);
       setLoadingToastId(toastId);
       console.log("values : ", values);
       // alert(JSON.stringify(values, null, 2));
@@ -106,7 +106,7 @@ const AddColor = () => {
     formik.setFieldValue("name", event);
   };
   const onSearch = (value) => {
-    console.log("search:", value);
+    // console.log("search:", value);
   };
 
   // Filter `option.label` match the user type `input`
