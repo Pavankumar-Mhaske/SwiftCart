@@ -7,7 +7,10 @@ import {
   getMongoosePaginationOptions,
   removeLocalFile,
 } from "../../utils/helpers.js";
-import { cloudinaryUploadImg } from "../../utils/cloudinary.js";
+import {
+  cloudinaryUploadImg,
+  cloudinaryDeleteImg,
+} from "../../utils/cloudinary.js";
 import fs from "fs";
 
 const createBlog = asyncHandler(async (req, res) => {
@@ -204,7 +207,7 @@ const likeDisLikeBlog = asyncHandler(async (req, res) => {
 
 const uploadImages = asyncHandler(async (req, res) => {
   try {
-    const { blogId } = req.params;
+    // const { blogId } = req.params;
     const uploader = async (path) => await cloudinaryUploadImg(path, "Images");
 
     const urls = [];
@@ -218,15 +221,111 @@ const uploadImages = asyncHandler(async (req, res) => {
       // fs.unlinkSync(path);
     }
     // find the product by id and update it's subImages with the urls array values...
-    const blog = await Blog.findById(blogId);
-    if (!blog) {
-      throw new ApiError(404, "Product not found");
-    }
-    blog.images = urls;
-    await blog.save();
+    // const blog = await Blog.findById(blogId);
+    // if (!blog) {
+    //   throw new ApiError(404, "Product not found");
+    // }
+    // blog.images = urls;
+    // await blog.save();
+    const images = urls.map((url) => {
+      return { url };
+    });
+    console.log("images", images);
+
+    // TODO:save the images in the database
+    // const product = await Product.findById(productId);
+    // if (!product) {
+    //   throw new ApiError(404, "Product not found");
+    // }
+    // product.subImages = urls;
+    // await product.save();
+    const newFormedImages = {
+      images: images,
+    };
     res
       .status(200)
-      .json(new ApiResponse(200, blog, "Images uploaded successfully"));
+      .json(
+        new ApiResponse(200, newFormedImages, "Images uploaded successfully")
+      );
+  } catch (error) {
+    throw new ApiError(400, error.message);
+  }
+});
+
+// 🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹
+// const uploadImages = asyncHandler(async (req, res) => {
+//   try {
+//     const { productId } = req.params;
+//     const uploader = async (path) => await cloudinaryUploadImg(path, "Images");
+
+//     const urls = [];
+//     const files = req.files;
+//     // console.log("files inside the uploadImages controller", files);
+//     for (const file of files) {
+//       const { path } = file;
+//       const newPath = await uploader(path);
+//       urls.push(newPath);
+//       removeLocalFile(path);
+//       // fs.unlinkSync(path);
+//     }
+//     // // find the product by id and update it's subImages with the urls array values...
+//     // const product = await Product.findById(productId);
+//     // if (!product) {
+//     //   throw new ApiError(404, "Product not found");
+//     // }
+//     // product.subImages = urls;
+//     // await product.save();
+//     // console.log("urls", urls);
+
+//     const images = urls.map((url) => {
+//       return { url };
+//     });
+//     console.log("images", images);
+
+//     // TODO:save the images in the database
+//     const product = await Product.findById(productId);
+//     if (!product) {
+//       throw new ApiError(404, "Product not found");
+//     }
+//     product.subImages = urls;
+//     await product.save();
+
+//     res
+//       .status(200)
+//       .json(new ApiResponse(200, product, "Images uploaded successfully"));
+//   } catch (error) {
+//     throw new ApiError(400, error.message);
+//   }
+// });
+
+// 🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹
+
+const deleteImages = asyncHandler(async (req, res) => {
+  try {
+    const { publicId } = req.params;
+    // console.log("productId: ", productId);
+    console.log("publicId: ", publicId);
+    const deletedImage = await cloudinaryDeleteImg(publicId, "Images");
+
+    console.log(deleteImages);
+    // TODO: need to delete the images from the database -
+    // as commited above why we need to delete the images from the database event if during uploading time we are storing urls from cludinary into in data base...?
+    // answer - because we are storing the urls in the database not the images itself
+
+    // fetch the remaining subimages from the database
+    // const product = await Product.findById(productId);
+    // if (!product) {
+    //   throw new ApiError(404, "Product not found");
+    // }
+    // const remainingSubImages = product.subImages.filter(
+    //   (image) => image.public_id !== publicId
+    // );
+    // product.subImages = remainingSubImages;
+    // await product.save();
+
+    res
+      .status(200)
+      .json(new ApiResponse(200, deletedImage, "Images deleted successfully"));
   } catch (error) {
     throw new ApiError(400, error.message);
   }
@@ -240,4 +339,5 @@ export {
   deleteBlog,
   likeDisLikeBlog,
   uploadImages,
+  deleteImages,
 };
