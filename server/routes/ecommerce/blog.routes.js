@@ -7,6 +7,7 @@ import {
   deleteBlog,
   likeDisLikeBlog,
   uploadImages,
+  deleteImages,
 } from "../../controller/ecommerce/blog.controllers.js";
 import {
   verifyPermission,
@@ -14,7 +15,10 @@ import {
 } from "../../middlewares/auth.middlewares.js";
 import { validate } from "../../validators/validate.js";
 import { MAXIMUM_SUB_IMAGE_COUNT, UserRolesEnum } from "../../constants.js";
-import { mongoIdPathVariableValidator } from "../../validators/common/mongodb.validators.js";
+import {
+  mongoIdPathVariableValidator,
+  publicIdPathVariableValidator,
+} from "../../validators/common/mongodb.validators.js";
 import { blogImgResize, uploadPhoto } from "../../middlewares/uploadImages.js";
 const router = Router();
 
@@ -27,6 +31,29 @@ router
     createBlog
   )
   .get(validate, getAllBlogs);
+
+router
+  // .route("/upload/:productId") // we will receive productId in the url
+  .route("/upload")
+  .post(
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    // mongoIdPathVariableValidator("blogId"),
+    validate,
+    uploadPhoto.array("images", 10),
+    blogImgResize,
+    uploadImages
+  );
+
+router
+  .route("/delete/:publicId")
+  .delete(
+    verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
+    publicIdPathVariableValidator("publicId"),
+    validate,
+    deleteImages
+  );
 
 router
   .route("/:blogId")
@@ -60,18 +87,6 @@ router
     verifyPermission([UserRolesEnum.ADMIN]),
     validate,
     likeDisLikeBlog
-  );
-
-router
-  .route("/upload/:blogId")
-  .post(
-    verifyJWT,
-    verifyPermission([UserRolesEnum.ADMIN]),
-    mongoIdPathVariableValidator("blogId"),
-    validate,
-    uploadPhoto.array("images", 10),
-    blogImgResize,
-    uploadImages
   );
 
 export default router;
