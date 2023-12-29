@@ -14,8 +14,8 @@ const columns = [
   },
   {
     title: "Product Category",
-    dataIndex: "prodcutCategory",
-    sorter: (a, b) => a.prodcutCategory.length - b.prodcutCategory.length,
+    dataIndex: "productCategory",
+    sorter: (a, b) => a.productCategory.length - b.productCategory.length,
   },
   {
     title: "Owner",
@@ -61,7 +61,7 @@ const ProductCategoryList = () => {
   for (let i = 0; i < productCategoryState.length; i++) {
     data1.push({
       key: i + 1,
-      prodcutCategory: productCategoryState[i].name,
+      productCategory: productCategoryState[i].name,
       owner: productCategoryState[i].owner,
       action: "action",
     });
