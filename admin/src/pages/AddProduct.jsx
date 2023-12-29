@@ -94,12 +94,14 @@ const AddProduct = () => {
   const { createdProduct, isSuccess, isLoading, isError } = newProduct;
 
   useEffect(() => {
-    if (isSuccess && createdProduct) {
-      console.log("loadingToastId : ", loadingToastId);
-      showToastSuccess("Product Created Successfully", loadingToastId);
-    }
-    if (isError) {
-      showToastError("Product Creation Failed");
+    if (formik.isSubmitting) {
+      if (isSuccess && createdProduct) {
+        console.log("loadingToastId : ", loadingToastId);
+        showToastSuccess("Product Created Successfully", loadingToastId);
+      }
+      if (isError) {
+        showToastError("Product Creation Failed");
+      }
     }
   }, [createdProduct, isSuccess, isLoading, isError]);
 

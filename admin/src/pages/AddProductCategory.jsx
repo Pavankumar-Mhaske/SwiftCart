@@ -27,12 +27,17 @@ const AddProductCategory = () => {
     newProductCategory;
 
   useEffect(() => {
-    if (isSuccess && createdProductCategory) {
-      console.log("loadingToastId 💘💘 : ", loadingToastId);
-      showToastSuccess("ProductCategory Created Successfully", loadingToastId);
-    }
-    if (isError) {
-      showToastError("ProductCategory Creation Failed");
+    if (formik.isSubmitting) {
+      if (isSuccess && createdProductCategory) {
+        console.log("loadingToastId 💘💘 : ", loadingToastId);
+        showToastSuccess(
+          "ProductCategory Created Successfully",
+          loadingToastId
+        );
+      }
+      if (isError) {
+        showToastError("ProductCategory Creation Failed");
+      }
     }
   }, [createdProductCategory, isSuccess, isLoading, isError]);
 

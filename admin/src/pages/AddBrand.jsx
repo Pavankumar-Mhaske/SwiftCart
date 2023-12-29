@@ -25,6 +25,7 @@ const AddBrand = () => {
   const { createdBrand, isSuccess, isLoading, isError } = newBrand;
   // console.log("createdBrand in AddBrand is : ", createdBrand);
   useEffect(() => {
+    if (formik.isSubmitting) {
     if (isSuccess && createdBrand) {
       console.log("toastId : ", loadingToastId);
       showToastSuccess("Brand Created Successfully", loadingToastId);
@@ -32,6 +33,7 @@ const AddBrand = () => {
     if (isError) {
       showToastError("Brand Creation Failed");
     }
+  }
   }, [createdBrand, isSuccess, isLoading, isError]);
 
   // async functions for dispatching createBrand
