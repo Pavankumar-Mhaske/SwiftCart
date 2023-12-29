@@ -15,7 +15,7 @@ export const getProductCategories = createAsyncThunk(
 );
 
 export const createProductCategory = createAsyncThunk(
-  "productCategorys/create-productCategory",
+  "product-categories/create-product-categories",
   async (productCategory, thunkAPI) => {
     try {
       console.log("thunkAPI in productCategorySlice is : ", thunkAPI);
