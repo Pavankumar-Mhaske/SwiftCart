@@ -11,6 +11,7 @@ import blogCategoryReducer from "../features/blog-category/BlogCategorySlice";
 import enquiryReducer from "../features/enquiry/EnquirySlice";
 import orderReducer from "../features/order/OrderSlice";
 import uploadProductImageReducer from "../features/upload-product-images/UploadSlice";
+import uploadBlogImageReducer from "../features/upload-blog-images/UploadSlice";
 
 export const store = configureStore({
   reducer: {
@@ -25,5 +26,6 @@ export const store = configureStore({
     enquiry: enquiryReducer,
     order: orderReducer,
     uploadProductImage: uploadProductImageReducer,
+    uploadBlogImage: uploadBlogImageReducer,
   },
 });
