@@ -16,8 +16,24 @@ const getBlogs = async () => {
   return response.data;
 };
 
+const createBlog = async (blog) => {
+  const token = Token;
+
+  console.log("token in blogService is : ", token);
+  console.log("blog in blogService is : ", blog);
+  const url = `${base_url}blogs/`;
+  const response = await axios.post(url, blog, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  console.log("Response in blogService is : ", response);
+
+  return response.data;
+};
+
 const Blogservice = {
   getBlogs,
+  createBlog,
 };
 
 export default Blogservice; // export the service
