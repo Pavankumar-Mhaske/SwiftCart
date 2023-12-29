@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from "mongoose";
 import { User } from "../auth/user.models.js";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
-
+import { BlogCategory } from "./blogCategory.models.js";
 const blogSchema = new Schema(
   {
     title: {
@@ -15,9 +15,9 @@ const blogSchema = new Schema(
       // index: true,
     },
     category: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "BlogCategory",
       required: true,
-      index: true,
     },
     numberOfViews: {
       type: Number,
