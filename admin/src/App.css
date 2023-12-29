@@ -58,3 +58,15 @@ Table {
   background-color: var(--color-ffffff);
   border: 3px solid var(--color-ffffff);
 }
+
+.headings {
+  margin-top: 50px;
+  font: 18px;
+  font-family: Roboto !important;
+  color: var(--color-828599);
+}
+
+.headings .example {
+  font-size: 12px !important;
+  color: var(--color-e52e2e);
+}
