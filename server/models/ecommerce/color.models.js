@@ -10,8 +10,8 @@ const colorSchema = new Schema(
       required: true,
       unique: true,
       index: true,
-      enum: AvailableProductColors,
-      default: ProductColorsEnum.WHITE,
+      // enum: AvailableProductColors,
+      // default: ProductColorsEnum.WHITE,
     },
     owner: {
       type: Schema.Types.ObjectId,
