@@ -59,6 +59,12 @@ router
     createProduct
   );
 
+/* 
+❗❗❗❗❗ Remember - 
+    More specific routes come before more general routes. 
+    In your case, the /upload route is more specific than /:blogId, so it should be defined first.
+❗❗❗❗❗
+*/
 router
   // .route("/upload/:productId") // we will receive productId in the url
   .route("/upload/")
