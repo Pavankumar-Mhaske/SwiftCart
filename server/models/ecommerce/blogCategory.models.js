@@ -7,11 +7,11 @@ const categorySchema = new Schema(
   {
     name: {
       type: String,
-      // required: true,
+      required: true,
       unique: true,
       index: true,
-      enum: AvailableBlogCategories,
-      default: BlogCategoryEnum.MENTAL_HEALTH,
+      // enum: AvailableBlogCategories,
+      // default: BlogCategoryEnum.MENTAL_HEALTH,
     },
     owner: {
       type: Schema.Types.ObjectId,
