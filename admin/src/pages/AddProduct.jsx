@@ -62,7 +62,6 @@ const AddProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loadingToastId, setLoadingToastId] = useState(null);
-
   // const [color, setColor] = useState([]);
   const [newImageState, setNewImageState] = useState([]);
   const [garbageImageStates, setGarbageImageStates] = useState([]);
