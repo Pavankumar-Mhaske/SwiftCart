@@ -14,7 +14,7 @@ const createCouponValidator = () => {
       .optional()
       .trim()
       .notEmpty()
-      .isIn(AvailableCouponTypes)
+      // .isIn(AvailableCouponTypes)
       .withMessage("Invalid coupon type"),
     body("discountValue")
       .trim()
@@ -24,6 +24,16 @@ const createCouponValidator = () => {
         min: 1,
       })
       .withMessage("Discount value must be greater than 0"),
+    // isActive is boolean, true or false
+    body("isActive")
+      .optional()
+      .notEmpty()
+      .withMessage("Activity status is required")
+      .isBoolean({
+        strict: true,
+      })
+      .withMessage("isActive must be a boolean. Either true or false"),
+
     body("minimumCartValue")
       .optional()
       .trim()
