@@ -5,7 +5,7 @@ import { MdDelete } from "react-icons/md";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBrands } from "../features/brand/BrandSlice";
+import { getCoupons } from "../features/coupon/CouponSlice";
 
 const columns = [
   {
@@ -13,9 +13,9 @@ const columns = [
     dataIndex: "key",
   },
   {
-    title: "Brands",
-    dataIndex: "brand",
-    sorter: (a, b) => a.brand.length - b.brand.length,
+    title: "Coupons",
+    dataIndex: "coupon",
+    sorter: (a, b) => a.coupon.length - b.coupon.length,
   },
   {
     title: "Owner",
@@ -44,28 +44,28 @@ const columns = [
   },
 ];
 
-const BrandList = () => {
+const CouponList = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getBrands());
+    dispatch(getCoupons());
   }, []);
 
-  const brandState = useSelector((state) => state.brand.brands);
-  console.log("brandState in brandList is : ", brandState);
+  const couponState = useSelector((state) => state.coupon.coupons);
+  console.log("couponState in couponList is : ", couponState);
 
   const data1 = [];
-  for (let i = 0; i < brandState.length; i++) {
+  for (let i = 0; i < couponState.length; i++) {
     data1.push({
       key: i + 1,
-      brand: brandState[i].name,
-      owner: brandState[i].owner,
+      coupon: couponState[i].name,
+      owner: couponState[i].owner,
       action: "action",
     });
   }
 
   return (
     <div>
-      <h3 className="mb-4 title">BrandList</h3>
+      <h3 className="mb-4 title">CouponList</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -73,4 +73,4 @@ const BrandList = () => {
   );
 };
 
-export default BrandList;
+export default CouponList;
