@@ -31,16 +31,6 @@ const columns = [
   {
     title: "Action",
     dataIndex: "action",
-    render: () => (
-      <>
-        <Link to="#">
-          <BiEdit className="fs-5 ms-3 me-5 " />
-        </Link>
-        <Link to="#">
-          <MdDelete className="fs-5 ms-3 me-5 text-danger" />
-        </Link>
-      </>
-    ),
   },
 ];
 
@@ -59,7 +49,16 @@ const BrandList = () => {
       key: i + 1,
       brand: brandState[i].name,
       owner: brandState[i].owner,
-      action: "action",
+      action: (
+        <>
+          <Link to={`/admin/brand/${brandState[i]._id}`}>
+            <BiEdit className="fs-5 ms-3 me-5 " />
+          </Link>
+          <Link to="#">
+            <MdDelete className="fs-5 ms-3 me-5 text-danger" />
+          </Link>
+        </>
+      ),
     });
   }
 
