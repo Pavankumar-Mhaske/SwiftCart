@@ -120,7 +120,7 @@ const AddColor = () => {
       <h3 className="mb-4 title">Add Color</h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
-          <h5 className="headings">
+          <h5 className="color-headings ">
             Choose Color{" "}
             <span className="example">
               (Choose from Color picker- RGB / HSL / HEX )
@@ -141,7 +141,7 @@ const AddColor = () => {
           </div>
 
           {/* Another way to choossing the color by manual word choice */}
-          <h5 className="headings">
+          <h5 className="color-headings ">
             Enter Color Name or HEX Code{" "}
             <span className="example">(ex. RED / #FF0000)</span>
           </h5>
@@ -159,7 +159,7 @@ const AddColor = () => {
           </div>
 
           {/* Another way to choossing the color by manual word choice */}
-          <h5 className="headings">
+          <h5 className="color-headings ">
             Select Color From Dropdown{" "}
             <span className="example">
               (Choose from a Selection of Sample Colors, yet to be incorporated)
