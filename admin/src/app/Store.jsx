@@ -12,6 +12,7 @@ import enquiryReducer from "../features/enquiry/EnquirySlice";
 import orderReducer from "../features/order/OrderSlice";
 import uploadProductImageReducer from "../features/upload-product-images/UploadSlice";
 import uploadBlogImageReducer from "../features/upload-blog-images/UploadSlice";
+import couponReducer from "../features/coupon/couponSlice";
 
 export const store = configureStore({
   reducer: {
@@ -27,5 +28,6 @@ export const store = configureStore({
     order: orderReducer,
     uploadProductImage: uploadProductImageReducer,
     uploadBlogImage: uploadBlogImageReducer,
+    coupon: couponReducer,
   },
 });
