@@ -78,13 +78,12 @@ const AddCoupon = () => {
       await handleCreateCoupon(values);
       formik.resetForm();
       // showToastSuccess("Coupon Created Successfully", toastId);
-      // setTimeout(() => {
-      //   dispatch(resetState());
-      //   navigate("/admin/coupon-list");
-      // }, 3000);
+      setTimeout(() => {
+        dispatch(resetState());
+        navigate("/admin/coupon-list");
+      }, 3000);
     },
   });
-  console.log("all the values initially are 😍😍", formik.values);
 
   const handleBoxClick = (buttonType) => {
     if (buttonType === "active") {
@@ -238,7 +237,7 @@ const AddCoupon = () => {
                 className="form-check-label w-100 py-4 ms-2 text-small font-weight-medium text-dark dark:text-gray-300"
                 htmlFor="flexRadioActive"
               >
-                Default radio
+                Active
               </label>
             </button>
             <button
@@ -257,7 +256,7 @@ const AddCoupon = () => {
                 className="form-check-label w-100 py-4 ms-2 text-small font-weight-medium text-dark dark:text-gray-300"
                 htmlFor="flexRadioInActive"
               >
-                Default radio
+                Inactive
               </label>
             </button>
           </div>
@@ -265,25 +264,12 @@ const AddCoupon = () => {
           <div className="error">
             {formik.touched.isActive && formik.errors.isActive}
           </div>
-          {/* <div className="form-controled">
-            <input
-              id="isActive"
-              type="radio"
-              label="Is Active"
-              name="isActive"
-              value={formik.values.isActive}
-              onChange={formik.handleChange("isActive")}
-              onBlur={formik.handleBlur("isActive")}
-            />
-            <label htmlFor="isActive">Is Active</label>
-            
-          </div> */}
 
           <button
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            Add Coupon Category
+            Add Coupon
           </button>
         </form>
       </div>

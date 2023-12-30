@@ -63,6 +63,8 @@ const CouponList = () => {
     });
   }
 
+  console.log("all the values initially are 😍😍", couponState);
+
   return (
     <div>
       <h3 className="mb-4 title">CouponList</h3>
