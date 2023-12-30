@@ -50,22 +50,22 @@ const getAllBrands = asyncHandler(async (req, res) => {
 });
 
 const getBrandById = asyncHandler(async (req, res) => {
-  const { categoryId } = req.params;
-  const category = await Brand.findById(categoryId);
-  // const category = await Brand.findById(categoryId).populate("owner");
-  if (!category) {
+  const { brandId } = req.params;
+  const brand = await Brand.findById(brandId);
+  // const brand = await Brand.findById(categoryId).populate("owner");
+  if (!brand) {
     throw new ApiError(404, "Brand does not exist");
   }
   return res
     .status(200)
-    .json(new ApiResponse(200, category, "Brand fetched successfully"));
+    .json(new ApiResponse(200, brand, "Brand fetched successfully"));
 });
 
 const updateBrand = asyncHandler(async (req, res) => {
-  const { categoryId } = req.params;
+  const { brandId } = req.params;
   const { name } = req.body;
-  const category = await Brand.findByIdAndUpdate(
-    categoryId,
+  const updatedBrand = await Brand.findByIdAndUpdate(
+    brandId,
     {
       $set: {
         name,
@@ -73,13 +73,13 @@ const updateBrand = asyncHandler(async (req, res) => {
     },
     { new: true }
   );
-  if (!category) {
+  if (!updatedBrand) {
     throw new ApiError(404, "Brand does not exist");
   }
 
   return res
     .status(200)
-    .json(new ApiResponse(200, category, "Brand updated successfully"));
+    .json(new ApiResponse(200, updatedBrand, "Brand updated successfully"));
 });
 
 const deleteBrand = asyncHandler(async (req, res) => {
