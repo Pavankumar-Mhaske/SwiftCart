@@ -38,7 +38,6 @@ Table {
   border-color: var(--color-ced4da);
 }
 
-
 .title {
   font: 28px;
   font-family: Roboto !important;
@@ -60,16 +59,29 @@ Table {
   border: 3px solid var(--color-ffffff);
 }
 
-.headings {
+.color-headings {
   margin-top: 50px;
   font: 18px;
   font-family: Roboto !important;
   color: var(--color-828599);
 }
 
-.headings .example {
+
+.color-headings  .example {
   font-size: 12px !important;
   color: var(--color-e52e2e);
+}
+
+.coupon-headings {
+  margin-top: 30px;
+  font: 18px;
+  font-family: Roboto !important;
+  color: var(--color-828599);
+}
+
+.coupon-headings .example {
+  font-size: 12px !important;
+  color: var(--color-828599);
 }
 
 /* 🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹 */
