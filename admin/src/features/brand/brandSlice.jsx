@@ -14,6 +14,19 @@ export const getBrands = createAsyncThunk(
   }
 );
 
+export const getABrand = createAsyncThunk(
+  "brands/get-brand",
+  async (brandId, thunkAPI) => {
+    try {
+      console.log("thunkAPI in BrandSlice is : ", thunkAPI);
+      const response = await BrandService.getABrand(brandId);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const createBrand = createAsyncThunk(
   "brands/create-brand",
   async (brand, thunkAPI) => {
@@ -28,10 +41,26 @@ export const createBrand = createAsyncThunk(
   }
 );
 
+export const updateBrand = createAsyncThunk(
+  "brands/update-brand",
+  async (brand, thunkAPI) => {
+    try {
+      console.log("thunkAPI in brandSlice is : ", thunkAPI);
+      console.log("brand in brandSlice is : ", brand);
+      const response = await BrandService.updateBrand(brand);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const resetState = createAction("reset_all");
 const initialState = {
   brands: [],
+  brand: {},
   createdBrand: {},
+  updatedBrand: {},
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -89,6 +118,53 @@ export const brandSlice = createSlice({
         // state.user = null;
         state.message = action.error;
       })
+      // ;builder
+      .addCase(getABrand.pending, (state) => {
+        state.isLoading = true;
+      })
+      // ;builder
+      .addCase(getABrand.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.brand = action.payload.data;
+        console.log(
+          "action.payload in getABrand brandSlice is : ",
+          action.payload.data
+        );
+      })
+      // ;builder
+      .addCase(getABrand.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        // state.user = null;
+        state.message = action.error;
+      })
+      // ;builder
+      .addCase(updateBrand.pending, (state) => {
+        state.isLoading = true;
+      })
+      // ;builder
+      .addCase(updateBrand.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.updatedBrand = action.payload.data;
+        console.log(
+          "action.payload in updateBrand brandSlice is : ",
+          action.payload.data
+        );
+      })
+      // ;builder
+      .addCase(updateBrand.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        // state.user = null;
+        state.message = action.error;
+      })
+
       .addCase(resetState, () => initialState);
   },
 });
