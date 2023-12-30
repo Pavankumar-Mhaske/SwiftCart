@@ -12,32 +12,118 @@ const columns = [
     title: "S_No",
     dataIndex: "key",
   },
+  // Coupons name
   {
-    title: "Coupons",
+    title: "Coupon",
     dataIndex: "coupon",
     sorter: (a, b) => a.coupon.length - b.coupon.length,
   },
+  // CouponCode
   {
-    title: "Owner",
-    dataIndex: "owner",
-    sorter: (a, b) => a.owner.length - b.owner.length,
+    title: "CouponCode",
+    dataIndex: "couponCode",
+    sorter: (a, b) => a.couponCode.length - b.couponCode.length,
+  },
 
-    render: (owner) => (
+  // MinimumCartValue
+  {
+    title: "MinCartValue",
+    dataIndex: "minimumCartValue",
+    sorter: (a, b) => a.minimumCartValue.length - b.minimumCartValue.length,
+  },
+  // DiscountValue
+  {
+    title: "D_Value",
+    dataIndex: "discountValue",
+    sorter: (a, b) => a.discountValue.length - b.discountValue.length,
+  },
+  // StartDate
+  {
+    title: "StartDate",
+    dataIndex: "startDate",
+    sorter: (a, b) => a.startDate.length - b.startDate.length,
+    render: (date) => {
+      const originalDate = new Date(date);
+
+      // Convert to IST (UTC+5:30)
+      const istDate = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true, // Use 24-hour format
+      });
+
+      const formattedDate = `${istDate.format(originalDate)}`;
+
+      return <>{formattedDate}</>;
+    },
+  },
+  // ExpiryDate
+  {
+    title: "ExpiryDate",
+    dataIndex: "expiryDate",
+    sorter: (a, b) => a.expiryDate.length - b.expiryDate.length,
+    render: (date) => {
+      const originalDate = new Date(date);
+
+      // Convert to IST (UTC+5:30)
+      const istDate = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true, // Use 24-hour format
+      });
+
+      const formattedDate = `${istDate.format(originalDate)}`;
+
+      return <>{formattedDate}</>;
+    },
+  },
+  // isActive
+  {
+    title: "isActive",
+    dataIndex: "isActive",
+    sorter: (a, b) => a.isActive.length - b.isActive.length,
+    render: (isActive) => (
       <>
-        <Tag color="blue">{owner}</Tag>
+        {isActive ? (
+          <Tag color="green">Active</Tag>
+        ) : (
+          <Tag color="red">Inactive</Tag>
+        )}
       </>
     ),
   },
+  // Owner
+  // {
+  //   title: "Owner",
+  //   dataIndex: "owner",
+  //   sorter: (a, b) => a.owner.length - b.owner.length,
+
+  //   render: (owner) => (
+  //     <>
+  //       <Tag color="blue">{owner}</Tag>
+  //     </>
+  //   ),
+  // },
   {
     title: "Action",
     dataIndex: "action",
     render: () => (
       <>
         <Link to="#">
-          <BiEdit className="fs-5 ms-3 me-5 " />
+          <BiEdit className="fs-5  me-2 " />
         </Link>
         <Link to="#">
-          <MdDelete className="fs-5 ms-3 me-5 text-danger" />
+          <MdDelete className="fs-5  text-danger" />
         </Link>
       </>
     ),
@@ -58,7 +144,14 @@ const CouponList = () => {
     data1.push({
       key: i + 1,
       coupon: couponState[i].name,
-      owner: couponState[i].owner,
+      couponCode: couponState[i].couponCode,
+      discountValue: couponState[i].discountValue,
+      minimumCartValue: couponState[i].minimumCartValue,
+      startDate: couponState[i].startDate,
+      expiryDate: couponState[i].expiryDate,
+      isActive: couponState[i].isActive,
+
+      // owner: couponState[i].owner,
       action: "action",
     });
   }
