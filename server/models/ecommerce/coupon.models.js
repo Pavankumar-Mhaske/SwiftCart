@@ -18,8 +18,9 @@ const couponSchema = new Schema(
     },
     type: {
       type: String,
-      enum: AvailableCouponTypes,
-      default: CouponTypeEnum.FLAT,
+      // enum: AvailableCouponTypes,
+      // default: CouponTypeEnum.FLAT,
+      required: true,
     },
     discountValue: {
       type: Number,
