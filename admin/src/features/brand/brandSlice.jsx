@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import BrandService from "./BrandService";
 
 export const getBrands = createAsyncThunk(
@@ -28,6 +28,7 @@ export const createBrand = createAsyncThunk(
   }
 );
 
+export const resetState = createAction("reset_all");
 const initialState = {
   brands: [],
   createdBrand: {},
@@ -75,7 +76,10 @@ export const brandSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.createdBrand = action.payload.data;
-        console.log("action.payload in created brandSlice is : ", action.payload.data);
+        console.log(
+          "action.payload in created brandSlice is : ",
+          action.payload.data
+        );
       })
       // ;builder
       .addCase(createBrand.rejected, (state, action) => {
@@ -84,7 +88,8 @@ export const brandSlice = createSlice({
         state.isSuccess = false;
         // state.user = null;
         state.message = action.error;
-      });
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 

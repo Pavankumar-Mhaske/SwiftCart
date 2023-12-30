@@ -10,7 +10,7 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
-import { createBrand } from "../features/brand/BrandSlice";
+import { createBrand, resetState } from "../features/brand/BrandSlice";
 // ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
   name: yup.string().required("Brand name is required"),
@@ -26,14 +26,14 @@ const AddBrand = () => {
   // console.log("createdBrand in AddBrand is : ", createdBrand);
   useEffect(() => {
     if (formik.isSubmitting) {
-    if (isSuccess && createdBrand) {
-      console.log("toastId : ", loadingToastId);
-      showToastSuccess("Brand Created Successfully", loadingToastId);
+      if (isSuccess && createdBrand) {
+        console.log("toastId : ", loadingToastId);
+        showToastSuccess("Brand Created Successfully", loadingToastId);
+      }
+      if (isError) {
+        showToastError("Brand Creation Failed");
+      }
     }
-    if (isError) {
-      showToastError("Brand Creation Failed");
-    }
-  }
   }, [createdBrand, isSuccess, isLoading, isError]);
 
   // async functions for dispatching createBrand
@@ -62,6 +62,7 @@ const AddBrand = () => {
       formik.resetForm();
       // showToastSuccess("Brand Created Successfully", toastId);
       // setTimeout(() => {
+      //   dispatch(resetState());
       //   navigate("/admin/brand-list");
       // }, 3000);
     },
