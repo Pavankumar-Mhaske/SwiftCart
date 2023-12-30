@@ -31,9 +31,46 @@ const createBrand = async (brand) => {
   return response.data;
 };
 
+const getABrand = async (brandId) => {
+  const token = Token;
+
+  console.log("token in BrandService is : ", token);
+  const url = `${base_url}brands/${brandId}`;
+  const response = await axios.get(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  //   const response = await axios.get(url);
+  console.log("Response in BrandService is : ", response);
+
+  return response.data;
+};
+
+const updateBrand = async (data) => {
+  const token = Token;
+
+  console.log("token in update brandService is : ", token);
+  console.log("data in update brandService is : ", data);
+  const { brandId, name } = data;
+  console.log("brandId and name in update brandService is : ", brandId, name);
+  const url = `${base_url}brands/${brandId}`;
+  const response = await axios.patch(
+    url,
+    { name: name },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  console.log("Response in brandService is : ", response);
+
+  return response.data;
+};
+
 const BrandService = {
   getBrands,
   createBrand,
+  getABrand,
+  updateBrand,
 };
 
 export default BrandService; // export the service
