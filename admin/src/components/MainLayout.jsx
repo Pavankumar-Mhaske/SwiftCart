@@ -40,7 +40,9 @@ const MainLayout = () => {
   const navigate = useNavigate();
 
   return (
-    <Layout>
+    <Layout
+    // onContextMenu={(event) => event.preventDefault()}
+    >
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical">
           <h2 className="text-white fs-5 text-center py-4 mb-0">
