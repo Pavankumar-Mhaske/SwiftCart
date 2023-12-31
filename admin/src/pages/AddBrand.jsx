@@ -113,7 +113,7 @@ const AddBrand = () => {
       dispatch(resetState());
       setTimeout(() => {
         navigate("/admin/brand-list");
-      }, 3000);
+      }, 500);
     },
   });
 
