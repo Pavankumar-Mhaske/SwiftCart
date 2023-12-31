@@ -66,11 +66,26 @@ const updateBrand = async (data) => {
   return response.data;
 };
 
+const deleteBrand = async (brandId) => {
+  const token = Token;
+
+  console.log("token in BrandService is : ", token);
+  const url = `${base_url}brands/${brandId}`;
+  const response = await axios.delete(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  //   const response = await axios.get(url);
+  console.log("Response in BrandService is : ", response);
+
+  return response.data;
+};
+
 const BrandService = {
   getBrands,
   createBrand,
   getABrand,
   updateBrand,
+  deleteBrand,
 };
 
 export default BrandService; // export the service
