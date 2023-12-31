@@ -83,10 +83,10 @@ const updateBrand = asyncHandler(async (req, res) => {
 });
 
 const deleteBrand = asyncHandler(async (req, res) => {
-  const { categoryId } = req.params;
-  const category = await Brand.findByIdAndDelete(categoryId);
+  const { brandId } = req.params;
+  const deletedBrand = await Brand.findByIdAndDelete(brandId);
 
-  if (!category) {
+  if (!deletedBrand) {
     throw new ApiError(404, "Brand does not exist");
   }
 
@@ -95,7 +95,7 @@ const deleteBrand = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(
         200,
-        { deletedCategory: category },
+        { deletedBrand: deletedBrand },
         "Brand deleted successfully"
       )
     );
