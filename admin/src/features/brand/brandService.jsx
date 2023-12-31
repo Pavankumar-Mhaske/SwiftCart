@@ -68,7 +68,6 @@ const updateBrand = async (data) => {
 
 const deleteBrand = async (brandId) => {
   const token = Token;
-
   console.log("token in BrandService is : ", token);
   const url = `${base_url}brands/${brandId}`;
   const response = await axios.delete(url, {

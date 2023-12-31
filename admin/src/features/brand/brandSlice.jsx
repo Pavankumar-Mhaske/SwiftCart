@@ -5,7 +5,7 @@ export const getBrands = createAsyncThunk(
   "brands/get-brands",
   async (thunkAPI) => {
     try {
-      console.log("thunkAPI in BrandSlice is : ", thunkAPI);
+      console.log("thunkAPI in BrandSlice is - getBrands 😎😎 : ", thunkAPI);
       const response = await BrandService.getBrands();
       return response;
     } catch (error) {
@@ -56,7 +56,7 @@ export const updateBrand = createAsyncThunk(
 );
 
 export const deleteBrand = createAsyncThunk(
-  "brands/get-brand",
+  "brands/delete-brand",
   async (brandId, thunkAPI) => {
     try {
       console.log("thunkAPI in BrandSlice is : ", thunkAPI);
@@ -189,7 +189,7 @@ export const brandSlice = createSlice({
         state.isSuccess = true;
         state.deletedBrand = action.payload.data;
         console.log(
-          "action.payload in deleteBrand brandSlice is : ",
+          "action.payload in deleteBrand brandSlice is 😍😍: ",
           action.payload.data
         );
       })
@@ -201,7 +201,6 @@ export const brandSlice = createSlice({
         // state.user = null;
         state.message = action.error;
       })
-
       .addCase(resetState, () => initialState);
   },
 });
