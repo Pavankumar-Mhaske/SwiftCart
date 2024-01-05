@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -10,7 +10,12 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
-import { createColor } from "../features/color/ColorSlice";
+import {
+  createColor,
+  getAColor,
+  resetState,
+  updateColor,
+} from "../features/color/ColorSlice";
 import { Select } from "antd";
 import { getColors } from "../features/color/ColorSlice";
 
@@ -28,24 +33,26 @@ const AddColor = () => {
   const colorState = useSelector((state) => state.color.colors);
   // console.log("colorState : ", colorState);
 
+  const location = useLocation();
+  const getColorId = location.pathname.split("/")[3];
+  console.log("getColorId in AddColor is : ", getColorId);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loadingToastId, setLoadingToastId] = useState(null);
+  const [loadingCreateToastId, setLoadingCreateToastId] = useState(null);
+  const [loadingUpdateToastId, setLoadingUpdateToastId] = useState(null);
 
   const newColor = useSelector((state) => state.color);
-  const { createdColor, isSuccess, isLoading, isError } = newColor;
+  const { createdColor, isSuccess, isLoading, isError, color, updatedColor } =
+    newColor;
 
-  // const colorOptions = [];
-  // colorState.forEach((color, key) => {
-  //   colorOptions.push({
-  //     label: color.name,
-  //     value: color._id,
-  //   });
-  // });
-
-  // const colorOptions = Object.values(ProductColorsEnum).filter(
-  //   (color) => !colorState.map((item) => item.name).includes(color)
-  // );
+  useEffect(() => {
+    if (getColorId !== undefined) {
+      dispatch(getAColor(getColorId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [getColorId]);
 
   const colorOptions = Object.values(ProductColorsEnum)
     .filter((color) => !colorState.map((item) => item.name).includes(color))
@@ -57,15 +64,22 @@ const AddColor = () => {
 
   useEffect(() => {
     if (formik.isSubmitting) {
-      if (isSuccess && createdColor) {
-        // console.log("loadingToastId 💘💘 : ", loadingToastId);
-        showToastSuccess("Color Created Successfully", loadingToastId);
-      }
-      if (isError) {
+      console.log(`formik is submitting ❤❤🤍❤💙💙💚💛🧡❤
+      createdColor: ${createdColor},isSuccess: ${isSuccess}, isLoading:${isLoading}, isError:${isError}, color:${color}, updatedColor:${updatedColor}
+      `);
+      if (isSuccess && createdColor && Object.keys(createdColor).length > 0) {
+        showToastSuccess("Color Created Successfully", loadingCreateToastId);
+      } else if (
+        isSuccess &&
+        updatedColor &&
+        Object.keys(updatedColor).length > 0
+      ) {
+        showToastSuccess("Color Updated Successfully", loadingUpdateToastId);
+      } else if (isError) {
         showToastError("Color Creation Failed");
       }
     }
-  }, [createdColor, isSuccess, isLoading, isError]);
+  }, [createdColor, updatedColor]);
 
   // async functions for dispatching createColor
   const handleCreateColor = async (values) => {
@@ -76,28 +90,47 @@ const AddColor = () => {
       console.log("error : ", error);
     }
   };
+
+  // async functions for dispatching updateColor
+  const handleUpdateColor = async (values) => {
+    try {
+      const response = await dispatch(updateColor(values));
+      console.log("response : ", response);
+    } catch (error) {
+      console.log("error : ", error);
+    }
+  };
   const initialValues = {
-    name: "",
+    name: color?.name || "",
   };
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
-      const toastId = showToastLoading("Creating Color");
-      // console.log("toastId during formik operation 🚚🚚 : ", toastId);
-      setLoadingToastId(toastId);
+      console.log("getColorId in AddColor is given by🚁🚁 : ", getColorId);
+      if (getColorId !== undefined) {
+        const toastId = showToastLoading("updating Color");
+        setLoadingUpdateToastId(toastId);
+        const data = {
+          colorId: getColorId,
+          name: values.name,
+        };
+        await handleUpdateColor(data);
+      } else {
+        const toastId = showToastLoading("Creating Color");
+        setLoadingCreateToastId(toastId);
+        await handleCreateColor(values);
+      }
       console.log("values : ", values);
       // alert(JSON.stringify(values, null, 2));
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
-      await handleCreateColor(values);
-      formik.values.name = "";
       formik.resetForm();
-
-      // showToastSuccess("Color Created Successfully", toastId);
+      dispatch(resetState());
       setTimeout(() => {
         navigate("/admin/color-list");
-      }, 3000);
+      }, 500);
     },
   });
 
@@ -117,7 +150,9 @@ const AddColor = () => {
     <div>
       <Toast />
 
-      <h3 className="mb-4 title">Add Color</h3>
+      <h3 className="mb-4 title">
+        {getColorId !== undefined ? `Edit` : `Add`} Color
+      </h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
           <h5 className="color-headings ">
@@ -186,7 +221,7 @@ const AddColor = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            Add Color
+            {getColorId !== undefined ? `Edit` : `Add`} Color
           </button>
         </form>
       </div>
