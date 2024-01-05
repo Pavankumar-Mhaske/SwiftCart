@@ -112,13 +112,13 @@ const ProductCategoryList = () => {
       action: (
         <>
           <Link to={`/admin/product-category/${productCategoryState[i]._id}`}>
-            <BiEdit className="fs-5 ms-3 me-5 " />
+            <BiEdit className="fs-5 me-2 " />
           </Link>
           <button
             onClick={() => showModal(productCategoryState[i]._id)}
             className="bg-transparent border-0"
           >
-            <MdDelete className="fs-5 ms-3 me-5 text-0danger" />
+            <MdDelete className="fs-5 text-danger" />
           </button>
         </>
       ),

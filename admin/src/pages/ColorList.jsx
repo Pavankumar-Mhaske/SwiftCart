@@ -93,13 +93,13 @@ const ColorList = () => {
       action: (
         <>
           <Link to={`/admin/color/${colorState[i]._id}`}>
-            <BiEdit className="fs-5 ms-3 me-5 " />
+            <BiEdit className="fs-5 me-2 " />
           </Link>
           <button
             onClick={() => showModal(colorState[i]._id)}
             className="bg-transparent border-0"
           >
-            <MdDelete className="fs-5 ms-3 me-5 text-danger" />
+            <MdDelete className="fs-5 text-danger" />
           </button>
         </>
       ),
