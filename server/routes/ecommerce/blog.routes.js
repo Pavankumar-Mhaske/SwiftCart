@@ -70,7 +70,7 @@ router
     validate,
     updateBlog
   )
-  .post(
+  .get(
     mongoIdPathVariableValidator("blogId"),
     // verifyJWT,
     // verifyPermission([UserRolesEnum.ADMIN]),
