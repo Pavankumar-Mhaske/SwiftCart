@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -10,7 +10,12 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
-import { createBlogCategory } from "../features/blog-category/BlogCategorySlice";
+import {
+  createBlogCategory,
+  getABlogCategory,
+  resetState,
+  updateBlogCategory,
+} from "../features/blog-category/BlogCategorySlice";
 
 // ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
@@ -18,25 +23,62 @@ let schema = yup.object().shape({
 });
 
 const AddBlogCategory = () => {
+  const location = useLocation();
+  const getBlogCategoryId = location.pathname.split("/")[3];
+  console.log("getBlogCategoryId in AddBlogCategory is : ", getBlogCategoryId);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loadingToastId, setLoadingToastId] = useState(null);
+  const [loadingCreateToastId, setLoadingCreateToastId] = useState(null);
+  const [loadingUpdateToastId, setLoadingUpdateToastId] = useState(null);
 
   const newBlogCategory = useSelector((state) => state.blogCategory);
-  const { createdBlogCategory, isSuccess, isLoading, isError } =
-    newBlogCategory;
+  const {
+    createdBlogCategory,
+    isSuccess,
+    isLoading,
+    isError,
+    blogCategory,
+    updatedBlogCategory,
+  } = newBlogCategory;
   // console.log("createdBlogCategory in AddBlogCategory is : ", createdBlogCategory);
+
+  useEffect(() => {
+    if (getBlogCategoryId !== undefined) {
+      dispatch(getABlogCategory(getBlogCategoryId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [getBlogCategoryId]);
+
   useEffect(() => {
     if (formik.isSubmitting) {
-      if (isSuccess && createdBlogCategory) {
-        console.log("toastId : ", loadingToastId);
-        showToastSuccess("BlogCategory Created Successfully", loadingToastId);
-      }
-      if (isError) {
+      console.log(`formik is submitting ❤❤🤍❤💙💙💚💛🧡❤
+      createdBlogCategory: ${createdBlogCategory}, isSuccess: ${isSuccess}, isLoading:${isLoading}, isError:${isError}, blogCategory:${blogCategory}, updatedBlogCategory:${updatedBlogCategory}
+      `);
+      if (
+        isSuccess &&
+        createdBlogCategory &&
+        Object.keys(createdBlogCategory).length > 0
+      ) {
+        showToastSuccess(
+          "BlogCategory Created Successfully",
+          loadingCreateToastId
+        );
+      } else if (
+        isSuccess &&
+        updatedBlogCategory &&
+        Object.keys(updatedBlogCategory).length > 0
+      ) {
+        showToastSuccess(
+          "BlogCategory Updated Successfully",
+          loadingUpdateToastId
+        );
+      } else if (isError) {
         showToastError("BlogCategory Creation Failed");
       }
     }
-  }, [createdBlogCategory, isSuccess, isLoading, isError]);
+  }, [createdBlogCategory, updatedBlogCategory]);
 
   // async functions for dispatching createBlogCategory
   const handleCreateBlogCategory = async (values) => {
@@ -47,32 +89,60 @@ const AddBlogCategory = () => {
       console.log("error : ", error);
     }
   };
+
+  // async functions for dispatching updateBlogCategory
+  const handleUpdateBlogCategory = async (values) => {
+    try {
+      const response = await dispatch(updateBlogCategory(values));
+      console.log("response : ", response);
+    } catch (error) {
+      console.log("error : ", error);
+    }
+  };
+
   const initialValues = {
-    name: "",
+    name: blogCategory?.name || "",
   };
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
-      const toastId = showToastLoading("Creating BlogCategory");
-      setLoadingToastId(toastId);
+      console.log(
+        "getBlogCategoryId in AddBlogCategory is given by🚁🚁 : ",
+        getBlogCategoryId
+      );
+      if (getBlogCategoryId !== undefined) {
+        const toastId = showToastLoading("updating BlogCategory");
+        setLoadingUpdateToastId(toastId);
+        const data = {
+          blogCategoryId: getBlogCategoryId,
+          name: values.name,
+        };
+        await handleUpdateBlogCategory(data);
+      } else {
+        const toastId = showToastLoading("Creating BlogCategory");
+        setLoadingCreateToastId(toastId);
+        await handleCreateBlogCategory(values);
+      }
       console.log("values : ", values);
       // alert(JSON.stringify(values, null, 2));
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
-      await handleCreateBlogCategory(values);
       formik.resetForm();
-      // showToastSuccess("BlogCategory Created Successfully", toastId);
-      // setTimeout(() => {
-      //   navigate("/admin/brand-list");
-      // }, 3000);
+      dispatch(resetState());
+      setTimeout(() => {
+        navigate("/admin/blog-category-list");
+      }, 500);
     },
   });
 
   return (
     <div>
       <Toast />
-      <h3 className="mb-4 title">Add blog Category</h3>
+      <h3 className="mb-4 title">
+        {getBlogCategoryId !== undefined ? `Edit` : `Add`} BlogCategory
+      </h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
@@ -91,7 +161,7 @@ const AddBlogCategory = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            Add Blog Category
+            {getBlogCategoryId !== undefined ? `Edit` : `Add`} BlogCategory
           </button>
         </form>
       </div>
