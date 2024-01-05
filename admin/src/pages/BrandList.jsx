@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Table, Tag } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteBrand, getBrands } from "../features/brand/BrandSlice";
