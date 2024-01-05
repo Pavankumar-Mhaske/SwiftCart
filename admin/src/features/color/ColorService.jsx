@@ -31,9 +31,60 @@ const createColor = async (color) => {
   return response.data;
 };
 
-const Colorservice = {
-  getColors,
-  createColor,
+const getAColor = async (colorId) => {
+  const token = Token;
+
+  console.log("token in ColorService is : ", token);
+  const url = `${base_url}colors/${colorId}`;
+  const response = await axios.get(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  //   const response = await axios.get(url);
+  console.log("Response in ColorService is : ", response);
+
+  return response.data;
 };
 
-export default Colorservice; // export the service
+const updateColor = async (data) => {
+  const token = Token;
+
+  console.log("token in update colorService is : ", token);
+  console.log("data in update colorService is : ", data);
+  const { colorId, name } = data;
+  console.log("colorId and name in update colorService is : ", colorId, name);
+  const url = `${base_url}colors/${colorId}`;
+  const response = await axios.patch(
+    url,
+    { name: name },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  console.log("Response in colorService is : ", response);
+
+  return response.data;
+};
+
+const deleteColor = async (colorId) => {
+  const token = Token;
+  console.log("token in ColorService is : ", token);
+  const url = `${base_url}colors/${colorId}`;
+  const response = await axios.delete(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  //   const response = await axios.get(url);
+  console.log("Response in ColorService is : ", response);
+
+  return response.data;
+};
+
+const ColorService = {
+  getColors,
+  createColor,
+  getAColor,
+  updateColor,
+  deleteColor,
+};
+
+export default ColorService; // export the service
