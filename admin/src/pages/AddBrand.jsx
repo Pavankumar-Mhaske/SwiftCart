@@ -74,7 +74,7 @@ const AddBrand = () => {
     }
   };
 
-  // async functions for dispatching createBrand
+  // async functions for dispatching updateBrand
   const handleUpdateBrand = async (values) => {
     try {
       const response = await dispatch(updateBrand(values));
@@ -141,7 +141,7 @@ const AddBrand = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            Add Brand Category
+            {getBrandId !== undefined ? `Edit` : `Add`} Brand
           </button>
         </form>
       </div>
