@@ -13,7 +13,7 @@ const categorySchema = new Schema(
       // required: true,
       unique: true,
       index: true,
-      enum: AvailableProductCategories,
+      // enum: AvailableProductCategories,
       default: ProductCategoryEnum.GENERAL,
     },
     owner: {
