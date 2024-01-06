@@ -117,6 +117,25 @@ const AddCoupon = () => {
       }
     }
   }, [coupon]);
+  /**
+   *
+   * - Remember ✨⭐🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟⭐✨
+   * even if the the input field for date type looks of formate 😕dd/mm/yyyy😕 at interface level,
+   * but actually it accept the date in the format of 💡YYYY-MM-DD💡
+   *
+   */
+  function formatDateToYYYYMMDD(dateString) {
+    const dateObject = new Date(dateString);
+    // Extract year, month, and day
+    const year = dateObject.getUTCFullYear();
+    const month = String(dateObject.getUTCMonth() + 1).padStart(2, "0"); // Months are zero-indexed, so we add 1
+    const day = String(dateObject.getUTCDate()).padStart(2, "0");
+
+    // Form the YYYY-MM-DD string
+    const formattedDate = `${year}-${month}-${day}`;
+
+    return formattedDate;
+  }
 
   const initialValues = {
     name: coupon?.name || "",
@@ -125,8 +144,12 @@ const AddCoupon = () => {
     discountValue: coupon?.discountValue || undefined,
     isActive: coupon?.isActive || undefined,
     minimumCartValue: coupon?.minimumCartValue || undefined,
-    startDate: coupon?.startDate || undefined,
-    expiryDate: coupon?.expiryDate || undefined,
+    startDate: coupon?.startDate
+      ? formatDateToYYYYMMDD(coupon?.startDate)
+      : undefined,
+    expiryDate: coupon?.expiryDate
+      ? formatDateToYYYYMMDD(coupon?.expiryDate)
+      : undefined,
   };
 
   console.log(
@@ -306,7 +329,7 @@ const AddCoupon = () => {
           </div>
 
           {/* startDate */}
-          <h5 className="coupon-headings-date">
+          {/* <h5 className="coupon-headings-date">
             <span className="example-date-1">
               {formik.values.startDate !== undefined ? `Selected date : ` : ""}
             </span>
@@ -315,7 +338,7 @@ const AddCoupon = () => {
                 ? formatDate(formik.values.startDate)
                 : ""}
             </span>
-          </h5>
+          </h5> */}
           <CustomInput
             id="startDate"
             type="date"
@@ -330,7 +353,7 @@ const AddCoupon = () => {
           </div>
 
           {/* expiryDate */}
-          <h5 className="coupon-headings-date">
+          {/* <h5 className="coupon-headings-date">
             <span className="example-date-1">
               {formik.values.expiryDate !== undefined ? `Selected date : ` : ""}
             </span>
@@ -339,7 +362,7 @@ const AddCoupon = () => {
                 ? formatDate(formik.values.expiryDate)
                 : ""}
             </span>
-          </h5>
+          </h5> */}
           <CustomInput
             id="expiryDate"
             type="date"
