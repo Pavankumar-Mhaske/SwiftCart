@@ -165,10 +165,10 @@ export const blogSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.updatedBlog = action.payload.data;
+        state.updatedBlog = action.payload;
         console.log(
-          "action.payload in updateBlog blogSlice is : ",
-          action.payload.data
+          "action.payload in updateBlog blogSlice is 🧡🧡🧡 : ",
+          action.payload
         );
       })
       // ;builder
@@ -190,7 +190,7 @@ export const blogSlice = createSlice({
         state.isSuccess = true;
         state.deletedBlog = action.payload.data;
         console.log(
-          "action.payload in deleteBlog blogSlice is : ",
+          "action.payload in deleteBlog blogSlice is : 🧡🧡🧡",
           action.payload.data
         );
       })
