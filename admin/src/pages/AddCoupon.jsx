@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -10,7 +10,13 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
-import { createCoupon, resetState } from "../features/coupon/CouponSlice";
+import {
+  createCoupon,
+  getACoupon,
+  resetState,
+  updateCoupon,
+} from "../features/coupon/CouponSlice";
+
 // ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
   name: yup.string().required("Coupon name is required"),
@@ -24,26 +30,55 @@ let schema = yup.object().shape({
 });
 
 const AddCoupon = () => {
+  const location = useLocation();
+  const getCouponId = location.pathname.split("/")[3];
+  console.log("getCouponId in AddCoupon is : ", getCouponId);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loadingToastId, setLoadingToastId] = useState(null);
+  const [loadingCreateToastId, setLoadingCreateToastId] = useState(null);
+  const [loadingUpdateToastId, setLoadingUpdateToastId] = useState(null);
+
   const [isActive, setIsActive] = useState(undefined);
   const [isInactive, setIsInactive] = useState(undefined);
 
   const newCoupon = useSelector((state) => state.coupon);
-  const { createdCoupon, isSuccess, isLoading, isError } = newCoupon;
-  // console.log("createdCoupon in AddCoupon is : ", createdCoupon);
+  const {
+    createdCoupon,
+    isSuccess,
+    isLoading,
+    isError,
+    coupon,
+    updatedCoupon,
+  } = newCoupon;
+  console.log("Coupon in AddCoupon is : ", coupon);
+
+  useEffect(() => {
+    if (getCouponId !== undefined) {
+      dispatch(getACoupon(getCouponId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [getCouponId]);
+
   useEffect(() => {
     if (formik.isSubmitting) {
-      if (isSuccess && createdCoupon) {
-        console.log("toastId : ", loadingToastId);
-        showToastSuccess("Coupon Created Successfully", loadingToastId);
-      }
-      if (isError) {
+      console.log(`formik is submitting ❤❤🤍❤💙💙💚💛🧡❤
+      createdCoupon: ${createdCoupon},isSuccess: ${isSuccess}, isLoading:${isLoading}, isError:${isError}, coupon:${coupon}, updatedCoupon:${updatedCoupon}
+      `);
+      if (isSuccess && createdCoupon && Object.keys(createdCoupon).length > 0) {
+        showToastSuccess("Coupon Created Successfully", loadingCreateToastId);
+      } else if (
+        isSuccess &&
+        updatedCoupon &&
+        Object.keys(updatedCoupon).length > 0
+      ) {
+        showToastSuccess("Coupon Updated Successfully", loadingUpdateToastId);
+      } else if (isError) {
         showToastError("Coupon Creation Failed");
       }
     }
-  }, [createdCoupon]);
+  }, [createdCoupon, updatedCoupon]);
 
   // async functions htmlFor dispatching createCoupon
   const handleCreateCoupon = async (values) => {
@@ -54,36 +89,96 @@ const AddCoupon = () => {
       console.log("error : ", error);
     }
   };
-  const initialValues = {
-    name: "",
-    couponCode: "",
-    type: "",
-    discountValue: undefined,
-    isActive: undefined,
-    minimumCartValue: undefined,
-    startDate: undefined,
-    expiryDate: undefined,
+
+  // async functions for dispatching updateCoupon
+  const handleUpdateCoupon = async (values) => {
+    try {
+      const response = await dispatch(updateCoupon(values));
+      console.log("response : ", response);
+    } catch (error) {
+      console.log("error : ", error);
+    }
   };
 
+  // hook to set the isActive , startDate and expiryDate when the coupon is fetched
+  useEffect(() => {
+    if (
+      isSuccess &&
+      coupon &&
+      Object.keys(coupon).length > 0 &&
+      coupon !== undefined
+    ) {
+      if (coupon.isActive === true) {
+        setIsActive(true);
+        setIsInactive(false);
+      } else if (coupon.isActive === false) {
+        setIsActive(false);
+        setIsInactive(true);
+      }
+    }
+  }, [coupon]);
+
+  const initialValues = {
+    name: coupon?.name || "",
+    couponCode: coupon?.couponCode || "",
+    type: coupon?.type || "",
+    discountValue: coupon?.discountValue || undefined,
+    isActive: coupon?.isActive || undefined,
+    minimumCartValue: coupon?.minimumCartValue || undefined,
+    startDate: coupon?.startDate || undefined,
+    expiryDate: coupon?.expiryDate || undefined,
+  };
+
+  console.log(
+    `All the current values of coupon are: 🦈🦈🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹 ,
+    name: ${initialValues.name}, 
+    couponCode: ${initialValues.couponCode}, 
+    type: ${initialValues.type}, 
+    discountValue: ${initialValues.discountValue}, 
+    isActive: ${initialValues.isActive}, 
+    minimumCartValue: ${initialValues.minimumCartValue}, 
+    startDate: ${initialValues.startDate}, 
+    expiryDate: ${initialValues.expiryDate}, 
+  `
+  );
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
-      console.log("values : ", values);
-      const toastId = showToastLoading("Creating Coupon");
-      setLoadingToastId(toastId);
+      console.log("getCouponId in AddCoupon is given by🚁🚁 : ", getCouponId);
+      if (getCouponId !== undefined) {
+        const toastId = showToastLoading("updating Coupon");
+        setLoadingUpdateToastId(toastId);
+        const data = {
+          couponId: getCouponId,
+          name: values.name,
+          couponCode: values.couponCode,
+          type: values.type,
+          discountValue: values.discountValue,
+          isActive: values.isActive,
+          minimumCartValue: values.minimumCartValue,
+          startDate: values.startDate,
+          expiryDate: values.expiryDate,
+        };
+
+        await handleUpdateCoupon(data);
+      } else {
+        const toastId = showToastLoading("Creating Coupon");
+        setLoadingCreateToastId(toastId);
+        await handleCreateCoupon(values);
+      }
       console.log("values : ", values);
       // alert(JSON.stringify(values, null, 2));
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
-      await handleCreateCoupon(values);
       formik.resetForm();
-      // showToastSuccess("Coupon Created Successfully", toastId);
+      dispatch(resetState());
       setTimeout(() => {
-        dispatch(resetState());
         navigate("/admin/coupon-list");
-      }, 3000);
+      }, 500);
     },
   });
+  console.log("formik.values 🦈🦈🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹: ", formik.values);
 
   const handleBoxClick = (buttonType) => {
     if (buttonType === "active") {
@@ -95,6 +190,27 @@ const AddCoupon = () => {
       setIsInactive(true);
       formik.setFieldValue("isActive", false);
     }
+  };
+
+  // function to formate the date
+  const formatDate = (date) => {
+    const originalDate = new Date(date);
+
+    // Convert to IST (UTC+5:30)
+    const istDate = new Intl.DateTimeFormat("en-IN", {
+      timeZone: "Asia/Kolkata",
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: true, // Use 24-hour format
+    });
+
+    const formattedDate = `${istDate.format(originalDate)}`;
+
+    return <>{formattedDate}</>;
   };
 
   return (
@@ -190,7 +306,16 @@ const AddCoupon = () => {
           </div>
 
           {/* startDate */}
-
+          <h5 className="coupon-headings-date">
+            <span className="example-date-1">
+              {formik.values.startDate !== undefined ? `Selected date : ` : ""}
+            </span>
+            <span className="example-date-2">
+              {formik.values.startDate !== undefined
+                ? formatDate(formik.values.startDate)
+                : ""}
+            </span>
+          </h5>
           <CustomInput
             id="startDate"
             type="date"
@@ -205,7 +330,16 @@ const AddCoupon = () => {
           </div>
 
           {/* expiryDate */}
-
+          <h5 className="coupon-headings-date">
+            <span className="example-date-1">
+              {formik.values.expiryDate !== undefined ? `Selected date : ` : ""}
+            </span>
+            <span className="example-date-2">
+              {formik.values.expiryDate !== undefined
+                ? formatDate(formik.values.expiryDate)
+                : ""}
+            </span>
+          </h5>
           <CustomInput
             id="expiryDate"
             type="date"
