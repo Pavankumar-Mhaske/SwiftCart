@@ -50,12 +50,18 @@ const updateBlog = async (data) => {
 
   console.log("token in update blogService is : ", token);
   console.log("data in update blogService is : ", data);
-  const { blogId, title, description, category } = data;
+  const { blogId, title, category, description } = data;
   console.log("blogId and name in update blogService is : ", blogId, name);
   const url = `${base_url}blogs/${blogId}`;
+  const blogToUpdate = {
+    title: title,
+    category: category,
+    description: description,
+  };
+
   const response = await axios.patch(
     url,
-    { title: title, description: description, category: category },
+    { ...blogToUpdate },
     {
       headers: { Authorization: `Bearer ${token}` },
     }
