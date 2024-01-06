@@ -66,8 +66,7 @@ Table {
   color: var(--color-828599);
 }
 
-
-.color-headings  .example {
+.color-headings .example {
   font-size: 12px !important;
   color: var(--color-e52e2e);
 }
@@ -82,6 +81,24 @@ Table {
 .coupon-headings .example {
   font-size: 12px !important;
   color: var(--color-828599);
+}
+
+.coupon-headings-date {
+  margin-top: 30px;
+  margin-bottom: 0;
+  font: 12px;
+  font-family: Roboto !important;
+  color: var(--color-000000);
+}
+
+.coupon-headings-date .example-date-1 {
+  font-size: 12px !important;
+  color: var(--color-828599);
+}
+
+.coupon-headings-date .example-date-2 {
+  font-size: 12px !important;
+  color: var(--color-000000);
 }
 
 /* 🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹 */
