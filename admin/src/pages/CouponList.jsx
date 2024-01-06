@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Tag } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCoupons } from "../features/coupon/CouponSlice";
+import { deleteCoupon, getCoupons } from "../features/coupon/CouponSlice";
+import CustomModal from "../components/CustomModal";
+import {
+  showToastLoading,
+  showToastSuccess,
+  showToastError,
+  Toast,
+} from "../utils/HotToastHandler";
 
 const columns = [
   {
@@ -117,16 +123,6 @@ const columns = [
   {
     title: "Action",
     dataIndex: "action",
-    render: () => (
-      <>
-        <Link to="#">
-          <BiEdit className="fs-5  me-2 " />
-        </Link>
-        <Link to="#">
-          <MdDelete className="fs-5  text-danger" />
-        </Link>
-      </>
-    ),
   },
 ];
 
@@ -135,6 +131,40 @@ const CouponList = () => {
   useEffect(() => {
     dispatch(getCoupons());
   }, []);
+
+  // deleting functionality
+  const [loadingDeleteToastId, setLoadingDeleteToastId] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [deleteCouponId, setDeleteCouponId] = useState("");
+  const showModal = (couponId) => {
+    setOpen(true);
+    setDeleteCouponId(couponId);
+  };
+  console.log("couponId in couponList is Id: ", deleteCouponId);
+  const hideModal = () => {
+    setOpen(false);
+  };
+  const deleteCouponHelper = (couponId) => {
+    const toastId = showToastLoading("Deleting Coupon!");
+    setLoadingDeleteToastId(toastId);
+    console.log("deleteCoupon is called");
+    dispatch(deleteCoupon(couponId));
+    setOpen(false);
+    // hideModal();
+  };
+
+  const newCoupon = useSelector((state) => state.coupon);
+  const { isSuccess, isError, deletedCoupon } = newCoupon;
+  console.log("deletedCoupon in CouponList is : ", deletedCoupon);
+
+  useEffect(() => {
+    if (isSuccess && deletedCoupon && Object.keys(deletedCoupon).length > 0) {
+      showToastSuccess("Coupon Deleted Successfully", loadingDeleteToastId);
+      dispatch(getCoupons());
+    } else if (isError) {
+      showToastError("Coupon Deletion Failed");
+    }
+  }, [deletedCoupon]);
 
   const couponState = useSelector((state) => state.coupon.coupons);
   console.log("couponState in couponList is : ", couponState);
@@ -152,7 +182,19 @@ const CouponList = () => {
       isActive: couponState[i].isActive,
 
       // owner: couponState[i].owner,
-      action: "action",
+      action: (
+        <>
+          <Link to={`/admin/coupon/${couponState[i]._id}`}>
+            <BiEdit className="fs-5 me-2 " />
+          </Link>
+          <button
+            onClick={() => showModal(couponState[i]._id)}
+            className="bg-transparent border-0"
+          >
+            <MdDelete className="fs-5  text-danger" />
+          </button>
+        </>
+      ),
     });
   }
 
@@ -160,10 +202,19 @@ const CouponList = () => {
 
   return (
     <div>
+      <Toast />
       <h3 className="mb-4 title">CouponList</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModal
+        title="Are You Sure to Delete This Coupon?"
+        hideModal={hideModal}
+        open={open}
+        performAction={() => {
+          deleteCouponHelper(deleteCouponId);
+        }}
+      />
     </div>
   );
 };
