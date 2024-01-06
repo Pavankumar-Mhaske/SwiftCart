@@ -10,8 +10,13 @@ import Dropzone from "react-dropzone";
 import { getBlogCategories } from "../features/blog-category/BlogCategorySlice";
 import { uploadImages } from "../features/upload-blog-images/UploadSlice";
 import { deleteImages } from "../features/upload-blog-images/UploadSlice";
-import { createBlog } from "../features/blog/BlogSlice";
-import { useNavigate } from "react-router-dom";
+import {
+  getABlog,
+  createBlog,
+  resetState,
+  updateBlog,
+} from "../features/blog/BlogSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   showToastLoading,
   showToastSuccess,
@@ -29,10 +34,15 @@ let schema = yup.object().shape({
 });
 
 const AddBlog = () => {
+  const location = useLocation();
+  const getBlogId = location.pathname.split("/")[3];
+  console.log("getBlogId in AddBlog is : ", getBlogId);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loadingToastId, setLoadingToastId] = useState(null);
   const [newImageState, setNewImageState] = useState([]);
+  const [loadingCreateToastId, setLoadingCreateToastId] = useState(null);
+  const [loadingUpdateToastId, setLoadingUpdateToastId] = useState(null);
   const [garbageImageStates, setGarbageImageStates] = useState([]);
 
   useEffect(() => {
@@ -50,19 +60,36 @@ const AddBlog = () => {
   console.log("imageState : ", imageState);
 
   const newBlog = useSelector((state) => state.blog);
-  const { createdBlog, isSuccess, isLoading, isError } = newBlog;
+  const { createdBlog, isSuccess, isLoading, isError, blog, updatedBlog } =
+    newBlog;
+  console.log("blog in AddBlog is : ", blog);
+
+  useEffect(() => {
+    if (getBlogId !== undefined) {
+      dispatch(getABlog(getBlogId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [getBlogId]);
 
   useEffect(() => {
     if (formik.isSubmitting) {
-      if (isSuccess && createdBlog) {
-        console.log("loadingToastId : ", loadingToastId);
-        showToastSuccess("Blog Created Successfully", loadingToastId);
-      }
-      if (isError) {
+      console.log(`formik is submitting ❤❤🤍❤💙💙💚💛🧡❤
+      createdBlog: ${createdBlog},isSuccess: ${isSuccess}, isLoading:${isLoading}, isError:${isError}, blog:${blog}, updatedBlog:${updatedBlog}
+      `);
+      if (isSuccess && createdBlog && Object.keys(createdBlog).length > 0) {
+        showToastSuccess("Blog Created Successfully", loadingCreateToastId);
+      } else if (
+        isSuccess &&
+        updatedBlog &&
+        Object.keys(updatedBlog).length > 0
+      ) {
+        showToastSuccess("Blog Updated Successfully", loadingUpdateToastId);
+      } else if (isError) {
         showToastError("Blog Creation Failed");
       }
     }
-  }, [createdBlog, isSuccess, isLoading, isError]);
+  }, [createdBlog, updatedBlog]);
 
   useEffect(() => {
     // Extract URLs from imageState and update newImageState
@@ -112,47 +139,88 @@ const AddBlog = () => {
       console.log("error : ", error);
     }
   };
-  const initialValues = {
-    title: "",
-    description: "",
-    category: "",
+
+  // async functions for dispatching updateBlog
+  const handleUpdateBlog = async (values) => {
+    try {
+      const response = await dispatch(updateBlog(values));
+      console.log("response : ", response);
+    } catch (error) {
+      console.log("error : ", error);
+    }
   };
+
+  // function to convert normal string into htmltext
+  const plainToHtmlText = (text) => {
+    const htmlText = `<p>${text}</p>`;
+    return htmlText;
+  };
+
+  const initialValues = {
+    title: blog?.title || "",
+    category: blog?.category || "",
+    description: blog?.description || "",
+  };
+
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
-      const toastId = showToastLoading("Creating Blog");
-      setLoadingToastId(toastId);
-      console.log("values : ", values);
-      // alert(JSON.stringify(values, null, 2));
+      console.log("getBlogId in AddBlog is given by🚁🚁 : ", getBlogId);
+      if (getBlogId !== undefined) {
+        const toastId = showToastLoading("updating Blog");
+        setLoadingUpdateToastId(toastId);
+        const data = {
+          blogId: getBlogId,
+          name: values.name,
+          category: values.category,
+          description: values.description,
+        };
+        await handleUpdateBlog(data);
+      } else {
+        const toastId = showToastLoading("Creating Blog");
+        setLoadingCreateToastId(toastId);
+        await handleCreateBlog(values);
+      }
+
       console.log("garbageImageStates before: ", garbageImageStates);
       await handleDeleteImages();
-      console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       console.log("garbageImageStates after: ", garbageImageStates);
-      await handleCreateBlog(values);
+      // await handleCreateBlog(values);
       console.log("Blog created successfully 🎉🍾🎊🎉🍾🎊🎉🍾🎊🎉🍾🎊");
+
+      console.log("values : ", values);
+      // alert(JSON.stringify(values, null, 2));
+      console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       formik.resetForm();
+      dispatch(resetState());
       setNewImageState([]);
       setGarbageImageStates([]);
-      // showToastSuccess("Blog Created Successfully", toastId);
-      // setTimeout(() => {
-      //   navigate("/admin/product-list");
-      // }, 3000);
+      setTimeout(() => {
+        navigate("/admin/blog-list");
+      }, 500);
       // chack all the created/ possible variables or arrays to be reseted
 
       // `);
     },
   });
 
+  console.log("formik values : 🌹🌹", formik.values);
+
   // Function to extract text from HTML string
   const extractTextFromHTML = (htmlString) => {
+    console.log("htmlString :🐱🐱 ", htmlString);
+    console.log("typeof htmlString : ", typeof htmlString);
     const tempElement = document.createElement("div");
     tempElement.innerHTML = htmlString;
     return tempElement.textContent || tempElement.innerText;
   };
   return (
     <div>
-      <h3 className="mb-4 title">Add Blog</h3>
+      <h3 className="mb-4 title">
+        {getBlogId !== undefined ? `Edit` : `Add`} Blog
+      </h3>
       <Toast />
       <div>
         <form
@@ -243,15 +311,21 @@ const AddBlog = () => {
             <ReactQuill
               theme="snow"
               name="description"
-              onChange={(htmlValue) => {
-                // Extract text without HTML tags
-                console.log("htmlValue : ", htmlValue);
-                const plainText = extractTextFromHTML(htmlValue).trim();
-                console.log("plainText : ", plainText);
-                // Set the plain text value to formik
-                formik.setFieldValue("description", plainText);
-                // formik.handleChange("description")
-              }}
+              onChange={(htmlValue) =>
+                formik.handleChange("description")(htmlValue)
+              }
+              value={formik.values.description}
+
+              // onChange={(htmlValue) => {
+              //   // Extract text without HTML tags
+              //   console.log("htmlValue : ", htmlValue);
+              //   const plainText = extractTextFromHTML(htmlValue).trim();
+              //   console.log("plainText : ", plainText);
+              //   // Set the plain text value to formik
+              //   // formik.setFieldValue("description", plainText);
+              //   // formik.handleChange("description")
+              //   // formik.setFieldValue("description", htmlValue);
+              // }}
             />
           </div>
           <div className="error">
@@ -261,7 +335,7 @@ const AddBlog = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            Add Blog
+            {getBlogId !== undefined ? `Edit` : `Add`} Blog{" "}
           </button>
         </form>
       </div>
