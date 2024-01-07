@@ -184,10 +184,10 @@ export const couponSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.deletedCoupon = action.payload.data;
+        state.deletedCoupon = action.payload.data.deletedCoupon;
         console.log(
-          "action.payload in deleted couponSlice is : ",
-          action.payload.data
+          "action.payload in deleted couponSlice is :💛💛 ",
+          action.payload.data.deletedCoupon
         );
       })
       // ;builder
