@@ -38,7 +38,7 @@ export const orderSlice = createSlice({
         state.isSuccess = true;
         state.orders = action.payload.data.orders;
         console.log(
-          "action.payload in orderSlice is : ",
+          "action.payload in orderSlice is :💚💚💚 ",
           action.payload.data.orders
         );
       })
