@@ -174,7 +174,7 @@ const Enquiries = () => {
       date: enquiryState[i].createdAt,
       action: (
         <>
-          <Link to="#">
+          <Link to={`/admin/enquiries/${enquiryState[i]._id}`} className="">
             <BsFillEyeFill className="fs-5 me-2 " style={{ color: "black" }} />
           </Link>
           <button
