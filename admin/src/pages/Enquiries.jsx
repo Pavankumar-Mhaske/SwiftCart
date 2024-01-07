@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Tag } from "antd";
-import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import { useEffect } from "react";
+import { BsFillEyeFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getEnquiries } from "../features/enquiry/EnquirySlice";
+import { getEnquiries, deleteEnquiry } from "../features/enquiry/EnquirySlice";
+import CustomModal from "../components/CustomModal";
+import {
+  showToastLoading,
+  showToastSuccess,
+  showToastError,
+  Toast,
+} from "../utils/HotToastHandler";
 
 const columns = [
   {
@@ -109,16 +115,6 @@ const columns = [
   {
     title: "Action",
     dataIndex: "action",
-    render: () => (
-      <>
-        <Link to="#">
-          <BiEdit className="fs-5 ms-0 me-0 " />
-        </Link>
-        <Link to="#">
-          <MdDelete className="fs-5 ms-3 me-0 text-danger" />
-        </Link>
-      </>
-    ),
   },
 ];
 
@@ -127,6 +123,40 @@ const Enquiries = () => {
   useEffect(() => {
     dispatch(getEnquiries());
   }, []);
+
+  // deleting functionality
+  const [loadingDeleteToastId, setLoadingDeleteToastId] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [deleteEnquiryId, setDeleteEnquiryId] = useState("");
+  const showModal = (enquiryId) => {
+    setOpen(true);
+    setDeleteEnquiryId(enquiryId);
+  };
+  console.log("enquiryId in enquiryList is Id: ", deleteEnquiryId);
+  const hideModal = () => {
+    setOpen(false);
+  };
+  const deleteEnquiryHelper = (enquiryId) => {
+    const toastId = showToastLoading("Deleting Enquiry!");
+    setLoadingDeleteToastId(toastId);
+    console.log("deleteEnquiry is called");
+    dispatch(deleteEnquiry(enquiryId));
+    setOpen(false);
+    // hideModal();
+  };
+
+  const newEnquiry = useSelector((state) => state.enquiry);
+  const { isSuccess, isError, deletedEnquiry } = newEnquiry;
+  console.log("deletedEnquiry in EnquiryList is : ", deletedEnquiry);
+
+  useEffect(() => {
+    if (isSuccess && deletedEnquiry && Object.keys(deletedEnquiry).length > 0) {
+      showToastSuccess("Enquiry Deleted Successfully", loadingDeleteToastId);
+      dispatch(getEnquiries());
+    } else if (isError) {
+      showToastError("Enquiry Deletion Failed");
+    }
+  }, [deletedEnquiry]);
 
   const enquiryState = useSelector((state) => state.enquiry.enquiries);
   console.log("enquiryState in enquiryList is : ", enquiryState);
@@ -142,16 +172,38 @@ const Enquiries = () => {
       // owner: enquiryState[i].owner,
       status: enquiryState[i].status,
       date: enquiryState[i].createdAt,
-      action: "action",
+      action: (
+        <>
+          <Link to="#">
+            <BsFillEyeFill className="fs-5 me-2 " style={{ color: "black" }} />
+          </Link>
+          <button
+            onClick={() => showModal(enquiryState[i]._id)}
+            className="bg-transparent border-0"
+          >
+            <MdDelete className="fs-5  text-danger" />
+          </button>
+        </>
+      ),
     });
   }
 
   return (
     <div>
+      <Toast />
+
       <h3 className="mb-4 title">Enquiries</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModal
+        title="Are You Sure to Delete This Brand?"
+        hideModal={hideModal}
+        open={open}
+        performAction={() => {
+          deleteEnquiryHelper(deleteEnquiryId);
+        }}
+      />
     </div>
   );
 };
