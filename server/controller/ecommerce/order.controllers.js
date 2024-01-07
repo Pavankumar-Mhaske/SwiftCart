@@ -540,22 +540,24 @@ const getOrderListAdmin = asyncHandler(async (req, res) => {
           {
             $project: {
               _id: 1,
-              username: 1,
+              firstname: 1,
               email: 1,
             },
           },
         ],
       },
     },
+    // lookup for a coupon applied while placing the order
     {
       $lookup: {
         from: "coupons",
-        foreignField: "_id",
         localField: "coupon",
+        foreignField: "_id",
         as: "coupon",
         pipeline: [
           {
             $project: {
+              _id: 1,
               name: 1,
               couponCode: 1,
             },
@@ -567,7 +569,9 @@ const getOrderListAdmin = asyncHandler(async (req, res) => {
       $addFields: {
         customer: { $first: "$customer" },
         address: { $first: "$address" },
+        // coupon: { $first: "$coupon" },
         coupon: { $ifNull: [{ $first: "$coupon" }, null] },
+        // coupon: { $ifNull: [{ $first: "$coupon" }, null] },
         totalOrderItems: { $size: "$items" },
       },
     },
