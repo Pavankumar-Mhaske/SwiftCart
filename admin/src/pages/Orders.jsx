@@ -89,10 +89,20 @@ const columns = [
     title: "Coupon",
     dataIndex: "coupon",
   },
-  // customer
+  // // customer
+  // {
+  //   title: "Customer",
+  //   dataIndex: "customer",
+  // },
+  // product
   {
-    title: "Customer",
-    dataIndex: "customer",
+    title: "Product",
+    dataIndex: "product",
+    render: (orderId) => {
+      // return <Tag color="blue">{product}</Tag>;
+      // return link
+      return <Link to={`/admin/orders/${orderId}`}>View Order</Link>;
+    },
   },
   // Action
   {
@@ -131,7 +141,8 @@ const Orders = () => {
       orderPrice: orderState[i].orderPrice,
       discountedOrderPrice: orderState[i].discountedOrderPrice,
       coupon: orderState[i].coupon?.couponCode,
-      customer: orderState[i].customer?._id,
+      // customer: orderState[i].customer?._id,
+      product: orderState[i]?._id,
       action: "action",
     });
   }
