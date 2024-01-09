@@ -19,13 +19,17 @@ const login = async (userData) => {
   const url = `${base_url}users/login/`;
   const response = await axios.post(url, userData);
   console.log("Response in login auth is : ", response);
-  // if (response.data.data.token) {
-  //   localStorage.setItem("user", JSON.stringify(response.data.data.user));
+  if (response.data.data.user.accessToken) {
+    localStorage.setItem(
+      "accessToken",
+      JSON.stringify(response.data.data.user.accessToken)
+    );
+    console.log(
+      "response.data.data.user.accessToken in login auth is : ",
+      response.data.data.user.accessToken
+    );
+  }
 
-  //   // localStorage.setItem(key, JSON.stringify(value))
-  // }
-  // const token = JSON.parse(localStorage.getItem("user"));
-  // console.log("token in auth is : ", token);
   return response.data;
 };
 
