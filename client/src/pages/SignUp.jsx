@@ -73,6 +73,9 @@ const SignUp = () => {
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       formik.resetForm();
       dispatch(resetState());
+      // setTimeout(() => {
+      //   navigate("/admin/brand-list");
+      // }, 500);
     },
   });
 
