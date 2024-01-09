@@ -15,6 +15,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
 
     // attach refresh token to the user document to avoid refreshing the access token with multiple refresh tokens
     user.refreshToken = refreshToken;
+    user.accessToken = accessToken; // TODO:  added later 👋🏻👋🏻 Remove this line if not needed
 
     await user.save({ validateBeforeSave: false });
     return { accessToken, refreshToken };
@@ -126,11 +127,16 @@ const loginUser = asyncHandler(async (req, res) => {
       "-password -refreshToken -emailVerificationToken -emailVerificationExpiry"
     );
 
+    // Add accessToken to loggedInUser object
+    // loggedInUser.accessToken = accessToken;
+
     // TODO: Add more options to make cookie more secure and reliable
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     };
+    console.log("user: ", loggedInUser); //TODO:  added later 👋🏻👋🏻 Remove this line if not needed
+
     console.log("accessToken: ", accessToken);
     console.log("refreshToken: ", refreshToken);
 

@@ -107,6 +107,10 @@ const userSchema = new Schema(
     refreshToken: {
       type: String,
     },
+    // TODO:  added later 👋🏻👋🏻 Remove this line if not needed
+    accessToken: {
+      type: String,
+    },
     forgotPasswordToken: {
       type: String,
     },
