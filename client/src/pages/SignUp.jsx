@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
-import { useFormik } from "formik";
 import * as yup from "yup";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../features/auth/AuthSlice";
+import {
+  showToastLoading,
+  showToastSuccess,
+  showToastError,
+  Toast,
+} from "../utils/HotToastHandler";
 
 let schema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -19,6 +27,30 @@ let schema = yup.object().shape({
 });
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const [loadingRegisterToastId, setLoadingRegisterToastId] = useState(null);
+
+  const newAuth = useSelector((state) => state.auth);
+  const { isSuccess, isError, user } = newAuth;
+  console.log(" 📧 user in SignUp : ", user);
+
+  useEffect(() => {
+    if (isSuccess && user && Object.keys(user).length > 0) {
+      showToastSuccess("User Registered Successfully!", loadingRegisterToastId);
+    } else if (isError) {
+      showToastError("Something went wrong", "top-center");
+    }
+  }, [user]);
+
+  const handleRegisterUser = async (values) => {
+    try {
+      const response = await dispatch(register(values));
+      console.log(" 📧 response in SignUp : ", response);
+    } catch (error) {
+      console.log(" 📧 error in SignUp : ", error);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -28,8 +60,11 @@ const SignUp = () => {
       password: "",
     },
     validationSchema: schema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       alert(JSON.stringify(values, null, 2));
+      const toastId = showToastLoading("Registering User...");
+      setLoadingRegisterToastId(toastId);
+      await handleRegisterUser(values);
     },
   });
 
@@ -42,6 +77,8 @@ const SignUp = () => {
         <div className="row">
           <div className="col-12">
             <div className="auth-card">
+              <Toast />
+              {/* 📜📜📜 Title 📜📜📜 */}
               <h3 className="title text-center mb-3">Sign Up</h3>
               {/* 📜📜📜 Form 📜📜📜 */}
               <form
