@@ -77,6 +77,10 @@ export const authSlice = createSlice({
           "state.user in authSlice is 💘💘 : ",
           action.payload.data.user
         );
+        console.log(
+          "Token inside the authSlice is : ",
+          action.payload.data.user.accessToken
+        );
       })
       // ;builder
       .addCase(login.rejected, (state, action) => {
