@@ -50,7 +50,6 @@ const SignUp = () => {
                 className="d-flex flex-column gap-15"
               >
                 {/* 📧📧📧 First Name 📧📧📧 */}
-
                 <CustomInput
                   type="text"
                   name="firstName"
@@ -62,43 +61,70 @@ const SignUp = () => {
                 />
                 <div className="error">
                   {formik.touched.firstName && formik.errors.firstName ? (
-                  <div className="error">{formik.errors.firstName}</div>
-                  ) : null }
-
+                    <div className="error">{formik.errors.firstName}</div>
+                  ) : null}
                 </div>
-
                 {/* 📧📧📧 Last Name 📧📧📧 */}
                 <CustomInput
                   type="text"
-                  name="name"
-                  placeholder="Enter your Last Name"
-                  className="form-control"
+                  name="lastName"
+                  label="Last Name"
+                  id="lastName"
+                  value={formik.values.lastName}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                <div className="error">
+                  {formik.touched.lastName && formik.errors.lastName ? (
+                    <div className="error">{formik.errors.lastName}</div>
+                  ) : null}
+                </div>
 
                 {/* 📧📧📧 Email 📧📧📧 */}
                 <CustomInput
                   type="email"
                   name="email"
-                  placeholder="Enter your email"
-                  className="form-control"
+                  label="Email"
+                  id="email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
-
+                <div className="error">
+                  {formik.touched.email && formik.errors.email ? (
+                    <div className="error">{formik.errors.email}</div>
+                  ) : null}
+                </div>
                 {/* 📞📞📞 Mobile 📞📞📞 */}
                 <CustomInput
                   type="tel"
                   name="mobile"
-                  placeholder="Enter your Mobile Number"
-                  className="form-control "
+                  label="Mobile"
+                  id="mobile"
+                  value={formik.values.mobile}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
-
+                <div className="error">
+                  {formik.touched.mobile && formik.errors.mobile ? (
+                    <div className="error">{formik.errors.mobile}</div>
+                  ) : null}
+                </div>
                 {/* 🔐🔐🔐 Password 🔐🔐🔐 */}
                 <CustomInput
                   type="password"
                   name="password"
-                  placeholder="Enter your password"
-                  className="form-control "
+                  label="Password"
+                  id="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
-
+                <div className="error">
+                  {formik.touched.password && formik.errors.password ? (
+                    <div className="error">{formik.errors.password}</div>
+                  ) : null}
+                </div>
                 {/* 🔘🔘🔘 Buttons 🔘🔘🔘 */}
                 <div className="form-group">
                   <div className=" mt-3 d-flex justify-content-center align-items-center gap-15 ">
