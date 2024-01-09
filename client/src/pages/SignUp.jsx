@@ -7,7 +7,7 @@ import CustomInput from "../components/CustomInput";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../features/auth/AuthSlice";
+import { register, resetState } from "../features/auth/AuthSlice";
 import {
   showToastLoading,
   showToastSuccess,
@@ -16,8 +16,8 @@ import {
 } from "../utils/HotToastHandler";
 
 let schema = yup.object().shape({
-  firstName: yup.string().required("First Name is required"),
-  lastName: yup.string().required("Last Name is required"),
+  firstname: yup.string().required("First Name is required"),
+  lastname: yup.string().required("Last Name is required"),
   email: yup
     .string()
     .email("Invalid email address")
@@ -35,10 +35,11 @@ const SignUp = () => {
   console.log(" 📧 user in SignUp : ", user);
 
   useEffect(() => {
+    console.log("inside of the useEffect for success or error message 💥💥");
     if (isSuccess && user && Object.keys(user).length > 0) {
       showToastSuccess("User Registered Successfully!", loadingRegisterToastId);
     } else if (isError) {
-      showToastError("Something went wrong", "top-center");
+      showToastError("Something went wrong");
     }
   }, [user]);
 
@@ -53,31 +54,40 @@ const SignUp = () => {
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
       email: "",
-      mobile: "",
       password: "",
+      mobile: "",
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
+      console.log("inside of the formik submit 🤩🤩");
       const toastId = showToastLoading("Registering User...");
       setLoadingRegisterToastId(toastId);
       await handleRegisterUser(values);
+
+      console.log("values : ", values);
+      // alert(JSON.stringify(values, null, 2));
+      console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
+      formik.resetForm();
+      dispatch(resetState());
     },
   });
 
   return (
     <>
+      <Toast />
+
       <Meta title={"SignUp"} />
       <BreadCrumb title="SignUp" />
       {/* 📃📃📄📄 Login 📃📃📄📄 */}
+
       <Container class1="login-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="auth-card">
-              <Toast />
               {/* 📜📜📜 Title 📜📜📜 */}
               <h3 className="title text-center mb-3">Sign Up</h3>
               {/* 📜📜📜 Form 📜📜📜 */}
@@ -89,31 +99,31 @@ const SignUp = () => {
                 {/* 📧📧📧 First Name 📧📧📧 */}
                 <CustomInput
                   type="text"
-                  name="firstName"
+                  name="firstname"
                   label="First Name"
-                  id="firstName"
-                  value={formik.values.firstName}
+                  id="firstname"
+                  value={formik.values.firstname}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
                 <div className="error">
-                  {formik.touched.firstName && formik.errors.firstName ? (
-                    <div className="error">{formik.errors.firstName}</div>
+                  {formik.touched.firstname && formik.errors.firstname ? (
+                    <div className="error">{formik.errors.firstname}</div>
                   ) : null}
                 </div>
                 {/* 📧📧📧 Last Name 📧📧📧 */}
                 <CustomInput
                   type="text"
-                  name="lastName"
+                  name="lastname"
                   label="Last Name"
-                  id="lastName"
-                  value={formik.values.lastName}
+                  id="lastname"
+                  value={formik.values.lastname}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
                 <div className="error">
-                  {formik.touched.lastName && formik.errors.lastName ? (
-                    <div className="error">{formik.errors.lastName}</div>
+                  {formik.touched.lastname && formik.errors.lastname ? (
+                    <div className="error">{formik.errors.lastname}</div>
                   ) : null}
                 </div>
 
