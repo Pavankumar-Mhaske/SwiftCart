@@ -796,7 +796,7 @@ footer .input-group-text {
   line-height: 18px;
   font-weight: 400;
   letter-spacing: 0.3;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 .auth-card a {
