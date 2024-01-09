@@ -1,20 +1,19 @@
 import React from "react";
 
 const CustomInput = (props) => {
-  const {
-    type = "text",
-    name = "name",
-    placeholder = "Enter your Name",
-    classname = "form-control",
-  } = props;
+  const { type, label, i_id, i_class, name, value, onChange, onBlur } = props;
   return (
     <div className="form-group mt-1">
       {/* <label htmlFor="email">Email</label> */}
       <input
         type={type}
+        className={` form-control ${i_class}`}
+        id={i_id}
+        placeholder={label}
         name={name}
-        placeholder={placeholder}
-        className={` form-control ${classname}`}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
       />
     </div>
   );
