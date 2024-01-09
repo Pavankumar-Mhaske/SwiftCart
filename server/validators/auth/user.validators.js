@@ -31,6 +31,12 @@ const userRegisterValidator = () => {
       .withMessage("Email is required")
       .isEmail()
       .withMessage("Email is invalid"),
+    body("mobile")
+      .trim()
+      .notEmpty()
+      .withMessage("Mobile is required")
+      .isMobilePhone()
+      .withMessage("Mobile is invalid"),
     body("password").trim().notEmpty().withMessage("Password is required"),
     body("role")
       .optional()
@@ -43,6 +49,12 @@ const userLoginValidator = () => {
   return [
     body("email").optional().isEmail().withMessage("Email is invalid"),
     body("username").optional(),
+    body("mobile")
+      .trim()
+      .notEmpty()
+      .withMessage("Mobile is required")
+      .isMobilePhone()
+      .withMessage("Mobile is invalid"),
     body("password").notEmpty().withMessage("Password is required"),
   ];
 };
