@@ -127,9 +127,6 @@ const loginUser = asyncHandler(async (req, res) => {
       "-password -refreshToken -emailVerificationToken -emailVerificationExpiry"
     );
 
-    // Add accessToken to loggedInUser object
-    // loggedInUser.accessToken = accessToken;
-
     // TODO: Add more options to make cookie more secure and reliable
     const options = {
       httpOnly: true,

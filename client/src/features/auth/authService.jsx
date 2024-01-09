@@ -30,6 +30,15 @@ const login = async (userData) => {
     );
   }
 
+  // Optionally, you can try to set a custom cookie on the client side for non-HTTP-only cookies
+  // document.cookie = `customCookie=${response.data.data.user.accessToken}; path=/;`;
+
+  // Accessing cookies in client-side JavaScript
+  // Using document.cookie
+  const allCookies = document.cookie;
+  console.log("accessedToken in login auth is : 😎😎", allCookies);
+  // console.log("accessedToken in login auth is : 😎😎", accessedToken);
+
   return response.data;
 };
 
