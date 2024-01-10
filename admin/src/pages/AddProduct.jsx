@@ -56,6 +56,8 @@ let schema = yup.object().shape({
 
   brand: yup.string().required("Brand is required"),
   stock: yup.number().required("stock is required"),
+  subImages: yup.array().required("Images are required"),
+  mainImage: yup.object().required("Main Image is required"),
 });
 
 const AddProduct = () => {
@@ -109,6 +111,13 @@ const AddProduct = () => {
     setNewImageState(imageState.map((image) => image.url));
   }, [imageState]);
   console.log("newImageState : ", newImageState);
+
+  useEffect(() => {
+    if (newImageState && newImageState?.length > 0) {
+      formik.setFieldValue("subImages", newImageState);
+      formik.setFieldValue("mainImage", newImageState[0]);
+    }
+  }, [newImageState]);
 
   const removeImageFromContainer = (publicId) => {
     // Use the setGarbageImageStates function to update the state
@@ -169,6 +178,8 @@ const AddProduct = () => {
     brand: "",
     colors: [],
     tags: [],
+    subImages: [],
+    mainImage: {},
   };
 
   // async functions for dispatching createProduct
