@@ -30,10 +30,13 @@ const createProduct = asyncHandler(async (req, res) => {
     brand, // done
     colors, // done
     tags,
+    subImages,
+    mainImage,
   } = req.body;
 
   const slug = name ? slugify(name, { lower: true }) : undefined;
 
+  console.log("Subimages in product controller is : ", subImages);
   // name ? (req.body.slug = slugify(name, { lower: true })) : undefined;
   // const categoryToBeAdded = await Category.findById(category);
 
@@ -82,6 +85,8 @@ const createProduct = asyncHandler(async (req, res) => {
     brand,
     owner,
     tags,
+    subImages,
+    mainImage,
   });
   return res
     .status(201)
