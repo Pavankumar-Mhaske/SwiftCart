@@ -31,7 +31,7 @@ const createProduct = asyncHandler(async (req, res) => {
     colors, // done
     tags,
     subImages,
-    mainImage,
+    mainImages,
   } = req.body;
 
   const slug = name ? slugify(name, { lower: true }) : undefined;
@@ -86,7 +86,7 @@ const createProduct = asyncHandler(async (req, res) => {
     owner,
     tags,
     subImages,
-    mainImage,
+    mainImages,
   });
   return res
     .status(201)
