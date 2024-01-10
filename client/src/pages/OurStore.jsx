@@ -5,7 +5,7 @@ import ReactStars from "react-rating-stars-component";
 import ProductCard from "../components/ProductCard";
 import Color from "../components/Color";
 import Container from "../components/Container";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/product/ProductSlice";
 
 const OurStore = () => {
@@ -16,6 +16,8 @@ const OurStore = () => {
     dispatch(getProducts());
   }, []);
 
+  const productState = useSelector((state) => state.product.products);
+  console.log("productState in OurStore is : ", productState);
   return (
     <>
       <Meta title={"Our Store"} />
@@ -265,10 +267,10 @@ const OurStore = () => {
             </div>
             <div className="products-list pb-5">
               <div className="d-flex gap-10 flex-wrap">
-                <ProductCard grid={grid} />
-                <ProductCard grid={grid} />
-                <ProductCard grid={grid} />
-                <ProductCard grid={grid} />
+                <ProductCard data={productState} grid={grid} />
+                {/* <ProductCard data={productState} grid={grid} />
+                <ProductCard data={productState} grid={grid} />
+                <ProductCard data={productState} grid={grid} /> */}
               </div>
             </div>
           </div>
