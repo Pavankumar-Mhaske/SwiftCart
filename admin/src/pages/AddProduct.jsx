@@ -399,7 +399,10 @@ const AddProduct = () => {
 
           <div className="bg-white border-1 p-5 text-center">
             <Dropzone
-              onDrop={(acceptedFiles) => dispatch(uploadImages(acceptedFiles))}
+              onDrop={async (acceptedFiles) => {
+                const response = await dispatch(uploadImages(acceptedFiles));
+                console.log("response in dropzone is 🔥🔥 : ", response);
+              }}
             >
               {({ getRootProps, getInputProps }) => (
                 <section>
