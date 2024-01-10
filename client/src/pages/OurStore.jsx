@@ -5,14 +5,17 @@ import ReactStars from "react-rating-stars-component";
 import ProductCard from "../components/ProductCard";
 import Color from "../components/Color";
 import Container from "../components/Container";
+import { useDispatch } from "react-redux";
+import { getProducts } from "../features/product/ProductSlice";
 
 const OurStore = () => {
   const [grid, setGrid] = useState(4);
-  // useEffect(() => {
-  //   // give the alert on the change of grid
-  //   alert(grid);
-  // }, [grid]);
-  // alert(grid);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
   return (
     <>
       <Meta title={"Our Store"} />
@@ -209,9 +212,7 @@ const OurStore = () => {
                   </p>
                   <select name="" className="form-control form-select" id="">
                     <option value="manual">Featured</option>
-                    <option value="best-selling" selected="selected">
-                      Best Selling
-                    </option>
+                    <option value="best-selling">Best Selling</option>
                     <option value="title-ascending">Alphabetically, A-Z</option>
                     <option value="title-descending">
                       Alphabetically, Z-A
