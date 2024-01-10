@@ -57,7 +57,7 @@ let schema = yup.object().shape({
   brand: yup.string().required("Brand is required"),
   stock: yup.number().required("stock is required"),
   subImages: yup.array().required("Images are required"),
-  mainImage: yup.object().required("Main Image is required"),
+  mainImages: yup.array().required("Main Image is required"),
 });
 
 const AddProduct = () => {
@@ -114,8 +114,8 @@ const AddProduct = () => {
 
   useEffect(() => {
     if (newImageState && newImageState?.length > 0) {
-      formik.setFieldValue("subImages", newImageState);
-      formik.setFieldValue("mainImage", newImageState[0]);
+      formik.setFieldValue("mainImages", newImageState.slice(0, 2));
+      formik.setFieldValue("subImages", newImageState.slice(2));
     }
   }, [newImageState]);
 
@@ -179,7 +179,7 @@ const AddProduct = () => {
     colors: [],
     tags: [],
     subImages: [],
-    mainImage: {},
+    mainImage: [],
   };
 
   // async functions for dispatching createProduct
