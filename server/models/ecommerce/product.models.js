@@ -55,7 +55,7 @@ const productSchema = new Schema(
       // required: true,
       type: {
         url: String,
-        localPath: String,
+        // localPath: String, // TODO:  added later 👋🏻👋🏻 Remove this line if not needed
       },
       default: {},
     },
@@ -63,7 +63,7 @@ const productSchema = new Schema(
       type: [
         {
           url: String,
-          localPath: String,
+          // localPath: String, // TODO:  added later 👋🏻👋🏻 Remove this line if not needed
           asset_id: String, // Adding asset_id field
           public_id: String, // Adding public_id field
         },
