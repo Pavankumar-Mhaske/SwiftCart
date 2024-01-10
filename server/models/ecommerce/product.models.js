@@ -51,15 +51,26 @@ const productSchema = new Schema(
       enum: AvailableProductBrands,
       default: ProductBrandsEnum.APPLE,
     },
-    mainImage: {
-      // required: true,
-      type: {
-        url: String,
-        asset_id: String, // Adding asset_id field
-        public_id: String, // Adding public_id field
-        // localPath: String, // TODO:  added later 👋🏻👋🏻 Remove this line if not needed
-      },
-      default: {},
+    // mainImage: {
+    //   // required: true,
+    //   type: {
+    //     url: String,
+    //     asset_id: String, // Adding asset_id field
+    //     public_id: String, // Adding public_id field
+    //     // localPath: String, // TODO:  added later 👋🏻👋🏻 Remove this line if not needed
+    //   },
+    //   default: {},
+    // },
+    mainImages: {
+      type: [
+        {
+          url: String,
+          // localPath: String, // TODO:  added later 👋🏻👋🏻 Remove this line if not needed
+          asset_id: String, // Adding asset_id field
+          public_id: String, // Adding public_id field
+        },
+      ],
+      default: [],
     },
     subImages: {
       type: [
