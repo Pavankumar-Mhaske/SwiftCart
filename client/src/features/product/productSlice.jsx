@@ -14,13 +14,13 @@ export const getProducts = createAsyncThunk(
   }
 );
 
-export const addToWishList = createAsyncThunk(
+export const addRemoveProductInWishList = createAsyncThunk(
   "products/add-to-wishlist",
   async (productId, thunkAPI) => {
     try {
       console.log("thunkAPI in productSlice is : ", thunkAPI);
       console.log("productId in productSlice is : ", productId);
-      const response = await ProductService.addToWishList(productId);
+      const response = await ProductService.addRemoveProductInWishList(productId);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

@@ -18,7 +18,7 @@ const getProducts = async () => {
   return response.data;
 };
 
-const addToWishList = async (productId) => {
+const addRemoveProductInWishList = async (productId) => {
   const url = `${base_url}products/wishlist/${productId}`;
   const response = await axios.post();
   console.log("Response in productService is : ", response);
@@ -28,7 +28,7 @@ const addToWishList = async (productId) => {
 
 const ProductService = {
   getProducts,
-  addToWishList,
+  addRemoveProductInWishList,
 };
 
 export default ProductService; // export the service
