@@ -67,18 +67,18 @@ export const ProductSlice = createSlice({
         state.message = action.error;
       })
       // ;builder
-      .addCase(addToWishList.pending, (state) => {
+      .addCase(addRemoveProductInWishList.pending, (state) => {
         state.isLoading = true;
       })
       // ;builder
-      .addCase(addToWishList.fulfilled, (state, action) => {
+      .addCase(addRemoveProductInWishList.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.message = action.payload.message;
       })
       // ;builder
-      .addCase(addToWishList.rejected, (state, action) => {
+      .addCase(addRemoveProductInWishList.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
