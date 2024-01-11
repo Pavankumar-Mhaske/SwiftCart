@@ -1,6 +1,10 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
+import { configureStore } from "@reduxjs/toolkit";
 // import { Token } from "../Token";
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTlkNGYxZGQ1MWIwOTM4OTQ1ZWMxMTEiLCJlbWFpbCI6InBhdmFuQGV4YW1wbGUuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MDQ5Njk0MjEsImV4cCI6MTcwNTA1NTgyMX0.7jOr-4bP4_gVpLEVLwCEc-i9jEkP6zQk-vhIfhxOnKc";
+import { config } from "../../utils/AxiosConfig";
 
 const getProducts = async () => {
   //   const token = Token;
@@ -20,8 +24,11 @@ const getProducts = async () => {
 
 const addRemoveProductInWishList = async (productId) => {
   const url = `${base_url}products/wishlist/${productId}`;
-  const response = await axios.post();
-  console.log("Response in productService is : ", response);
+  console.log("config", config);
+  const response = await axios.post(url, null, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  console.log("Response in productService is 😀 : ", response);
 
   return response.data;
 };
