@@ -26,9 +26,13 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   }
 });
 
+const getUserFromLocalStorage = localStorage.getItem("accessToken")
+  ? JSON.parse(localStorage.getItem("accessToken"))
+  : null;
 export const resetState = createAction("reset_all");
+
 const initialState = {
-  user: null,
+  user: getUserFromLocalStorage,
   isError: false,
   isLoading: false,
   isSuccess: false,
