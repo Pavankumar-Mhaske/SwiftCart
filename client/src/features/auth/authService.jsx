@@ -20,13 +20,10 @@ const login = async (userData) => {
   const response = await axios.post(url, userData);
   console.log("Response in login auth is : ", response);
   if (response.data.data.user.accessToken) {
-    localStorage.setItem(
-      "accessToken",
-      JSON.stringify(response.data.data.user.accessToken)
-    );
+    localStorage.setItem("user", JSON.stringify(response.data.data.user));
     console.log(
       "response.data.data.user.accessToken in login auth is : ",
-      response.data.data.user.accessToken
+      response.data.data.user
     );
   }
 
