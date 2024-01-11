@@ -2,6 +2,8 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
 import { BsFillHandbagFill, BsEye } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { addRemoveProductInWishList } from "../features/product/ProductSlice";
 const ProductCard = (props) => {
   const { data, grid } = props;
   let location = useLocation();
@@ -9,6 +11,14 @@ const ProductCard = (props) => {
   // console.log(location.pathname === "/store");
   // console.log(`col-${grid}`);
   console.log("data in productCard is : ", data);
+
+  const dispatch = useDispatch();
+
+  const addRemoveProductInWishListHelper = async (productId) => {
+    console.log("productId in addRemoveProductInWishList is : ", productId);
+    dispatch(addRemoveProductInWishList(productId));
+  };
+
   return (
     <>
       {data?.map((item, index) => {
@@ -23,13 +33,22 @@ const ProductCard = (props) => {
             }`}
           >
             <Link
-              to={`${
-                location.pathname === "/" ? "/product/:id" : "/product/:id"
-              }`}
+              // to={`${
+              //   location.pathname === "/" ? "/product/:id" : "/product/:id"
+              // }`}
               className="product-card position-relative"
             >
               <div className="wishlist-icon position-absolute">
-                <button className="border-0 bg-transparent">
+                <button
+                  type="button"
+                  className="border-0 bg-transparent"
+                  onClick={(event) => {
+                    // event.stopPropagation(); // Prevents the Link from being clicked
+                    if (item?._id) {
+                      addRemoveProductInWishListHelper(item._id);
+                    }
+                  }}
+                >
                   <img src="/images/wish.svg" alt="wishlist" />
                 </button>
               </div>
