@@ -9,6 +9,5 @@ export const config = {
         ? getTokenFromLocalStorage.accessToken
         : ""
     }`,
-    Accept: "application/json",
   },
 };
