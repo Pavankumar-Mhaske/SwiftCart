@@ -1,6 +1,5 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
-import { configureStore } from "@reduxjs/toolkit";
 import { config } from "../../utils/AxiosConfig";
 
 const getProducts = async () => {
