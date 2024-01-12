@@ -322,10 +322,13 @@ const AddBlog = () => {
             <ReactQuill
               theme="snow"
               name="description"
-              onChange={(htmlValue) =>
-                formik.handleChange("description")(htmlValue)
-              }
-              value={formik.values.description}
+              onChange={(htmlValue) => {
+                console.log("htmlValue : ", htmlValue);
+                const plainText = extractTextFromHTML(htmlValue).trim();
+                console.log("plainText : ", plainText);
+                formik.setFieldValue("description", plainText);
+              }}
+              // value={formik.values.description}
 
               // onChange={(htmlValue) => {
               //   // Extract text without HTML tags
