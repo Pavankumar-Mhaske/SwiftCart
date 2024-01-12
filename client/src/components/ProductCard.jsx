@@ -14,7 +14,7 @@ const ProductCard = (props) => {
 
   const dispatch = useDispatch();
 
-  const addRemoveProductInWishListHelper = async (productId) => {
+  const addProductToWishList = async (productId) => {
     console.log("productId in addRemoveProductInWishList is : ", productId);
     dispatch(addRemoveProductInWishList(productId));
   };
@@ -45,7 +45,7 @@ const ProductCard = (props) => {
                   onClick={(event) => {
                     // event.stopPropagation(); // Prevents the Link from being clicked
                     if (item?._id) {
-                      addRemoveProductInWishListHelper(item._id);
+                      addProductToWishList(item._id);
                     }
                   }}
                 >
