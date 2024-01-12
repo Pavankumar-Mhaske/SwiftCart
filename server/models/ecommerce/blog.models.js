@@ -43,30 +43,18 @@ const blogSchema = new Schema(
         ref: "User",
       },
     ],
-    images: [
-      // {
-      //   type: String,
-      //   default:
-      //     "https://www.shutterstock.com/shutterstock/photos/1029506242/display_1500/stock-photo-blogging-blog-concepts-ideas-with-white-worktable-1029506242.jpg",
-      // },
-    ],
-    // mainImage: {
-    //   // required: true,
-    //   type: {
-    //     url: String,
-    //     localPath: String,
-    //   },
-    //   default: {},
-    // },
-    // subImages: {
-    //   type: [
-    //     {
-    //       url: String,
-    //       localPath: String,
-    //     },
-    //   ],
-    //   default: [],
-    // },
+    images: {
+      type: [
+        {
+          url: String,
+          // localPath: String, // TODO:  added later 👋🏻👋🏻 Remove this line if not needed
+          asset_id: String, // Adding asset_id field
+          public_id: String, // Adding public_id field
+        },
+      ],
+      default: [],
+    },
+
     author: {
       type: String,
       default: "ADMIN",
