@@ -54,12 +54,7 @@ export const userSlice = createSlice({
         state.isError = true;
         state.message = action.payload.message;
       })
-      .addCase(resetState, (state) => {
-        state.isLoading = false;
-        state.isSuccess = false;
-        state.isError = false;
-        state.message = "";
-      });
+      .addCase(resetState, () => initialState);
   },
 });
 
