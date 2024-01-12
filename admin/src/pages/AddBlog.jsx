@@ -31,6 +31,7 @@ let schema = yup.object().shape({
   title: yup.string().required("name is required"),
   description: yup.string().required("Description is required"),
   category: yup.string().required("Category is required"),
+  images: yup.array().required("Images are required"),
 });
 
 const AddBlog = () => {
@@ -97,6 +98,12 @@ const AddBlog = () => {
   }, [imageState]);
   console.log("newImageState : ", newImageState);
 
+  useEffect(() => {
+    if (newImageState && newImageState?.length > 0) {
+      formik.setFieldValue("images", newImageState);
+    }
+  }, [newImageState]);
+
   const removeImageFromContainer = (publicId) => {
     // Use the setGarbageImageStates function to update the state
     setGarbageImageStates((prevValues) => [...prevValues, publicId]);
@@ -160,6 +167,7 @@ const AddBlog = () => {
     title: blog?.title || "",
     category: blog?.category || "",
     description: blog?.description || "",
+    images: blog?.images || [],
   };
 
   const formik = useFormik({
@@ -231,7 +239,10 @@ const AddBlog = () => {
           {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
           <div className="bg-white border-1 p-5 text-center">
             <Dropzone
-              onDrop={(acceptedFiles) => dispatch(uploadImages(acceptedFiles))}
+              onDrop={async (acceptedFiles) => {
+                const response = await dispatch(uploadImages(acceptedFiles));
+                console.log("response 😂😂 : ", response);
+              }}
             >
               {({ getRootProps, getInputProps }) => (
                 <section>
