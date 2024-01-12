@@ -12,7 +12,7 @@ export const uploadImages = createAsyncThunk(
         formData.append("images", data[i]);
       }
       const response = await uploadService.uploadImages(formData);
-      // console.log("response in uploadSlice is : ", response);
+      console.log("response in uploadSlice is : ", response);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -58,7 +58,7 @@ export const uploadSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.images = action.payload.data.images;
-        // console.log("action.payload in uploadSlice is : ", action.payload.data.images);
+        console.log("action.payload in uploadSlice is : ", action.payload.data.images);
       })
       // ;builder
       .addCase(uploadImages.rejected, (state, action) => {
