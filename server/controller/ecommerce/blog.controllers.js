@@ -15,7 +15,7 @@ import fs from "fs";
 
 const createBlog = asyncHandler(async (req, res) => {
   try {
-    const { title, description, category, image } = req.body;
+    const { title, description, category, images } = req.body;
     // const user = await User.findById(req.user._id);
     // if (!user) {
     //   throw new ApiError(404, "User not found");
@@ -24,7 +24,7 @@ const createBlog = asyncHandler(async (req, res) => {
       title,
       description,
       category,
-      image,
+      images,
     });
 
     return res
