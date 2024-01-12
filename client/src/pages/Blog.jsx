@@ -5,7 +5,7 @@ import BlogCard from "../components/BlogCard";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getBlogs } from "../features/blog/BlogSlice";
-
+import moment from "moment";
 const Blog = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,24 +46,19 @@ const Blog = () => {
                 return (
                   <div className="col-6 mb-3" key={index}>
                     <BlogCard
-                      id={item._id}
-                      title={item.title}
-                      description={item.description}
-                      image={item.images[0].url}
+                      id={item?._id}
+                      title={item?.title}
+                      description={item?.description}
+                      image={item?.images[0]?.url}
+                      date={moment(item?.createdAt).format(
+                        "MMMM Do YYYY, h:mm:ss a"
+                      )}
                     />
                   </div>
                 );
               })}
 
-              {/* <div className="col-6 mb-3">
-                <BlogCard />
-              </div>
-              <div className="col-6 mb-3">
-                <BlogCard />
-              </div>
-              <div className="col-6 mb-3">
-                <BlogCard />
-              </div>  */}
+              
             </div>
           </div>
         </div>
