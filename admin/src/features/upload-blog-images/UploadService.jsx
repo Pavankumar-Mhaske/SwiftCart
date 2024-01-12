@@ -10,7 +10,7 @@ const uploadImages = async (data) => {
   const response = await axios.post(url, data, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  // console.log("response in uploadService is : ", response);
+  console.log("response in uploadService is : ", response);
   return response.data;
 };
 
