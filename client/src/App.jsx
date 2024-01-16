@@ -38,9 +38,9 @@ function App() {
             <Route path="store" element={<OurStore />} />
             <Route path="product/:id" element={<SingleProduct />} />
             <Route path="blogs" element={<Blog />} />
+            <Route path="blog/:id" element={<SingleBlog />} />
             <Route path="cart" element={<Cart />} />
             <Route path="checkouts" element={<Checkout />} />
-            <Route path="blog/:id" element={<SingleBlog />} />
             <Route path="compare-product" element={<CompareProduct />} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="login" element={<Login />} />
