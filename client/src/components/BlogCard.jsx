@@ -35,10 +35,14 @@ const BlogCard = (props) => {
           dangerouslySetInnerHTML={{
             __html: description.substring(0, 70) + "...",
           }}
-        ></p>
+        >
+          {/* {description.length > 70
+            ? description.substring(0, 70) + "..."
+            : description} */}
+        </p>
         {/* <p className="description mb-3">{description}</p> */}
 
-        <Link to={`/blog/:${id}`} className="button">
+        <Link to={`/blog/${id}`} className="button">
           READ MORE
         </Link>
       </div>

@@ -10,8 +10,18 @@ const getBlogs = async () => {
   return response.data;
 };
 
+const getABlog = async (blogId) => {
+  console.log("blogId in BlogService is  ", blogId);
+  const url = `${base_url}blogs/${blogId}`;
+  const response = await axios.get(url, config);
+  console.log("Response in BlogService is : ", response);
+
+  return response.data;
+};
+
 const BlogService = {
   getBlogs,
+  getABlog,
 };
 
 export default BlogService; // export the service
