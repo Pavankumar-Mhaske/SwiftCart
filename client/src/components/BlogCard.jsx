@@ -33,11 +33,11 @@ const BlogCard = (props) => {
         <p
           className="description mb-3"
           // dangerouslySetInnerHTML={{
-          //   __html: description.substring(0, 70) + "...",
+          //   __html: description?.substring(0, 70) + "...",
           // }}
         >
-          { description && description.length > 70
-            ? description.substring(0, 70) + "..."
+          { description && description?.length > 70
+            ? description?.substring(0, 70) + "..."
             : description}
         </p>
         {/* <p className="description mb-3">{description}</p> */}
