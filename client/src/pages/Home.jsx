@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
@@ -6,7 +6,19 @@ import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/specialProduct";
 import Container from "../components/Container";
 import { services } from "../utils/Data";
+import { useDispatch, useSelector } from "react-redux";
+import { getBlogs } from "../features/blog/BlogSlice";
+import moment from "moment";
+
 const Home = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBlogs());
+  }, []);
+
+  const blogState = useSelector((state) => state?.blog?.blogs);
+  console.log("blogState in blog is 🔥🔥 : ", blogState);
+
   return (
     <>
       {/* 🍉🍉 Home Wrapper - 1 🍉🍉 */}
@@ -340,7 +352,27 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-3">
+          {blogState.map((item, index) => {
+            {
+              /* 🧭🧭 Blog Card - 1 🧭🧭 */
+            }
+            if (index < 4) {
+              return (
+                <div className="col-3 mb-3" key={index}>
+                  <BlogCard
+                    id={item?._id}
+                    title={item?.title}
+                    description={item?.description}
+                    image={item?.images[0]?.url}
+                    date={moment(item?.createdAt).format(
+                      "MMMM Do YYYY, h:mm:ss a"
+                    )}
+                  />
+                </div>
+              );
+            }
+          })}
+          {/* <div className="col-3">
             <BlogCard />
           </div>
           <div className="col-3">
@@ -351,7 +383,7 @@ const Home = () => {
           </div>
           <div className="col-3">
             <BlogCard />
-          </div>
+          </div> */}
         </div>
       </Container>
     </>
