@@ -1,28 +1,37 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { NavLink, Link } from "react-router-dom";
-const SpecialProduct = () => {
+const SpecialProduct = (props) => {
+  const { title, brand, price, rating, stock, image, soldItems } = props;
   return (
     <div className="col-6 mb-3">
       <div className="special-product-card">
         <div className="d-flex justify-content-between ">
-          <div>
-            <img className="img-fluid" src="images/watch.jpg" alt="watch" />
+          <div style={{ width: "50%", height: "auto" }}>
+            <img
+              className="img-fluid "
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              src={image ? image : "images/watch.jpg"}
+              alt="watch"
+            />
           </div>
-          <div className="special-product-content">
-            <h5 className="brand">Havels</h5>
-            <h6 className="title">Samsung Galaxy Mobile Phone, Sim...</h6>
+          <div
+            className="special-product-content"
+            style={{ width: "45%", height: "auto" }}
+          >
+            <h5 className="brand">{brand}</h5>
+            <h6 className="title">{title}</h6>
             <ReactStars
               count={5}
               size={24}
-              value={4}
+              value={rating}
               isHalf={true}
               edit={false}
               activeColor="#ffd700"
             />
             <p className="price">
               <span className="red-p">
-                &nbsp; $100 <strike>$200</strike>
+                &nbsp; ${price} <strike> ${price * 2}</strike>
               </span>
             </p>
             <div className="discount-till d-flex align-items-center gap-10">
@@ -36,15 +45,17 @@ const SpecialProduct = () => {
               </div>
             </div>
             <div className="prod-count my-3">
-              <p>Products: 5</p>
+              <p>Only Left : {stock - soldItems}</p>
               <div className="progress">
                 <div
                   className="progress-bar"
                   role="progressbar"
-                  style={{ width: "25%" }}
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
+                  style={{
+                    width: `${((stock - soldItems) / stock) * 100}%`,
+                  }}
+                  aria-valuenow={((stock - soldItems) / stock) * 100}
+                  aria-valuemin={soldItems}
+                  aria-valuemax={stock}
                 ></div>
               </div>
             </div>
