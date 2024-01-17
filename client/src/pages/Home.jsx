@@ -9,15 +9,20 @@ import { services } from "../utils/Data";
 import { useDispatch, useSelector } from "react-redux";
 import { getBlogs } from "../features/blog/BlogSlice";
 import moment from "moment";
+import { getProducts } from "../features/product/ProductSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBlogs());
+    dispatch(getProducts());
   }, []);
 
   const blogState = useSelector((state) => state?.blog?.blogs);
   console.log("blogState in blog is 🔥🔥 : ", blogState);
+
+  const productState = useSelector((state) => state?.product?.products);
+  console.log("productState in product is 🔥🔥 : ", productState);
 
   return (
     <>
@@ -281,10 +286,60 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Special Products</h3>
           </div>
+        </div>
+        <div className="row">
+          {/* /* 🍉🍉 Special Product - 1 🍉🍉 */}
+          {productState &&
+            productState.map((item, index) => {
+              {
+                /* "tags": [
+        "SPECIAL",
+        "POPULAR",
+        "FAMOUS"
+    ], */
+              }
+              if (index < 4 && item.tags.includes("SPECIAL")) {
+                return (
+                  <SpecialProduct
+                    key={index}
+                    // title, brand, price,rating, stock, mainImages, soldItems
+                    //                 "mainImages": [
+                    //     {
+                    //         "url": "https://res.cloudinary.com/dgtchtfd2/image/upload/v1704959769/xhurukic9uz1l4csxxt2.jpg",
+                    //         "asset_id": "07d56a62d9db7c47d989804473308787",
+                    //         "public_id": "xhurukic9uz1l4csxxt2",
+                    //         "_id": "659f9f29d14c2e31ef3057e2"
+                    //     },
+                    //     {
+                    //         "url": "https://res.cloudinary.com/dgtchtfd2/image/upload/v1704959770/m7mmg4etfviwvpzidtfu.jpg",
+                    //         "asset_id": "80571aac287dd2944f94290007a4ed92",
+                    //         "public_id": "m7mmg4etfviwvpzidtfu",
+                    //         "_id": "659f9f29d14c2e31ef3057e3"
+                    //     }
+                    // ],
+                    title={item?.name}
+                    brand={item?.brand}
+                    price={item?.price}
+                    rating={item?.rating}
+                    stock={item?.stock}
+                    image={item?.mainImages[0]?.url}
+                    soldItems={item?.soldItems}
+
+                    // id={item?._id}
+                    // title={item?.title}
+                    // description={item?.description}
+                    // image={item?.images[0]?.url}
+                    // date={moment(item?.createdAt).format(
+                    //   "MMMM Do YYYY, h:mm:ss a"
+                    // )}
+                  />
+                );
+              }
+            })}
+          {/* <SpecialProduct />
           <SpecialProduct />
           <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
+          <SpecialProduct /> */}
         </div>
       </Container>
       {/* 🍉🍉 Home Wrapper - 7 🍉🍉 */}
