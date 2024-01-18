@@ -6,13 +6,12 @@ import { getMongoosePaginationOptions } from "../../utils/helpers.js";
 
 const createEnquiry = asyncHandler(async (req, res) => {
   try {
-    const { name, email, mobile, comment, status } = req.body;
+    const { name, email, mobile, comment } = req.body;
     const enquiry = await Enquiry.create({
       name,
       email,
       mobile,
       comment,
-      status,
       owner: req.user._id,
     });
     if (!enquiry) {
