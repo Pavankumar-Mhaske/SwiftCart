@@ -20,6 +20,11 @@ const Home = () => {
     dispatch(getProducts());
   }, []);
 
+  const addProductToWishList = async (productId) => {
+    console.log("productId in addRemoveProductInWishList is : ", productId);
+    dispatch(addRemoveProductInWishList(productId));
+  };
+
   const blogState = useSelector((state) => state?.blog?.blogs);
   console.log("blogState in blog is 🔥🔥 : ", blogState);
 
