@@ -2,17 +2,35 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { NavLink, Link } from "react-router-dom";
 const SpecialProduct = (props) => {
-  const { title, brand, price, rating, stock, image, soldItems } = props;
+  const { title, brand, price, rating, stock, images, soldItems } = props;
   return (
     <div className="col-6 mb-3">
       <div className="special-product-card">
         <div className="d-flex justify-content-between ">
-          <div style={{ width: "50%", height: "auto" }}>
-            <img
+          <div
+            className="product-image"
+            style={{ width: "50%", height: "auto" }}
+          >
+            {/* <img
               className="img-fluid "
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
               src={image ? image : "images/watch.jpg"}
               alt="watch"
+            /> */}
+
+            <img
+              className="img-fluid"
+              src={images[0]?.url} //😀
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              // src="/images/watch1.jpeg" //😀
+              alt="Product Image"
+            />
+            <img
+              className="img-fluid"
+              src={images[1]?.url}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              // src="/images/watch2.jpeg"
+              alt="Product Image"
             />
           </div>
           <div
