@@ -417,6 +417,22 @@ footer .input-group-text {
   background-color: var(--color-ffffff);
 }
 
+.special-product-card .product-image img {
+  object-fit: cover;
+}
+
+.special-product-card .product-image > img:last-child {
+  display: none;
+}
+
+.special-product-card:hover .product-image > img:nth-child(1) {
+  display: none;
+}
+
+.special-product-card:hover .product-image > img:last-child {
+  display: block;
+}
+
 /* 🌺🌺 Special Product Ends here 🌺🌺 */
 
 /* 🌹🌹 Famous Card 🌹🌹 */
