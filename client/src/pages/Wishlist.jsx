@@ -42,35 +42,36 @@ const Wishlist = () => {
           ) : (
             ""
           )}
-          {wishListState?.map((item, index) => {
-            return (
-              <div className="col-3" key={index}>
-                <div className="wishlist-card position-relative ">
-                  <img
-                    onClick={(event) => removeProductFromWishList(item._id)}
-                    src="images/cross.svg"
-                    alt="cross"
-                    className="position-absolute cross img-fluid"
-                  />
-                  <div className="wishlist-card-image product-image-container">
+          {wishListState &&
+            wishListState?.map((item, index) => {
+              return (
+                <div className="col-3" key={index}>
+                  <div className="wishlist-card position-relative ">
                     <img
-                      src={
-                        item?.mainImages[0]?.url
-                          ? item?.mainImages[0]?.url
-                          : "images/watch.jpg"
-                      }
-                      className="img-fluid w-100"
-                      alt="watch"
+                      onClick={(event) => removeProductFromWishList(item._id)}
+                      src="images/cross.svg"
+                      alt="cross"
+                      className="position-absolute cross img-fluid"
                     />
-                  </div>
-                  <div className="py-3 px-3">
-                    <h5 className="title">{item.name} </h5>
-                    <h6 className="price">$ {item.price}</h6>
+                    <div className="wishlist-card-image product-image-container">
+                      <img
+                        src={
+                          item?.mainImages[0]?.url
+                            ? item?.mainImages[0]?.url
+                            : "images/watch.jpg"
+                        }
+                        className="img-fluid w-100"
+                        alt="watch"
+                      />
+                    </div>
+                    <div className="py-3 px-3">
+                      <h5 className="title">{item.name} </h5>
+                      <h6 className="price">$ {item.price}</h6>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </Container>
     </>
