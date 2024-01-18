@@ -353,28 +353,28 @@ const Home = () => {
                         </button>
                       </div>
                       <div
-                        className="product-image"
-                        style={{ height: "auto", width: "auto" }}
+                        className="product-image product-image-container"
+                        // style={{ height: "auto", width: "50%" }}
                       >
                         <img
                           className="img-fluid"
                           src={item?.mainImages[0]?.url} //😀
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                          }}
+                          // style={{
+                          //   width: "100%",
+                          //   height: "100%",
+                          //   objectFit: "cover",
+                          // }}
                           // src="/images/watch1.jpeg" //😀
                           alt="Product Image"
                         />
                         <img
                           className="img-fluid"
                           src={item?.mainImages[1]?.url}
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                          }}
+                          // style={{
+                          //   width: "100%",
+                          //   height: "100%",
+                          //   objectFit: "cover",
+                          // }}
                           // src="/images/watch2.jpeg"
                           alt="Product Image"
                         />

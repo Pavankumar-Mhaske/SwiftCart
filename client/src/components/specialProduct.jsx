@@ -8,8 +8,8 @@ const SpecialProduct = (props) => {
       <div className="special-product-card">
         <div className="d-flex justify-content-between ">
           <div
-            className="product-image"
-            style={{ width: "50%", height: "auto" }}
+            className="product-image product-image-container"
+            // style={{ width: "50%", height: "auto" }}
           >
             <img
               className="img-fluid"
