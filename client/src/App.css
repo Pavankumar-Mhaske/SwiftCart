@@ -787,6 +787,18 @@ footer .input-group-text {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.wishlist-card .product-image-container {
+  height: 260px; /* Set a fixed height for the container */
+  display: flex;
+  overflow: hidden; /* Hide any overflowing content */
+}
+.wishlist-card .product-image-container img {
+  flex: 1; /* Make each image take up equal space */
+  height: 100%;
+  width: auto;
+  object-fit: cover; /* Cover the container while maintaining aspect ratio */
+}
+
 /* 🌺🌺 Compare Product and some Wishlist Ends here 🌺🌺 */
 
 /* 🌹🌹 Wishlist 🌹🌹 */
