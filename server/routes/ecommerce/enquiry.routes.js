@@ -21,7 +21,7 @@ router
   .route("/")
   .post(
     verifyJWT,
-    verifyPermission([UserRolesEnum.ADMIN]),
+    // verifyPermission([UserRolesEnum.ADMIN]),
     enquiryRequestBodyValidator(),
     validate,
     createEnquiry
