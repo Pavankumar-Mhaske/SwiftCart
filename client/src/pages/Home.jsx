@@ -325,7 +325,7 @@ const Home = () => {
         <div className="row">
           {productState &&
             productState.map((item, index) => {
-              if (index < 4 && item.tags.includes("SPECIAL")) {
+              if (index < 4 && item.tags.includes("POPULAR")) {
                 return (
                   <div
                     key={index}
