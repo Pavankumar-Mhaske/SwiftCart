@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import { FaHome } from "react-icons/fa";
@@ -6,10 +6,83 @@ import { IoCall } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
 import { FaInfo } from "react-icons/fa";
 import Container from "../components/Container";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { createEnquiry, resetState } from "../features/contact/ContactSlice";
+import {
+  showToastLoading,
+  showToastSuccess,
+  showToastError,
+  Toast,
+} from "../utils/HotToastHandler";
+import CustomInput from "../components/CustomInput";
+
+let schema = yup.object().shape({
+  name: yup.string().required("First Name is required"),
+  email: yup
+    .string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  mobile: yup.string().required("Mobile Number is required"),
+  comment: yup.string().required("Comment is required"),
+});
 
 const Contact = () => {
+  const dispatch = useDispatch();
+  const [loadingEnquiryToastId, setLoadingEnquiryToastId] = useState(null);
+
+  const newEnquiry = useSelector((state) => state.contact);
+  const { isSuccess, isError, enquiry } = newEnquiry;
+  console.log(" 📧 newEnquiry in Contact : ", enquiry);
+
+  useEffect(() => {
+    console.log("inside of the useEffect for success or error message 💥💥");
+    if (isSuccess && enquiry && Object.keys(enquiry).length > 0) {
+      showToastSuccess(
+        "Enquiry Submitted Successfully!",
+        loadingEnquiryToastId
+      );
+    } else if (isError) {
+      showToastError("Something went wrong");
+    }
+  }, [enquiry]);
+
+  const handleEnquiry = async (values) => {
+    try {
+      const response = await dispatch(createEnquiry(values));
+      console.log(" 📧 response in Contact : ", response);
+    } catch (error) {
+      console.log(" 📧 error in Contact : ", error);
+    }
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      mobile: "",
+      comment: "",
+    },
+    validationSchema: schema,
+    onSubmit: async (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      console.log("inside of the formik submit 🤩🤩");
+      const toastId = showToastLoading("Submitting Enquiry, Please wait...");
+      setLoadingEnquiryToastId(toastId);
+      await handleEnquiry(values);
+
+      console.log("values in Contact are : ", values);
+      console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
+      formik.resetForm();
+      dispatch(resetState());
+    },
+  });
+
   return (
     <>
+      <Toast />
+
       <Meta title={"Contact Us"} />
       <BreadCrumb title="Contact Us" />
       <Container class1="contact-wrapper  py-5 home-wrapper-2">
@@ -32,40 +105,76 @@ const Contact = () => {
               {/* 📞 💁🏻 👋🏻 Contact 📞 💁🏻 👋🏻  */}
               <div>
                 <h3 className="contact-title mb-4">Contact</h3>
-                <form action="" className="d-flex flex-column gap-15">
+
+                <form
+                  action=""
+                  onSubmit={formik.handleSubmit}
+                  className="d-flex flex-column gap-15"
+                >
                   <div>
-                    <input
+                    <CustomInput
                       type="text"
+                      label="Name"
+                      name="name"
                       className="form-control"
-                      placeholder="Name"
+                      value={formik.values.name}
+                      onChange={formik.handleChange("name")}
+                      onBlur={formik.handleBlur("name")}
                     />
+                    <div className="error">
+                      {formik.touched.name && formik.errors.name}
+                    </div>
                   </div>
+
                   <div>
-                    <input
+                    <CustomInput
                       type="email"
+                      label="Email"
+                      name="email"
                       className="form-control"
-                      placeholder="Email"
+                      value={formik.values.email}
+                      onChange={formik.handleChange("email")}
+                      onBlur={formik.handleBlur("email")}
                     />
+                    <div className="error">
+                      {formik.touched.email && formik.errors.email}
+                    </div>
                   </div>
+
                   <div>
-                    <input
+                    <CustomInput
                       type="tel"
+                      label="Mobile Number"
+                      name="mobile"
                       className="form-control"
-                      placeholder="Mobile Number"
+                      value={formik.values.mobile}
+                      onChange={formik.handleChange("mobile")}
+                      onBlur={formik.handleBlur("mobile")}
                     />
+                    <div className="error">
+                      {formik.touched.mobile && formik.errors.mobile}
+                    </div>
                   </div>
                   <div>
                     <textarea
-                      name=""
                       id=""
                       className="w-100 form-control"
                       cols="30"
                       rows="4"
+                      name="comment"
                       placeholder="Comments"
+                      value={formik.values.comment}
+                      onChange={formik.handleChange("comment")}
+                      onBlur={formik.handleBlur("comment")}
                     ></textarea>
+                    <div className="error">
+                      {formik.touched.comment && formik.errors.comment}
+                    </div>
                   </div>
                   <div>
-                    <button className="button border-0">Submit</button>
+                    <button className="button border-0" type="submit">
+                      Submit
+                    </button>
                   </div>
                 </form>
               </div>
