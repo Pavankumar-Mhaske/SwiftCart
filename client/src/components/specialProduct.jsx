@@ -11,13 +11,6 @@ const SpecialProduct = (props) => {
             className="product-image"
             style={{ width: "50%", height: "auto" }}
           >
-            {/* <img
-              className="img-fluid "
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              src={image ? image : "images/watch.jpg"}
-              alt="watch"
-            /> */}
-
             <img
               className="img-fluid"
               src={images[0]?.url} //😀
