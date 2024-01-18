@@ -712,7 +712,7 @@ footer .input-group-text {
   line-height: 18px;
   font-weight: 400;
   letter-spacing: 0.3;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   color: var(--color-777777);
   background-color: var(--color-f5f5f7);
 }
