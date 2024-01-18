@@ -66,7 +66,7 @@ const Contact = () => {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      // alert(JSON.stringify(values, null, 2));
+      alert(JSON.stringify(values, null, 2));
       console.log("inside of the formik submit 🤩🤩");
       const toastId = showToastLoading("Submitting Enquiry, Please wait...");
       setLoadingEnquiryToastId(toastId);
@@ -81,10 +81,9 @@ const Contact = () => {
 
   return (
     <>
-      <Toast />
-
       <Meta title={"Contact Us"} />
       <BreadCrumb title="Contact Us" />
+      <Toast />
       <Container class1="contact-wrapper  py-5 home-wrapper-2">
         <div className="row">
           {/* 🌎🌍🌏 Map 🌎🌍🌏 */}
@@ -99,6 +98,7 @@ const Contact = () => {
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
+
           {/* 🙋🏻‍♂️🙋🏻‍♀️🙋🏻‍♂️🙋🏻‍♀️🙋🏻‍♂️🙋🏻‍♀️🙋🏻‍♂️🙋🏻‍♀️ Bottom Pannel 🙋🏻‍♂️🙋🏻‍♀️🙋🏻‍♂️🙋🏻‍♀️🙋🏻‍♂️🙋🏻‍♀️🙋🏻‍♂️🙋🏻‍♀️ */}
           <div className="col-12 mt-5">
             <div className="contact-inner-wrapper d-flex justify-content-between ">
