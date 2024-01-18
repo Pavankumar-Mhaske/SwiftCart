@@ -10,10 +10,10 @@ const enquiryRequestBodyValidator = () => {
       .trim()
       .notEmpty()
       .withMessage("name is required")
-      .isLowercase()
+      // .isLowercase()
       .withMessage("name must be lowercase")
-      .isLength({ min: 3 })
-      .withMessage("name must be at lease 3 characters long"),
+      .isLength({ min: 1 })
+      .withMessage("name must be at lease 1 characters long"),
     body("email")
       .trim()
       .notEmpty()
@@ -30,8 +30,8 @@ const enquiryRequestBodyValidator = () => {
       .trim()
       .notEmpty()
       .withMessage("comment is required")
-      .isLength({ min: 2 })
-      .withMessage("comment must be at lease 2 characters long"),
+      .isLength({ min: 1 })
+      .withMessage("comment must be at lease 1 characters long"),
   ];
 };
 
