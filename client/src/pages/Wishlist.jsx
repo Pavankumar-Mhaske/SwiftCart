@@ -45,14 +45,14 @@ const Wishlist = () => {
           {wishListState?.map((item, index) => {
             return (
               <div className="col-3" key={index}>
-                <div className="wishlist-card position-relative">
+                <div className="wishlist-card position-relative ">
                   <img
                     onClick={(event) => removeProductFromWishList(item._id)}
                     src="images/cross.svg"
                     alt="cross"
                     className="position-absolute cross img-fluid"
                   />
-                  <div className="wishlist-card-image">
+                  <div className="wishlist-card-image product-image-container">
                     <img
                       src={
                         item?.mainImages[0]?.url
