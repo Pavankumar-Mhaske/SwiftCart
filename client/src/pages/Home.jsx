@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBlogs } from "../features/blog/BlogSlice";
 import moment from "moment";
 import { getProducts } from "../features/product/ProductSlice";
+import ReactStars from "react-rating-stars-component";
+import { addRemoveProductInWishList } from "../features/product/ProductSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -291,55 +293,21 @@ const Home = () => {
           {/* /* 🍉🍉 Special Product - 1 🍉🍉 */}
           {productState &&
             productState.map((item, index) => {
-              {
-                /* "tags": [
-        "SPECIAL",
-        "POPULAR",
-        "FAMOUS"
-    ], */
-              }
               if (index < 4 && item.tags.includes("SPECIAL")) {
                 return (
                   <SpecialProduct
                     key={index}
-                    // title, brand, price,rating, stock, mainImages, soldItems
-                    //                 "mainImages": [
-                    //     {
-                    //         "url": "https://res.cloudinary.com/dgtchtfd2/image/upload/v1704959769/xhurukic9uz1l4csxxt2.jpg",
-                    //         "asset_id": "07d56a62d9db7c47d989804473308787",
-                    //         "public_id": "xhurukic9uz1l4csxxt2",
-                    //         "_id": "659f9f29d14c2e31ef3057e2"
-                    //     },
-                    //     {
-                    //         "url": "https://res.cloudinary.com/dgtchtfd2/image/upload/v1704959770/m7mmg4etfviwvpzidtfu.jpg",
-                    //         "asset_id": "80571aac287dd2944f94290007a4ed92",
-                    //         "public_id": "m7mmg4etfviwvpzidtfu",
-                    //         "_id": "659f9f29d14c2e31ef3057e3"
-                    //     }
-                    // ],
                     title={item?.name}
                     brand={item?.brand}
                     price={item?.price}
                     rating={item?.rating}
                     stock={item?.stock}
-                    image={item?.mainImages[0]?.url}
+                    images={item?.mainImages}
                     soldItems={item?.soldItems}
-
-                    // id={item?._id}
-                    // title={item?.title}
-                    // description={item?.description}
-                    // image={item?.images[0]?.url}
-                    // date={moment(item?.createdAt).format(
-                    //   "MMMM Do YYYY, h:mm:ss a"
-                    // )}
                   />
                 );
               }
             })}
-          {/* <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct /> */}
         </div>
       </Container>
       {/* 🍉🍉 Home Wrapper - 7 🍉🍉 */}
@@ -350,10 +318,104 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {productState &&
+            productState.map((item, index) => {
+              if (index < 4 && item.tags.includes("SPECIAL")) {
+                return (
+                  <div
+                    key={index}
+                    className={`${
+                      // location.pathname === "/store" ||
+                      // location.pathname === "/product/:id"
+                      //   ? `gr-${grid}`
+                      // :
+                      "col-3"
+                    }`}
+                  >
+                    <Link
+                      // to={`${
+                      //   location.pathname === "/" ? "/product/:id" : "/product/:id"
+                      // }`}
+                      className="product-card position-relative"
+                    >
+                      <div className="wishlist-icon position-absolute">
+                        <button
+                          type="button"
+                          className="border-0 bg-transparent"
+                          onClick={(event) => {
+                            // event.stopPropagation(); // Prevents the Link from being clicked
+                            if (item?._id) {
+                              addProductToWishList(item._id);
+                            }
+                          }}
+                        >
+                          <img src="/images/wish.svg" alt="wishlist" />
+                        </button>
+                      </div>
+                      <div className="product-image">
+                        <img
+                          className="img-fluid"
+                          src={item?.mainImages[0]?.url} //😀
+                          // src="/images/watch1.jpeg" //😀
+                          alt="Product Image"
+                        />
+                        <img
+                          className="img-fluid"
+                          src={item?.mainImages[1]?.url}
+                          // src="/images/watch2.jpeg"
+                          alt="Product Image"
+                        />
+                      </div>
+                      <div className="product-details">
+                        <h6 className="brand">{item.brand}</h6>
+                        <h5 className="product-title">{item?.name}</h5>
+                        <ReactStars
+                          count={5}
+                          size={24}
+                          value={item.rating}
+                          isHalf={true}
+                          edit={false}
+                          activeColor="#ffd700"
+                        />
+                        <p
+                          className={`description ${
+                            // grid === 12 ? `d-block` :
+                            `d-none`
+                          }`}
+                        >
+                          {/* dangerouslySetInnerHTML={{ __html: item?.description }} */}
+                          {item?.description}
+                        </p>
+
+                        <p className="price">${item.price}</p>
+                      </div>
+                      <div className="action-bar position-absolute">
+                        <div className="d-flex flex-column gap-15">
+                          <button className="border-0 bg-transparent">
+                            <img
+                              src="/images/prodcompare.svg"
+                              alt="Compare Products"
+                            />
+                            {/* <BsFillHandbagFill /> */}
+                          </button>
+                          <button className="border-0 bg-transparent">
+                            <img src="/images/view.svg" alt="AddCart" />
+                            {/* <BsEye /> */}
+                          </button>
+                          <button className="border-0 bg-transparent">
+                            <img src="/images/add-cart.svg" alt="AddCart" />
+                            {/* <BsFillHandbagFill /> */}
+                          </button>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                );
+                {
+                  /* 🌹 */
+                }
+              }
+            })}
         </div>
       </Container>
       {/* 🍉🍉 Home Wrapper - 8 🍉🍉 */}
