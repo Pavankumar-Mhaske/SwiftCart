@@ -52,7 +52,7 @@ const ProductCard = (props) => {
                   <img src="/images/wish.svg" alt="wishlist" />
                 </button>
               </div>
-              <div className="product-image">
+              <div className="product-image product-image-container">
                 <img
                   className="img-fluid"
                   src={item?.mainImages[0]?.url} //😀
