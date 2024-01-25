@@ -1,6 +1,6 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsFillHandbagFill, BsEye } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { addRemoveProductInWishList } from "../features/product/ProductSlice";
@@ -11,7 +11,7 @@ const ProductCard = (props) => {
   // console.log(location.pathname === "/store");
   // console.log(`col-${grid}`);
   console.log("data in productCard is 🍠🍠🍠🍠🍠🍠 : ", data);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const addProductToWishList = async (productId) => {
@@ -32,7 +32,7 @@ const ProductCard = (props) => {
                 : "col-3"
             }`}
           >
-            <Link
+            <div
               // to={`${
               //   location.pathname === "/" ? "/product/:id" : "/product/:id"
               // }`}
@@ -94,7 +94,12 @@ const ProductCard = (props) => {
                     <img src="/images/prodcompare.svg" alt="Compare Products" />
                     {/* <BsFillHandbagFill /> */}
                   </button>
-                  <button className="border-0 bg-transparent">
+                  <button
+                    className="border-0 bg-transparent"
+                    onClick={() => {
+                      navigate(`/product/:${item?._id}`);
+                    }}
+                  >
                     <img src="/images/view.svg" alt="AddCart" />
                     {/* <BsEye /> */}
                   </button>
@@ -104,7 +109,7 @@ const ProductCard = (props) => {
                   </button>
                 </div>
               </div>
-            </Link>
+            </div>
           </div>
         );
       })}
