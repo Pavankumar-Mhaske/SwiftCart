@@ -229,10 +229,16 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Featured Collections</h3>
           </div>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+        </div>
+        <div className="row">
+          {productState && (
+            <ProductCard
+              data={productState
+                .filter((item) => item.tags.includes("FEATURED"))
+                .slice(0, 4)}
+              grid={3}
+            />
+          )}
         </div>
       </Container>
       {/* 🍉🍉 Home Wrapper - 5 🍉🍉 */}
