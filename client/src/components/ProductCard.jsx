@@ -10,7 +10,7 @@ const ProductCard = (props) => {
   // console.log(location);
   // console.log(location.pathname === "/store");
   // console.log(`col-${grid}`);
-  console.log("data in productCard is : ", data);
+  console.log("data in productCard is 🍠🍠🍠🍠🍠🍠 : ", data);
 
   const dispatch = useDispatch();
 
