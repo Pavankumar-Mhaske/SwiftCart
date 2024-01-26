@@ -43,7 +43,12 @@ const SingleProduct = () => {
   }, []);
 
   const [orderedProduct, setOrderedProduct] = useState(true);
-
+  const smallImageUrl = product?.mainImages && product.mainImages[0]?.url;
+  const largeImageUrl = product?.mainImages && product.mainImages[0]?.url;
+  const subImageOne = product?.subImages && product.subImages[0]?.url;
+  const subImageTwo = product?.subImages && product.subImages[1]?.url;
+  const subImageThree = product?.subImages && product.subImages[2]?.url;
+  const subImageFour = product?.subImages && product.subImages[3]?.url;
   return (
     <>
       <Meta title={"Product Name dynamically"} />
@@ -62,10 +67,14 @@ const SingleProduct = () => {
                     smallImage: {
                       alt: "Wristwatch by Ted Baker London",
                       isFluidWidth: true,
-                      src: "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713300/Croma%20Assets/Communication/Wearable%20Devices/Images/300848_0_hyu5ar.png?tr=w-640",
+                      // src: product?.mainImages[0]?.url,
+                      src: smallImageUrl,
+                      // src: "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713300/Croma%20Assets/Communication/Wearable%20Devices/Images/300848_0_hyu5ar.png?tr=w-640",
                     },
                     largeImage: {
-                      src: "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713300/Croma%20Assets/Communication/Wearable%20Devices/Images/300848_0_hyu5ar.png?tr=w-640",
+                      // src: product?.mainImages[0]?.url,
+                      src: largeImageUrl,
+                      // src: "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713300/Croma%20Assets/Communication/Wearable%20Devices/Images/300848_0_hyu5ar.png?tr=w-640",
                       width: 1200,
                       height: 1200,
                       alt: "Wristwatch by Ted Baker London",
@@ -82,7 +91,9 @@ const SingleProduct = () => {
                 <img
                   className="img-fluid"
                   // src="/images/watch.jpg"
-                  src="https://m.media-amazon.com/images/I/71YdE55GwjL._SX679_.jpg"
+                  // src="https://m.media-amazon.com/images/I/71YdE55GwjL._SX679_.jpg"
+                  // src={product?.subImages[0]?.url}
+                  src={subImageOne}
                   alt="watch"
                 />
               </div>
@@ -91,7 +102,8 @@ const SingleProduct = () => {
                 <img
                   className="img-fluid"
                   // src="/images/watch.jpg"
-                  src="https://m.media-amazon.com/images/I/71Fh4UiXnUL._SX679_.jpg"
+                  // src="https://m.media-amazon.com/images/I/71Fh4UiXnUL._SX679_.jpg"
+                  src={subImageTwo}
                   alt="watch"
                 />
               </div>
@@ -100,7 +112,8 @@ const SingleProduct = () => {
                 <img
                   className="img-fluid"
                   // src="/images/watch.jpg"
-                  src="https://m.media-amazon.com/images/I/811GOkDSOaL._SX679_.jpg"
+                  // src="https://m.media-amazon.com/images/I/811GOkDSOaL._SX679_.jpg"
+                  src={subImageThree}
                   alt="watch"
                 />
               </div>
@@ -109,7 +122,8 @@ const SingleProduct = () => {
                 <img
                   className="img-fluid"
                   // src="/images/watch.jpg"
-                  src="https://m.media-amazon.com/images/I/71Q-4X6lBhL._SX679_.jpg"
+                  // src="https://m.media-amazon.com/images/I/71Q-4X6lBhL._SX679_.jpg"
+                  src={subImageFour}
                   alt="watch"
                 />
               </div>
