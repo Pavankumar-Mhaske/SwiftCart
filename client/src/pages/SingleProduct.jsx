@@ -49,6 +49,10 @@ const SingleProduct = () => {
   const subImageTwo = product?.subImages && product.subImages[1]?.url;
   const subImageThree = product?.subImages && product.subImages[2]?.url;
   const subImageFour = product?.subImages && product.subImages[3]?.url;
+  const ratings =  product?.rating;
+  // const ratings = useSelector((state) => state?.product.product?.rating);
+
+  console.log("ratings in SingleProduct is : 💖 ", ratings);
   return (
     <>
       <Meta title={"Product Name dynamically"} />
@@ -145,14 +149,27 @@ const SingleProduct = () => {
                 <div className="d-flex align-items-center gap-10">
                   {console.log("Product Rating:", product?.rating)}
 
-                  <ReactStars
+                  {/* <ReactStars
                     count={5}
                     size={24}
-                    value={Number(product?.rating)}
+                    value={ratings}
                     isHalf={true}
                     edit={false}
                     activeColor="#ffd700"
-                  />
+                  /> */}
+                  {ratings !== undefined ? (
+                    <ReactStars
+                      count={5}
+                      size={24}
+                      value={ratings}
+                      isHalf={true}
+                      edit={false}
+                      activeColor="#ffd700"
+                    />
+                  ) : (
+                    // You can show a loading indicator or any placeholder while the data is being fetched
+                    <p>Loading...</p>
+                  )}
                   <p className="mb-0 t-review">( 2 reviews )</p>
                 </div>
                 <a className="review-btn" href="#review">
