@@ -3,7 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import { NavLink, Link } from "react-router-dom";
 const SpecialProduct = (props) => {
   const { id, title, brand, price, rating, stock, images, soldItems } = props;
-  console.log("props in specialProduct is 🍠🍠🍠🍠🍠🍠 : ", props);
+  // console.log("props in specialProduct is 🍠🍠🍠🍠🍠🍠 : ", props);
   return (
     <div className="col-6 mb-3">
       <div className="special-product-card">

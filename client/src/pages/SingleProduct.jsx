@@ -43,13 +43,20 @@ const SingleProduct = () => {
   }, []);
 
   const [orderedProduct, setOrderedProduct] = useState(true);
-  const smallImageUrl = product?.mainImages && product.mainImages[0]?.url;
-  const largeImageUrl = product?.mainImages && product.mainImages[0]?.url;
-  const subImageOne = product?.subImages && product.subImages[0]?.url;
-  const subImageTwo = product?.subImages && product.subImages[1]?.url;
-  const subImageThree = product?.subImages && product.subImages[2]?.url;
-  const subImageFour = product?.subImages && product.subImages[3]?.url;
-  const ratings =  product?.rating;
+  const loadingImage = "/images/Loading.png";
+  const smallImageUrl =
+    (product?.mainImages && product.mainImages[0]?.url) || loadingImage;
+  const largeImageUrl =
+    (product?.mainImages && product.mainImages[0]?.url) || loadingImage;
+  const subImageOne =
+    (product?.subImages && product.subImages[0]?.url) || loadingImage;
+  const subImageTwo =
+    (product?.subImages && product.subImages[1]?.url) || loadingImage;
+  const subImageThree =
+    (product?.subImages && product.subImages[2]?.url) || loadingImage;
+  const subImageFour =
+    (product?.subImages && product.subImages[3]?.url) || loadingImage;
+  const ratings = product?.rating;
   // const ratings = useSelector((state) => state?.product.product?.rating);
 
   console.log("ratings in SingleProduct is : 💖 ", ratings);
