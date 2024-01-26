@@ -121,17 +121,20 @@ const SingleProduct = () => {
               {/* Title and all */}
               <div className="border-bottom">
                 <h3 className="title">
-                  Kids headphones Bulk 10 Pack Multi Colored For Students{" "}
+                  {product?.name}
+                  {/* Kids headphones Bulk 10 Pack Multi Colored For Students{" "} */}
                 </h3>
               </div>
               {/* Price, Ratings and Write a Review */}
               <div className="border-bottom py-3">
-                <p className="price">$100.00</p>
+                <p className="price">${product?.price}</p>
                 <div className="d-flex align-items-center gap-10">
+                  {console.log("Product Rating:", product?.rating)}
+
                   <ReactStars
                     count={5}
                     size={24}
-                    value={4}
+                    value={Number(product?.rating)}
                     isHalf={true}
                     edit={false}
                     activeColor="#ffd700"
@@ -151,20 +154,22 @@ const SingleProduct = () => {
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
                   <h3 className="product-heading">Brand :</h3>
-                  <p className="product-data">Apple</p>
+                  <p className="product-data">{product?.brand}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
                   <h3 className="product-heading">Category :</h3>
                   <p className="product-data">
-                    Airpods, Camera's, Computer and Laptops, mini speaker, our
+                    {product?.category}
+                    {/* Airpods, Camera's, Computer and Laptops, mini speaker, our
                     Store, Portable Speakers, smart phones, Smart Television,
-                    Smartwatches
+                    Smartwatches */}
                   </p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
                   <h3 className="product-heading">Tags :</h3>
                   <p className="product-data">
-                    headphones laptops mobile oppo speaker
+                    {product?.tags}
+                    {/* headphones laptops mobile oppo speaker */}
                   </p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
@@ -173,7 +178,7 @@ const SingleProduct = () => {
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
                   <h3 className="product-heading">Availability :</h3>
-                  <p className="product-data"> 541 In Stock</p>
+                  <p className="product-data"> {product?.stock} In Stock</p>
                 </div>
                 <div className="d-flex gap-10 flex-column mt-2 mb-3 ">
                   <h3 className="product-heading">Size :</h3>
@@ -373,7 +378,8 @@ const SingleProduct = () => {
                     <AiOutlineLink className="fs-5 me-2" /> Copy Product Link :
                   </h3>
                   <p ref={pRef} className="product-data product-link">
-                    https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713300/Croma%20Assets/Communication/Wearable%20Devices/Images/300848_0_hyu5ar.png?tr=w-640
+                    {/* https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713300/Croma%20Assets/Communication/Wearable%20Devices/Images/300848_0_hyu5ar.png?tr=w-640 */}
+                    {window.location.href}
                   </p>
                   <div className="copyIcon">
                     <CopyToClipboard textData={copiedText} />
@@ -392,10 +398,11 @@ const SingleProduct = () => {
             <div className="description-inner-wrapper">
               <div className="bg-white p-3">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  {product?.description}
+                  {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                   Voluptate placeat, excepturi commodi, amet molestias beatae
                   reprehenderit in maiores adipisci maxime libero, iste
-                  praesentium quas. Qui aliquam minima voluptas et expedita?.
+                  praesentium quas. Qui aliquam minima voluptas et expedita?. */}
                 </p>
               </div>
             </div>
