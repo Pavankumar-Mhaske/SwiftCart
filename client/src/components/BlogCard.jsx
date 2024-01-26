@@ -36,7 +36,7 @@ const BlogCard = (props) => {
           //   __html: description?.substring(0, 70) + "...",
           // }}
         >
-          { description && description?.length > 70
+          {description && description?.length > 70
             ? description?.substring(0, 70) + "..."
             : description}
         </p>

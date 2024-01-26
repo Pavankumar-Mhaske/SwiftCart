@@ -324,7 +324,7 @@ const Home = () => {
                           <button
                             className="border-0 bg-transparent"
                             onClick={() => {
-                              navigate(`/product/:${item?._id}`);
+                              navigate(`/product/${item?._id}`);
                             }}
                           >
                             <img src="/images/view.svg" alt="AddCart" />
@@ -413,6 +413,7 @@ const Home = () => {
                 return (
                   <SpecialProduct
                     key={index}
+                    id={item?._id}
                     title={item?.name}
                     brand={item?.brand}
                     price={item?.price}
@@ -530,7 +531,7 @@ const Home = () => {
                           <button
                             className="border-0 bg-transparent"
                             onClick={() => {
-                              navigate(`/product/:${item?._id}`);
+                              navigate(`/product/${item?._id}`);
                             }}
                           >
                             <img src="/images/view.svg" alt="AddCart" />

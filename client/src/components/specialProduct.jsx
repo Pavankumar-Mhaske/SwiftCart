@@ -2,7 +2,8 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { NavLink, Link } from "react-router-dom";
 const SpecialProduct = (props) => {
-  const { title, brand, price, rating, stock, images, soldItems } = props;
+  const { id, title, brand, price, rating, stock, images, soldItems } = props;
+  console.log("props in specialProduct is 🍠🍠🍠🍠🍠🍠 : ", props);
   return (
     <div className="col-6 mb-3">
       <div className="special-product-card">
@@ -70,7 +71,10 @@ const SpecialProduct = (props) => {
                 ></div>
               </div>
             </div>
-            <Link className="button"> Add to Cart</Link>
+            <Link className="button" to={`/product/${id}`}>
+              {" "}
+              View
+            </Link>
           </div>
         </div>
       </div>

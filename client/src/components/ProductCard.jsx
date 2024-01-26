@@ -97,7 +97,7 @@ const ProductCard = (props) => {
                   <button
                     className="border-0 bg-transparent"
                     onClick={() => {
-                      navigate(`/product/:${item?._id}`);
+                      navigate(`/product/${item?._id}`);
                     }}
                   >
                     <img src="/images/view.svg" alt="AddCart" />
