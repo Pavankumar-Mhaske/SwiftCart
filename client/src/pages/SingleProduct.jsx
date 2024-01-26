@@ -7,7 +7,7 @@ import ReactStars from "react-rating-stars-component";
 // import ReactImageZoom from "react-image-zoom";
 import ReactImageMagnify from "react-image-magnify";
 import Color from "../components/Color";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { IoGitCompare } from "react-icons/io5";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FcShipped } from "react-icons/fc";
@@ -18,8 +18,23 @@ import { AiOutlineLink } from "react-icons/ai";
 
 import CopyToClipboard from "../components/copy.jsx";
 import Container from "../components/Container.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { getAProduct } from "../features/product/ProductSlice.jsx";
 
 const SingleProduct = () => {
+  const location = useLocation();
+  const getProductId = location.pathname.split("/")[2];
+  console.log("getProductId in SingleProduct is : ", getProductId);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAProduct(getProductId));
+  }, []);
+
+  const productState = useSelector((state) => state?.product);
+  const { product } = productState;
+  console.log("productState in Single product is 🔥🔥 : ", product);
+
   const grid = 2;
   const [copiedText, setCopiedText] = useState(""); // State to hold the text to be copied
   const pRef = useRef(); // Create a ref for the <p> element
