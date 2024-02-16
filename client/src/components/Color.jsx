@@ -1,13 +1,24 @@
 import React from "react";
 
-const Color = () => {
+const Color = (props) => {
+  console.log("props in Color is : ", props);
+  const { color, setColor, colors } = props;
   return (
     <>
       <ul className="colors ps-0">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        {colors &&
+          colors.map((color, index) => {
+            return (
+              <li
+                key={index}
+                style={{
+                  backgroundColor: color?.name,
+                  cursor: "pointer",
+                }}
+                onClick={() => setColor(color?._id)}
+              ></li>
+            );
+          })}
       </ul>
     </>
   );
