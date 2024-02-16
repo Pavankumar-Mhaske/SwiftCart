@@ -14,6 +14,22 @@ export const getUserWishList = createAsyncThunk(
   }
 );
 
+export const addItemOrUpdateItemQuantity = createAsyncThunk(
+  "users/add-item-or-update-quantity",
+  async (productId, quantity, thunkAPI) => {
+    try {
+      console.log("thunkAPI in userSlice is : ", thunkAPI);
+      const response = await UserService.addItemOrUpdateItemQuantity(
+        productId,
+        quantity
+      );
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const getUserFromLocalStorage = localStorage.getItem("accessToken")
   ? JSON.parse(localStorage.getItem("accessToken"))
   : null;
@@ -22,6 +38,7 @@ export const resetState = createAction("reset_all");
 const initialState = {
   user: getUserFromLocalStorage,
   wishlist: [],
+  cart: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -49,6 +66,26 @@ export const userSlice = createSlice({
         );
       })
       .addCase(getUserWishList.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload.message;
+      })
+      .addCase(addItemOrUpdateItemQuantity.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addItemOrUpdateItemQuantity.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.message = action.payload.message;
+        state.cart = action.payload.data.cart;
+        console.log(
+          "action.payload in userSlice is 💘💘 : ",
+          action.payload.data.cart
+        );
+      })
+      .addCase(addItemOrUpdateItemQuantity.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
