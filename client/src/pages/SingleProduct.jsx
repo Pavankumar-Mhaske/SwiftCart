@@ -31,6 +31,10 @@ const SingleProduct = () => {
     dispatch(getAProduct(getProductId));
   }, []);
 
+  const uploadCart = () => {
+    alert("adding product to cart");
+  };
+
   const productState = useSelector((state) => state?.product);
   const { product } = productState;
   console.log("productState in Single product is 🔥🔥 : ", product);
@@ -258,7 +262,15 @@ const SingleProduct = () => {
                     />
                   </div>
                   <div className="cart-buy d-flex align-items-center gap-30 ms-5">
-                    <button type="submit" className="button border-0">
+                    <button
+                      className="button border-0"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                      type="button"
+                      onClick={() => {
+                        uploadCart();
+                      }}
+                    >
                       Add To Cart
                     </button>
                     <button to="/signup" className="button signup">
