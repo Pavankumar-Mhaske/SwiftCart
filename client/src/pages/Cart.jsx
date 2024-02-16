@@ -58,7 +58,7 @@ const Cart = () => {
                       {/* img */}
                       <div className="w-25">
                         <img
-                          src={watch}
+                          src={item?.productId?.mainImages[0]?.url}
                           className="img-fluid"
                           alt="Product Image"
                         />
