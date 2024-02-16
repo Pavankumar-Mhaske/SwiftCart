@@ -1168,6 +1168,11 @@ footer .input-group-text {
 .cart-col-4 {
   width: 15%;
 }
+.cart-col-5 {
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+}
 
 .delete-img {
   cursor: pointer;
@@ -1212,6 +1217,22 @@ footer .input-group-text {
   font-size: 15px;
   font-weight: 450;
   letter-spacing: 1px;
+}
+
+.green {
+  color: var(--color-47ad24);
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Roboto !important;
+  color: green;
+}
+
+.red {
+  color: var(--color-e52e2e);
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Roboto !important;
+  color: red;
 }
 
 /* 🌺🌺 Cart Page Ends here 🌺🌺 */
