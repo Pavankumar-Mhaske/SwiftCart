@@ -1,12 +1,27 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import UserService from "./userService";
 
+// getUserWishList
 export const getUserWishList = createAsyncThunk(
   "users/get-wishlist",
   async (thunkAPI) => {
     try {
       console.log("thunkAPI in userSlice is : ", thunkAPI);
       const response = await UserService.getUserWishList();
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+//  getUserCart
+export const getUserCart = createAsyncThunk(
+  "users/get-cart",
+  async (thunkAPI) => {
+    try {
+      console.log("thunkAPI in userSlice is : ", thunkAPI);
+      const response = await UserService.getUserCart();
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -35,7 +50,8 @@ export const resetState = createAction("reset_all");
 const initialState = {
   user: getUserFromLocalStorage,
   wishlist: [],
-  cart: [],
+  cart: {},
+  userCart: {},
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -83,6 +99,25 @@ export const userSlice = createSlice({
         );
       })
       .addCase(addItemOrUpdateItemQuantity.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload.message;
+      })
+      .addCase(getUserCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.userCart = action.payload.data.cart;
+        console.log(
+          "action.payload in userSlice is 💘💘 : ",
+          action.payload.data.cart
+        );
+      })
+      .addCase(getUserCart.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
