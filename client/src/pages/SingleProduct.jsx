@@ -27,6 +27,7 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
+import { addItemOrUpdateItemQuantity } from "../features/user/UserSlice.jsx";
 
 const SingleProduct = () => {
   const location = useLocation();
@@ -38,12 +39,26 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
   console.log("Quantity is : ", quantity);
 
+  const newCart = useSelector((state) => state.user);
+  console.log("newCart is 🛒🛒", newCart);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAProduct(getProductId));
   }, []);
 
-  const uploadCart = (productId, quantity) => {};
+  const uploadCart = (productId, quantity) => {
+    if (color === null) {
+      showToastError("please choose color!");
+    } else {
+      dispatch(
+        addItemOrUpdateItemQuantity({
+          productId: productId,
+          quantity: quantity,
+        })
+      );
+    }
+  };
 
   const productState = useSelector((state) => state?.product);
   const { product } = productState;
@@ -79,6 +94,7 @@ const SingleProduct = () => {
       <Meta title={"Product Name dynamically"} />
       <BreadCrumb title="Product Name dynamically" />
 
+      <Toast />
       {/* Product Details */}
       <Container class1="main-product-wrapper py-5 home-wrapper-2">
         <div className="row">
