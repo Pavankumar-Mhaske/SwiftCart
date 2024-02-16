@@ -39,8 +39,24 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
   console.log("Quantity is : ", quantity);
 
+  const [loadingCartToastId, setLoadingCartToastId] = useState(null);
+  const [loadingWishlistToastId, setLoadingWishlistToastId] = useState(null);
+
   const newCart = useSelector((state) => state.user);
   console.log("newCart is 🛒🛒", newCart);
+  const { wishlist, isSuccess, isLoading, isError, cart } = newCart;
+
+  useEffect(() => {
+    if (isSuccess && cart && Object.keys(cart).length > 0) {
+      showToastSuccess("Item added to cart successfully", loadingCartToastId);
+    }
+    if (isSuccess && wishlist && Object.keys(wishlist).length > 0) {
+      showToastSuccess(
+        "Item added to wishlist successfully",
+        loadingWishlistToastId
+      );
+    }
+  }, [cart]);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -51,6 +67,8 @@ const SingleProduct = () => {
     if (color === null) {
       showToastError("please choose color!");
     } else {
+      const toastId = showToastLoading("Adding to cart...");
+      setLoadingCartToastId(toastId);
       dispatch(
         addItemOrUpdateItemQuantity({
           productId: productId,
