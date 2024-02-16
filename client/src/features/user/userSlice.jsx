@@ -16,13 +16,10 @@ export const getUserWishList = createAsyncThunk(
 
 export const addItemOrUpdateItemQuantity = createAsyncThunk(
   "users/add-item-or-update-quantity",
-  async (productId, quantity, thunkAPI) => {
+  async (cartData, thunkAPI) => {
     try {
       console.log("thunkAPI in userSlice is : ", thunkAPI);
-      const response = await UserService.addItemOrUpdateItemQuantity(
-        productId,
-        quantity
-      );
+      const response = await UserService.addItemOrUpdateItemQuantity(cartData);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -79,7 +76,7 @@ export const userSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.message = action.payload.message;
-        state.cart = action.payload.data.cart;
+        state.cart = action.payload.data;
         console.log(
           "action.payload in userSlice is 💘💘 : ",
           action.payload.data.cart
