@@ -509,10 +509,28 @@ const getUserAddress = asyncHandler(async (req, res) => {
 });
 
 // get user cart
+// const user = await User.findById(_id).populate({
+//   path: "cart",
+//   populate: {
+//       path: "items.productId",
+//       model: "ProductModel" // Replace "ProductModel" with the actual name of your product model
+//   }
+// });
 const getUserCart = asyncHandler(async (req, res) => {
   try {
     const { _id } = req.user;
-    const user = await User.findById(_id).populate("cart");
+    // const user = await User.findById(_id).populate("cart");
+    const user = await User.findById(_id).populate({
+      path: "cart",
+      populate: {
+        path: "items.productId",
+        model: "Product", // Replace "Product" with the actual name of your product model
+        populate: {
+          path: "colors",
+          model: "Color", // Replace "ColorModel" with the actual name of your color model
+        },
+      },
+    });
     if (!user) {
       throw new ApiError(404, "No user found");
     }
