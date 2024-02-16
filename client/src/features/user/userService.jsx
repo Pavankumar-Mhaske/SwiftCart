@@ -13,7 +13,7 @@ const getUserWishList = async () => {
 const addItemOrUpdateItemQuantity = async (cartData) => {
   const { productId, quantity } = cartData;
   const url = `${base_url}cart/item/${productId}/`;
-  const response = await axios.post(url, quantity, config);
+  const response = await axios.post(url, { quantity: quantity }, config);
   console.log("Response in userService is : ", response);
   return response.data;
 };
