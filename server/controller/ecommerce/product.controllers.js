@@ -284,7 +284,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 const getProductById = asyncHandler(async (req, res) => {
   const { productId } = req.params;
-  const product = await Product.findById(productId);
+  const product = await Product.findById(productId).populate("colors");
 
   if (!product) {
     throw new ApiError(404, "Product does not exist");
