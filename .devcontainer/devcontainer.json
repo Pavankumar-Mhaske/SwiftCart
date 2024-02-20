@@ -10,7 +10,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"AnbuselvanRocky.bootstrap5-vscode"
+				"AnbuselvanRocky.bootstrap5-vscode",
+				"esbenp.prettier-vscode"
 			]
 		}
 	}
