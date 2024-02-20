@@ -27,10 +27,19 @@ const addItemOrUpdateItemQuantity = async (cartData) => {
   return response.data;
 };
 
+const removeItemFromCart = async (productId) => {
+  const url = `${base_url}cart/item/${productId}/`;
+  const response = await axios.delete(url, config);
+  console.log("Response in userService is : ", response);
+  return response.data;
+}
+
+
 const UserService = {
   getUserWishList,
   getUserCart,
   addItemOrUpdateItemQuantity,
+  removeItemFromCart,
 };
 
 export default UserService; // export the service
