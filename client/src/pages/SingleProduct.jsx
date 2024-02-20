@@ -7,7 +7,7 @@ import ReactStars from "react-rating-stars-component";
 // import ReactImageZoom from "react-image-zoom";
 import ReactImageMagnify from "react-image-magnify";
 import Color from "../components/Color";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoGitCompare } from "react-icons/io5";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FcShipped } from "react-icons/fc";
@@ -18,7 +18,7 @@ import { AiOutlineLink } from "react-icons/ai";
 
 import CopyToClipboard from "../components/copy.jsx";
 import Container from "../components/Container.jsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 import { getAProduct } from "../features/product/ProductSlice.jsx";
 
 import {
@@ -27,13 +27,14 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
-import { addItemOrUpdateItemQuantity } from "../features/user/UserSlice.jsx";
+import { addItemOrUpdateItemQuantity, getUserCart } from "../features/user/UserSlice.jsx";
 
 const SingleProduct = () => {
   const location = useLocation();
   const getProductId = location.pathname.split("/")[2];
   console.log("getProductId in SingleProduct is : ", getProductId);
 
+  const navigate = useNavigate();
   const [color, setColor] = useState(null);
   console.log("Color is : ", color);
   const [quantity, setQuantity] = useState(1);
@@ -45,7 +46,6 @@ const SingleProduct = () => {
   const newCart = useSelector((state) => state.user);
   console.log("newCart is 🛒🛒", newCart);
   const { wishlist, isSuccess, isLoading, isError, cart } = newCart;
-
   useEffect(() => {
     if (isSuccess && cart && Object.keys(cart).length > 0) {
       showToastSuccess("Item added to cart successfully", loadingCartToastId);
@@ -58,10 +58,34 @@ const SingleProduct = () => {
     }
   }, [cart]);
 
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAProduct(getProductId));
+    dispatch(getUserCart());
+
   }, []);
+
+  const [alreadyAdded, setAlreadyAdded] = useState(false)
+  const userCartState = useSelector((state) => state.user);
+  const { userCart } = userCartState;
+  console.log("userCart is here 😂🤣😂",  userCart);
+
+  // console.log"userCart.items[index].productId._id is  : ", userCart?.items.length);
+  useEffect(() => {
+    if( userCart &&  Object.keys(userCart).length > 0){
+      // console.log("id is here 🗝️🗝️🗝️🗝️🗝️",userCart?.items[0]?.productId?._id)
+
+      for (let i = 0; i < userCart?.items?.length; i++) {
+        if(getProductId === userCart?.items[i]?.productId?._id) {
+          // console.log("userCart.items[index].productId._id is 🗝️🗝️🗝️🗝️🗝️: ",userCart?.items[0]?.productId?._id)
+          setAlreadyAdded(true)
+      }
+    }
+    
+        }
+  }, [userCart])
+  
 
   const uploadCart = (productId, quantity) => {
     if (color === null) {
@@ -75,6 +99,7 @@ const SingleProduct = () => {
           quantity: quantity,
         })
       );
+      navigate("/cart") ;
     }
   };
 
@@ -287,15 +312,20 @@ const SingleProduct = () => {
                   </div>
                 </div>
                 <div className="d-flex gap-10 flex-column mt-2 mb-3 ">
+                 { alreadyAdded=== false && <>
                   <h3 className="product-heading">Color :</h3>
                   <Color
                     color={color}
                     setColor={setColor}
                     colors={product.colors}
                   />
+                  </>}
                 </div>
                 {/* Quantity Input , ADD TO CART, BUY IT NOW */}
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3 ">
+                  {
+                    alreadyAdded === false && 
+                  <>
                   <h3 className="product-heading">Quantity :</h3>
                   <div className="">
                     <input
@@ -310,6 +340,8 @@ const SingleProduct = () => {
                       onChange={(event) => setQuantity(event.target.value)}
                     />
                   </div>
+                  </>
+                  }
                   <div className="cart-buy d-flex align-items-center gap-30 ms-5">
                     <button
                       className="button border-0"
@@ -317,10 +349,11 @@ const SingleProduct = () => {
                       // data-bs-target="#staticBackdrop"
                       type="button"
                       onClick={() => {
+                        alreadyAdded ? navigate("/cart") :
                         uploadCart(product?._id, quantity);
                       }}
                     >
-                      Add To Cart
+                     { alreadyAdded? "Go To Cart" : "Add To Cart"}
                     </button>
                     <button to="/signup" className="button signup">
                       Buy It Now
