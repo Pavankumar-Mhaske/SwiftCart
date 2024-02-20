@@ -10,7 +10,7 @@ import { FaCircleXmark } from "react-icons/fa6";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
-import { getUserCart } from "../features/user/userSlice";
+import { getUserCart, removeItemFromCart } from "../features/user/userSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -103,14 +103,15 @@ const Cart = () => {
                           name="quantity"
                           min={1}
                           max={10}
-                          defaultValue={0} // Set the default value to 1
+                          defaultValue={ item?.quantity || 1} // Set the default value to 1
                           style={{ width: "70px", height: "50px" }}
                           id=""
-                          value={item?.quantity}
+                          // value={item?.quantity}
                         />
-                        {/* defaultValue={1} // Set the default value to 1 */}
                       </div>
-                      <div className="">
+                      <div className="" onClick={
+                      ()=> dispatch(removeItemFromCart(item?.productId?._id))
+                      }>
                         <RiDeleteBin6Fill className="delete-img fs-3 me-2" />
                       </div>
                     </div>
