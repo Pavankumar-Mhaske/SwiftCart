@@ -10,7 +10,7 @@ import { FaCircleXmark } from "react-icons/fa6";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
-import { getUserCart, removeItemFromCart } from "../features/user/userSlice";
+import {  getUserCart, removeItemFromCart } from "../features/user/userSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -21,24 +21,16 @@ const Cart = () => {
   const subTotal = userCart?.discountedCartPrice
     ? userCart?.discountedCartPrice
     : 0;
-  const { items } = userCart;
-  console.log("userCart in Cart is 🛒 : ", userCart);
-  console.log("items in Cart is 🍎🍎🍎 : ", items);
+    const { items } = userCart;
+    console.log("userCart in Cart is 🛒 : ", userCart?.discountedCartPrice);
+    console.log("removedItemsCart in Cart is 🍎🍎🍎 : ", removedItemsCart);
   useEffect(() => {
-    if (isSuccess) {
       dispatch(getUserCart());
-    }
-  }, []);
+  }, [userCart?.discountedCartPrice]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(getUserCart());
-    }
-  }, [removedItemsCart]);
 
   const handleRemoveItemFromCart = (productId) => {
-    dispatch(removeItemFromCart(productId));
-
+      dispatch(removeItemFromCart(productId));
   }
 
   return (
