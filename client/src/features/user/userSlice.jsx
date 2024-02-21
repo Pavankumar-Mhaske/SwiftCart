@@ -65,7 +65,6 @@ const initialState = {
   wishlist: [],
   cart: {},
   userCart: {},
-  removedItemsCart: {},
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -145,10 +144,10 @@ export const userSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.message = action.payload.message;
-        state.removedItemsCart = action.payload.data.cart;
+        state.userCart = action.payload.data;
         console.log(
           "action.payload in userSlice is 👌👌 : ",
-          action.payload.data.cart
+          action.payload.data
         );
       })
       .addCase(removeItemFromCart.rejected, (state, action) => {
