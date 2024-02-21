@@ -16,14 +16,13 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   const userCartState = useSelector((state) => state.user);
-  const { isSuccess, isLoading, isError, userCart, removedItemsCart } = userCartState;
+  const { isSuccess, isLoading, isError, userCart } = userCartState;
 
   const subTotal = userCart?.discountedCartPrice
     ? userCart?.discountedCartPrice
     : 0;
     const { items } = userCart;
-    console.log("userCart in Cart is 🛒 : ", userCart?.discountedCartPrice);
-    console.log("removedItemsCart in Cart is 🍎🍎🍎 : ", removedItemsCart);
+    console.log("userCart in Cart is 🛒 : ", userCart);
   useEffect(() => {
       dispatch(getUserCart());
   }, [userCart?.discountedCartPrice]);
@@ -47,7 +46,7 @@ const Cart = () => {
               <h4 className="cart-col-2">Price</h4>
               <h4 className="cart-col-3">Quantity</h4>
               <h4 className="cart-col-4">Total</h4>
-              <h4 className="cart-col-5">Discounted Price</h4>
+              {/* <h4 className="cart-col-5">Discounted Price</h4> */}
             </div>
             {/* 🎃🎃🎃 Cart Data 🎃🎃🎃 */}
             {userCart &&
@@ -122,25 +121,9 @@ const Cart = () => {
                     </div>
                     {/* Total */}
                     <div className="cart-col-4">
-                      <p className="price">${userCart?.totalCartPrice}.00</p>
+                      <p className="price">${item?.productId?.price * item.quantity}.00</p>
                     </div>
-                    {/* Final Price */}
-                    <div className="cart-col-5 d-flex flex-column align-items-center justify-content-center">
-                      {userCart?.coupon === null ? (
-                        <h6 className="red d-flex flex-column align-items-center justify-content-center">
-                          <FaCircleXmark style={{ fontSize: "1.6em" }} />
-                          <p className="mt-1">Coppon not applied</p>
-                        </h6>
-                      ) : (
-                        <h6 className="green">
-                          <IoMdCheckmarkCircle style={{ fontSize: "2em" }} />
-                          <p className="mt-1">Coppon applied</p>
-                        </h6>
-                      )}
-                      <p className="price">
-                        ${userCart?.discountedCartPrice}.00
-                      </p>
-                    </div>
+                    
                   </div>
                 );
               })}
@@ -150,10 +133,24 @@ const Cart = () => {
             {/* 🔽⏬⏬⏬ bottom section ⏬⏬⏬🔽  */}
             <div className="col-12 py-2 mt-4">
               <div className="d-flex justify-content-between align-items-baseline">
+                
                 <Link to="/product" className="button">
                   Continue to Shopping
                 </Link>
                 <div className="d-flex flex-column justify-content-end align-items-end">
+                    <div className="d-flex gap-10 align-items-center d-flex justi flex-column mx-5">
+                      {userCart?.coupon === null ? (
+                        <h6 className="red d-flex flex-column align-items-center justify-content-center">
+                          <FaCircleXmark style={{ fontSize: "1.6em" }} />
+                          <p className="mt-1">Coppon not applied</p>
+                        </h6>
+                      ) : (
+                        <h6 className="green d-flex flex-column align-items-center justify-content-center">
+                          <IoMdCheckmarkCircle style={{ fontSize: "2em" }} />
+                          <p className="mt-1">Coppon applied</p>
+                        </h6>
+                      )}
+                    </div>
                   <div className="d-flex gap-10  align-items-center my-2 ">
                     <h4 className="cart-product-heading">SubTotal :</h4>
                     <h4 className="cart-product-data">${subTotal}.00</h4>

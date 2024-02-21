@@ -1168,11 +1168,7 @@ footer .input-group-text {
 .cart-col-4 {
   width: 15%;
 }
-.cart-col-5 {
-  width: 10%;
-  display: flex;
-  flex-direction: column;
-}
+
 
 .delete-img {
   cursor: pointer;
