@@ -65,6 +65,7 @@ const initialState = {
   wishlist: [],
   cart: {},
   userCart: {},
+  removedItemsCart: {},
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -126,7 +127,7 @@ export const userSlice = createSlice({
         state.isError = false;
         state.userCart = action.payload.data.cart;
         console.log(
-          "action.payload in userSlice is 💘💘 : ",
+          "action.payload in userSlice is 😘😘 : ",
           action.payload.data.cart
         );
       })
@@ -144,9 +145,9 @@ export const userSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.message = action.payload.message;
-        state.userCart = action.payload.data.cart;
+        state.removedItemsCart = action.payload.data.cart;
         console.log(
-          "action.payload in userSlice is 💘💘 : ",
+          "action.payload in userSlice is 👌👌 : ",
           action.payload.data.cart
         );
       })

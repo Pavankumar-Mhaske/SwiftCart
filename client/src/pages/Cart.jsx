@@ -16,7 +16,7 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   const userCartState = useSelector((state) => state.user);
-  const { isSuccess, isLoading, isError, userCart } = userCartState;
+  const { isSuccess, isLoading, isError, userCart, removedItemsCart } = userCartState;
 
   const subTotal = userCart?.discountedCartPrice
     ? userCart?.discountedCartPrice
@@ -25,8 +25,21 @@ const Cart = () => {
   console.log("userCart in Cart is 🛒 : ", userCart);
   console.log("items in Cart is 🍎🍎🍎 : ", items);
   useEffect(() => {
-    dispatch(getUserCart());
+    if (isSuccess) {
+      dispatch(getUserCart());
+    }
   }, []);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(getUserCart());
+    }
+  }, [removedItemsCart]);
+
+  const handleRemoveItemFromCart = (productId) => {
+    dispatch(removeItemFromCart(productId));
+
+  }
 
   return (
     <>
@@ -109,10 +122,10 @@ const Cart = () => {
                           // value={item?.quantity}
                         />
                       </div>
-                      <div className="" onClick={
-                      ()=> dispatch(removeItemFromCart(item?.productId?._id))
-                      }>
-                        <RiDeleteBin6Fill className="delete-img fs-3 me-2" />
+                      <div className="" >
+                        <RiDeleteBin6Fill className="delete-img fs-3 me-2" onClick={
+                      ()=> handleRemoveItemFromCart(item?.productId?._id)
+                      } />
                       </div>
                     </div>
                     {/* Total */}
