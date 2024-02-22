@@ -107,8 +107,8 @@ export const userSlice = createSlice({
         state.message = action.payload.message;
         state.cart = action.payload.data;
         console.log(
-          "action.payload in userSlice is 💘💘 : ",
-          action.payload.data.cart
+          "action.payload in userSlice is ➕➕➕ : ",
+          action.payload.data
         );
       })
       .addCase(addItemOrUpdateItemQuantity.rejected, (state, action) => {
