@@ -4,7 +4,20 @@ import { BiArrowBack } from "react-icons/bi";
 import { IoIosArrowForward } from "react-icons/io";
 import watch from "../../public/images/watch.jpg";
 import Container from "../components/Container";
+import { useDispatch, useSelector } from "react-redux";
+
 const Checkout = () => {
+  const dispatch = useDispatch();
+  const ShippingFee = 5;
+  const userCartState = useSelector((state) => state.user);
+  const { isSuccess, isLoading, isError, userCart, cart } = userCartState;
+
+  const subTotal = userCart?.discountedCartPrice
+    ? userCart?.discountedCartPrice
+    : 0;
+  const { items } = userCart;
+
+  console.log("userCart in checkout is : ", userCart);
   return (
     <>
       <Container class1="checkout-wrapper home-wrapper-2">
@@ -164,47 +177,78 @@ const Checkout = () => {
           <div className="col-5 order-info py-5">
             {/* Cart Section */}
             <div className="border-bottom py-4">
-              <div className="d-flex gap-10 mb-2 justify-content-between align-items-center">
-                <div className="w-75 d-flex gap-10">
-                  <div className="w-25 position-relative">
-                    <span
-                      style={{ top: "-10px", right: "-5px" }}
-                      className="badge bg-secondary text-white rounded-circle position-absolute"
+              {userCart &&
+                items &&
+                items.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="d-flex gap-10 mb-2 justify-content-between align-items-center"
                     >
-                      1
-                    </span>
-                    <img className="img-fluid" src={watch} alt="Products" />
-                  </div>
-                  <div className="w-75  d-flex flex-column justify-content-evenly position-relative ">
-                    <h5 className="cart-title">
-                      Honor T1 7.0 1GB RAM 8GB ROM 7 inch with Wi-Fi+3G Tablet
-                    </h5>
-                    <p className="cart-sub-title">S / #B5CEDE</p>
-                  </div>
-                </div>
-                <div className="w-25 flex-grow-1 d-flex justify-content-end ">
-                  <div className="">
-                    <p className="final-products-price">$ 410.00</p>
-                  </div>
-                </div>
-              </div>
+                      <div className="w-75 d-flex gap-10">
+                        <div className="w-25 position-relative">
+                          <span
+                            style={{ top: "-10px", right: "-5px" }}
+                            className="badge bg-secondary text-white rounded-circle position-absolute"
+                          >
+                            {item?.quantity || 0}
+                          </span>
+                          <img
+                            className="img-fluid"
+                            src={item?.productId?.mainImages[0]?.url || watch}
+                            alt="Products"
+                          />
+                        </div>
+                        <div className="w-75  d-flex flex-column justify-content-evenly position-relative ">
+                          <h5 className="cart-title">
+                            {item?.productId?.name}
+                          </h5>
+                          <div className="cart-sub-title d-flex gap-2  align-items-center">
+                            <p className="final-products-price mb-0"> S / </p>
+                            <ul className="colors ps-0 mb-0">
+                              {item?.productId?.colors &&
+                                item?.productId?.colors?.map((color, index) => {
+                                  return (
+                                    <li
+                                      key={index}
+                                      style={{
+                                        backgroundColor: color?.name,
+                                        cursor: "pointer",
+                                      }}
+                                    ></li>
+                                  );
+                                })}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="w-25 flex-grow-1 d-flex justify-content-end ">
+                        <div className="">
+                          <p className="final-products-price">
+                            ${item?.productId?.price * item.quantity}.00
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
             {/* Pricing Section */}
             <div className="border-bottom py-4">
               <div className="d-flex justify-content-between align-items-center">
                 <p className="subtotal">SubTotal</p>
-                <p className="shipping-total">$ 410.00</p>
+                <p className="shipping-total">${subTotal}.00</p>
               </div>
               <div className="d-flex justify-content-between align-items-center">
                 <p className="mb-0 shipping">Shipping</p>
-                <p className="mb-0 shipping-price">$ 19.00</p>
+                <p className="mb-0 shipping-price">${ShippingFee}.00</p>
               </div>
             </div>
             {/* Final Pricing Section */}
             <div className="border-bottom py-4 d-flex justify-content-between align-items-center">
               <h4 className="total">Total</h4>
               <h5 className="total-price">
-                <span>USD</span> $ 429.00
+                <span>USD</span> ${subTotal + ShippingFee}.00
               </h5>
             </div>
           </div>
