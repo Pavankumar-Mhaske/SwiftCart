@@ -10,7 +10,11 @@ import { FaCircleXmark } from "react-icons/fa6";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
-import {  addItemOrUpdateItemQuantity, getUserCart, removeItemFromCart } from "../features/user/userSlice";
+import {
+  addItemOrUpdateItemQuantity,
+  getUserCart,
+  removeItemFromCart,
+} from "../features/user/userSlice";
 import { useState } from "react";
 
 const Cart = () => {
@@ -19,36 +23,40 @@ const Cart = () => {
   const userCartState = useSelector((state) => state.user);
   const { isSuccess, isLoading, isError, userCart, cart } = userCartState;
 
-  const [productUpdateDetails, setProductUpdateDetails] = useState(null)
+  const [productUpdateDetails, setProductUpdateDetails] = useState(null);
   // console.log("productUpdateDetails in Cart is  :🤑 ", productUpdateDetails);
   const subTotal = userCart?.discountedCartPrice
     ? userCart?.discountedCartPrice
     : 0;
-    const { items } = userCart;
-    // console.log("userCart in Cart is 🛒 : ", userCart);
-    // console.log("cart in Cart is 🛒 : ", cart);
+  const { items } = userCart;
+  // console.log("userCart in Cart is 🛒 : ", userCart);
+  // console.log("cart in Cart is 🛒 : ", cart);
   useEffect(() => {
-      dispatch(getUserCart());
+    dispatch(getUserCart());
   }, [userCart?.discountedCartPrice, cart]);
 
-
   const handleRemoveItemFromCart = (productId) => {
-      dispatch(removeItemFromCart(productId));
-  }
+    dispatch(removeItemFromCart(productId));
+  };
 
   const handleUpdateItemQuantity = (productId, quantity) => {
-    dispatch(addItemOrUpdateItemQuantity({
-      productId: productId,
-      quantity: quantity, 
-    }));
-  }; 
+    dispatch(
+      addItemOrUpdateItemQuantity({ productId: productId, quantity: quantity })
+    );
+  };
 
   useEffect(() => {
-    if(productUpdateDetails && productUpdateDetails?.productId && productUpdateDetails?.quantity){
-      handleUpdateItemQuantity(productUpdateDetails?.productId, productUpdateDetails?.quantity);
+    if (
+      productUpdateDetails &&
+      productUpdateDetails?.productId &&
+      productUpdateDetails?.quantity
+    ) {
+      handleUpdateItemQuantity(
+        productUpdateDetails?.productId,
+        productUpdateDetails?.quantity
+      );
     }
   }, [productUpdateDetails]);
-  
 
   return (
     <>
@@ -126,24 +134,40 @@ const Cart = () => {
                           min={1}
                           max={10}
                           // defaultValue={item?.quantity || 1} // Set the default value to 1
-                          defaultValue={ ( productUpdateDetails &&  (productUpdateDetails?.quantity ? productUpdateDetails?.quantity : item?.quantity ) ) || (item?.quantity || 1)} // Set the default value to 1
+                          defaultValue={
+                            (productUpdateDetails &&
+                              (productUpdateDetails?.quantity
+                                ? productUpdateDetails?.quantity
+                                : item?.quantity)) ||
+                            item?.quantity ||
+                            1
+                          } // Set the default value to 1
                           style={{ width: "70px", height: "50px" }}
                           id=""
                           // value={item?.quantity}
-                          onChange={(event)=>{setProductUpdateDetails({productId : item?.productId?._id, quantity: event.target.value})}}
+                          onChange={(event) => {
+                            setProductUpdateDetails({
+                              productId: item?.productId?._id,
+                              quantity: event.target.value,
+                            });
+                          }}
                         />
                       </div>
-                      <div className="" >
-                        <RiDeleteBin6Fill className="delete-img fs-3 me-2" onClick={
-                      ()=> handleRemoveItemFromCart(item?.productId?._id)
-                      } />
+                      <div className="">
+                        <RiDeleteBin6Fill
+                          className="delete-img fs-3 me-2"
+                          onClick={() =>
+                            handleRemoveItemFromCart(item?.productId?._id)
+                          }
+                        />
                       </div>
                     </div>
                     {/* Total */}
                     <div className="cart-col-4">
-                      <p className="price">${item?.productId?.price * item.quantity}.00</p>
+                      <p className="price">
+                        ${item?.productId?.price * item.quantity}.00
+                      </p>
                     </div>
-                    
                   </div>
                 );
               })}
@@ -153,24 +177,23 @@ const Cart = () => {
             {/* 🔽⏬⏬⏬ bottom section ⏬⏬⏬🔽  */}
             <div className="col-12 py-2 mt-4">
               <div className="d-flex justify-content-between align-items-baseline">
-                
                 <Link to="/product" className="button">
                   Continue to Shopping
                 </Link>
                 <div className="d-flex flex-column justify-content-end align-items-end">
-                    <div className="d-flex gap-10 align-items-center d-flex justi flex-column mx-5">
-                      {userCart?.coupon === null ? (
-                        <h6 className="red d-flex flex-column align-items-center justify-content-center">
-                          <FaCircleXmark style={{ fontSize: "1.6em" }} />
-                          <p className="mt-1">Coppon not applied</p>
-                        </h6>
-                      ) : (
-                        <h6 className="green d-flex flex-column align-items-center justify-content-center">
-                          <IoMdCheckmarkCircle style={{ fontSize: "2em" }} />
-                          <p className="mt-1">Coppon applied</p>
-                        </h6>
-                      )}
-                    </div>
+                  <div className="d-flex gap-10 align-items-center d-flex justi flex-column mx-5">
+                    {userCart?.coupon === null ? (
+                      <h6 className="red d-flex flex-column align-items-center justify-content-center">
+                        <FaCircleXmark style={{ fontSize: "1.6em" }} />
+                        <p className="mt-1">Coppon not applied</p>
+                      </h6>
+                    ) : (
+                      <h6 className="green d-flex flex-column align-items-center justify-content-center">
+                        <IoMdCheckmarkCircle style={{ fontSize: "2em" }} />
+                        <p className="mt-1">Coppon applied</p>
+                      </h6>
+                    )}
+                  </div>
                   <div className="d-flex gap-10  align-items-center my-2 ">
                     <h4 className="cart-product-heading">SubTotal :</h4>
                     <h4 className="cart-product-data">${subTotal}.00</h4>
