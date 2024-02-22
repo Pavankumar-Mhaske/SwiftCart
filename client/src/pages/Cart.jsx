@@ -10,27 +10,45 @@ import { FaCircleXmark } from "react-icons/fa6";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
-import {  getUserCart, removeItemFromCart } from "../features/user/userSlice";
+import {  addItemOrUpdateItemQuantity, getUserCart, removeItemFromCart } from "../features/user/userSlice";
+import { useState } from "react";
 
 const Cart = () => {
   const dispatch = useDispatch();
 
   const userCartState = useSelector((state) => state.user);
-  const { isSuccess, isLoading, isError, userCart } = userCartState;
+  const { isSuccess, isLoading, isError, userCart, cart } = userCartState;
 
+  const [productUpdateDetails, setProductUpdateDetails] = useState(null)
+  // console.log("productUpdateDetails in Cart is  :🤑 ", productUpdateDetails);
   const subTotal = userCart?.discountedCartPrice
     ? userCart?.discountedCartPrice
     : 0;
     const { items } = userCart;
-    console.log("userCart in Cart is 🛒 : ", userCart);
+    // console.log("userCart in Cart is 🛒 : ", userCart);
+    // console.log("cart in Cart is 🛒 : ", cart);
   useEffect(() => {
       dispatch(getUserCart());
-  }, [userCart?.discountedCartPrice]);
+  }, [userCart?.discountedCartPrice, cart]);
 
 
   const handleRemoveItemFromCart = (productId) => {
       dispatch(removeItemFromCart(productId));
   }
+
+  const handleUpdateItemQuantity = (productId, quantity) => {
+    dispatch(addItemOrUpdateItemQuantity({
+      productId: productId,
+      quantity: quantity, 
+    }));
+  }; 
+
+  useEffect(() => {
+    if(productUpdateDetails && productUpdateDetails?.productId && productUpdateDetails?.quantity){
+      handleUpdateItemQuantity(productUpdateDetails?.productId, productUpdateDetails?.quantity);
+    }
+  }, [productUpdateDetails]);
+  
 
   return (
     <>
@@ -107,10 +125,12 @@ const Cart = () => {
                           name="quantity"
                           min={1}
                           max={10}
-                          defaultValue={ item?.quantity || 1} // Set the default value to 1
+                          // defaultValue={item?.quantity || 1} // Set the default value to 1
+                          defaultValue={ ( productUpdateDetails &&  (productUpdateDetails?.quantity ? productUpdateDetails?.quantity : item?.quantity ) ) || (item?.quantity || 1)} // Set the default value to 1
                           style={{ width: "70px", height: "50px" }}
                           id=""
                           // value={item?.quantity}
+                          onChange={(event)=>{setProductUpdateDetails({productId : item?.productId?._id, quantity: event.target.value})}}
                         />
                       </div>
                       <div className="" >
