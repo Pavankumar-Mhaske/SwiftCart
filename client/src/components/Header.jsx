@@ -1,8 +1,35 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserCart } from "../features/user/userSlice";
 // import {compare.svg} from "../../public/images/compare.svg";
 const Header = () => {
+  const dispatch = useDispatch();
+  let totalItemsInCart = 0;
+
+  const userCartState = useSelector((state) => state.user);
+  const { isSuccess, isLoading, isError, userCart, cart } = userCartState;
+  const { items } = userCart;
+
+  const subTotal = userCart?.discountedCartPrice
+    ? userCart?.discountedCartPrice
+    : 0;
+
+  userCart &&
+    items &&
+    items.map((item) => {
+      totalItemsInCart += item.quantity;
+    });
+
+  useEffect(() => {
+    dispatch(getUserCart());
+  }, [userCart?.discountedCartPrice, cart]);
+
+  console.log("totalItemsInCart in Header is 🛒 🎧🤕🤕 : ", totalItemsInCart);
+  console.log("userCart in Header is 🛒 🎧🤕🤕 : ", userCart);
+  console.log("cart in Header is 🛒 🎧🤕🤕 : ", cart);
   return (
     <>
       {/* 1️⃣1️⃣1️⃣ Header - 1 1️⃣1️⃣1️⃣ */}
@@ -97,8 +124,10 @@ const Header = () => {
                   >
                     <img src="/images/cart.svg" alt="cart" />
                     <div className="d-flex flex-column gap-10">
-                      <span className="badge bg-white text-dark">0</span>
-                      <p className="mb-0">$500</p>
+                      <span className="badge bg-white text-dark">
+                        {totalItemsInCart ? totalItemsInCart : 0}
+                      </span>
+                      <p className="mb-0">${subTotal}.00</p>
                     </div>
                   </Link>
                 </div>
