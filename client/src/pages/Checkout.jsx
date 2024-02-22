@@ -5,6 +5,19 @@ import { IoIosArrowForward } from "react-icons/io";
 import watch from "../../public/images/watch.jpg";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
+import * as yup from "yup";
+import { useFormik } from "formik";
+
+const schema = yup.object().shape({
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  address: yup.string().required("Address is required"),
+  apartment: yup.string(),
+  city: yup.string().required("City is required"),
+  state: yup.string().required("State is required"),
+  country: yup.string().required("Country is required"),
+  zipCode: yup.string().required("Zip code is required"),
+});
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -18,6 +31,26 @@ const Checkout = () => {
   const { items } = userCart;
 
   console.log("userCart in checkout is : ", userCart);
+
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    address: "",
+    apartment: "",
+    city: "",
+    state: "",
+    country: "",
+    zipCode: "",
+  };
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: initialValues,
+    validationSchema: schema,
+    onSubmit: async (values) => {
+      console.log("values in checkout formik is : ", values);
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
   return (
     <>
       <Container class1="checkout-wrapper home-wrapper-2">
@@ -93,15 +126,31 @@ const Checkout = () => {
               <form
                 action=""
                 className="d-flex gap-15 flex-wrap justify-content-between"
+                onSubmit={formik.handleSubmit}
               >
                 {/* Country  */}
                 <div className="w-100">
-                  <select name="" id="" className="form-control form-select">
+                  <select
+                    id=""
+                    className="form-control form-select"
+                    name="country"
+                    value={formik.values.country}
+                    onChange={formik.handleChange("country")}
+                    onBlur={formik.handleBlur("country")}
+                  >
                     <option value="" selected disabled>
                       {" "}
                       Select Country
                     </option>
+                    <option value="India" selected>
+                      {" "}
+                      India
+                    </option>
+                    <option value="US"> US</option>
                   </select>
+                  <div className="error ms-2 my-1">
+                    {formik.touched.country && formik.errors.country}
+                  </div>
                 </div>
                 {/* First Name */}
                 <div className="flex-grow-1">
@@ -109,7 +158,14 @@ const Checkout = () => {
                     type="text"
                     placeholder="First Name"
                     className="form-control"
+                    name="firstName"
+                    value={formik.values.firstName}
+                    onChange={formik.handleChange("firstName")}
+                    onBlur={formik.handleBlur("firstName")}
                   />
+                  <div className="error ms-2 my-1">
+                    {formik.touched.firstName && formik.errors.firstName}
+                  </div>
                 </div>
                 {/* Last Name */}
                 <div className="flex-grow-1">
@@ -117,7 +173,14 @@ const Checkout = () => {
                     type="text"
                     placeholder="Last Name"
                     className="form-control"
+                    name="lastName"
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange("lastName")}
+                    onBlur={formik.handleBlur("lastName")}
                   />
+                  <div className="error ms-2 my-1">
+                    {formik.touched.lastName && formik.errors.lastName}
+                  </div>
                 </div>
                 {/* Address */}
                 <div className="w-100">
@@ -125,7 +188,14 @@ const Checkout = () => {
                     type="text"
                     placeholder="Address"
                     className="form-control"
+                    name="address"
+                    value={formik.values.address}
+                    onChange={formik.handleChange("address")}
+                    onBlur={formik.handleBlur("address")}
                   />
+                  <div className="error ms-2 my-1">
+                    {formik.touched.address && formik.errors.address}
+                  </div>
                 </div>
                 {/* Apartment */}
                 <div className="w-100">
@@ -133,6 +203,10 @@ const Checkout = () => {
                     type="text"
                     placeholder="Apartment, Suite, etc, (optional)"
                     className="form-control"
+                    name="apartment"
+                    value={formik.values.apartment}
+                    onChange={formik.handleChange("apartment")}
+                    onBlur={formik.handleBlur("apartment")}
                   />
                 </div>
                 {/* City */}
@@ -141,15 +215,36 @@ const Checkout = () => {
                     type="text"
                     placeholder="City"
                     className="form-control"
+                    name="city"
+                    value={formik.values.city}
+                    onChange={formik.handleChange("city")}
+                    onBlur={formik.handleBlur("city")}
                   />
+                  <div className="error ms-2 my-1">
+                    {formik.touched.city && formik.errors.city}
+                  </div>
                 </div>
                 {/* State */}
                 <div className="flex-grow-1">
-                  <select name="" id="" className="form-control form-select">
+                  <select
+                    id=""
+                    className="form-control form-select"
+                    name="state"
+                    value={formik.values.state}
+                    onChange={formik.handleChange("state")}
+                    onBlur={formik.handleBlur("state")}
+                  >
                     <option value="" selected disabled>
                       Select State
                     </option>
+                    <option value="Maharashtra" selected>
+                      Maharashtra
+                    </option>
+                    <option value="Karnataka">Karnataka</option>
                   </select>
+                  <div className="error ms-2 my-1">
+                    {formik.touched.state && formik.errors.state}
+                  </div>
                 </div>
                 {/* Zip Code */}
                 <div className="flex-grow-1">
@@ -157,7 +252,14 @@ const Checkout = () => {
                     type="text"
                     placeholder="Zip Code"
                     className="form-control"
+                    name="zipCode"
+                    value={formik.values.zipCode}
+                    onChange={formik.handleChange("zipCode")}
+                    onBlur={formik.handleBlur("zipCode")}
                   />
+                  <div className="error ms-2 my-1">
+                    {formik.touched.zipCode && formik.errors.zipCode}
+                  </div>
                 </div>
                 {/* Return to Cart / Continue To Shipping */}
                 <div className="w-100  my-4">
@@ -168,6 +270,9 @@ const Checkout = () => {
                     <Link to="/shipping" className="button">
                       Continue To Shipping
                     </Link>
+                    <button className="button" type="submit">
+                      Place Order
+                    </button>
                   </div>
                 </div>
               </form>
