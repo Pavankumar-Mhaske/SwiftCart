@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import { IoIosArrowForward } from "react-icons/io";
@@ -10,49 +10,89 @@ import { useFormik } from "formik";
 import { base_url } from "../utils/base_url";
 import { config } from "../utils/AxiosConfig";
 import axios from "axios";
+import { createAddress, getUserCart } from "../features/user/userSlice";
 
 const schema = yup.object().shape({
-  firstName: yup.string().required("First name is required"),
-  lastName: yup.string().required("Last name is required"),
-  address: yup.string().required("Address is required"),
-  apartment: yup.string(),
+  country: yup.string().required("Country is required"),
+  addressLine1: yup.string().required("Address line 1 is required"),
+  addressLine2: yup.string().required("Address line 2 is required"),
+  addressLine3: yup.string(),
   city: yup.string().required("City is required"),
   state: yup.string().required("State is required"),
-  country: yup.string().required("Country is required"),
-  zipCode: yup.string().required("Zip code is required"),
+  pincode: yup.string().required("Zip code is required"),
+  deliveryinfo: yup.string(),
 });
 
 const Checkout = () => {
   const dispatch = useDispatch();
+  const [addressId, setAddressId] = useState("");
+  const [orderPlaced, setOrderPlaced] = useState(false);
   const ShippingFee = 5;
-  const userCartState = useSelector((state) => state.user);
-  const { isSuccess, isLoading, isError, userCart, cart } = userCartState;
-
+  const userState = useSelector((state) => state.user);
+  const { isSuccess, isLoading, isError, userCart, cart, addresses } =
+    userState;
+  // console.log("addresses in checkout is : 🍎🍎 ", addresses);
+  // const addressId = addresses[addresses.length - 1]?._id;
+  // console.log("addressId in checkout is :Ⓜ️Ⓜ️ ", addressId);
   const subTotal = userCart?.discountedCartPrice
     ? userCart?.discountedCartPrice
     : 0;
   const { items } = userCart;
 
-  console.log("userCart in checkout is : ", userCart);
+  // console.log("userCart in checkout is : ", userCart);
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    address: "",
-    apartment: "",
+    country: "",
+    addressLine1: "",
+    addressLine2: "",
+    addressLine3: "",
     city: "",
     state: "",
-    country: "",
-    zipCode: "",
+    pincode: "",
+    deliveryinfo: "",
   };
+
+  const handleCreateAddress = async (values) => {
+    // console.log("values ✌️✌️: ", values);
+    try {
+      const response = await dispatch(createAddress(values));
+      // console.log("response in checkout is : ", response);
+      const addresses = response.payload.data.address;
+      const recentAddress = addresses[addresses.length - 1];
+      const addressId = recentAddress._id;
+      // console.log("addressId in checkout is : ⭐⭐ ", addressId);
+      // After creating the address, update the addressId
+      setAddressId(addressId);
+    } catch (error) {
+      console.log("error in checkout is : ", error);
+    }
+  };
+
+  // checkOutHandler only when the addressId is updated
+  useEffect(() => {
+    if (addressId !== "") {
+      checkOutHandler();
+    }
+  }, [addressId]);
+
+  // fetch the user cart after the order is placed
+  useEffect(() => {
+    if (orderPlaced === true) {
+      dispatch(getUserCart());
+      setOrderPlaced(false);
+      formik.setValues(initialValues);
+    }
+  }, [orderPlaced]);
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
-      console.log("values in checkout formik is : ", values);
-      alert(JSON.stringify(values, null, 2));
-      checkOutHandler();
+      // console.log("values in checkout formik is : ", values);
+      // alert(JSON.stringify(values, null, 2));
+      await handleCreateAddress(values);
+      // checkOutHandler();
     },
   });
 
@@ -80,7 +120,7 @@ const Checkout = () => {
     }
 
     const urlGenerateRazorpayOrder = `${base_url}orders/provider/razorpay`;
-    const addressId = "65d74529066694ac7fc05b7a";
+    // console.log("addressId 🤦‍♂️🤦‍♂️ : ", addressId);
     const response = await axios.post(
       urlGenerateRazorpayOrder,
       { addressId: addressId },
@@ -90,10 +130,10 @@ const Checkout = () => {
       alert("Razorpay order creation failed. Please try again");
       return;
     }
-    console.log("data in checkout is : ", response);
+    // console.log("data in checkout is : ", response);
 
     const { amount, id: order_id, currency } = response.data.data;
-    console.log("amount in checkout is : ", amount);
+    // console.log("amount in checkout is : ", amount);
     const options = {
       key: "rzp_test_ZqUn0SYce8KAwL", // Enter the Key ID generated from the Dashboard
       amount: amount.toString(),
@@ -119,6 +159,9 @@ const Checkout = () => {
         const result = await axios.post(urlVerifyRazorpayPayment, data, config);
 
         // console.log("result in checkout is : ", result);
+        if (result.data.success === true) {
+          setOrderPlaced(true);
+        }
         alert(result.data.message);
       },
       prefill: {
@@ -242,49 +285,35 @@ const Checkout = () => {
                     {formik.touched.country && formik.errors.country}
                   </div>
                 </div>
-                {/* First Name */}
-                <div className="flex-grow-1">
-                  <input
-                    type="text"
-                    placeholder="First Name"
-                    className="form-control"
-                    name="firstName"
-                    value={formik.values.firstName}
-                    onChange={formik.handleChange("firstName")}
-                    onBlur={formik.handleBlur("firstName")}
-                  />
-                  <div className="error ms-2 my-1">
-                    {formik.touched.firstName && formik.errors.firstName}
-                  </div>
-                </div>
-                {/* Last Name */}
-                <div className="flex-grow-1">
-                  <input
-                    type="text"
-                    placeholder="Last Name"
-                    className="form-control"
-                    name="lastName"
-                    value={formik.values.lastName}
-                    onChange={formik.handleChange("lastName")}
-                    onBlur={formik.handleBlur("lastName")}
-                  />
-                  <div className="error ms-2 my-1">
-                    {formik.touched.lastName && formik.errors.lastName}
-                  </div>
-                </div>
-                {/* Address */}
+
+                {/* Address line 1 */}
                 <div className="w-100">
                   <input
                     type="text"
-                    placeholder="Address"
+                    placeholder="Address line 1"
                     className="form-control"
-                    name="address"
-                    value={formik.values.address}
-                    onChange={formik.handleChange("address")}
-                    onBlur={formik.handleBlur("address")}
+                    name="addressLine1"
+                    value={formik.values.addressLine1}
+                    onChange={formik.handleChange("addressLine1")}
+                    onBlur={formik.handleBlur("addressLine1")}
                   />
                   <div className="error ms-2 my-1">
-                    {formik.touched.address && formik.errors.address}
+                    {formik.touched.addressLine1 && formik.errors.addressLine1}
+                  </div>
+                </div>
+                {/* Address line 2 */}
+                <div className="w-100">
+                  <input
+                    type="text"
+                    placeholder="Address line 2"
+                    className="form-control"
+                    name="addressLine2"
+                    value={formik.values.addressLine2}
+                    onChange={formik.handleChange("addressLine2")}
+                    onBlur={formik.handleBlur("addressLine2")}
+                  />
+                  <div className="error ms-2 my-1">
+                    {formik.touched.addressLine2 && formik.errors.addressLine2}
                   </div>
                 </div>
                 {/* Apartment */}
@@ -293,10 +322,10 @@ const Checkout = () => {
                     type="text"
                     placeholder="Apartment, Suite, etc, (optional)"
                     className="form-control"
-                    name="apartment"
-                    value={formik.values.apartment}
-                    onChange={formik.handleChange("apartment")}
-                    onBlur={formik.handleBlur("apartment")}
+                    name="addressLine3"
+                    value={formik.values.addressLine3}
+                    onChange={formik.handleChange("addressLine3")}
+                    onBlur={formik.handleBlur("addressLine3")}
                   />
                 </div>
                 {/* City */}
@@ -342,15 +371,30 @@ const Checkout = () => {
                     type="text"
                     placeholder="Zip Code"
                     className="form-control"
-                    name="zipCode"
-                    value={formik.values.zipCode}
-                    onChange={formik.handleChange("zipCode")}
-                    onBlur={formik.handleBlur("zipCode")}
+                    name="pincode"
+                    value={formik.values.pincode}
+                    onChange={formik.handleChange("pincode")}
+                    onBlur={formik.handleBlur("pincode")}
                   />
                   <div className="error ms-2 my-1">
-                    {formik.touched.zipCode && formik.errors.zipCode}
+                    {formik.touched.pincode && formik.errors.pincode}
                   </div>
                 </div>
+                {/* Delivery Information */}
+                <div className="flex-grow-1">
+                  <textarea
+                    id=""
+                    className="w-100 form-control"
+                    cols="30"
+                    rows="4"
+                    name="deliveryinfo"
+                    placeholder="Floor, door lock code, etc (optional)"
+                    value={formik.values.deliveryinfo}
+                    onChange={formik.handleChange("deliveryinfo")}
+                    onBlur={formik.handleBlur("deliveryinfo")}
+                  ></textarea>
+                </div>
+
                 {/* Return to Cart / Continue To Shipping */}
                 <div className="w-100  my-4">
                   <div className="d-flex justify-content-between align-items-center">
