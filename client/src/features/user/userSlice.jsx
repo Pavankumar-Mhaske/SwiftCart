@@ -55,6 +55,19 @@ export const removeItemFromCart = createAsyncThunk(
   }
 );
 
+export const createAddress = createAsyncThunk(
+  "users/create-address",
+  async (addressData, thunkAPI) => {
+    try {
+      console.log("thunkAPI in userSlice is : ", thunkAPI);
+      const response = await UserService.createAddress(addressData);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const getUserFromLocalStorage = localStorage.getItem("accessToken")
   ? JSON.parse(localStorage.getItem("accessToken"))
   : null;
@@ -65,6 +78,7 @@ const initialState = {
   wishlist: [],
   cart: {},
   userCart: {},
+  addresses: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -151,6 +165,26 @@ export const userSlice = createSlice({
         );
       })
       .addCase(removeItemFromCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload.message;
+      })
+      .addCase(createAddress.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createAddress.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.message = action.payload.message;
+        state.addresses = action.payload.data.address;
+        console.log(
+          "action.payload in userSlice is 🌟🌟 : ",
+          action.payload.data.address
+        );
+      })
+      .addCase(createAddress.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
