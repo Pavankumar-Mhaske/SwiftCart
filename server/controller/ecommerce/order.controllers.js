@@ -96,15 +96,16 @@ const orderFulfillmentHelper = async (orderPaymentId, req) => {
     skipValidation: true,
   });
 
-  await sendEmail({
-    email: req.user?.email,
-    subject: "Order confirmed",
-    mailgenContent: orderConfirmationMailgenContent(
-      req.user?.username,
-      userCart.items,
-      order.discountedOrderPrice ?? 0 // send discounted price in the mail which is paid by the user
-    ),
-  });
+  //TODO: make this after
+  // await sendEmail({
+  //   email: req.user?.email,
+  //   subject: "Order confirmed",
+  //   mailgenContent: orderConfirmationMailgenContent(
+  //     req.user?.username,
+  //     userCart.items,
+  //     order.discountedOrderPrice ?? 0 // send discounted price in the mail which is paid by the user
+  //   ),
+  // });
 
   cart.items = []; // empty the cart
   cart.coupon = null; // remove the associated coupon
@@ -238,8 +239,12 @@ const generateRazorpayOrder = asyncHandler(async (req, res) => {
 });
 
 const verifyRazorpayPayment = asyncHandler(async (req, res) => {
+  // console.log("req.body in verifyRazorpayPayment:", req.body);
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
+  // console.log("razorpay_order_id:", razorpay_order_id);
+  // console.log("razorpay_payment_id:", razorpay_payment_id);
+  // console.log("razorpay_signature:", razorpay_signature);
 
   let body = razorpay_order_id + "|" + razorpay_payment_id;
 
@@ -250,7 +255,7 @@ const verifyRazorpayPayment = asyncHandler(async (req, res) => {
 
   if (expectedSignature === razorpay_signature) {
     const order = await orderFulfillmentHelper(razorpay_order_id, req);
-
+    // console.log("order in verifyRazorpayPayment:🫣🫣", order);
     return res
       .status(201)
       .json(new ApiResponse(201, order, "Order placed successfully"));
