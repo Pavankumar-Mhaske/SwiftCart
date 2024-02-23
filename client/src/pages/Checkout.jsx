@@ -7,6 +7,9 @@ import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import { base_url } from "../utils/base_url";
+import { config } from "../utils/AxiosConfig";
+import axios from "axios";
 
 const schema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
@@ -49,8 +52,92 @@ const Checkout = () => {
     onSubmit: async (values) => {
       console.log("values in checkout formik is : ", values);
       alert(JSON.stringify(values, null, 2));
+      checkOutHandler();
     },
   });
+
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  const checkOutHandler = async () => {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const urlGenerateRazorpayOrder = `${base_url}orders/provider/razorpay`;
+    const addressId = "65d74529066694ac7fc05b7a";
+    const response = await axios.post(
+      urlGenerateRazorpayOrder,
+      { addressId: addressId },
+      config
+    );
+    if (!response) {
+      alert("Razorpay order creation failed. Please try again");
+      return;
+    }
+    console.log("data in checkout is : ", response);
+
+    const { amount, id: order_id, currency } = response.data.data;
+    console.log("amount in checkout is : ", amount);
+    const options = {
+      key: "rzp_test_ZqUn0SYce8KAwL", // Enter the Key ID generated from the Dashboard
+      amount: amount.toString(),
+      currency: currency,
+      name: "Pavankumar Mhaske.",
+      description: "Test Transaction",
+      // image: { logo },
+      order_id: order_id,
+      handler: async function (response) {
+        const data = {
+          orderCreationId: order_id,
+          // razorpayPaymentId: response.razorpay_payment_id,
+          // razorpayOrderId: response.razorpay_order_id,
+          // razorpaySignature: response.razorpay_signature,
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_signature: response.razorpay_signature,
+        };
+        // console.log("checkout data is 🗝️🗝️: ", data);
+
+        const urlVerifyRazorpayPayment = `${base_url}orders/provider/razorpay/verify-payment`;
+
+        const result = await axios.post(urlVerifyRazorpayPayment, data, config);
+
+        // console.log("result in checkout is : ", result);
+        alert(result.data.message);
+      },
+      prefill: {
+        name: "Pavankumar Mhaske",
+        email: "mhaskepavankumar@gmail.com",
+        contact: "8530470684",
+      },
+      notes: {
+        address: "Pavankumar Mhaske Corporate Office",
+      },
+      theme: {
+        color: "#61dafb",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
   return (
     <>
       <Container class1="checkout-wrapper home-wrapper-2">
@@ -114,7 +201,10 @@ const Checkout = () => {
                     value=""
                     id="flexCheckDefault"
                   />
-                  <label className="form-check-label" for="flexCheckDefault">
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexCheckDefault"
+                  >
                     Email me with news and offers
                   </label>
                 </div>
