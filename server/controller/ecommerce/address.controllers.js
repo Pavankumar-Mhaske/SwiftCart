@@ -5,18 +5,28 @@ import { asyncHandler } from "../../utils/asyncHandler.js";
 import { getMongoosePaginationOptions } from "../../utils/helpers.js";
 import { User } from "../../models/auth/user.models.js";
 const createAddress = asyncHandler(async (req, res) => {
-  const { addressLine1, addressLine2, city, country, pincode, state } =
-    req.body;
+  const {
+    country,
+    addressLine1,
+    addressLine2,
+    addressLine3,
+    city,
+    state,
+    pincode,
+    deliveryinfo,
+  } = req.body;
   const owner = req.user._id;
 
   const address = await Address.create({
+    country,
     addressLine1,
     addressLine2,
+    addressLine3,
     city,
-    country,
-    owner,
-    pincode,
     state,
+    pincode,
+    deliveryinfo,
+    owner,
   });
 
   if (!address) {

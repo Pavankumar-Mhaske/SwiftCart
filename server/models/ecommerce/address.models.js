@@ -4,32 +4,41 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const addressSchema = new Schema(
   {
+    country: {
+      required: true,
+      type: String,
+    },
     addressLine1: {
       required: true,
       type: String,
     },
     addressLine2: {
+      required: true,
       type: String,
+    },
+    addressLine3: {
+      type: String,
+      default: "",
     },
     city: {
-      required: true,
-      type: String,
-    },
-    country: {
-      required: true,
-      type: String,
-    },
-    owner: {
-      ref: "User",
-      type: Schema.Types.ObjectId,
-    },
-    pincode: {
       required: true,
       type: String,
     },
     state: {
       required: true,
       type: String,
+    },
+    pincode: {
+      required: true,
+      type: String,
+    },
+    deliveryinfo: {
+      type: String,
+      default: "",
+    },
+    owner: {
+      ref: "User",
+      type: Schema.Types.ObjectId,
     },
   },
   { timestamps: true }
