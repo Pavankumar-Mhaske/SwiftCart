@@ -32,14 +32,22 @@ const removeItemFromCart = async (productId) => {
   const response = await axios.delete(url, config);
   console.log("Response in userService is : ", response);
   return response.data;
-}
+};
 
+const createAddress = async (addressData) => {
+  console.log("addressData in userService is : ", addressData);
+  const url = `${base_url}addresses/`;
+  const response = await axios.post(url, addressData, config);
+  console.log("Response in userService is : ", response);
+  return response.data;
+};
 
 const UserService = {
   getUserWishList,
   getUserCart,
   addItemOrUpdateItemQuantity,
   removeItemFromCart,
+  createAddress,
 };
 
 export default UserService; // export the service
