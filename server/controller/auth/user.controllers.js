@@ -559,7 +559,10 @@ const getUserCart = asyncHandler(async (req, res) => {
 const getUserOrders = asyncHandler(async (req, res) => {
   try {
     const { _id } = req.user;
-    const userOrders = await EcomOrder.find({ customer: _id });
+    // const userOrders = await EcomOrder.find({ customer: _id });
+    const userOrders = await EcomOrder.find({ customer: _id })
+      .populate("items.productId")
+      .populate("address");
     if (!userOrders) {
       throw new ApiError(404, "No orders found");
     }
