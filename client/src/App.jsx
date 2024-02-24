@@ -22,6 +22,7 @@ import ShipingPolicy from "./pages/ShipingPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import SingleProduct from "./pages/SingleProduct";
 import { PrivateRoutes } from "./routing/PrivateRoutes";
+import { OpenRoutes } from "./routing/OpenRoutes";
 
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 function App() {
@@ -65,8 +66,22 @@ function App() {
                 </PrivateRoutes>
               }
             />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
+            <Route
+              path="login"
+              element={
+                <OpenRoutes>
+                  <Login />
+                </OpenRoutes>
+              }
+            />
+            <Route
+              path="signup"
+              element={
+                <OpenRoutes>
+                  <SignUp />
+                </OpenRoutes>
+              }
+            />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="reset-password" element={<ResetPassword />} />
             {/* Policies  */}
