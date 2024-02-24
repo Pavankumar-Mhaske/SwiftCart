@@ -24,6 +24,7 @@ import SingleProduct from "./pages/SingleProduct";
 import { PrivateRoutes } from "./routing/PrivateRoutes";
 import { OpenRoutes } from "./routing/OpenRoutes";
 import Orders from "./pages/Orders";
+import Profile from "./pages/Profile";
 
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 function App() {
@@ -37,6 +38,7 @@ function App() {
             {/* Whatever we pass inside this Router it will be available in the Layout component as a prop called children that is Outlet */}
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
+            <Route path="profile" element={<Profile />} />
             <Route path="contact" element={<Contact />} />
             <Route path="store" element={<OurStore />} />
             <Route path="product/:id" element={<SingleProduct />} />
