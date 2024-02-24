@@ -1,7 +1,17 @@
 import React from "react";
 
 const CustomInput = (props) => {
-  const { type, label, i_id, i_class, name, value, onChange, onBlur } = props;
+  const {
+    type,
+    label,
+    i_id,
+    i_class,
+    name,
+    value,
+    onChange,
+    onBlur,
+    disabled,
+  } = props;
   return (
     <div className="form-group mt-1">
       <input
@@ -13,6 +23,7 @@ const CustomInput = (props) => {
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        disabled={disabled}
       />
     </div>
   );
