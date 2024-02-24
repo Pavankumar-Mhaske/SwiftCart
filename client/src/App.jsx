@@ -48,9 +48,23 @@ function App() {
                 </PrivateRoutes>
               }
             />
-            <Route path="checkouts" element={<Checkout />} />
+            <Route
+              path="checkouts"
+              element={
+                <PrivateRoutes>
+                  <Checkout />
+                </PrivateRoutes>
+              }
+            />
             <Route path="compare-product" element={<CompareProduct />} />
-            <Route path="wishlist" element={<Wishlist />} />
+            <Route
+              path="wishlist"
+              element={
+                <PrivateRoutes>
+                  <Wishlist />
+                </PrivateRoutes>
+              }
+            />
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
