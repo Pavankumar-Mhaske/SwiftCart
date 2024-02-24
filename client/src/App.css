@@ -142,6 +142,11 @@ a {
   background-color: transparent;
   color: var(--color-febd69) !important;
 }
+
+.invert-white {
+  @apply invert brightness-0 transition;
+  cursor: pointer;
+}
 /* Header Part End Here */
 
 /* Footer Part  */
