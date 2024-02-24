@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Container from "../components/Container";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { updateUserProfile } from "../features/user/userSlice";
 
 let schema = yup.object().shape({
   firstname: yup.string().required("First Name is required"),
@@ -23,9 +24,21 @@ let schema = yup.object().shape({
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.auth);
-  const { user } = userState;
-  console.log("user in Profile is 🍔🍔 : ", user);
+  const userState = useSelector((state) => state.user);
+  const { user, updatedUser, isSuccess, isError } = userState;
+  console.log("user in Profile is  : ", user);
+  console.log("updatedUser in Profile is 🍔🍔 : ", updatedUser);
+
+  useEffect(() => {
+    if (isSuccess && updatedUser && Object.keys(updatedUser).length > 0) {
+      alert("User Profile Updated Successfully!");
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      console.log("updatedUser in login auth is : ", updatedUser);
+      // showToastSuccess("User Profile Updated Successfully!");
+    } else if (isError) {
+      alert("Something went wrong");
+    }
+  }, [updatedUser]);
 
   const initialValues = {
     firstname: user?.firstname || "",
@@ -40,6 +53,12 @@ const Profile = () => {
     validationSchema: schema,
     onSubmit: async (values) => {
       console.log("values in Profile is 🍔🍔 : ", values);
+
+      const message =
+        "Please review your information before submitting:\n \n" +
+        JSON.stringify(values, null, 2);
+      alert(message);
+      dispatch(updateUserProfile(values));
     },
   });
 
