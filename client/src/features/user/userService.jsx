@@ -50,6 +50,15 @@ const getUserOrders = async () => {
   return response.data;
 };
 
+// update user profile
+// firstname, lastname, email, mobile, password
+const updateUserProfile = async (userData) => {
+  const url = `${base_url}users/update-user/`;
+  const response = await axios.patch(url, userData, config);
+  console.log("Response in userService is : ", response);
+  return response.data;
+};
+
 const UserService = {
   getUserWishList,
   getUserCart,
@@ -57,6 +66,7 @@ const UserService = {
   removeItemFromCart,
   createAddress,
   getUserOrders,
+  updateUserProfile,
 };
 
 export default UserService; // export the service
