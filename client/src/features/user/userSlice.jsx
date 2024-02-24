@@ -68,8 +68,8 @@ export const createAddress = createAsyncThunk(
   }
 );
 
-const getUserFromLocalStorage = localStorage.getItem("accessToken")
-  ? JSON.parse(localStorage.getItem("accessToken"))
+const getUserFromLocalStorage = localStorage.getItem("user")
+  ? JSON.parse(localStorage.getItem("user"))
   : null;
 
 export const resetState = createAction("reset_all");
