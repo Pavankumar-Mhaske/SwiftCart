@@ -5,6 +5,7 @@ import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { UserRolesEnum } from "../../constants.js";
 import { sendEmail, forgotPasswordMailgenContent } from "../../utils/mail.js";
+import { EcomOrder } from "../../models/ecommerce/order.models.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -554,6 +555,34 @@ const getUserCart = asyncHandler(async (req, res) => {
   }
 });
 
+// get user orders
+const getUserOrders = asyncHandler(async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const userOrders = await EcomOrder.find({ customer: _id });
+    if (!userOrders) {
+      throw new ApiError(404, "No orders found");
+    }
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          { orders: userOrders },
+          "User orders fetched Successfully!"
+        )
+      );
+  } catch (error) {
+    console.log("Error in get user orders controller");
+    console.log("ERROR: ", error);
+    res.status(500).json({
+      success: false,
+      message: `Internal Server Error-${error}`,
+      error: error,
+    });
+  }
+});
+
 export {
   registerUser,
   loginUser,
@@ -569,4 +598,5 @@ export {
   getUserWishlist,
   getUserAddress,
   getUserCart,
+  getUserOrders,
 };
