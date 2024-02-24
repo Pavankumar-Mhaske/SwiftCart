@@ -68,6 +68,20 @@ export const createAddress = createAsyncThunk(
   }
 );
 
+// get user orders
+export const getUserOrders = createAsyncThunk(
+  "users/get-orders",
+  async (thunkAPI) => {
+    try {
+      console.log("thunkAPI in userSlice is : ", thunkAPI);
+      const response = await UserService.getUserOrders();
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const getUserFromLocalStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
@@ -79,6 +93,7 @@ const initialState = {
   cart: {},
   userCart: {},
   addresses: [],
+  orders: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -185,6 +200,25 @@ export const userSlice = createSlice({
         );
       })
       .addCase(createAddress.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload.message;
+      })
+      .addCase(getUserOrders.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserOrders.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.orders = action.payload.data.orders;
+        console.log(
+          "action.payload in userSlice is 🥔🥔 : ",
+          action.payload.data.orders
+        );
+      })
+      .addCase(getUserOrders.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
