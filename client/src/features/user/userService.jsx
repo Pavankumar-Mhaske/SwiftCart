@@ -42,12 +42,21 @@ const createAddress = async (addressData) => {
   return response.data;
 };
 
+// get user orders
+const getUserOrders = async () => {
+  const url = `${base_url}users/user-orders/`;
+  const response = await axios.get(url, config);
+  console.log("Response in userService is : ", response);
+  return response.data;
+};
+
 const UserService = {
   getUserWishList,
   getUserCart,
   addItemOrUpdateItemQuantity,
   removeItemFromCart,
   createAddress,
+  getUserOrders,
 };
 
 export default UserService; // export the service
