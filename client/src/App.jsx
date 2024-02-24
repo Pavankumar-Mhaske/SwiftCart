@@ -23,6 +23,7 @@ import TermsAndConditions from "./pages/TermsAndConditions";
 import SingleProduct from "./pages/SingleProduct";
 import { PrivateRoutes } from "./routing/PrivateRoutes";
 import { OpenRoutes } from "./routing/OpenRoutes";
+import Orders from "./pages/Orders";
 
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 function App() {
@@ -46,6 +47,14 @@ function App() {
               element={
                 <PrivateRoutes>
                   <Cart />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="orders"
+              element={
+                <PrivateRoutes>
+                  <Orders />
                 </PrivateRoutes>
               }
             />
