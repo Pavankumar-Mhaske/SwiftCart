@@ -17,6 +17,7 @@
   --color-777777: #777777;
   --color-1c1c1b: #1c1c1b;
   --color-f2f2f2: #f2f2f2;
+  --color-1900f6: #00f600;
 }
 
 body {
@@ -100,8 +101,14 @@ a {
 }
 
 .header-upper .header-upper-links img {
-  width: 35px;
-  height: 35px;
+  width: 31px;
+  height: 31px;
+}
+
+.header-upper .header-upper-links p .user-details {
+  color: var(--color-1900f6);
+  letter-spacing: 0.3;
+  text-transform: capitalize;
 }
 
 /* here a refers to the Link, NavLinks, etc */
@@ -1168,7 +1175,6 @@ footer .input-group-text {
 .cart-col-4 {
   width: 15%;
 }
-
 
 .delete-img {
   cursor: pointer;
