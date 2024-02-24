@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Container from "../components/Container";
@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from "../features/user/userSlice";
 import CustomInput from "../components/CustomInput";
-
+import { FaRegEdit } from "react-icons/fa";
 let schema = yup.object().shape({
   firstname: yup.string().required("First Name is required"),
   lastname: yup.string().required("Last Name is required"),
@@ -25,6 +25,7 @@ let schema = yup.object().shape({
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const [edit, setedit] = useState(true);
   const userState = useSelector((state) => state.user);
   const { user, updatedUser, isSuccess, isError } = userState;
   console.log("user in Profile is  : ", user);
@@ -35,6 +36,7 @@ const Profile = () => {
       alert("User Profile Updated Successfully!");
       localStorage.setItem("user", JSON.stringify(updatedUser));
       console.log("updatedUser in login auth is : ", updatedUser);
+      setedit(true);
       // showToastSuccess("User Profile Updated Successfully!");
     } else if (isError) {
       alert("Something went wrong");
@@ -70,16 +72,29 @@ const Profile = () => {
 
       <Container class1="login-wrapper home-wrapper-2 py-5">
         <div className="row">
-          <div className="col-12">
+          <div className="col-6">
             <div className="d-flex justify-content-between align-items-center">
-              <h3>Update Profile</h3>
+              <h3 className="my-3">Update Profile</h3>
+              {/* <FaRegEdit onClick={() => setedit(false)} /> */}
+              <img
+                src="/assets/icons/edit.svg"
+                alt="edit"
+                width={36}
+                height={36}
+                className="invert-white"
+                onClick={() => setedit(false)}
+              />
             </div>
           </div>
 
           <div className="col-12">
             <div className="auth-card">
               {/* 📜📜📜 Title 📜📜📜 */}
-              <h3 className="title text-center mb-3">Update Profile</h3>
+              <h3 className="title text-center mb-3">
+                {edit === false
+                  ? "Update Profile"
+                  : user?.firstname + "'s Profile"}
+              </h3>
               {/* 📜📜📜 Form 📜📜📜 */}
               <form
                 action=""
@@ -97,6 +112,7 @@ const Profile = () => {
                     value={formik.values.firstname}
                     onChange={formik.handleChange("firstname")}
                     onBlur={formik.handleBlur("firstname")}
+                    disabled={edit}
                   />
                   <div className="error">
                     {formik.touched.firstname && formik.errors.firstname ? (
@@ -115,6 +131,7 @@ const Profile = () => {
                     value={formik.values.lastname}
                     onChange={formik.handleChange("lastname")}
                     onBlur={formik.handleBlur("lastname")}
+                    disabled={edit}
                   />
                   <div className="error">
                     {formik.touched.lastname && formik.errors.lastname ? (
@@ -134,6 +151,7 @@ const Profile = () => {
                     value={formik.values.email}
                     onChange={formik.handleChange("email")}
                     onBlur={formik.handleBlur("email")}
+                    disabled={edit}
                   />
 
                   <div className="error">
@@ -156,6 +174,7 @@ const Profile = () => {
                     value={formik.values.mobile}
                     onChange={formik.handleChange("mobile")}
                     onBlur={formik.handleBlur("mobile")}
+                    disabled={edit}
                   />
                   <div className="error">
                     {formik.touched.mobile && formik.errors.mobile ? (
@@ -174,6 +193,7 @@ const Profile = () => {
                     value={formik.values.password}
                     onChange={formik.handleChange("password")}
                     onBlur={formik.handleBlur("password")}
+                    disabled={edit}
                   />
                   <div className="error">
                     {formik.touched.password && formik.errors.password ? (
@@ -183,9 +203,11 @@ const Profile = () => {
                 </div>
 
                 {/* Save button */}
-                <button type="submit" className="btn btn-primary">
-                  Save
-                </button>
+                {edit === false && (
+                  <button type="submit" className="btn btn-primary">
+                    Save
+                  </button>
+                )}
               </form>
             </div>
           </div>
