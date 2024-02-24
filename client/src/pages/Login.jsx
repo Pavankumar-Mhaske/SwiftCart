@@ -35,9 +35,10 @@ const Login = () => {
   console.log(" 📧 user in Login is : ", user);
 
   useEffect(() => {
-    console.log("inside of the useEffect for success or error message 💥💥");
+    // console.log("inside of the useEffect for success or error message 💥💥");
     if (isSuccess && user && Object.keys(user).length > 0) {
       showToastSuccess("User Loged In Successfully!", loadingLoginToastId);
+      navigate("/");
     } else if (isError) {
       showToastError("Something went wrong");
     }

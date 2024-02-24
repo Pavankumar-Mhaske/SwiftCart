@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
 import * as yup from "yup";
@@ -28,6 +28,7 @@ let schema = yup.object().shape({
 
 const SignUp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loadingRegisterToastId, setLoadingRegisterToastId] = useState(null);
 
   const newAuth = useSelector((state) => state.auth);
@@ -35,9 +36,10 @@ const SignUp = () => {
   console.log(" 📧 user in SignUp : ", user);
 
   useEffect(() => {
-    console.log("inside of the useEffect for success or error message 💥💥");
+    // console.log("inside of the useEffect for success or error message 💥💥");
     if (isSuccess && user && Object.keys(user).length > 0) {
       showToastSuccess("User Registered Successfully!", loadingRegisterToastId);
+      navigate("/");
     } else if (isError) {
       showToastError("Something went wrong");
     }
