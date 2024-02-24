@@ -46,6 +46,7 @@ router.route("/").get((req, res) => {
 
 router.route("/register").post(userRegisterValidator(), validate, registerUser);
 router.route("/login").post(userLoginValidator(), validate, loginUser);
+router.route("/update-user").patch(verifyJWT, updateAUser);
 router.route("/admin-login").post(validate, loginAdmin);
 router.route("/all-users").get(verifyJWT, getAllUsers);
 router.route("/wishlist").get(verifyJWT, getUserWishlist);
@@ -114,8 +115,7 @@ router
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
     deleteAUser
-  )
-  .patch(mongoIdPathVariableValidator("userId"), verifyJWT, updateAUser);
+  );
 
 router
   .route("/block-unblock/:userId")
