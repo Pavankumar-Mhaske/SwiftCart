@@ -9,62 +9,31 @@
 // });
 
 {
-    "_id": "659d4f1dd51b0938945ec111",
-    "avatar": {
-        "url": "https://via.placeholder.com/200x200.png",
-        "localPath": "",
-        "_id": "659d4f1dd51b0938945ec110"
-    },
-    "firstname": "pavan",
-    "lastname": "mhaske",
-    "email": "mhaskepavankumar@gmail.com",
-    "role": "USER",
-    "loginType": "EMAIL_PASSWORD",
-    "mobile": "1111111111",
-    "isBlocked": false,
-    "cart": "659d4f1ed51b0938945ec117",
-    "wishlist": [
-        "659f9f29d14c2e31ef3057e1",
-        "659e8853f54f8670d5aa6819",
-        "659e884df54f8670d5aa680f",
-        "65b3bb577580337d2fd7de0e"
+    "_id": "65d8ef6c93796f26a55c882f",
+    "orderPrice": 2222,
+    "discountedOrderPrice": 2222,
+    "coupon": null,
+    "customer": "659d4f1dd51b0938945ec111",
+    "items": [
+        {
+            "productId": "65b3bb577580337d2fd7de0e",
+            "quantity": 1,
+            "_id": "65d8d74adab24643438b117d"
+        }
     ],
-    "isEmailVerified": false,
-    "isVerified": false,
-    "createdAt": "2024-01-09T13:50:21.548Z",
-    "updatedAt": "2024-02-24T09:12:27.380Z",
-    "__v": 62,
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTlkNGYxZGQ1MWIwOTM4OTQ1ZWMxMTEiLCJlbWFpbCI6Im1oYXNrZXBhdmFua3VtYXJAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MDg3NjU5NDcsImV4cCI6MTcwODg1MjM0N30.HIjJwkvR2AbvOi-PTP4e_QglkFxhbNUyx07HCGg0iZE",
-    "address": [
-        "65d8e01355e70f9cc96d3f7b",
-        "65d8e39edaf6887d33661f18",
-        "65d8e3addaf6887d33661f1f",
-        "65d8ec6e93796f26a55c8685",
-        "65d8ece093796f26a55c8728",
-        "65d8edfc93796f26a55c8779",
-        "65d8ef0493796f26a55c881c",
-        "65d8ef9d93796f26a55c8865",
-        "65d8f01d93796f26a55c88a1",
-        "65d8f0ab93796f26a55c88d4",
-        "65d8f17c93796f26a55c8923",
-        "65d8f1f193796f26a55c89a3",
-        "65d8f22d93796f26a55c89d6",
-        "65d8f34b5c4096b2520b8474",
-        "65d8f47d5c4096b2520b84c3",
-        "65d8f62c5c4096b2520b84f6",
-        "65d8f700eaa2fb964a2a9132",
-        "65d8f74beaa2fb964a2a913b",
-        "65d8f75beaa2fb964a2a9175",
-        "65d8f762eaa2fb964a2a917e",
-        "65d8f7bdeaa2fb964a2a91b8",
-        "65d8fa5eeaa2fb964a2a91eb",
-        "65d8faa5eaa2fb964a2a9217",
-        "65d8fb01eaa2fb964a2a9251",
-        "65d8fbc3eaa2fb964a2a92dc",
-        "65d8fce4eaa2fb964a2a938e",
-        "65d8fdd2eaa2fb964a2a942f",
-        "65d8ffa2eaa2fb964a2a9552",
-        "65d901b5eaa2fb964a2a9666",
-        "65d901e9eaa2fb964a2a96f9"
-    ]
-}
+    "address": "65d8ef0493796f26a55c881c",
+    "status": "PENDING",
+    "paymentProvider": "RAZORPAY",
+    "paymentId": "order_NeQwbLK7ixdrXx",
+    "isPaymentDone": false,
+    "createdAt": "2024-02-23T19:18:04.044Z",
+    "updatedAt": "2024-02-23T19:18:04.044Z",
+    "__v": 0
+},
+
+this is what i get when i try to get the order details
+by command :    const userOrders = await EcomOrder.find({ customer: _id });
+"but i want to populate the product insite the items array which has id as 
+productId and the address insite the address field which has id as address"
+
+
