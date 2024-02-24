@@ -110,12 +110,12 @@ const Header = () => {
                 {/*🕗🕗🕜🕜  Login My Account 🕗🕗🕜🕜 */}
                 <div>
                   <Link
-                    to="/login"
+                    to={user === null ? "/login" : ""}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="/images/user.svg" alt="user" />
 
-                    {user === "" ? (
+                    {user === null ? (
                       <p className="mb-0">
                         Login <br /> My Account
                       </p>
