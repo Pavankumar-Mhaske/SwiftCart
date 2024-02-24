@@ -82,6 +82,21 @@ export const getUserOrders = createAsyncThunk(
   }
 );
 
+// update user profile
+// firstname, lastname, email, mobile, password
+export const updateUserProfile = createAsyncThunk(
+  "users/update-user-profile",
+  async (userData, thunkAPI) => {
+    try {
+      console.log("thunkAPI in userSlice is : ", thunkAPI);
+      const response = await UserService.updateUserProfile(userData);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const getUserFromLocalStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
@@ -94,6 +109,7 @@ const initialState = {
   userCart: {},
   addresses: [],
   orders: [],
+  updatedUser: {},
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -219,6 +235,26 @@ export const userSlice = createSlice({
         );
       })
       .addCase(getUserOrders.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload.message;
+      })
+      .addCase(updateUserProfile.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.message = action.payload.message;
+        state.updatedUser = action.payload.data.user;
+        console.log(
+          "action.payload in userSlice is 🍔🍔 : ",
+          action.payload.data.user
+        );
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
