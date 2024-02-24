@@ -12,6 +12,9 @@ const Header = () => {
   const userCartState = useSelector((state) => state.user);
   const { isSuccess, isLoading, isError, userCart, cart } = userCartState;
   const { items } = userCart;
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
+  console.log("user in Header is 🛒 🎧🤕🤕 : ", user);
 
   const subTotal = userCart?.discountedCartPrice
     ? userCart?.discountedCartPrice
@@ -27,9 +30,9 @@ const Header = () => {
     dispatch(getUserCart());
   }, [userCart?.discountedCartPrice, cart]);
 
-  console.log("totalItemsInCart in Header is 🛒 🎧🤕🤕 : ", totalItemsInCart);
-  console.log("userCart in Header is 🛒 🎧🤕🤕 : ", userCart);
-  console.log("cart in Header is 🛒 🎧🤕🤕 : ", cart);
+  // console.log("totalItemsInCart in Header is 🛒 🎧🤕🤕 : ", totalItemsInCart);
+  // console.log("userCart in Header is 🛒 🎧🤕🤕 : ", userCart);
+  // console.log("cart in Header is 🛒 🎧🤕🤕 : ", cart);
   return (
     <>
       {/* 1️⃣1️⃣1️⃣ Header - 1 1️⃣1️⃣1️⃣ */}
@@ -79,7 +82,7 @@ const Header = () => {
             <div className="col-5">
               <div className="header-upper-links d-flex align-items-center justify-content-between">
                 {/*🕗🕗🕜🕜  Compare Product 🕗🕗🕜🕜 */}
-                <div>
+                <div >
                   <Link
                     to="/compare-product"
                     className="d-flex align-items-center gap-10 text-white"
@@ -111,9 +114,21 @@ const Header = () => {
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="/images/user.svg" alt="user" />
-                    <p className="mb-0">
-                      Login <br /> My Account
-                    </p>
+
+                    {user === "" ? (
+                      <p className="mb-0">
+                        Login <br /> My Account
+                      </p>
+                    ) : (
+                      <p className="mb-0 ">
+                        Welcome{" "}
+                        <span className="user-details">
+                          {" "}
+                          &#x1F496;
+                          {user?.firstname + " " + user?.lastname}
+                        </span>
+                      </p>
+                    )}
                   </Link>
                 </div>
                 {/*🕗🕗🕜🕜  Cart 🕗🕗🕜🕜 */}
