@@ -21,7 +21,9 @@ let schema = yup.object().shape({
   email: yup
     .string()
     .email("Invalid email address")
-    .required("Email is required"),
+    .required("Email is required")
+    .min(10, "Mobile number must be of 10 digits")
+    .max(10, "Mobile number must be of 10 digits"),
   mobile: yup.string().required("Mobile Number is required"),
   password: yup.string().required("Password is required"),
 });
