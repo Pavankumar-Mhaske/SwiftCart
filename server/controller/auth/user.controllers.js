@@ -310,7 +310,7 @@ const updateAUser = asyncHandler(async (req, res, next) => {
     throw new ApiError(404, "No user found");
   }
 
-  const { firstname, lastname, email, password, mobile, cart } = req.body;
+  const { firstname, lastname, email, mobile, password } = req.body;
 
   // const updatedUser = await User.findByIdAndUpdate(
   //   userId.trim(),
@@ -329,7 +329,7 @@ const updateAUser = asyncHandler(async (req, res, next) => {
   if (email) user.email = email;
   if (password) user.password = password;
   if (mobile) user.mobile = mobile;
-  if (cart) user.cart = cart;
+  // if (cart) user.cart = cart;
 
   await user.save();
 
