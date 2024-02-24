@@ -561,6 +561,8 @@ const getUserOrders = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     // const userOrders = await EcomOrder.find({ customer: _id });
     const userOrders = await EcomOrder.find({ customer: _id })
+      .populate("coupon")
+      .populate("customer")
       .populate("items.productId")
       .populate("address");
     if (!userOrders) {
