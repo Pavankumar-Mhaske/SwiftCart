@@ -10,7 +10,8 @@ export const PrivateRoutes = ({ children }) => {
     getUserFromLocalStorage
   );
 
-  return getUserFromLocalStorage && getUserFromLocalStorage?.accessToken !== null ? (
+  return getUserFromLocalStorage &&
+    getUserFromLocalStorage?.accessToken !== undefined ? (
     children
   ) : (
     <Navigate to="/login" replace={true} />
