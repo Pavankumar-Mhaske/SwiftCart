@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from "../features/user/userSlice";
+import CustomInput from "../components/CustomInput";
 
 let schema = yup.object().shape({
   firstname: yup.string().required("First Name is required"),
@@ -66,120 +67,128 @@ const Profile = () => {
     <>
       <Meta title={"Profile"} />
       <BreadCrumb title="Profile" />
-      <Container class1="cart-wrapper home-wrapper-2 py-5">
-        <div className="col-12">
-          <form onSubmit={formik.handleSubmit}>
-            {/* Firstname */}
-            <div className="mb-3">
-              <label htmlFor="firstname" className="form-label">
-                Firstname
-              </label>
-              <input
-                className="form-control"
-                id="firstname"
-                type="text"
-                name="firstname"
-                value={formik.values.firstname}
-                onChange={formik.handleChange("firstname")}
-                onBlur={formik.handleBlur("firstname")}
-              />
-              <div className="error">
-                {formik.touched.firstname && formik.errors.firstname ? (
-                  <div className="error">{formik.errors.firstname}</div>
-                ) : null}
-              </div>
-            </div>
-            {/* Lastname */}
-            <div className="mb-3">
-              <label htmlFor="lastname" className="form-label">
-                Lastname
-              </label>
-              <input
-                className="form-control"
-                id="lastname"
-                type="text"
-                name="lastname"
-                value={formik.values.lastname}
-                onChange={formik.handleChange("lastname")}
-                onBlur={formik.handleBlur("lastname")}
-              />
-              <div className="error">
-                {formik.touched.lastname && formik.errors.lastname ? (
-                  <div className="error">{formik.errors.lastname}</div>
-                ) : null}
-              </div>
-            </div>
-            {/* Email */}
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email address
-              </label>
-              <input
-                className="form-control"
-                id="email"
-                aria-describedby="emailHelp"
-                type="email"
-                name="email"
-                value={formik.values.email}
-                onChange={formik.handleChange("email")}
-                onBlur={formik.handleBlur("email")}
-              />
 
-              <div id="emailHelp" className="form-text">
-                We'll never share your email with anyone else.
-              </div>
-              <div className="error">
-                {formik.touched.email && formik.errors.email ? (
-                  <div className="error">{formik.errors.email}</div>
-                ) : null}
-              </div>
+      <Container class1="login-wrapper home-wrapper-2 py-5">
+        <div className="row">
+          <div className="col-12">
+            <div className="d-flex justify-content-between align-items-center">
+              <h3>Update Profile</h3>
             </div>
-            {/* Mobile */}
-            <div className="mb-3">
-              <label htmlFor="mobile" className="form-label">
-                Mobile
-              </label>
-              <input
-                className="form-control"
-                id="mobile"
-                type="tel"
-                name="mobile"
-                value={formik.values.mobile}
-                onChange={formik.handleChange("mobile")}
-                onBlur={formik.handleBlur("mobile")}
-              />
-              <div className="error">
-                {formik.touched.mobile && formik.errors.mobile ? (
-                  <div className="error">{formik.errors.mobile}</div>
-                ) : null}
-              </div>
-            </div>
-            {/* Password */}
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                className="form-control"
-                id="password"
-                type="password"
-                name="password"
-                value={formik.values.password}
-                onChange={formik.handleChange("password")}
-                onBlur={formik.handleBlur("password")}
-              />
-              <div className="error">
-                {formik.touched.password && formik.errors.password ? (
-                  <div className="error">{formik.errors.password}</div>
-                ) : null}
-              </div>
-            </div>
+          </div>
 
-            {/* Save button */}
-            <button type="submit" className="btn btn-primary">
-              Save
-            </button>
-          </form>
+          <div className="col-12">
+            <div className="auth-card">
+              {/* 📜📜📜 Title 📜📜📜 */}
+              <h3 className="title text-center mb-3">Update Profile</h3>
+              {/* 📜📜📜 Form 📜📜📜 */}
+              <form
+                action=""
+                onSubmit={formik.handleSubmit}
+                className="d-flex flex-column gap-15"
+              >
+                {/* Firstname */}
+                <div className="">
+                  <CustomInput
+                    className="form-control"
+                    id="firstname"
+                    type="text"
+                    name="firstname"
+                    label="First Name"
+                    value={formik.values.firstname}
+                    onChange={formik.handleChange("firstname")}
+                    onBlur={formik.handleBlur("firstname")}
+                  />
+                  <div className="error">
+                    {formik.touched.firstname && formik.errors.firstname ? (
+                      <div className="error">{formik.errors.firstname}</div>
+                    ) : null}
+                  </div>
+                </div>
+                {/* Lastname */}
+                <div className="">
+                  <CustomInput
+                    className="form-control"
+                    id="lastname"
+                    type="text"
+                    name="lastname"
+                    label="Last Name"
+                    value={formik.values.lastname}
+                    onChange={formik.handleChange("lastname")}
+                    onBlur={formik.handleBlur("lastname")}
+                  />
+                  <div className="error">
+                    {formik.touched.lastname && formik.errors.lastname ? (
+                      <div className="error">{formik.errors.lastname}</div>
+                    ) : null}
+                  </div>
+                </div>
+                {/* Email */}
+                <div className="">
+                  <CustomInput
+                    className="form-control"
+                    id="email"
+                    aria-describedby="emailHelp"
+                    type="email"
+                    name="email"
+                    label="Email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange("email")}
+                    onBlur={formik.handleBlur("email")}
+                  />
+
+                  <div className="error">
+                    {formik.touched.email && formik.errors.email ? (
+                      <div className="error">{formik.errors.email}</div>
+                    ) : null}
+                  </div>
+                  <div id="emailHelp" className="form-text mt-2">
+                    We'll never share your email with anyone else.
+                  </div>
+                </div>
+                {/* Mobile */}
+                <div className="">
+                  <CustomInput
+                    className="form-control"
+                    id="mobile"
+                    type="tel"
+                    name="mobile"
+                    label="Mobile"
+                    value={formik.values.mobile}
+                    onChange={formik.handleChange("mobile")}
+                    onBlur={formik.handleBlur("mobile")}
+                  />
+                  <div className="error">
+                    {formik.touched.mobile && formik.errors.mobile ? (
+                      <div className="error">{formik.errors.mobile}</div>
+                    ) : null}
+                  </div>
+                </div>
+                {/* Password */}
+                <div className="">
+                  <CustomInput
+                    className="form-control"
+                    id="password"
+                    type="password"
+                    name="password"
+                    label="Password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange("password")}
+                    onBlur={formik.handleBlur("password")}
+                  />
+                  <div className="error">
+                    {formik.touched.password && formik.errors.password ? (
+                      <div className="error">{formik.errors.password}</div>
+                    ) : null}
+                  </div>
+                </div>
+
+                {/* Save button */}
+                <button type="submit" className="btn btn-primary">
+                  Save
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </Container>
     </>
