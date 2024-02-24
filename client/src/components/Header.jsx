@@ -111,7 +111,7 @@ const Header = () => {
                 {/*🕗🕗🕜🕜  Login My Account 🕗🕗🕜🕜 */}
                 <div>
                   <Link
-                    to={user === null ? "/login" : ""}
+                    to={user === null ? "/login" : "/profile"}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="/images/user.svg" alt="user" />
