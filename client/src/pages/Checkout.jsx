@@ -290,7 +290,7 @@ const Checkout = () => {
                 <div className="w-100">
                   <input
                     type="text"
-                    placeholder="Address line 1"
+                    placeholder="123 Main Street, Redwood"
                     className="form-control"
                     name="addressLine1"
                     value={formik.values.addressLine1}
@@ -305,7 +305,7 @@ const Checkout = () => {
                 <div className="w-100">
                   <input
                     type="text"
-                    placeholder="Address line 2"
+                    placeholder="San Francisco Bay Area"
                     className="form-control"
                     name="addressLine2"
                     value={formik.values.addressLine2}
@@ -320,7 +320,7 @@ const Checkout = () => {
                 <div className="w-100">
                   <input
                     type="text"
-                    placeholder="Apartment, Suite, etc, (optional)"
+                    placeholder="Near the Springfield Mall, etc, (optional)"
                     className="form-control"
                     name="addressLine3"
                     value={formik.values.addressLine3}
@@ -388,7 +388,7 @@ const Checkout = () => {
                     cols="30"
                     rows="4"
                     name="deliveryinfo"
-                    placeholder="Floor, door lock code, etc (optional)"
+                    placeholder="Special Delivery Instructions (optional)"
                     value={formik.values.deliveryinfo}
                     onChange={formik.handleChange("deliveryinfo")}
                     onBlur={formik.handleBlur("deliveryinfo")}
