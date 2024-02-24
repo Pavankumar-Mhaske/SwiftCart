@@ -38,7 +38,14 @@ function App() {
             {/* Whatever we pass inside this Router it will be available in the Layout component as a prop called children that is Outlet */}
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
-            <Route path="profile" element={<Profile />} />
+            <Route
+              path="profile"
+              element={
+                <PrivateRoutes>
+                  <Profile />
+                </PrivateRoutes>
+              }
+            />
             <Route path="contact" element={<Contact />} />
             <Route path="store" element={<OurStore />} />
             <Route path="product/:id" element={<SingleProduct />} />
