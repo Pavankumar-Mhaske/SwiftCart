@@ -21,6 +21,7 @@ import RefundPolicy from "./pages/RefundPolicy";
 import ShipingPolicy from "./pages/ShipingPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import SingleProduct from "./pages/SingleProduct";
+import { PrivateRoutes } from "./routing/PrivateRoutes";
 
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 function App() {
@@ -39,7 +40,14 @@ function App() {
             <Route path="product/:id" element={<SingleProduct />} />
             <Route path="blogs" element={<Blog />} />
             <Route path="blog/:id" element={<SingleBlog />} />
-            <Route path="cart" element={<Cart />} />
+            <Route
+              path="cart"
+              element={
+                <PrivateRoutes>
+                  <Cart />
+                </PrivateRoutes>
+              }
+            />
             <Route path="checkouts" element={<Checkout />} />
             <Route path="compare-product" element={<CompareProduct />} />
             <Route path="wishlist" element={<Wishlist />} />
