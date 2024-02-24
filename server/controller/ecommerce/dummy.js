@@ -32,9 +32,9 @@
     "isEmailVerified": false,
     "isVerified": false,
     "createdAt": "2024-01-09T13:50:21.548Z",
-    "updatedAt": "2024-02-24T08:04:56.081Z",
+    "updatedAt": "2024-02-24T09:12:27.380Z",
     "__v": 62,
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTlkNGYxZGQ1MWIwOTM4OTQ1ZWMxMTEiLCJlbWFpbCI6Im1oYXNrZXBhdmFua3VtYXJAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MDg3NjE4OTYsImV4cCI6MTcwODg0ODI5Nn0.Ef-CMRPOWroMGL6GAErQW2lHknmAyzoOajps4p7b7mo",
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTlkNGYxZGQ1MWIwOTM4OTQ1ZWMxMTEiLCJlbWFpbCI6Im1oYXNrZXBhdmFua3VtYXJAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MDg3NjU5NDcsImV4cCI6MTcwODg1MjM0N30.HIjJwkvR2AbvOi-PTP4e_QglkFxhbNUyx07HCGg0iZE",
     "address": [
         "65d8e01355e70f9cc96d3f7b",
         "65d8e39edaf6887d33661f18",
