@@ -14,7 +14,8 @@ const Header = () => {
   const { items } = userCart;
   const authState = useSelector((state) => state.auth);
   const { user } = authState;
-  console.log("user in Header is 🛒 🎧🤕🤕 : ", user);
+  // console.log("user in Header is 🛒 🎧🤕🤕 : ", user);
+  // console.log("userCart in Header is 🛒 🎧🤕🤕 : ", userCart);
 
   const subTotal = userCart?.discountedCartPrice
     ? userCart?.discountedCartPrice
