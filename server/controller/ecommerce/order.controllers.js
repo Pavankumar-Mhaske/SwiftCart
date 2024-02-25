@@ -97,15 +97,15 @@ const orderFulfillmentHelper = async (orderPaymentId, req) => {
   });
 
   //TODO: make this after
-  // await sendEmail({
-  //   email: req.user?.email,
-  //   subject: "Order confirmed",
-  //   mailgenContent: orderConfirmationMailgenContent(
-  //     req.user?.username,
-  //     userCart.items,
-  //     order.discountedOrderPrice ?? 0 // send discounted price in the mail which is paid by the user
-  //   ),
-  // });
+  await sendEmail({
+    email: req.user?.email,
+    subject: "Order confirmed",
+    mailgenContent: orderConfirmationMailgenContent(
+      req.user?.username,
+      userCart.items,
+      order.discountedOrderPrice ?? 0 // send discounted price in the mail which is paid by the user
+    ),
+  });
 
   cart.items = []; // empty the cart
   cart.coupon = null; // remove the associated coupon
