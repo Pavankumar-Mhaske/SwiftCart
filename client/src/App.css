@@ -18,6 +18,7 @@
   --color-1c1c1b: #1c1c1b;
   --color-f2f2f2: #f2f2f2;
   --color-1900f6: #00f600;
+  --color-00ba00: #00ba00;
 }
 
 body {
@@ -77,6 +78,15 @@ a {
   border-radius: 25px;
 }
 
+.button-inActive {
+  background-color: var(--color-777777);
+  color: var(--color-ffffff);
+  font-size: 14px;
+  padding: 13px 33px;
+  border-radius: 25px;
+  cursor: not-allowed;
+}
+
 .button:hover {
   background-color: var(--color-febd69);
   color: var(--color-131921);
@@ -109,6 +119,22 @@ a {
   color: var(--color-1900f6);
   letter-spacing: 0.3;
   text-transform: capitalize;
+}
+
+/* // style={{ color: "green", fontSize: "24px" }} */
+.pawword-matched .green-text {
+  color: var(--color-00ba00);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.pawword-matched .green-text span {
+  color: var(--color-00ba00);
+  font-size: 24px;
+}
+
+.transition-effect {
+  transition: opacity 1s ease; /* Change opacity over 0.5 seconds */
 }
 
 /* here a refers to the Link, NavLinks, etc */
