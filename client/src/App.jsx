@@ -101,7 +101,7 @@ function App() {
               }
             />
             <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="reset-password/:resetToken" element={<ResetPassword />} />
             {/* Policies  */}
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="refund-policy" element={<RefundPolicy />} />
