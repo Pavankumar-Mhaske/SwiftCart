@@ -113,6 +113,7 @@ const Header = () => {
                   options={options}
                   paginate={paginate}
                   labelKey="name"
+                  minLength={2}
                   placeholder="Search for products here..."
                   onChange={(selected) => {
                     navigate(`/product/${selected[0]?.productId}`);
