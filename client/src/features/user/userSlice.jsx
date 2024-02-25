@@ -274,6 +274,25 @@ export const userSlice = createSlice({
         state.isError = true;
         state.message = action.payload.message;
       })
+      .addCase(forgotPasswordRequest.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(forgotPasswordRequest.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.message = action.payload.message;
+        console.log(
+          "action.payload in userSlice is 🍔🍔 : ",
+          action.payload.message
+        );
+      })
+      .addCase(forgotPasswordRequest.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload.message;
+      })
       .addCase(resetState, () => initialState);
   },
 });
