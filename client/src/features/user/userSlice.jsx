@@ -97,6 +97,20 @@ export const updateUserProfile = createAsyncThunk(
   }
 );
 
+// forgotPasswordRequest
+export const forgotPasswordRequest = createAsyncThunk(
+  "users/forgot-password-request",
+  async (email, thunkAPI) => {
+    try {
+      console.log("thunkAPI in userSlice is : ", thunkAPI);
+      const response = await UserService.forgotPasswordRequest(email);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const getUserFromLocalStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
