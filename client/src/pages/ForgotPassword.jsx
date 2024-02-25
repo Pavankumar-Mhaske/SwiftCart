@@ -7,6 +7,7 @@ import CustomInput from "../components/CustomInput";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { forgotPasswordRequest } from "../features/user/userSlice";
 
 let schema = yup.object().shape({
   email: yup
@@ -25,7 +26,14 @@ const ForgotPassword = () => {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
+      const message =
+        "Please review your information before submitting:\n \n" +
+        JSON.stringify(values, null, 2);
+      alert(message);
+      dispatch(forgotPasswordRequest(values));
+      alert(
+        "Password reset email has been sent to your email address. Please check your inbox."
+      );
     },
   });
 
