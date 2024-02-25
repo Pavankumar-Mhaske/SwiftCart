@@ -70,7 +70,7 @@ const Login = () => {
       console.log("values : ", values);
       console.log("form is submited 🚚🚚🚚🚚🚚🚚🚚🚚🚚🚚");
       formik.resetForm();
-      dispatch(resetState());
+      // dispatch(resetState());
       // setTimeout(() => {
       //   navigate("/admin/brand-list");
       // }, 500);
