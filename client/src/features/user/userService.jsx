@@ -60,9 +60,19 @@ const updateUserProfile = async (userData) => {
 };
 
 // forgotPasswordRequest
-const forgotPasswordRequest = async (email) => {
-  const url = `${base_url}users/forgot-password/`;
-  const response = await axios.post(url, { email: email }, config);
+const forgotPasswordRequest = async (data) => {
+  const url = `${base_url}users/forgot-password`;
+  const response = await axios.post(url, data);
+  console.log("Response in userService is : ", response);
+  return response.data;
+};
+
+// resetForgottenPassword
+const resetForgottenPassword = async (data) => {
+  console.log("data in userService is : ", data);
+  const { newPassword, resetToken } = data;
+  const url = `${base_url}users/reset-password/${resetToken}/`;
+  const response = await axios.post(url, { newPassword: newPassword }, config);
   console.log("Response in userService is : ", response);
   return response.data;
 };
@@ -76,6 +86,7 @@ const UserService = {
   getUserOrders,
   updateUserProfile,
   forgotPasswordRequest,
+  resetForgottenPassword,
 };
 
 export default UserService; // export the service
