@@ -59,6 +59,14 @@ const updateUserProfile = async (userData) => {
   return response.data;
 };
 
+// forgotPasswordRequest
+const forgotPasswordRequest = async (email) => {
+  const url = `${base_url}users/forgot-password/`;
+  const response = await axios.post(url, { email: email }, config);
+  console.log("Response in userService is : ", response);
+  return response.data;
+};
+
 const UserService = {
   getUserWishList,
   getUserCart,
@@ -67,6 +75,7 @@ const UserService = {
   createAddress,
   getUserOrders,
   updateUserProfile,
+  forgotPasswordRequest,
 };
 
 export default UserService; // export the service
