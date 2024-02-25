@@ -41,7 +41,7 @@ const Header = () => {
 
     // Uses localStorage.removeItem("user") to specifically remove the "user" key from local storage.
     localStorage.removeItem("user");
-
+    alert("You have been logged out successfully!");
     window.location.reload();
   };
 
