@@ -26,6 +26,10 @@ const Home = () => {
     dispatch(addRemoveProductInWishList(productId));
   };
 
+  // cart is not getting feteched on navigation to home page after login
+  // const authState = useSelector((state) => state.auth);
+  // const { user } = authState;
+
   const blogState = useSelector((state) => state?.blog?.blogs);
   console.log("blogState in blog is 🔥🔥 : ", blogState);
 
