@@ -19,7 +19,7 @@ import { AiOutlineLink } from "react-icons/ai";
 import CopyToClipboard from "../components/copy.jsx";
 import Container from "../components/Container.jsx";
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { getAProduct } from "../features/product/ProductSlice.jsx";
+import { getAProduct, getProducts } from "../features/product/ProductSlice.jsx";
 
 import {
   showToastLoading,
@@ -27,24 +27,27 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
-import { addItemOrUpdateItemQuantity, getUserCart } from "../features/user/UserSlice.jsx";
+import {
+  addItemOrUpdateItemQuantity,
+  getUserCart,
+} from "../features/user/UserSlice.jsx";
 
 const SingleProduct = () => {
   const location = useLocation();
   const getProductId = location.pathname.split("/")[2];
-  console.log("getProductId in SingleProduct is : ", getProductId);
+  // console.log("getProductId in SingleProduct is : ", getProductId);
 
   const navigate = useNavigate();
   const [color, setColor] = useState(null);
-  console.log("Color is : ", color);
+  // console.log("Color is : ", color);
   const [quantity, setQuantity] = useState(1);
-  console.log("Quantity is : ", quantity);
+  // console.log("Quantity is : ", quantity);
 
   const [loadingCartToastId, setLoadingCartToastId] = useState(null);
   const [loadingWishlistToastId, setLoadingWishlistToastId] = useState(null);
 
   const newCart = useSelector((state) => state.user);
-  console.log("newCart is 🛒🛒", newCart);
+  // console.log("newCart is 🛒🛒", newCart);
   const { wishlist, isSuccess, isLoading, isError, cart } = newCart;
   useEffect(() => {
     if (isSuccess && cart && Object.keys(cart).length > 0) {
@@ -58,34 +61,31 @@ const SingleProduct = () => {
     }
   }, [cart]);
 
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAProduct(getProductId));
     dispatch(getUserCart());
-
+    dispatch(getProducts());
   }, []);
 
-  const [alreadyAdded, setAlreadyAdded] = useState(false)
+  const [alreadyAdded, setAlreadyAdded] = useState(false);
   const userCartState = useSelector((state) => state.user);
   const { userCart } = userCartState;
-  console.log("userCart is here 😂🤣😂",  userCart);
+  // console.log("userCart is here 😂🤣😂",  userCart);
 
   // console.log"userCart.items[index].productId._id is  : ", userCart?.items.length);
   useEffect(() => {
-    if( userCart &&  Object.keys(userCart).length > 0){
+    if (userCart && Object.keys(userCart).length > 0) {
       // console.log("id is here 🗝️🗝️🗝️🗝️🗝️",userCart?.items[0]?.productId?._id)
 
       for (let i = 0; i < userCart?.items?.length; i++) {
-        if(getProductId === userCart?.items[i]?.productId?._id) {
+        if (getProductId === userCart?.items[i]?.productId?._id) {
           // console.log("userCart.items[index].productId._id is 🗝️🗝️🗝️🗝️🗝️: ",userCart?.items[0]?.productId?._id)
-          setAlreadyAdded(true)
+          setAlreadyAdded(true);
+        }
       }
     }
-    
-        }
-  }, [userCart])
-  
+  }, [userCart]);
 
   const uploadCart = (productId, quantity) => {
     if (color === null) {
@@ -99,13 +99,13 @@ const SingleProduct = () => {
           quantity: quantity,
         })
       );
-      navigate("/cart") ;
+      navigate("/cart");
     }
   };
 
   const productState = useSelector((state) => state?.product);
-  const { product } = productState;
-  console.log("productState in Single product is 🔥🔥 : ", product);
+  const { products, product } = productState;
+  console.log("productState in Single product is 🔥🔥 : ", productState);
 
   const grid = 2;
   const [copiedText, setCopiedText] = useState(""); // State to hold the text to be copied
@@ -131,7 +131,25 @@ const SingleProduct = () => {
   const ratings = product?.rating;
   // const ratings = useSelector((state) => state?.product.product?.rating);
 
-  console.log("ratings in SingleProduct is : 💖 ", ratings);
+  // console.log("ratings in SingleProduct is : 💖 ", ratings);
+
+  const [popularProducts, setPopularProducts] = useState([]);
+
+  useEffect(() => {
+    if (products && products.length > 0) {
+      let data = [];
+      for (let index = 0; index < products?.length; index++) {
+        const product = products[index];
+        if (product?.tags.includes("POPULAR")) {
+          data.push(product);
+        }
+      }
+      setPopularProducts(data);
+    }
+  }, [productState]);
+
+  console.log("popularProduct in SingleProduct is 😹😹: ", popularProducts);
+
   return (
     <>
       <Meta title={"Product Name dynamically"} />
@@ -312,36 +330,37 @@ const SingleProduct = () => {
                   </div>
                 </div>
                 <div className="d-flex gap-10 flex-column mt-2 mb-3 ">
-                 { alreadyAdded=== false && <>
-                  <h3 className="product-heading">Color :</h3>
-                  <Color
-                    color={color}
-                    setColor={setColor}
-                    colors={product.colors}
-                  />
-                  </>}
+                  {alreadyAdded === false && (
+                    <>
+                      <h3 className="product-heading">Color :</h3>
+                      <Color
+                        color={color}
+                        setColor={setColor}
+                        colors={product.colors}
+                      />
+                    </>
+                  )}
                 </div>
                 {/* Quantity Input , ADD TO CART, BUY IT NOW */}
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3 ">
-                  {
-                    alreadyAdded === false && 
-                  <>
-                  <h3 className="product-heading">Quantity :</h3>
-                  <div className="">
-                    <input
-                      type="number"
-                      name="quntity"
-                      min={1}
-                      max={10}
-                      defaultValue={1} // Set the default value to 1
-                      className="form-control"
-                      style={{ width: "70px" }}
-                      id=""
-                      onChange={(event) => setQuantity(event.target.value)}
-                    />
-                  </div>
-                  </>
-                  }
+                  {alreadyAdded === false && (
+                    <>
+                      <h3 className="product-heading">Quantity :</h3>
+                      <div className="">
+                        <input
+                          type="number"
+                          name="quntity"
+                          min={1}
+                          max={10}
+                          defaultValue={1} // Set the default value to 1
+                          className="form-control"
+                          style={{ width: "70px" }}
+                          id=""
+                          onChange={(event) => setQuantity(event.target.value)}
+                        />
+                      </div>
+                    </>
+                  )}
                   <div className="cart-buy d-flex align-items-center gap-30 ms-5">
                     <button
                       className="button border-0"
@@ -349,11 +368,12 @@ const SingleProduct = () => {
                       // data-bs-target="#staticBackdrop"
                       type="button"
                       onClick={() => {
-                        alreadyAdded ? navigate("/cart") :
-                        uploadCart(product?._id, quantity);
+                        alreadyAdded
+                          ? navigate("/cart")
+                          : uploadCart(product?._id, quantity);
                       }}
                     >
-                     { alreadyAdded? "Go To Cart" : "Add To Cart"}
+                      {alreadyAdded ? "Go To Cart" : "Add To Cart"}
                     </button>
                     <button to="/signup" className="button signup">
                       Buy It Now
@@ -656,20 +676,14 @@ const SingleProduct = () => {
         </div>
       </Container>
       {/* You may also like */}
-      <Container class1="popular-wrapper py-5 home-wrapper-2">
+      <Container class1="featured-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">You May Also Like</h3>
           </div>
         </div>
-        <div className="row">
-          <ProductCard grid={grid} />
-          <ProductCard grid={grid} />
-          <ProductCard grid={grid} />
-          <ProductCard grid={grid} />
-          <ProductCard grid={grid} />
-          <ProductCard grid={grid} />
-          <ProductCard grid={grid} />
+        <div className="row ">
+          <ProductCard data={popularProducts} grid={grid} />
         </div>
       </Container>
     </>
