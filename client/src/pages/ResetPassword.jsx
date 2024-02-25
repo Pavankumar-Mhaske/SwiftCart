@@ -1,12 +1,13 @@
 import React from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
 import * as yup from "yup";
-import { useFormik } from "formik";
+import { Formik, useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 let schema = yup.object().shape({
   password: yup.string().required("Password is required"),
@@ -14,6 +15,10 @@ let schema = yup.object().shape({
 });
 
 const ResetPassword = () => {
+  const location = useLocation();
+  const resetToken = location.pathname.split("/")[2];
+  // console.log("resetToken in reset-password is : ", resetToken);
+  const [passwordMatched, setPasswordMatched] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,8 +33,11 @@ const ResetPassword = () => {
     validationSchema: schema,
     onSubmit: async (values) => {
       alert(JSON.stringify(values, null, 2));
+      // navigate("/login");
     },
   });
+
+  console.log("formik 🍌🍌🍌🍌", formik.values.password);
 
   return (
     <>
@@ -56,9 +64,15 @@ const ResetPassword = () => {
                   name="password"
                   label="Enter your password"
                   value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    setPasswordMatched(
+                      e.target.value === formik.values.confirmPassword
+                    );
+                  }}
+                  onBlur={formik.handleBlur("password")}
                 />
+
                 <div className="error">
                   {formik.touched.password && formik.errors.password ? (
                     <div className="error">{formik.errors.password}</div>
@@ -72,8 +86,14 @@ const ResetPassword = () => {
                   name="confirmPassword"
                   label="Confirm your password"
                   value={formik.values.confirmPassword}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  // onChange={formik.handleChange("confirmPassword")}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    setPasswordMatched(
+                      e.target.value === formik.values.password
+                    );
+                  }}
+                  onBlur={formik.handleBlur("confirmPassword")}
                 />
                 <div className="error">
                   {formik.touched.confirmPassword &&
@@ -81,10 +101,35 @@ const ResetPassword = () => {
                     <div className="error">{formik.errors.confirmPassword}</div>
                   ) : null}
                 </div>
+
+                {/* ✔️✔️  Password matched  ✔️✔️ */}
+                {passwordMatched ? (
+                  <div
+                    className="pawword-matched text-center transition-effect"
+                    style={{ width: "100%", height: "20px", opacity: 1 }}
+                  >
+                    <p className="green-text">
+                      Password Matched
+                      <span>&#x2714;</span>{" "}
+                    </p>
+                  </div>
+                ) : (
+                  <div
+                    className="empty-component transition-effect"
+                    style={{ width: "100%", height: "20px", opacity: 0 }}
+                  ></div>
+                )}
+
                 {/* 🔗🔗🔗 Links 🔗🔗🔗 */}
                 <div className="form-group">
                   <div className=" mt-3 d-flex justify-content-center align-items-center gap-15 ">
-                    <button type="submit" className="button border-0">
+                    <button
+                      type="submit"
+                      className={` border-0
+                      ${passwordMatched ? "button" : "button-inActive "}
+                      `}
+                      disabled={!passwordMatched}
+                    >
                       Submit
                     </button>
                   </div>
