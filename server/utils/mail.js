@@ -40,7 +40,7 @@ const sendEmail = async (options) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
-    secure: false,
+    secure: false, // true for 465, false for other ports
     auth: {
       user: process.env.MAILTRAP_SMTP_USER,
       pass: process.env.MAILTRAP_SMTP_PASS,
