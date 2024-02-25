@@ -34,6 +34,17 @@ const Header = () => {
   // console.log("totalItemsInCart in Header is 🛒 🎧🤕🤕 : ", totalItemsInCart);
   // console.log("userCart in Header is 🛒 🎧🤕🤕 : ", userCart);
   // console.log("cart in Header is 🛒 🎧🤕🤕 : ", cart);
+
+  const handleLogout = () => {
+    // Uses localStorage.clear() to remove all key-value pairs from local storage.
+    // localStorage.clear();
+
+    // Uses localStorage.removeItem("user") to specifically remove the "user" key from local storage.
+    localStorage.removeItem("user");
+
+    window.location.reload();
+  };
+
   return (
     <>
       {/* 1️⃣1️⃣1️⃣ Header - 1 1️⃣1️⃣1️⃣ */}
@@ -157,7 +168,7 @@ const Header = () => {
       <header className="header-bottom py-3">
         <div className="container-xxl">
           <div className="row">
-            <div className="col-12">
+            <div className="col-12 d-flex justify-content-between ">
               <div className="menu-bottom d-flex align-items-center gap-30">
                 {/*🔗🔗🔗🔗 dropdown list 🔗🔗🔗🔗 */}
                 <div>
@@ -198,7 +209,7 @@ const Header = () => {
                 </div>
                 {/*🏡🏠🛒📜💁🏻‍♂️📞 sections 🏡🏠🛒📜💁🏻‍♂️📞  */}
                 <div className="menu-links">
-                  <div className="d-flex align-items-center gap-15">
+                  <div className="d-flex align-items-center gap-15 ">
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/store">Our Store</NavLink>
                     <NavLink to="/orders">My Orders</NavLink>
@@ -207,6 +218,19 @@ const Header = () => {
                   </div>
                 </div>
               </div>
+              {/* LogOut button */}
+              {user && user?.accessToken !== undefined && (
+                <button
+                  className="bg-transparent border-0 d-flex flex-column justify-content-center align-items-center text-white gap-10"
+                  type="button"
+                  onClick={() => {
+                    handleLogout();
+                  }}
+                >
+                  <img src="/assets/icons/logout.svg" alt="logout" />
+                  <h6 className="small-medium lg:base-medium">Logout</h6>
+                </button>
+              )}
             </div>
           </div>
         </div>
