@@ -36,7 +36,7 @@ const ProductCard = (props) => {
               // to={`${
               //   location.pathname === "/" ? "/product/:id" : "/product/:id"
               // }`}
-              className="product-card position-relative"
+              className="product-card position-relative mb-3"
             >
               <div className="wishlist-icon position-absolute">
                 <button
