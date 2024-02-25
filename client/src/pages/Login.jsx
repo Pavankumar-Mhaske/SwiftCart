@@ -61,7 +61,10 @@ const Login = () => {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
+      const message =
+        "Please review your information before submitting:\n \n" +
+        JSON.stringify(values, null, 2);
+      alert(message);
       console.log("inside of the formik submit 🤩🤩");
       const toastId = showToastLoading("Login User...");
       setLoadingLoginToastId(toastId);
