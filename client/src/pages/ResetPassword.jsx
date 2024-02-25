@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { Formik, useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { resetForgottenPassword } from "../features/user/userSlice";
 
 let schema = yup.object().shape({
   password: yup.string().required("Password is required"),
@@ -32,12 +33,28 @@ const ResetPassword = () => {
     initialValues: initialValues,
     validationSchema: schema,
     onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
-      // navigate("/login");
+      const data = {
+        newPassword: values.confirmPassword,
+        resetToken: resetToken,
+      };
+
+      const password = {
+        newPassword: values.confirmPassword,
+      };
+
+      const message =
+        "Please review your information before submitting:\n \n" +
+        JSON.stringify(password, null, 2);
+
+      alert(message);
+      console.log("data in ResetPassword is 🍔🍔 : ", data);
+      resetForgottenPassword(data);
+      alert("Password reset successfully");
+      navigate("/login");
     },
   });
 
-  console.log("formik 🍌🍌🍌🍌", formik.values.password);
+  // console.log("formik 🍌🍌🍌🍌", formik.values.password);
 
   return (
     <>
