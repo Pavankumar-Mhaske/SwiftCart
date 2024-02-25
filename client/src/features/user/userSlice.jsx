@@ -100,10 +100,24 @@ export const updateUserProfile = createAsyncThunk(
 // forgotPasswordRequest
 export const forgotPasswordRequest = createAsyncThunk(
   "users/forgot-password-request",
-  async (email, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
       console.log("thunkAPI in userSlice is : ", thunkAPI);
-      const response = await UserService.forgotPasswordRequest(email);
+      const response = await UserService.forgotPasswordRequest(data);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// resetForgottenPassword
+export const resetForgottenPassword = createAsyncThunk(
+  "users/reset-forgotten-password",
+  async (data, thunkAPI) => {
+    try {
+      console.log("thunkAPI in userSlice is : ", thunkAPI);
+      const response = await UserService.resetForgottenPassword(data);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -288,6 +302,25 @@ export const userSlice = createSlice({
         );
       })
       .addCase(forgotPasswordRequest.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload.message;
+      })
+      .addCase(resetForgottenPassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(resetForgottenPassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.message = action.payload.message;
+        console.log(
+          "action.payload in userSlice is 🍔🍔 : ",
+          action.payload.message
+        );
+      })
+      .addCase(resetForgottenPassword.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
