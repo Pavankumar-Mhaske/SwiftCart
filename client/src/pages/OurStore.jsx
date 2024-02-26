@@ -32,6 +32,7 @@ const OurStore = () => {
   const [color, setColor] = useState([]);
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
+  const [sort, setSort] = useState(null);
 
   useEffect(() => {
     let brands = [];
@@ -78,6 +79,7 @@ const OurStore = () => {
   console.log("color in OurStore is : ", color);
   console.log("minPrice in OurStore is : ", minPrice);
   console.log("maxPrice in OurStore is : ", maxPrice);
+  console.log("sort in OurStore is : ", sort);
 
   return (
     <>
@@ -296,17 +298,21 @@ const OurStore = () => {
                   <p className="mb-0 d-block" style={{ width: "100px" }}>
                     Sort By:
                   </p>
-                  <select name="" className="form-control form-select" id="">
-                    <option value="manual">Featured</option>
-                    <option value="best-selling">Best Selling</option>
-                    <option value="title-ascending">Alphabetically, A-Z</option>
-                    <option value="title-descending">
-                      Alphabetically, Z-A
+                  <select
+                    name=""
+                    className="form-control form-select"
+                    id=""
+                    onChange={(e) => setSort(e.target.value)}
+                  >
+                    <option value="" selected disabled>
+                      Select Filter Option
                     </option>
-                    <option value="price-ascending">Price, low to high</option>
-                    <option value="price-descending">Price, high to low</option>
-                    <option value="created-ascending">Date, old to new</option>
-                    <option value="created-descending">Date, new to old</option>
+                    <option value="title">Alphabetically, A-Z</option>
+                    <option value="-title">Alphabetically, Z-A</option>
+                    <option value="price">Price, low to high</option>
+                    <option value="-price">Price, high to low</option>
+                    <option value="createdAt">Date, old to new</option>
+                    <option value="-createdAt">Date, new to old</option>
                   </select>
                 </div>
                 {/*🍎🍎 Right section of the top pannel🍎🍎  */}
