@@ -110,7 +110,7 @@ const SingleProduct = () => {
 
   const productState = useSelector((state) => state?.product);
   const { products, product } = productState;
-  console.log("product in Single product is 🔥🔥 : ", product);
+  console.log("product in Single product is ✌️✌️✌️✌️✌️✌️✌️ : ", product);
 
   const grid = 2;
   const [copiedText, setCopiedText] = useState(""); // State to hold the text to be copied
@@ -318,7 +318,8 @@ const SingleProduct = () => {
                 <div className="d-flex gap-10 align-items-center my-2 ">
                   <h3 className="product-heading">Category :</h3>
                   <p className="product-data">
-                    {product?.category}
+                    {product?.category?.name}
+                    {/* TODO: */}
                     {/* Airpods, Camera's, Computer and Laptops, mini speaker, our
                     Store, Portable Speakers, smart phones, Smart Television,
                     Smartwatches */}
