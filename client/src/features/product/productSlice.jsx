@@ -43,6 +43,21 @@ export const addRemoveProductInWishList = createAsyncThunk(
   }
 );
 
+// addReviewsAndRating
+export const addReviewsAndRating = createAsyncThunk(
+  "products/add-reviews-rating",
+  async (data, thunkAPI) => {
+    try {
+      console.log("thunkAPI in productSlice is : ", thunkAPI);
+      console.log("data in productSlice is : ", data);
+      const response = await ProductService.addReviewsAndRating(data);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const resetState = createAction("reset_all");
 const initialState = {
   products: [],
@@ -128,7 +143,25 @@ export const ProductSlice = createSlice({
         state.user = null;
         state.message = action.error;
       })
-
+      .addCase(addReviewsAndRating.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addReviewsAndRating.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.product = action.payload.data;
+        console.log(
+          "action.payload in productSlice is : ",
+          action.payload.data
+        );
+      })
+      .addCase(addReviewsAndRating.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
       // ;builder
       .addCase(resetState, () => initialState);
   },

@@ -1,4 +1,4 @@
-{
+// {
     "_id": "65b3bb577580337d2fd7de0e",
     "name": "watch7",
     "slug": "watch7",
@@ -60,7 +60,83 @@
     ],
     "rating": 5,
     "owner": "6527f0f9a5cb3daee993580c",
-    "reviews": [],
     "createdAt": "2024-01-26T14:01:59.124Z",
-    "updatedAt": "2024-02-25T12:05:02.510Z"
+    "updatedAt": "2024-02-26T00:58:58.236Z",
+    "__v": 2,
+    "reviews": [
+        {
+            "user": {
+                "_id": "659d4f1dd51b0938945ec111",
+                "avatar": {
+                    "url": "https://via.placeholder.com/200x200.png",
+                    "localPath": "",
+                    "_id": "659d4f1dd51b0938945ec110"
+                },
+                "firstname": "pavan",
+                "lastname": "mhaske",
+                "email": "mhaskepavankumar@gmail.com",
+                "role": "USER",
+                "password": "$2b$10$7YPGNpIlcr9Anw4nR.jYXeFL5MDv.Sc.Os5htSPeuO.QoCgxTYA3S",
+                "loginType": "EMAIL_PASSWORD",
+                "mobile": "1111111111",
+                "isBlocked": false,
+                "cart": "659d4f1ed51b0938945ec117",
+                "wishlist": [
+                    "659f9f29d14c2e31ef3057e1",
+                    "659e8853f54f8670d5aa6819",
+                    "659e884df54f8670d5aa680f",
+                    "65b3bb577580337d2fd7de0e"
+                ],
+                "isEmailVerified": false,
+                "isVerified": false,
+                "createdAt": "2024-01-09T13:50:21.548Z",
+                "updatedAt": "2024-02-25T22:56:09.881Z",
+                "__v": 62,
+                "emailVerificationExpiry": "2024-01-09T14:10:23.790Z",
+                "emailVerificationToken": "d61da773960ffdd6f433cedc2cc213ec675156b1a08741f0f942d0cd56b05647",
+                "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTlkNGYxZGQ1MWIwOTM4OTQ1ZWMxMTEiLCJlbWFpbCI6Im1oYXNrZXBhdmFua3VtYXJAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MDg5MDE3NjksImV4cCI6MTcwODk4ODE2OX0.nuXovPcu1XvwDdX9wIOmLhBfRhE6dQaQ3jZ9ZdtX9s0",
+                "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTlkNGYxZGQ1MWIwOTM4OTQ1ZWMxMTEiLCJpYXQiOjE3MDg5MDE3NjksImV4cCI6MTcwOTc2NTc2OX0.mUE27m80XGadpxUPX8Vl-c4_11bzQyPkL3Anldy9GXc",
+                "address": [
+                    "65d8e01355e70f9cc96d3f7b",
+                    "65d8e39edaf6887d33661f18",
+                    "65d8e3addaf6887d33661f1f",
+                    "65d8ec6e93796f26a55c8685",
+                    "65d8ece093796f26a55c8728",
+                    "65d8edfc93796f26a55c8779",
+                    "65d8ef0493796f26a55c881c",
+                    "65d8ef9d93796f26a55c8865",
+                    "65d8f01d93796f26a55c88a1",
+                    "65d8f0ab93796f26a55c88d4",
+                    "65d8f17c93796f26a55c8923",
+                    "65d8f1f193796f26a55c89a3",
+                    "65d8f22d93796f26a55c89d6",
+                    "65d8f34b5c4096b2520b8474",
+                    "65d8f47d5c4096b2520b84c3",
+                    "65d8f62c5c4096b2520b84f6",
+                    "65d8f700eaa2fb964a2a9132",
+                    "65d8f74beaa2fb964a2a913b",
+                    "65d8f75beaa2fb964a2a9175",
+                    "65d8f762eaa2fb964a2a917e",
+                    "65d8f7bdeaa2fb964a2a91b8",
+                    "65d8fa5eeaa2fb964a2a91eb",
+                    "65d8faa5eaa2fb964a2a9217",
+                    "65d8fb01eaa2fb964a2a9251",
+                    "65d8fbc3eaa2fb964a2a92dc",
+                    "65d8fce4eaa2fb964a2a938e",
+                    "65d8fdd2eaa2fb964a2a942f",
+                    "65d8ffa2eaa2fb964a2a9552",
+                    "65d901b5eaa2fb964a2a9666",
+                    "65d901e9eaa2fb964a2a96f9",
+                    "65db2cd238744ffd76e3f74d"
+                ],
+                "forgotPasswordExpiry": "2024-02-25T21:21:31.463Z",
+                "forgotPasswordToken": "0fc49fb33931053acd1a4a33a0b8fe72170b95c550d425eb87dc9e9685226b8b"
+            },
+            "rating": 5,
+            "comment": "This was crazy.... i loved it soo much😀😀",
+            "_id": "65dbdead26417091a48ba7be",
+            "createdAt": "2024-02-26T00:58:58.236Z",
+            "updatedAt": "2024-02-26T00:58:58.236Z"
+        }
+    ]
 }
