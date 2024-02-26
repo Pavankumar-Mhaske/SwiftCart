@@ -176,14 +176,14 @@ const SingleProduct = () => {
   };
 
   const { reviews } = product;
-  console.log("reviews in SingleProduct is : 😹😹 ", reviews);
-  console.log("stars in SingleProduct is : ", stars);
-  console.log("comment in SingleProduct is : ", comment);
+  // console.log("reviews in SingleProduct is : 😹😹 ", reviews);
+  // console.log("stars in SingleProduct is : ", stars);
+  // console.log("comment in SingleProduct is : ", comment);
 
   return (
     <>
-      <Meta title={"Product Name dynamically"} />
-      <BreadCrumb title="Product Name dynamically" />
+      <Meta title={product?.name} />
+      <BreadCrumb title={product?.name} />
 
       <Toast />
       {/* Product Details */}
@@ -635,7 +635,7 @@ const SingleProduct = () => {
                     <ReactStars
                       count={5}
                       size={24}
-                      value={4}
+                      value={0}
                       isHalf={true}
                       edit={true}
                       activeColor="#ffd700"
@@ -690,7 +690,7 @@ const SingleProduct = () => {
                             </h6>
                           </div>
                           <p className="mb-0">
-                            {multiFormatDateString(review?.updatedAt)}
+                            {multiFormatDateString(review?.createdAt)}
                           </p>
                         </div>
                         <div className="review-body">
