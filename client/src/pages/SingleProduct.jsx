@@ -19,7 +19,11 @@ import { AiOutlineLink } from "react-icons/ai";
 import CopyToClipboard from "../components/copy.jsx";
 import Container from "../components/Container.jsx";
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { getAProduct, getProducts } from "../features/product/ProductSlice.jsx";
+import {
+  addReviewsAndRating,
+  getAProduct,
+  getProducts,
+} from "../features/product/ProductSlice.jsx";
 
 import {
   showToastLoading,
@@ -31,6 +35,7 @@ import {
   addItemOrUpdateItemQuantity,
   getUserCart,
 } from "../features/user/UserSlice.jsx";
+import { multiFormatDateString } from "../utils/DateFormate.js";
 
 const SingleProduct = () => {
   const location = useLocation();
@@ -105,7 +110,7 @@ const SingleProduct = () => {
 
   const productState = useSelector((state) => state?.product);
   const { products, product } = productState;
-  console.log("productState in Single product is 🔥🔥 : ", productState);
+  console.log("product in Single product is 🔥🔥 : ", product);
 
   const grid = 2;
   const [copiedText, setCopiedText] = useState(""); // State to hold the text to be copied
@@ -148,7 +153,32 @@ const SingleProduct = () => {
     }
   }, [productState]);
 
-  console.log("popularProduct in SingleProduct is 😹😹: ", popularProducts);
+  // console.log("popularProduct in SingleProduct is 😹😹: ", popularProducts);
+
+  const [stars, setstars] = useState(null);
+  const [comment, setComment] = useState(null);
+  const handleAddReviewsAndRating = (event) => {
+    event.preventDefault();
+    if (stars === null) {
+      alert("Please give rating");
+    } else if (comment === null) {
+      alert("Please give comment");
+    } else {
+      const data = {
+        productId: getProductId,
+        finalData: {
+          rating: stars,
+          comment: comment,
+        },
+      };
+      dispatch(addReviewsAndRating(data));
+    }
+  };
+
+  const { reviews } = product;
+  console.log("reviews in SingleProduct is : 😹😹 ", reviews);
+  console.log("stars in SingleProduct is : ", stars);
+  console.log("comment in SingleProduct is : ", comment);
 
   return (
     <>
@@ -245,7 +275,7 @@ const SingleProduct = () => {
               <div className="border-bottom py-3">
                 <p className="price">${product?.price}</p>
                 <div className="d-flex align-items-center gap-10">
-                  {console.log("Product Rating:", product?.rating)}
+                  {/* {console.log("Product Rating:", product?.rating)} */}
 
                   {/* <ReactStars
                     count={5}
@@ -596,7 +626,11 @@ const SingleProduct = () => {
               {/* Review Form Body */}
               <div className="review-form py-4">
                 <h4>Write a Review</h4>
-                <form action="" className="d-flex flex-column gap-15">
+                <form
+                  action=""
+                  className="d-flex flex-column gap-15"
+                  onSubmit={(event) => handleAddReviewsAndRating(event)}
+                >
                   <div>
                     <ReactStars
                       count={5}
@@ -605,6 +639,7 @@ const SingleProduct = () => {
                       isHalf={true}
                       edit={true}
                       activeColor="#ffd700"
+                      onChange={(newRating) => setstars(newRating)}
                     />
                   </div>
                   <div>
@@ -615,61 +650,55 @@ const SingleProduct = () => {
                       cols="30"
                       rows="4"
                       placeholder="Comments"
+                      onChange={(event) => setComment(event.target.value)}
                     ></textarea>
                   </div>
                   <div className="d-flex justify-content-end">
-                    <button className="button border-0">Submit Review</button>
+                    <button className="button border-0" type="submit">
+                      Submit Review
+                    </button>
                   </div>
                 </form>
               </div>
+              {/*   TODO: */}
+
               {/* Review List */}
               <div className="reviews mt-4">
                 {/* 👀👀👀 Review - 1 👀👀👀 */}
-                <div className="review">
-                  <div className="review-head d-flex justify-content-between align-items-center">
-                    <div className="d-flex align-items-center gap-10">
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        value={4}
-                        isHalf={true}
-                        edit={true}
-                        activeColor="#ffd700"
-                      />
-                      <h6 className="mb-0">John Doe</h6>
-                    </div>
-                    <p className="mb-0">2 days ago</p>
-                  </div>
-                  <div className="review-body">
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Quisquam, voluptas.
-                    </p>
-                  </div>
-                </div>
-                {/* 👀👀👀 Review - 2 👀👀👀 */}
-                <div className="review">
-                  <div className="review-head d-flex justify-content-between align-items-center">
-                    <div className="d-flex align-items-center gap-10">
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        value={4}
-                        isHalf={true}
-                        edit={true}
-                        activeColor="#ffd700"
-                      />
-                      <h6 className="mb-0">John Doe</h6>
-                    </div>
-                    <p className="mb-0">2 days ago</p>
-                  </div>
-                  <div className="review-body">
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Quisquam, voluptas.
-                    </p>
-                  </div>
-                </div>
+                {reviews &&
+                  reviews.length > 0 &&
+                  reviews.map((review, index) => {
+                    return (
+                      <div className="review">
+                        <div
+                          key={index}
+                          className="review-head d-flex justify-content-between align-items-center"
+                        >
+                          <div className="d-flex align-items-center gap-10">
+                            <ReactStars
+                              count={5}
+                              size={24}
+                              value={review?.rating}
+                              isHalf={true}
+                              edit={false}
+                              activeColor="#ffd700"
+                            />
+                            <h6 className="mb-0">
+                              {review?.user?.firstname +
+                                " " +
+                                review?.user?.lastname}
+                            </h6>
+                          </div>
+                          <p className="mb-0">
+                            {multiFormatDateString(review?.updatedAt)}
+                          </p>
+                        </div>
+                        <div className="review-body">
+                          <p>{review?.comment}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>
