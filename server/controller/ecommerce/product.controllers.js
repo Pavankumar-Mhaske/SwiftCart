@@ -163,6 +163,26 @@ const getAllProducts = asyncHandler(async (req, res) => {
     productAggregate = productAggregate.project("-__v");
   }
 
+  // Populate the category field
+  productAggregate = productAggregate.lookup({
+    from: "productcategories", // name of the collection to join with
+    // (for your information see in Database - how the ProductCategory model is stored as collection )
+    //  in general all collection are stored in there plural form
+    // for example - Product => products, ProductCategory => productcategories, etc...
+    localField: "category", // field from the input documents (Product collection)
+    foreignField: "_id", // field from the documents of the "from" collection (ProductCategory collection)
+    as: "category", // output array field
+  });
+
+  // Populate the colors field
+  productAggregate = productAggregate.lookup({
+    from: "colors", // name of the collection to join with
+    localField: "colors", // field from the input documents (Product collection)
+    foreignField: "_id", // field from the documents of the "from" collection (Color collection)
+    as: "colors", // output array field
+  });
+
+  console.log("productAggregate", productAggregate);
   const products = await Product.aggregatePaginate(
     productAggregate,
     getMongoosePaginationOptions({
@@ -175,6 +195,10 @@ const getAllProducts = asyncHandler(async (req, res) => {
     })
   );
 
+  // populate category in schema of products
+  // await Product.populate(products.data.products, { path: "category" });
+
+  // console.log(products);
   return res
     .status(200)
     .json(new ApiResponse(200, products, "Products fetched successfully"));
@@ -297,7 +321,8 @@ const getProductById = asyncHandler(async (req, res) => {
 
   const product = await Product.findById(productId)
     .populate("colors")
-    .populate("reviews.user");
+    .populate("reviews.user")
+    .populate("category");
 
   if (!product) {
     throw new ApiError(404, "Product does not exist");
