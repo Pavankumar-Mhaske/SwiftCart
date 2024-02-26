@@ -11,6 +11,23 @@ import {
   AvailableProductTags,
 } from "../../constants.js";
 
+const reviewSchema = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    rating: {
+      type: Number,
+      min: 1,
+      max: 5,
+      default: 5,
+    },
+    comment: String,
+  },
+  { timestamps: true }
+);
+
 const productSchema = new Schema(
   {
     name: {
@@ -104,21 +121,7 @@ const productSchema = new Schema(
       default: [],
     },
     reviews: {
-      type: [
-        {
-          user: {
-            type: Schema.Types.ObjectId,
-            ref: "User",
-          },
-          rating: {
-            type: Number,
-            min: 1,
-            max: 5,
-            default: 5,
-          },
-          comment: String,
-        },
-      ],
+      type: [reviewSchema],
       default: [],
     },
 
