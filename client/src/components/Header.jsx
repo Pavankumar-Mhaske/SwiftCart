@@ -43,7 +43,7 @@ const Header = () => {
       setOptions(data);
     }
   }, [products]);
-  console.log("Options in Header is 🛒 🎧🤕🤕 : ", options);
+  // console.log("Options in Header is 🛒 🎧🤕🤕 : ", options);
 
   const subTotal = userCart?.discountedCartPrice
     ? userCart?.discountedCartPrice
