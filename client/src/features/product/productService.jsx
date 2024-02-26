@@ -30,10 +30,21 @@ const addRemoveProductInWishList = async (productId) => {
   return response.data;
 };
 
+// reviewsAndRating
+const addReviewsAndRating = async (data) => {
+  const { productId, finalData } = data;
+  const url = `${base_url}products/review-rating/${productId}`;
+  console.log("config", config);
+  const response = await axios.post(url, finalData, config);
+  console.log("Response in productService is 😀 : ", response);
+  return response.data;
+};
+
 const ProductService = {
   getProducts,
   getAProduct,
   addRemoveProductInWishList,
+  addReviewsAndRating,
 };
 
 export default ProductService; // export the service
