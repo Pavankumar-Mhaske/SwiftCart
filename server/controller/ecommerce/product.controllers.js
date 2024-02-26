@@ -284,7 +284,20 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 const getProductById = asyncHandler(async (req, res) => {
   const { productId } = req.params;
-  const product = await Product.findById(productId).populate("colors");
+
+  // const product = await Product.findById(productId)
+  // .populate("colors")
+  // .populate({
+  //   path: "reviews",
+  //   populate: {
+  //     path: "user",
+  //     model: "User"
+  //   }
+  // });
+
+  const product = await Product.findById(productId)
+    .populate("colors")
+    .populate("reviews.user");
 
   if (!product) {
     throw new ApiError(404, "Product does not exist");
@@ -520,6 +533,10 @@ const reviewsAndRating = asyncHandler(async (req, res) => {
     product.rating = totalRating / totalReviews;
 
     await product.save();
+
+    // Populate the user field of the reviews
+    await product.populate("reviews.user");
+    // await Product.populate(product, { path: 'reviews.user' });
 
     return res
       .status(200)
