@@ -11,11 +11,6 @@ import { getProducts } from "../features/product/ProductSlice";
 const OurStore = () => {
   const [grid, setGrid] = useState(4);
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
-
   const productState = useSelector((state) => state.product);
   const { products } = productState;
   console.log("products in OurStore is : ", products);
@@ -33,6 +28,16 @@ const OurStore = () => {
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
   const [sort, setSort] = useState(null);
+
+  const resetAllFilters = () => {
+    setBrand([]);
+    setCategory([]);
+    setTag([]);
+    setColor([]);
+    setMinPrice(null);
+    setMaxPrice(null);
+    setSort(null);
+  };
 
   useEffect(() => {
     let brands = [];
@@ -69,6 +74,13 @@ const OurStore = () => {
     setColors(colors);
   }, [products]);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      getProducts({ sort, tag, brand, category, color, minPrice, maxPrice })
+    );
+  }, [sort, tag, brand, category, color, minPrice, maxPrice]);
+
   console.log("brands in OurStore is : ", [...new Set(brands)]);
   console.log("categories in OurStore is : ", [...new Set(categories)]);
   console.log("tags in OurStore is : ", [...new Set(tags)]);
@@ -89,6 +101,20 @@ const OurStore = () => {
       <Container class1="store-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-3">
+            {/* 🍓🍒🍓 Clear all filters 🍓🍒🍓 */}
+            <div className="mb-3 d-flex flex-column justify-content-center align-items-center">
+              <button className="button" onClick={resetAllFilters}>{`${
+                sort ||
+                tag.length ||
+                brand.length ||
+                category.length ||
+                color.length ||
+                minPrice ||
+                maxPrice
+                  ? "Clear Filters"
+                  : "No Filters Applied"
+              } `}</button>
+            </div>
             {/* 🍓🍒🍓 Filter-Card -1 (Categories) 🍓🍒🍓 */}
             <div className="filter-card mb-3">
               <h3 className="filter-title">Shop by Categories</h3>
