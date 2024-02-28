@@ -1,15 +1,10 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
-import { Token } from "../Token";
+import { config } from "../../utils/AxiosConfig";
 
 const getProducts = async () => {
-  const token = Token;
-
-  console.log("token in productService is : ", token);
   const url = `${base_url}products/`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in productService is : ", response);
 
@@ -17,14 +12,9 @@ const getProducts = async () => {
 };
 
 const createProduct = async (product) => {
-  const token = Token;
-
-  console.log("token in productService is : ", token);
   console.log("product in productService is : ", product);
   const url = `${base_url}products/`;
-  const response = await axios.post(url, product, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.post(url, product, config);
 
   console.log("Response in productService is : ", response);
 
