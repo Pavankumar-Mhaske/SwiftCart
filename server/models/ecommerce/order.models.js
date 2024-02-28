@@ -71,6 +71,10 @@ const orderSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    month: {
+      type : String,
+      default : new Date().getMonth()
+    }
   },
   { timestamps: true }
 );
