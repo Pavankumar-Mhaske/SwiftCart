@@ -16,6 +16,7 @@ import {
   getUserAddress,
   getUserCart,
   getUserOrders,
+  getMonthwiseOrderIncome,
 } from "../../controller/auth/user.controllers.js";
 import {
   verifyJWT,
@@ -53,6 +54,10 @@ router.route("/wishlist").get(verifyJWT, getUserWishlist);
 router.route("/address").get(verifyJWT, getUserAddress);
 router.route("/cart").get(verifyJWT, getUserCart);
 router.route("/user-orders").get(verifyJWT, getUserOrders);
+// getMonthwiseOrderIncome
+router
+  .route("/get-monthwise-order-income")
+  .get(verifyJWT, getMonthwiseOrderIncome);
 
 // 🔑🔐 Secured routes 🔐 🔑
 router.route("/logout").post(verifyJWT, logoutUser);
