@@ -1,15 +1,10 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
-import { Token } from "../Token";
+import { config } from "../../utils/AxiosConfig";
 
 const getProductCategories = async () => {
-  const token = Token;
-
-  console.log("token in ProductCategoryService is : ", token);
   const url = `${base_url}product-categories/`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in ProductCategoryService is : ", response);
 
@@ -17,17 +12,13 @@ const getProductCategories = async () => {
 };
 
 const createProductCategory = async (productCategory) => {
-  const token = Token;
-  console.log("token in productCategoryService is : ", token);
   console.log(
     "productCategory in productCategoryService is : ",
     productCategory
   );
   const url = `${base_url}product-categories/`;
 
-  const response = await axios.post(url, productCategory, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.post(url, productCategory, config);
 
   console.log("Response in productCategoryService is : ", response);
 
@@ -35,13 +26,8 @@ const createProductCategory = async (productCategory) => {
 };
 
 const getAProductCategory = async (productCategoryId) => {
-  const token = Token;
-
-  console.log("token in ProductCategoryService is : ", token);
   const url = `${base_url}product-categories/${productCategoryId}`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in ProductCategoryService is : ", response);
 
@@ -49,9 +35,6 @@ const getAProductCategory = async (productCategoryId) => {
 };
 
 const updateProductCategory = async (data) => {
-  const token = Token;
-
-  console.log("token in update productCategoryService is : ", token);
   console.log("data in update productCategoryService is : ", data);
   const { productCategoryId, name } = data;
   console.log(
@@ -74,12 +57,8 @@ const updateProductCategory = async (data) => {
 };
 
 const deleteProductCategory = async (productCategoryId) => {
-  const token = Token;
-  console.log("token in ProductCategoryService is : ", token);
   const url = `${base_url}product-categories/${productCategoryId}`;
-  const response = await axios.delete(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.delete(url, config);
   //   const response = await axios.get(url);
   console.log("Response in ProductCategoryService is : ", response);
 
