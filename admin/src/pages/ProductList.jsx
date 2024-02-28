@@ -45,8 +45,8 @@ const columns = [
       <>
         {color.map((color, index) => {
           return (
-            <Tag key={index} color="blue">
-              {color}
+            <Tag key={index} color={color?.name}>
+              {color?.name}
             </Tag>
           );
         })}
@@ -109,7 +109,7 @@ const ProductList = () => {
   }, []);
 
   const productState = useSelector((state) => state.product.products);
-  console.log("productState in product is : ", productState);
+  console.log("productState in product is 💗💗 : ", productState);
 
   const data1 = [];
   for (let i = 0; i < productState.length; i++) {
