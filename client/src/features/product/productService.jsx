@@ -18,9 +18,9 @@ const getProducts = async (data) => {
     data?.category && data.category.length > 0
       ? `category=${data.category}&&`
       : ""
-  }
-  ${data?.color && data.color.length > 0 ? `colors=${data.color}&&` : ""}
-  ${data?.minPrice ? `price[gte]=${data.minPrice}&&` : ""}
+  }${data?.color && data.color.length > 0 ? `colors=${data.color}&&` : ""}${
+    data?.minPrice ? `price[gte]=${data.minPrice}&&` : ""
+  }${data?.maxPrice ? `price[lte]=${data.maxPrice}&&` : ""}
   `;
   // `price[gte]=${Number(data.minPrice)}&`
   console.log("url in productService is 😍😍: ", url);
