@@ -3,7 +3,6 @@ import { base_url } from "../../utils/base_url";
 import { config } from "../../utils/AxiosConfig";
 
 const getOrders = async () => {
-  console.log("token in OrderService is : ", token);
   const url = `${base_url}orders/list/admin`;
   const response = await axios.get(url, config);
   //   const response = await axios.get(url);
