@@ -20,7 +20,9 @@ const getProducts = async (data) => {
       : ""
   }${data?.color && data.color.length > 0 ? `colors=${data.color}&&` : ""}${
     data?.minPrice ? `price[gte]=${data.minPrice}&&` : ""
-  }${data?.maxPrice ? `price[lte]=${data.maxPrice}&&` : ""}
+  }${data?.maxPrice ? `price[lte]=${data.maxPrice}&&` : ""}${
+    data?.sort ? `sort=${data.sort}&&` : ""
+  }
   `;
   // `price[gte]=${Number(data.minPrice)}&`
   console.log("url in productService is 😍😍: ", url);
