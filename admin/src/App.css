@@ -115,4 +115,19 @@ Table {
   border-radius: 50%;
 }
 
+.colors_column {
+  width: 100px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 9px 9px 0px 9px;
+}
+
+.categories {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 /* 🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹 */
