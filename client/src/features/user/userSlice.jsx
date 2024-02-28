@@ -71,9 +71,9 @@ export const createAddress = createAsyncThunk(
 // get user orders
 export const getUserOrders = createAsyncThunk(
   "users/get-orders",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      console.log("thunkAPI in userSlice is : ", thunkAPI);
+      console.log("thunkAPI in userSlice is :💗 ", thunkAPI);
       const response = await UserService.getUserOrders();
       return response;
     } catch (error) {
