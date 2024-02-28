@@ -641,6 +641,56 @@ const getMonthwiseOrderIncome = asyncHandler(async (req, res) => {
       )
     );
 });
+const getMonthwiseOrderCount = asyncHandler(async (req, res) => {
+  let monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let date = new Date();
+  let endDate = "";
+  date.setDate(1);
+  for (let index = 0; index < 11; index++) {
+    date.setMonth(date.getMonth() - 1);
+    endDate = monthNames[date.getMonth()] + " " + date.getFullYear();
+  }
+  const data = await EcomOrder.aggregate([
+    {
+      $match: {
+        createdAt: {
+          $lte: new Date(),
+          $gte: new Date(endDate),
+        },
+      },
+    },
+    {
+      $group: {
+        _id: {
+          month: { $month: "$createdAt" },
+        },
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { data: data },
+        "Monthwise order income fetched Successfully!"
+      )
+    );
+});
 
 export {
   registerUser,
@@ -659,4 +709,5 @@ export {
   getUserCart,
   getUserOrders,
   getMonthwiseOrderIncome,
+  getMonthwiseOrderCount,
 };
