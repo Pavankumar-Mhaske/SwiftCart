@@ -42,14 +42,11 @@ const columns = [
     title: "Color",
     dataIndex: "color",
     render: (colors) => (
-      <>
+      <div className="colors_column">
         <ul className="colors ps-0">
           {colors &&
             colors.map((color, index) => {
               return (
-                // <Tag key={index} color={color?.name}>
-                //   {color?.name}
-                // </Tag>
                 <li
                   key={index}
                   style={{
@@ -60,10 +57,9 @@ const columns = [
               );
             })}
         </ul>
-      </>
+      </div>
     ),
   },
-
   {
     title: "Ratings",
     dataIndex: "ratings",
@@ -94,6 +90,25 @@ const columns = [
   {
     title: "Category",
     dataIndex: "category",
+    render: (categories) => (
+      <>
+        <ul className="categories d-flex flex-column ps-0">
+          {categories &&
+            categories.map((category, index) => {
+              return (
+                <li
+                  key={index}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  {category?.name}
+                </li>
+              );
+            })}
+        </ul>
+      </>
+    ),
   },
 
   {
@@ -134,7 +149,7 @@ const ProductList = () => {
       stock: productState[i].stock,
       soldItems: productState[i].soldItems,
       // category: productState[i].category,
-      category: "abc",
+      category: productState[i].category,
       action: "action",
     });
   }
