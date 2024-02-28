@@ -1,15 +1,11 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
-import { Token } from "../Token";
+import { config } from "../../utils/AxiosConfig";
 
 const getCoupons = async () => {
-  const token = Token;
-
   console.log("token in CouponService is : ", token);
   const url = `${base_url}coupons/`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in CouponService is : ", response);
 
@@ -17,14 +13,9 @@ const getCoupons = async () => {
 };
 
 const createCoupon = async (coupon) => {
-  const token = Token;
-
-  console.log("token in couponService is : ", token);
   console.log("coupon in couponService is : ", coupon);
   const url = `${base_url}coupons/`;
-  const response = await axios.post(url, coupon, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.post(url, coupon, config);
 
   console.log("Response in couponService is : ", response);
 
@@ -32,13 +23,8 @@ const createCoupon = async (coupon) => {
 };
 
 const getACoupon = async (couponId) => {
-  const token = Token;
-
-  console.log("token in CouponService is : ", token);
   const url = `${base_url}coupons/${couponId}`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in CouponService is : ", response);
 
@@ -46,9 +32,6 @@ const getACoupon = async (couponId) => {
 };
 
 const updateCoupon = async (data) => {
-  const token = Token;
-
-  console.log("token in update couponService is : ", token);
   console.log("data in update couponService is : ", data);
   const {
     couponId,
@@ -85,9 +68,7 @@ const updateCoupon = async (data) => {
     expiryDate: expiryDate,
   };
   const url = `${base_url}coupons/${couponId}`;
-  const response = await axios.patch(url, couponToUpdate, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.patch(url, couponToUpdate, config);
 
   console.log("Response in couponService is : ", response);
 
@@ -95,12 +76,8 @@ const updateCoupon = async (data) => {
 };
 
 const deleteCoupon = async (couponId) => {
-  const token = Token;
-  console.log("token in CouponService is : ", token);
   const url = `${base_url}coupons/${couponId}`;
-  const response = await axios.delete(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.delete(url, config);
   //   const response = await axios.get(url);
   console.log("Response in CouponService is : ", response);
 
