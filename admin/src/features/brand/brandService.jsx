@@ -35,13 +35,7 @@ const updateBrand = async (data) => {
   const { brandId, name } = data;
   console.log("brandId and name in update brandService is : ", brandId, name);
   const url = `${base_url}brands/${brandId}`;
-  const response = await axios.patch(
-    url,
-    { name: name },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  const response = await axios.patch(url, { name: name }, config);
 
   console.log("Response in brandService is : ", response);
 
