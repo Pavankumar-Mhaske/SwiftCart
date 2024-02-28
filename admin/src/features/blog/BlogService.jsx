@@ -1,15 +1,11 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
-import { Token } from "../Token";
+import { config } from "../../utils/AxiosConfig";
 
 const getBlogs = async () => {
-  const token = Token;
-
-  console.log("token in Blogservice is : ", token);
+ 
   const url = `${base_url}blogs/`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in Blogservice is : ", response);
 
@@ -17,14 +13,10 @@ const getBlogs = async () => {
 };
 
 const createBlog = async (blog) => {
-  const token = Token;
-
-  console.log("token in blogService is : ", token);
+ 
   console.log("blog in blogService is : ", blog);
   const url = `${base_url}blogs/`;
-  const response = await axios.post(url, blog, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.post(url, blog, config);
 
   console.log("Response in blogService is : ", response);
 
@@ -32,13 +24,8 @@ const createBlog = async (blog) => {
 };
 
 const getABlog = async (blogId) => {
-  const token = Token;
-
-  console.log("token in BlogService is : ", token);
-  const url = `${base_url}blogs/${blogId}`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+   const url = `${base_url}blogs/${blogId}`;
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in BlogService is : ", response);
 
@@ -46,10 +33,7 @@ const getABlog = async (blogId) => {
 };
 
 const updateBlog = async (data) => {
-  const token = Token;
-
-  console.log("token in update blogService is : ", token);
-  console.log("data in update blogService is : ", data);
+   console.log("data in update blogService is : ", data);
   const { blogId, title, category, description } = data;
   console.log("blogId and name in update blogService is : ", blogId, name);
   const url = `${base_url}blogs/${blogId}`;
@@ -62,9 +46,7 @@ const updateBlog = async (data) => {
   const response = await axios.patch(
     url,
     { ...blogToUpdate },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
+    config
   );
 
   console.log("Response in blogService is : ", response);
@@ -73,12 +55,8 @@ const updateBlog = async (data) => {
 };
 
 const deleteBlog = async (blogId) => {
-  const token = Token;
-  console.log("token in BlogService is : ", token);
-  const url = `${base_url}blogs/${blogId}`;
-  const response = await axios.delete(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+   const url = `${base_url}blogs/${blogId}`;
+  const response = await axios.delete(url, config);
   //   const response = await axios.get(url);
   console.log("Response in BlogService is : ", response);
 
