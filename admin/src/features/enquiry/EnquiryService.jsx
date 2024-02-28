@@ -42,9 +42,7 @@ const updateEnquiry = async (data) => {
   const response = await axios.patch(
     url,
     { status: status },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
+    config
   );
 
   console.log("Response in enquiryService is : ", response);
