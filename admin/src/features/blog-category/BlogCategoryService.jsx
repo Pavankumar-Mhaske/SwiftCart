@@ -1,15 +1,10 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
-import { Token } from "../Token";
+import { config } from "../../utils/AxiosConfig";
 
 const getBlogCategories = async () => {
-  const token = Token;
-
-  console.log("token in BlogCategoryService is : ", token);
   const url = `${base_url}blog-categories/`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in BlogCategoryService is : ", response);
 
@@ -17,14 +12,9 @@ const getBlogCategories = async () => {
 };
 
 const createBlogCategory = async (BlogCategory) => {
-  const token = Token;
-
-  console.log("token in BlogCategoryService is : ", token);
   console.log("BlogCategory in BlogCategoryService is : ", BlogCategory);
   const url = `${base_url}blog-categories/`;
-  const response = await axios.post(url, BlogCategory, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.post(url, BlogCategory, config);
 
   console.log("Response in BlogCategoryService is : ", response);
 
@@ -32,13 +22,8 @@ const createBlogCategory = async (BlogCategory) => {
 };
 
 const getABlogCategory = async (blogCategoryId) => {
-  const token = Token;
-
-  console.log("token in BlogCategoryService is : ", token);
   const url = `${base_url}blog-categories/${blogCategoryId}`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in BlogCategoryService is : ", response);
 
@@ -46,9 +31,6 @@ const getABlogCategory = async (blogCategoryId) => {
 };
 
 const updateBlogCategory = async (data) => {
-  const token = Token;
-
-  console.log("token in update blogCategoryService is : ", token);
   console.log("data in update blogCategoryService is : ", data);
   const { blogCategoryId, name } = data;
   console.log(
@@ -71,12 +53,8 @@ const updateBlogCategory = async (data) => {
 };
 
 const deleteBlogCategory = async (blogCategoryId) => {
-  const token = Token;
-  console.log("token in BlogCategoryService is : ", token);
   const url = `${base_url}blog-categories/${blogCategoryId}`;
-  const response = await axios.delete(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.delete(url, config);
   //   const response = await axios.get(url);
   console.log("Response in BlogCategoryService is : ", response);
 
