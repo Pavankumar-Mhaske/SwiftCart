@@ -3,10 +3,11 @@ import ProductService from "./ProductService";
 
 export const getProducts = createAsyncThunk(
   "products/get-products",
-  async (thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
       console.log("thunkAPI in productSlice is : ", thunkAPI);
-      const response = await ProductService.getProducts();
+      // console.log("data in productSlice is 😍😍 : ", data);
+      const response = await ProductService.getProducts(data);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
