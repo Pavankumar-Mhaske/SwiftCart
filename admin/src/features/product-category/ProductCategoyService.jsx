@@ -46,9 +46,7 @@ const updateProductCategory = async (data) => {
   const response = await axios.patch(
     url,
     { name: name },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
+    config
   );
 
   console.log("Response in ProductCategoryService is : ", response);
