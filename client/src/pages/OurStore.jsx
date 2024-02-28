@@ -333,8 +333,8 @@ const OurStore = () => {
                     <option value="" selected disabled>
                       Select Filter Option
                     </option>
-                    <option value="title">Alphabetically, A-Z</option>
-                    <option value="-title">Alphabetically, Z-A</option>
+                    <option value="name">Alphabetically, A-Z</option>
+                    <option value="-name">Alphabetically, Z-A</option>
                     <option value="price">Price, low to high</option>
                     <option value="-price">Price, high to low</option>
                     <option value="createdAt">Date, old to new</option>
