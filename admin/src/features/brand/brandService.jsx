@@ -1,15 +1,10 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
-import { Token } from "../Token";
+import { config } from "../../utils/AxiosConfig";
 
 const getBrands = async () => {
-  const token = Token;
-
-  console.log("token in BrandService is : ", token);
   const url = `${base_url}brands/`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in BrandService is : ", response);
 
@@ -17,14 +12,9 @@ const getBrands = async () => {
 };
 
 const createBrand = async (brand) => {
-  const token = Token;
-
-  console.log("token in brandService is : ", token);
   console.log("brand in brandService is : ", brand);
   const url = `${base_url}brands/`;
-  const response = await axios.post(url, brand, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.post(url, brand, config);
 
   console.log("Response in brandService is : ", response);
 
@@ -32,13 +22,8 @@ const createBrand = async (brand) => {
 };
 
 const getABrand = async (brandId) => {
-  const token = Token;
-
-  console.log("token in BrandService is : ", token);
   const url = `${base_url}brands/${brandId}`;
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
   //   const response = await axios.get(url);
   console.log("Response in BrandService is : ", response);
 
@@ -46,9 +31,6 @@ const getABrand = async (brandId) => {
 };
 
 const updateBrand = async (data) => {
-  const token = Token;
-
-  console.log("token in update brandService is : ", token);
   console.log("data in update brandService is : ", data);
   const { brandId, name } = data;
   console.log("brandId and name in update brandService is : ", brandId, name);
@@ -67,12 +49,8 @@ const updateBrand = async (data) => {
 };
 
 const deleteBrand = async (brandId) => {
-  const token = Token;
-  console.log("token in BrandService is : ", token);
   const url = `${base_url}brands/${brandId}`;
-  const response = await axios.delete(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.delete(url, config);
   //   const response = await axios.get(url);
   console.log("Response in BrandService is : ", response);
 
