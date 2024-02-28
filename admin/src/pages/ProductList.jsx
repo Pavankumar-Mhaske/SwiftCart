@@ -41,15 +41,25 @@ const columns = [
   {
     title: "Color",
     dataIndex: "color",
-    render: (color) => (
+    render: (colors) => (
       <>
-        {color.map((color, index) => {
-          return (
-            <Tag key={index} color={color?.name}>
-              {color?.name}
-            </Tag>
-          );
-        })}
+        <ul className="colors ps-0">
+          {colors &&
+            colors.map((color, index) => {
+              return (
+                // <Tag key={index} color={color?.name}>
+                //   {color?.name}
+                // </Tag>
+                <li
+                  key={index}
+                  style={{
+                    backgroundColor: color?.name,
+                    cursor: "pointer",
+                  }}
+                ></li>
+              );
+            })}
+        </ul>
       </>
     ),
   },
