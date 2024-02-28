@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+// Designs
 import { Column } from "@ant-design/plots";
 import { Table, Tag } from "antd";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
-
 // icons
 import { ImArrowDownRight2 } from "react-icons/im";
 import { ImArrowUpRight2 } from "react-icons/im";
 import { FaArrowTrendDown } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
+import { getMonthwiseOrdersInfo } from "../features/auth/authSlice";
+
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const orderState = useSelector((state) => state.auth);
+  const { ordersInfo, isLoading, isSuccess, isError, message } = orderState;
+  console.log("ordersInfo in Dashboard is 🍔🍔 : ", ordersInfo);
+
+  useEffect(() => {
+    dispatch(getMonthwiseOrdersInfo());
+  }, []);
+
   const data = [
     {
       type: "Jan",
