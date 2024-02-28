@@ -148,7 +148,6 @@ const ProductList = () => {
       status: productState[i].stock,
       stock: productState[i].stock,
       soldItems: productState[i].soldItems,
-      // category: productState[i].category,
       category: productState[i].category,
       action: "action",
     });
