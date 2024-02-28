@@ -104,9 +104,12 @@ const getAllProducts = asyncHandler(async (req, res) => {
   const queryObj = { ...req.query };
   console.log("queryObj", queryObj);
 
+  // exclude some fields from the query sort as well,
+  // because we don't want to include them in the query and we are
+  // taking care of them separately below - Sorting based on the give criteria
   const excludedFields = ["page", "limit", "sort", "fields"];
   excludedFields.forEach((el) => delete queryObj[el]);
-  // console.log(queryObj);
+  // console.log("queryObj", queryObj);
 
   let queryStr = JSON.stringify(queryObj);
   queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
@@ -133,7 +136,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
       // console.log(priceCriteria[key]);
     }
   }
-  console.log("priceCriteria", priceCriteria);
+  // console.log("priceCriteria", priceCriteria);
   // Find all categories with the given name
   if (priceCriteria.category) {
     const categoryName = priceCriteria.category;
@@ -168,17 +171,17 @@ const getAllProducts = asyncHandler(async (req, res) => {
     }
   }
 
-  console.log("priceCriteria", priceCriteria);
+  // console.log("priceCriteria", priceCriteria);
 
   // const productAggregate = Product.aggregate([{ $match: {color:color} }]);
   // const productAggregate = Product.aggregate([{ $match: queryObj }]);
   let productAggregate = Product.aggregate([{ $match: priceCriteria }]);
   // const productAggregate = Product.find(priceCriteria);
 
-  // Sorting
+  // Sorting based on the give criteria
   if (req.query.sort) {
     const sortBy = req.query.sort.split(",").join(" ");
-    console.log(sortBy);
+    console.log("sortBy:", sortBy);
     /**
      * Sorting according to the given criteria
      * - display the product according to the given criteria
