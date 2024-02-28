@@ -101,4 +101,18 @@ Table {
   color: var(--color-000000);
 }
 
+.colors {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.colors li {
+  width: 20px;
+  height: 20px;
+  /* background-color: red; */
+  border-radius: 50%;
+}
+
 /* 🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹 */
