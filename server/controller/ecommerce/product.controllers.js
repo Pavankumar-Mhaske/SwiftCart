@@ -13,6 +13,7 @@ import {
 } from "../../utils/helpers.js";
 import { MAXIMUM_SUB_IMAGE_COUNT } from "../../constants.js";
 import { ProductCategory } from "../../models/ecommerce/productCategory.models.js";
+import { Color } from "../../models/ecommerce/color.models.js";
 import {
   cloudinaryUploadImg,
   cloudinaryDeleteImg,
@@ -101,7 +102,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   // Filtering
   const queryObj = { ...req.query };
-  // console.log(queryObj);
+  console.log("queryObj", queryObj);
 
   const excludedFields = ["page", "limit", "sort", "fields"];
   excludedFields.forEach((el) => delete queryObj[el]);
@@ -132,6 +133,42 @@ const getAllProducts = asyncHandler(async (req, res) => {
       // console.log(priceCriteria[key]);
     }
   }
+  console.log("priceCriteria", priceCriteria);
+  // Find all categories with the given name
+  if (priceCriteria.category) {
+    const categoryName = priceCriteria.category;
+    const categories = await ProductCategory.find({ name: categoryName });
+    if (categories.length > 0) {
+      // Extract the IDs of the matching categories
+      const categoryIds = categories.map((category) => category._id);
+      // Update the priceCriteria to include the category IDs
+      priceCriteria.category = { $in: categoryIds };
+    } else {
+      // Handle case where category name does not exist
+      return res
+        .status(400)
+        .json(new ApiResponse(400, null, "Category name does not exist"));
+    }
+  }
+
+  // Find all colors with the given name
+  if (priceCriteria.colors) {
+    const colorNames = priceCriteria.colors;
+    const colors = await Color.find({ name: { $in: colorNames } });
+    if (colors.length > 0) {
+      // Extract the IDs of the matching colors
+      const colorIds = colors.map((color) => color._id);
+      // Update the priceCriteria to include the color IDs
+      priceCriteria.colors = { $in: colorIds };
+    } else {
+      // Handle case where color names do not exist
+      return res
+        .status(400)
+        .json(new ApiResponse(400, null, "Color names do not exist"));
+    }
+  }
+
+  console.log("priceCriteria", priceCriteria);
 
   // const productAggregate = Product.aggregate([{ $match: {color:color} }]);
   // const productAggregate = Product.aggregate([{ $match: queryObj }]);
@@ -182,7 +219,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
     as: "colors", // output array field
   });
 
-  console.log("productAggregate", productAggregate);
+  // console.log("productAggregate", productAggregate);
   const products = await Product.aggregatePaginate(
     productAggregate,
     getMongoosePaginationOptions({
