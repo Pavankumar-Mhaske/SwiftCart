@@ -3,7 +3,6 @@ import { base_url } from "../../utils/base_url";
 import { config } from "../../utils/AxiosConfig";
 
 const getCoupons = async () => {
-  console.log("token in CouponService is : ", token);
   const url = `${base_url}coupons/`;
   const response = await axios.get(url, config);
   //   const response = await axios.get(url);
