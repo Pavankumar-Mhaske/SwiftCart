@@ -4,8 +4,7 @@ import { config } from "../../utils/AxiosConfig";
 
 const getProducts = async (data) => {
   console.log("data in productService is 😍😍: ", data);
-  //   const token = Token;
-  //   console.log("token in productService is : ", token);
+   
   // console.log("brand==='' ? ", data?.brand === "" ? "true" : "false");
   console.log("data: ", data);
 
