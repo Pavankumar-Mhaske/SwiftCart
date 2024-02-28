@@ -609,7 +609,7 @@ const getMonthwiseOrderIncome = asyncHandler(async (req, res) => {
   let date = new Date();
   let endDate = "";
   date.setDate(1);
-  for (let index = 0; index < 12; index++) {
+  for (let index = 0; index < 11; index++) {
     date.setMonth(date.getMonth() - 1);
     endDate = monthNames[date.getMonth()] + " " + date.getFullYear();
   }
