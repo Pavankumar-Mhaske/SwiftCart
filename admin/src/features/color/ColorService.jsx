@@ -39,9 +39,7 @@ const updateColor = async (data) => {
   const response = await axios.patch(
     url,
     { name: name },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
+    config
   );
 
   console.log("Response in colorService is : ", response);
