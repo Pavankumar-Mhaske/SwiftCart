@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.11",
     "@reduxjs/toolkit": "^1.9.7",
     "antd": "^5.12.5",
     "axios": "^1.6.2",

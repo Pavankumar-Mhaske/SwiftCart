@@ -2,6 +2,9 @@ import React from "react";
 
 import { Column } from "@ant-design/plots";
 import { Table, Tag } from "antd";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Box from "@mui/material/Box";
 
 // icons
 import { ImArrowDownRight2 } from "react-icons/im";
@@ -228,6 +231,32 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      <div className="mt-4 flex-grow-1">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            "& > *": {
+              m: 1,
+            },
+          }}
+        >
+          <ButtonGroup
+            color="secondary"
+            disabled={false}
+            orientation="horizontal"
+            size="large"
+            variant="outlined"
+            style={{ backgroundColor: "black" }}
+          >
+            <Button>Monthly</Button>
+            <Button>Yearly</Button>
+          </ButtonGroup>
+        </Box>
+      </div>
+
       {/* <div className="d-flex justify-content-between align-items-center gap-3"> */}
       {/* 💸💸💸💰 Income Statestics 💰💸💸💸*/}
       <div className="mt-4 flex-grow-1">
@@ -236,6 +265,7 @@ const Dashboard = () => {
           <Column {...config} />
         </div>
       </div>
+
       {/* 📦📦📦 Recent Orders 📦📦📦 */}
       <div className="mt-4">
         <h3 className="mb-5">Recent Orders</h3>
