@@ -1,22 +1,44 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
+import { config } from "../../utils/AxiosConfig";
 
 const login = async (userData) => {
   const url = `${base_url}users/admin-login/`;
   const response = await axios.post(url, userData);
   console.log("Response in auth is : ", response);
-  if (response.data.data.token) {
+  console.log("user in auth is : ", response.data.data.user);
+  console.log("Response in login auth is : ", response);
+  if (response.data.data.user.accessToken) {
     localStorage.setItem("user", JSON.stringify(response.data.data.user));
-
-    // localStorage.setItem(key, JSON.stringify(value))
+    console.log(
+      "response.data.data.user.accessToken in login auth is : ",
+      response.data.data.user
+    );
   }
-  const token = JSON.parse(localStorage.getItem("user"));
-  console.log("token in auth is : ", token);
+
+  // Optionally, you can try to set a custom cookie on the client side for non-HTTP-only cookies
+  // document.cookie = `customCookie=${response.data.data.user.accessToken}; path=/;`;
+
+  // Accessing cookies in client-side JavaScript
+  // Using document.cookie
+  const allCookies = document.cookie;
+  console.log("accessedToken in login auth is : 😎😎", allCookies);
+  // console.log("accessedToken in login auth is : 😎😎", accessedToken);
+
+  return response.data;
+};
+
+// getMonthwiseOrderIncome
+const getMonthwiseOrdersIncome = async () => {
+  const url = `${base_url}users/get-monthwise-orders-info`;
+  const response = await axios.get(url, config);
+  console.log("Response in userService is : ", response);
   return response.data;
 };
 
 const authService = {
   login,
+  getMonthwiseOrdersIncome,
 };
 
 export default authService; // export the service
