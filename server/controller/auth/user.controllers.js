@@ -626,18 +626,34 @@ const getMonthwiseOrdersInfo = asyncHandler(async (req, res) => {
       $group: {
         _id: {
           month: { $month: "$createdAt" },
+          year: { $year: "$createdAt" },
         },
         sales: { $sum: "$discountedOrderPrice" },
         count: { $sum: 1 },
       },
     },
+    {
+      $sort: {
+        "_id.year": -1,
+        "_id.month": -1,
+      },
+    },
   ]);
+
+  const formattedData = data.map((item) => ({
+    _id: {
+      month: item._id.month,
+      year: item._id.year,
+    },
+    sales: item.sales,
+    count: item.count,
+  }));
   return res
     .status(200)
     .json(
       new ApiResponse(
         200,
-        { data: data },
+        { data: formattedData },
         "Monthwise orders Info fetched Successfully!"
       )
     );
