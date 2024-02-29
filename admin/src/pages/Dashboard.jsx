@@ -307,9 +307,9 @@ const Dashboard = () => {
                     %
                   </h6> */}
                   <p className="mb-0 description">
-                    {`Compared To ${monthNames[month?._id?.month - 2]} ${
-                      month?._id?.year
-                    }`}{" "}
+                    {`Compared To ${
+                      monthNames[(month?._id?.month - 2 + 12) % 12]
+                    } ${month?._id?.year}`}{" "}
                   </p>
                 </div>
               </div>
