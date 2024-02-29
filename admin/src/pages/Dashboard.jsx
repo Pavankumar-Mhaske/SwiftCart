@@ -22,7 +22,44 @@ const Dashboard = () => {
     monthlyDataState;
   console.log("ordersInfo in Dashboard is 🍔🍔 : ", ordersInfo);
   const [monthlyOrdersData, setMonthlyOrdersData] = useState([]);
-  console.log("monthlyOrdersData: ", monthlyOrdersData);
+  // console.log("monthlyOrdersData: ", monthlyOrdersData);
+  // trying to show the latest 3 months data and there relative sales and growth
+  let monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const recentMonthsArrayLength = 4;
+  const latestFourMonthsData = ordersInfo.slice(0, recentMonthsArrayLength);
+  console.log("latestFourMonthsData: ", latestFourMonthsData);
+
+  const grothRatesForLatestThreeMonths = latestFourMonthsData.map(
+    (month, index) => {
+      if (index === recentMonthsArrayLength - 1) return 0;
+      console.log("month: ", month, "index:", index);
+      const currentMonthSales = month.sales;
+      const previousMonthSales = latestFourMonthsData[index + 1]?.sales;
+      return parseFloat(
+        (
+          ((currentMonthSales - previousMonthSales) / previousMonthSales) *
+          100
+        ).toFixed(1)
+      );
+    }
+  );
+
+  console.log("grothRatesForLatestThreeMonths", grothRatesForLatestThreeMonths);
+
   useEffect(() => {
     dispatch(getMonthwiseOrdersInfo());
   }, []);
@@ -50,7 +87,7 @@ const Dashboard = () => {
         type:
           monthNames[monthlyOrders?._id?.month - 1] +
           " " +
-          monthlyOrders?._id?.year, 
+          monthlyOrders?._id?.year,
         sales: monthlyOrders?.sales,
       });
     }
@@ -235,47 +272,49 @@ const Dashboard = () => {
       {/* 📈📉📊 Three months Analysis Graphs 📈📉📊 */}
       <div className="d-flex justify-content-between align-items-center gap-3">
         {/* 📅📅📅 Month 1️⃣ 📅📅📅 */}
-        <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
-          <div>
-            <p className=" description">Total</p>{" "}
-            <h4 className="mb-0 sub-title">$100.00</h4>
-          </div>
-          <div className="d-flex flex-column align-items-end">
-            <h6 className="red">
-              {/* <ImArrowDownRight2 /> 32.9% */}
-              <FaArrowTrendDown /> 32.9%
-            </h6>
-            <p className="mb-0 description">Compared To April 2022 </p>
-          </div>
-        </div>
-        {/* 📅📅📅 Month 2️⃣ 📅📅📅 */}
-        <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
-          <div>
-            <p className=" description">Total</p>{" "}
-            <h4 className="mb-0 sub-title ">$100.00</h4>
-          </div>
-          <div className="d-flex flex-column align-items-end">
-            <h6 className="red">
-              {/* <ImArrowDownRight2 /> 32.9% */}
-              <FaArrowTrendDown /> 32.9%
-            </h6>
-            <p className="mb-0 description">Compared To April 2022 </p>
-          </div>
-        </div>
-        {/* 📅📅📅 Month 3️⃣ 📅📅📅 */}
-        <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
-          <div>
-            <p className=" description">Total</p>{" "}
-            <h4 className="mb-0 sub-title ">$100.00</h4>
-          </div>
-          <div className="d-flex flex-column align-items-end">
-            <h6 className="green">
-              {/* <ImArrowUpRight2 /> 32.9% */}
-              <FaArrowTrendUp /> 32.9%
-            </h6>
-            <p className="mb-0 description">Compared To April 2022 </p>
-          </div>
-        </div>
+        {latestFourMonthsData &&
+          latestFourMonthsData.length > 0 &&
+          latestFourMonthsData.map((month, index) => {
+            if (index === recentMonthsArrayLength - 1) return;
+            return (
+              <div
+                className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3"
+                style={{ fontSize: "14px" }}
+              >
+                <div
+                  className=""
+                  style={{ width: "125px", overflow: "hidden" }}
+                >
+                  <p className=" description">Total</p>{" "}
+                  <h4 className="mb-0 sub-title" style={{ fontSize: "1.3rem" }}>
+                    ${month?.sales}.00
+                  </h4>
+                </div>
+                <div className="d-flex flex-column align-items-end">
+                  {grothRatesForLatestThreeMonths[index] > 0 ? (
+                    <h6 className="green">
+                      <FaArrowTrendUp /> {grothRatesForLatestThreeMonths[index]}
+                      %
+                    </h6>
+                  ) : (
+                    <h6 className="red">
+                      <FaArrowTrendDown />{" "}
+                      {grothRatesForLatestThreeMonths[index]}%
+                    </h6>
+                  )}
+                  {/* <h6 className="red">
+                    <FaArrowTrendDown /> {grothRatesForLatestThreeMonths[index]}
+                    %
+                  </h6> */}
+                  <p className="mb-0 description">
+                    {`Compared To ${monthNames[month?._id?.month - 2]} ${
+                      month?._id?.year
+                    }`}{" "}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
       </div>
 
       <div className="mt-4 flex-grow-1">
