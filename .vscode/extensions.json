@@ -2,6 +2,7 @@
   "recommendations": [
     "thekalinga.bootstrap4-vscode",
     "anbuselvanrocky.bootstrap5-vscode",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "shd101wyy.markdown-preview-enhanced"
   ]
 }
