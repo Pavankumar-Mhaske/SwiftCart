@@ -36,9 +36,18 @@ const getMonthwiseOrdersIncome = async () => {
   return response.data;
 };
 
+// getOrderListAdmin
+const getOrderListAdmin = async () => {
+  const url = `${base_url}orders/list/admin`;
+  const response = await axios.get(url, config);
+  console.log("Response in userService is : ", response);
+  return response.data;
+};
+
 const authService = {
   login,
   getMonthwiseOrdersIncome,
+  getOrderListAdmin,
 };
 
 export default authService; // export the service
