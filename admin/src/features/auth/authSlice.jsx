@@ -28,6 +28,20 @@ export const getMonthwiseOrdersInfo = createAsyncThunk(
   }
 );
 
+// getOrderListAdmin
+export const getOrderListAdmin = createAsyncThunk(
+  "auth/get-order-list-admin",
+  async (_, thunkAPI) => {
+    try {
+      console.log("thunkAPI in authSlice is : ", thunkAPI);
+      const response = await authService.getOrderListAdmin();
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const getUserFromLocalStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
@@ -36,6 +50,7 @@ export const resetState = createAction("reset_all");
 const initialState = {
   user: getUserFromLocalStorage,
   ordersInfo: [],
+  allOrders: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -78,6 +93,25 @@ export const authSlice = createSlice({
         );
       })
       .addCase(getMonthwiseOrdersInfo.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload.message;
+      })
+      .addCase(getOrderListAdmin.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getOrderListAdmin.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.allOrders = action.payload.data.orders;
+        console.log(
+          "action.payload in userSlice is ⭐⭐ : ",
+          action.payload.data.orders
+        );
+      })
+      .addCase(getOrderListAdmin.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
