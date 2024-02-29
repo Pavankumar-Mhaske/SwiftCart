@@ -13,15 +13,20 @@ import { ImArrowUpRight2 } from "react-icons/im";
 import { FaArrowTrendDown } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
-import { getMonthwiseOrdersInfo } from "../features/auth/authSlice";
+import {
+  getMonthwiseOrdersInfo,
+  getOrderListAdmin,
+} from "../features/auth/authSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const monthlyDataState = useSelector((state) => state.auth);
-  const { ordersInfo, isLoading, isSuccess, isError, message } =
-    monthlyDataState;
+  const ordersState = useSelector((state) => state.auth);
+  const { ordersInfo, allOrders, isLoading, isSuccess, isError, message } =
+    ordersState;
   console.log("ordersInfo in Dashboard is 🍔🍔 : ", ordersInfo);
+  console.log("allOrders in Dashboard is 🍔🍔 : ", allOrders);
   const [monthlyOrdersData, setMonthlyOrdersData] = useState([]);
+  const [orders, setOrders] = useState([]);
   // console.log("monthlyOrdersData: ", monthlyOrdersData);
   // trying to show the latest 3 months data and there relative sales and growth
   let monthNames = [
@@ -62,6 +67,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getMonthwiseOrdersInfo());
+    dispatch(getOrderListAdmin());
   }, []);
 
   useEffect(() => {
@@ -93,6 +99,24 @@ const Dashboard = () => {
     }
     // console.log("data: ", data);
     setMonthlyOrdersData(data);
+
+    const data1 = [];
+
+    allOrders &&
+      allOrders.length > 0 &&
+      allOrders.map((order, index) => {
+        data1.push({
+          key: index,
+          status: order?.status,
+          countryOfOrigin: `India`,
+          name: `${order?.customer?.firstname} ${order?.customer?.lastname}`,
+          date: `${order?.createdAt}`,
+          isPaymentDone: order?.isPaymentDone,
+          totalPrice: `$${order?.discountedOrderPrice}.00`,
+        });
+      });
+
+    setOrders(data1);
   }, [ordersInfo]);
 
   const data = [
@@ -183,8 +207,15 @@ const Dashboard = () => {
       dataIndex: "key",
     },
     {
-      title: "Products",
-      dataIndex: "productId",
+      title: "Payment Status",
+      dataIndex: "isPaymentDone",
+      render: (isPaymentDone) => {
+        return isPaymentDone ? (
+          <Tag color="green">Paid</Tag>
+        ) : (
+          <Tag color="red">UnPaid</Tag>
+        );
+      },
     },
     {
       title: "Status",
@@ -251,21 +282,6 @@ const Dashboard = () => {
     },
   ];
 
-  const data1 = [];
-  for (let i = 0; i < 46; i++) {
-    data1.push({
-      key: i,
-      status: "Processing",
-      countryOfOrigin: `India`,
-      name: `Edward King ${i}`,
-      date: `10/10/2021`,
-      // age: 32.9,
-      // address: `London, Park Lane no. ${i}`,
-      productId: `#00745${i}`,
-      totalPrice: `$${i + 100}.00`,
-    });
-  }
-
   return (
     <div>
       <h3 className="mb-4 title">Dashboard</h3>
@@ -280,6 +296,7 @@ const Dashboard = () => {
               <div
                 className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3"
                 style={{ fontSize: "14px" }}
+                key={index}
               >
                 <div
                   className=""
@@ -328,7 +345,7 @@ const Dashboard = () => {
         <h3 className="mb-5">Recent Orders</h3>
         <div>
           {" "}
-          <Table columns={columns} dataSource={data1} />
+          <Table columns={columns} dataSource={orders} />
         </div>
       </div>
       {/* </div> */}
