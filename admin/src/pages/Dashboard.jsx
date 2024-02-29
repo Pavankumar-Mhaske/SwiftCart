@@ -47,7 +47,10 @@ const Dashboard = () => {
       const monthlyOrders = ordersInfo[index];
 
       data.push({
-        type: monthNames[monthlyOrders?._id?.month - 1],
+        type:
+          monthNames[monthlyOrders?._id?.month - 1] +
+          " " +
+          monthlyOrders?._id?.year, 
         sales: monthlyOrders?.sales,
       });
     }
@@ -105,6 +108,7 @@ const Dashboard = () => {
       sales: 88,
     },
   ];
+
   const config = {
     data: monthlyOrdersData.length > 0 ? monthlyOrdersData : data,
     xField: "type",
