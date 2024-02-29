@@ -534,6 +534,14 @@ const getOrderListAdmin = asyncHandler(async (req, res) => {
         as: "address",
       },
     },
+    {
+      $lookup: {
+        from: "products",
+        localField: "items.productId",
+        foreignField: "_id",
+        as: "items",
+      },
+    },
     // lookup for a customer associated with the order
     {
       $lookup: {
