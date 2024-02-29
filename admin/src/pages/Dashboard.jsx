@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Designs
@@ -17,13 +17,43 @@ import { getMonthwiseOrdersInfo } from "../features/auth/authSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const orderState = useSelector((state) => state.auth);
-  const { ordersInfo, isLoading, isSuccess, isError, message } = orderState;
+  const monthlyDataState = useSelector((state) => state.auth);
+  const { ordersInfo, isLoading, isSuccess, isError, message } =
+    monthlyDataState;
   console.log("ordersInfo in Dashboard is 🍔🍔 : ", ordersInfo);
-
+  const [monthlyOrdersData, setMonthlyOrdersData] = useState([]);
+  console.log("monthlyOrdersData: ", monthlyOrdersData);
   useEffect(() => {
     dispatch(getMonthwiseOrdersInfo());
   }, []);
+
+  useEffect(() => {
+    let monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    let data = [];
+    for (let index = 0; index < ordersInfo.length; index++) {
+      const monthlyOrders = ordersInfo[index];
+
+      data.push({
+        type: monthNames[monthlyOrders?._id?.month - 1],
+        sales: monthlyOrders?.sales,
+      });
+    }
+    // console.log("data: ", data);
+    setMonthlyOrdersData(data);
+  }, [ordersInfo]);
 
   const data = [
     {
@@ -76,7 +106,7 @@ const Dashboard = () => {
     },
   ];
   const config = {
-    data,
+    data: monthlyOrdersData.length > 0 ? monthlyOrdersData : data,
     xField: "type",
     yField: "sales",
     color: ({ type }) => {
