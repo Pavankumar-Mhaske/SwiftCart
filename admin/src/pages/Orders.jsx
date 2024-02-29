@@ -140,7 +140,9 @@ const Orders = () => {
       status: orderState[i].status,
       orderPrice: orderState[i].orderPrice,
       discountedOrderPrice: orderState[i].discountedOrderPrice,
-      coupon: orderState[i].coupon?.couponCode,
+      coupon: orderState[i].coupon?.couponCode
+        ? orderState[i].coupon?.couponCode
+        : "No Coupon",
       // customer: orderState[i].customer?._id,
       product: orderState[i]?._id,
       action: "action",
