@@ -516,7 +516,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 const getOrderListAdmin = asyncHandler(async (req, res) => {
-  const { status, page = 1, limit = 10 } = req.query;
+  const { status, page = 1, limit = 1000 } = req.query;
   const orderAggregate = EcomOrder.aggregate([
     {
       $match:
@@ -539,7 +539,7 @@ const getOrderListAdmin = asyncHandler(async (req, res) => {
         from: "products",
         localField: "items.productId",
         foreignField: "_id",
-        as: "items",
+        as: "products",
       },
     },
     // lookup for a customer associated with the order
@@ -554,6 +554,7 @@ const getOrderListAdmin = asyncHandler(async (req, res) => {
             $project: {
               _id: 1,
               firstname: 1,
+              lastname: 1,
               email: 1,
             },
           },
