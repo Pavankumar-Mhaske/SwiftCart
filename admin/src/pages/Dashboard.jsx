@@ -302,10 +302,7 @@ const Dashboard = () => {
                       {grothRatesForLatestThreeMonths[index]}%
                     </h6>
                   )}
-                  {/* <h6 className="red">
-                    <FaArrowTrendDown /> {grothRatesForLatestThreeMonths[index]}
-                    %
-                  </h6> */}
+
                   <p className="mb-0 description">
                     {`Compared To ${
                       monthNames[(month?._id?.month - 2 + 12) % 12]
@@ -315,31 +312,6 @@ const Dashboard = () => {
               </div>
             );
           })}
-      </div>
-
-      <div className="mt-4 flex-grow-1">
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            "& > *": {
-              m: 1,
-            },
-          }}
-        >
-          <ButtonGroup
-            color="secondary"
-            disabled={false}
-            orientation="horizontal"
-            size="large"
-            variant="outlined"
-            style={{ backgroundColor: "black" }}
-          >
-            <Button>Monthly</Button>
-            <Button>Yearly</Button>
-          </ButtonGroup>
-        </Box>
       </div>
 
       {/* <div className="d-flex justify-content-between align-items-center gap-3"> */}
