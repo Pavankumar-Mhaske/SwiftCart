@@ -162,3 +162,15 @@ orderState &&
           action: "action",
         });
       });
+
+
+      PENDING: "orange",
+      HOLD: "blue",
+      CANCELED: "red",
+      COMPLETED: "green",
+      PROCESSING: "cyan",
+      SHIPPED: "geekblue",
+      DELIVERED: "purple",
+      REFUNDED: "magenta",
+      ON_HOLD: "gold",
+      PARTIALLY_SHIPPED: "volcano",
