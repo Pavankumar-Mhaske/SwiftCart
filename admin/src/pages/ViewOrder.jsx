@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { getAOrder } from "../features/order/OrderSlice";
 import { getAColor } from "../features/color/ColorSlice";
+import { useState } from "react";
 
 const columns = [
   {
@@ -35,13 +36,22 @@ const columns = [
     dataIndex: "color",
     // render an array of colors in tags, each on a new line
     render: (colors) => (
-      <>
-        {colors?.map((Id, index) => (
-          <div key={index}>
-            <Tag color="green">{Id}</Tag>
-          </div>
-        ))}
-      </>
+      <div className="colors_column">
+        <ul className="colors ps-0">
+          {colors &&
+            colors?.map((color, index) => {
+              return (
+                <li
+                  key={index}
+                  style={{
+                    backgroundColor: color?.name,
+                    cursor: "pointer",
+                  }}
+                ></li>
+              );
+            })}
+        </ul>
+      </div>
     ),
   },
   //   Category
@@ -49,11 +59,21 @@ const columns = [
     title: "Category",
     dataIndex: "category",
     // render a category inside tag...
-    render: (category) => (
+    render: (categories) => (
       <>
-        <div>
-          <Tag color="green">{category}</Tag>
-        </div>
+        {categories.map((category, index) => (
+          <div key={index}>
+            <Tag
+              key={index}
+              style={{
+                cursor: "pointer",
+              }}
+              color="green"
+            >
+              {category?.name}
+            </Tag>
+          </div>
+        ))}
       </>
     ),
   },
@@ -63,13 +83,23 @@ const columns = [
     dataIndex: "tags",
     // render an array of tags in tags, each on a new line
     render: (tags) => (
-      <>
-        {tags.map((tag, index) => (
-          <div key={index}>
-            <Tag color="green">{tag}</Tag>
-          </div>
-        ))}
-      </>
+      <div className="tags_column">
+        <ul className="tags ps-0">
+          {tags &&
+            tags.map((tag, index) => {
+              return (
+                <Tag
+                  key={index}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  {tag}
+                </Tag>
+              );
+            })}
+        </ul>
+      </div>
     ),
   },
   //   Price
@@ -98,14 +128,18 @@ const ViewOrder = () => {
   const location = useLocation();
   const getOrderId = location.pathname.split("/")[3];
   console.log("getOrderId in ViewOrder is : ", getOrderId);
-
+  const [orderedProducts, setOrderedProducts] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAOrder(getOrderId));
   }, []);
 
-  const orderState = useSelector((state) => state.order.order.items);
-  console.log("orderState in ViewOrder is :  ", orderState);
+  const orderState = useSelector((state) => state.order.order);
+  console.log("orderState in ViewOrder is : ", orderState);
+  const { items, customer } = orderState;
+  console.log("items in ViewOrder is : 🌹🌹🌹 ", items);
+  console.log("customer in ViewOrder: 🌹🌹🌹 ", customer);
+  console.log("orderedProducts in ViewOrder is : ", orderedProducts);
   //   console.log(
   //     "orderState.length in ViewOrder is 🌹🌹🌹 :  ",
   //     ordervState.items
@@ -136,32 +170,54 @@ const ViewOrder = () => {
   //     return colors;
   //   };
 
-  const data1 = [];
-  for (let i = 0; i < orderState?.length; i++) {
-    // console.log(
-    //   "orderState[i].product.color in ViewOrder is : ",
-    //   orderState[i].product.colors
-    // );
-    // const colors = getColorsHelper(orderState[i].product.colors);
-    // console.log("colors in ViewOrder is : ", colors);
-    data1.push({
-      key: i + 1,
-      product: orderState[i].product.name,
-      quantity: orderState[i].quantity,
-      brand: orderState[i].product.brand,
-      color: orderState[i].product.colors,
-      category: orderState[i].product.category,
-      tags: orderState[i].product.tags,
-      price: orderState[i].product.price,
-      action: "action",
-    });
-  }
+  useEffect(() => {
+    const data1 = [];
+
+    orderState &&
+      items &&
+      items.length > 0 &&
+      items.map((item, index) => {
+        data1.push({
+          key: index + 1,
+          product: item.product.name,
+          quantity: item.quantity,
+          brand: item.product.brand,
+          color: item.product.colors,
+          category: item.product.category,
+          tags: item.product.tags,
+          price: item.product.price,
+          action: "action",
+        });
+      });
+    // for (let i = 0; i < items?.length; i++) {
+    //   // console.log(
+    //   //   "orderState[i].product.color in ViewOrder is : ",
+    //   //   orderState[i].product.colors
+    //   // );
+    //   // const colors = getColorsHelper(orderState[i].product.colors);
+    //   // console.log("colors in ViewOrder is : ", colors);
+    //   data1.push({
+    //     key: i + 1,
+    //     product: items[i].product.name,
+    //     quantity: items[i].quantity,
+    //     brand: items[i].product.brand,
+    //     color: items[i].product.colors,
+    //     category: items[i].product.category,
+    //     tags: items[i].product.tags,
+    //     price: items[i].product.price,
+    //     action: "action",
+    //   });
+    // }
+
+    console.log("data1 in ViewOrder is : ", data1);
+    setOrderedProducts(data1);
+  }, [orderState]);
 
   return (
     <div>
       <h3 className="mb-4 title">View Order</h3>
       <div>
-        <Table columns={columns} dataSource={data1} />
+        <Table columns={columns} dataSource={orderedProducts} />
       </div>
     </div>
   );
