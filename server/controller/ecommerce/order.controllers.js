@@ -422,7 +422,8 @@ const getOrderById = asyncHandler(async (req, res) => {
           {
             $project: {
               _id: 1,
-              username: 1,
+              firstname: 1,
+              lastname: 1,
               email: 1,
             },
           },
@@ -475,6 +476,28 @@ const getOrderById = asyncHandler(async (req, res) => {
     // So, once lookup is done we access first item in an array
     { $addFields: { "items.product": { $first: "$items.product" } } },
     // As we have unwind the items array the output of the following stages is not desired one
+    // So to make it desired we need to group whatever we have unwinded
+
+    // Lookup to populate the colors field
+    {
+      $lookup: {
+        from: "colors",
+        localField: "items.product.colors",
+        foreignField: "_id",
+        as: "items.product.colors",
+      },
+    },
+
+    // Lookup to populate the category field
+    {
+      $lookup: {
+        from: "productcategories",
+        localField: "items.product.category",
+        foreignField: "_id",
+        as: "items.product.category",
+      },
+    },
+    // As we have unwound the items array, the output of the following stages is not desired one
     // So to make it desired we need to group whatever we have unwinded
     {
       $group: {
