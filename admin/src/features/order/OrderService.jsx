@@ -16,7 +16,7 @@ const getAOrder = async (orderId) => {
   const url = `${base_url}orders/${orderId}`;
   const response = await axios.get(url, config);
   //   const response = await axios.get(url);
-  console.log("Response in OrderService is : 🤍🤍", response);
+  console.log("Response in OrderService is : 🌳🌳🌳", response);
 
   return response.data;
 };
