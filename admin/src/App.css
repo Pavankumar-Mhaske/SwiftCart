@@ -113,6 +113,7 @@ Table {
   height: 20px;
   /* background-color: red; */
   border-radius: 50%;
+  border: 1px solid var(--color-828599);
 }
 
 .colors_column {
@@ -122,6 +123,22 @@ Table {
   align-items: center;
   padding: 9px 9px 0px 9px;
 }
+
+.tags {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tags_column {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 9px 9px 0px 9px;
+}
+
 
 .categories {
   list-style-type: none;
