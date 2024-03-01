@@ -113,12 +113,32 @@ const columns = [
     dataIndex: "action",
     render: () => (
       <>
-        <Link to="#">
-          <BiEdit className="fs-5 ms-0 me-0 " />
-        </Link>
-        <Link to="#">
-          <MdDelete className="fs-5 ms-3 me-0 text-danger" />
-        </Link>
+        {/* PENDING: "orange",
+        PENDING
+      CANCELED: "red",
+      DELIVERED: "purple",
+      HOLD: "blue",
+      COMPLETED: "green",
+      PROCESSING: "cyan",
+      SHIPPED: "geekblue",
+      REFUNDED: "magenta",
+      ON_HOLD: "gold",
+      PARTIALLY_SHIPPED: "volcano", */}
+        <select name="" id="" className="form-control form-select">
+          <option value="ORDER STATUS" disabled selected>
+            ORDER STATUS
+          </option>
+          <option value="PENDING">PENDING</option>
+          <option value="CANCELED">CANCELED</option>
+          <option value="DELIVERED">DELIVERED</option>
+          <option value="HOLD">HOLD</option>
+          <option value="COMPLETED">COMPLETED</option>
+          <option value="PROCESSING">PROCESSING</option>
+          <option value="SHIPPED">SHIPPED</option>
+          <option value="REFUNDED">REFUNDED</option>
+          <option value="ON_HOLD">ON_HOLD</option>
+          <option value="PARTIALLY_SHIPPED">PARTIALLY_SHIPPED</option>
+        </select>
       </>
     ),
   },
@@ -185,7 +205,7 @@ const ViewOrder = () => {
           color: item.product.colors,
           category: item.product.category,
           tags: item.product.tags,
-          price: item.product.price,
+          price: `${item.product.price}.00`,
           action: "action",
         });
       });
