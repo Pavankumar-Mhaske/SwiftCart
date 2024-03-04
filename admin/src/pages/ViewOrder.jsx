@@ -197,7 +197,7 @@ const ViewOrder = () => {
           category: item.product.category,
           tags: item.product.tags,
           price: `${item.product.price}.00`,
-          action: "action",
+          action: orderState?.status,
         });
       });
     // for (let i = 0; i < items?.length; i++) {
@@ -227,6 +227,7 @@ const ViewOrder = () => {
   const handleUpdateOrderStatus = (status) => {
     console.log("e.target.value in ViewOrder is : ", status);
     dispatch(updateOrderStatus({ orderId: getOrderId, status: status }));
+    
   };
 
   const columns = [
@@ -330,30 +331,76 @@ const ViewOrder = () => {
     {
       title: "Action",
       dataIndex: "action",
-      render: () => (
-        <>
-          <select
-            name=""
-            id=""
-            className="form-control form-select"
-            onChange={(event) => handleUpdateOrderStatus(event.target.value)}
-          >
-            <option value="ORDER STATUS" disabled selected>
-              ORDER STATUS
-            </option>
-            <option value="PENDING">PENDING</option>
-            <option value="CANCELED">CANCELED</option>
-            <option value="DELIVERED">DELIVERED</option>
-            <option value="HOLD">HOLD</option>
-            <option value="COMPLETED">COMPLETED</option>
-            <option value="PROCESSING">PROCESSING</option>
-            <option value="SHIPPED">SHIPPED</option>
-            <option value="REFUNDED">REFUNDED</option>
-            <option value="ON_HOLD">ON_HOLD</option>
-            <option value="PARTIALLY_SHIPPED">PARTIALLY_SHIPPED</option>
-          </select>
-        </>
-      ),
+      render: (status) => {
+        let color = "";
+
+        switch (status) {
+          case "PENDING":
+            color = "orange";
+            break;
+          case "CANCELED":
+            color = "red";
+            break;
+          case "DELIVERED":
+            color = "purple";
+            break;
+          case "HOLD":
+            color = "blue";
+            break;
+          case "COMPLETED":
+            color = "green";
+            break;
+          case "PROCESSING":
+            color = "cyan";
+            break;
+          case "SHIPPED":
+            color = "geekblue";
+            break;
+
+          case "REFUNDED":
+            color = "magenta";
+            break;
+          case "ON_HOLD":
+            color = "gold";
+            break;
+          case "PARTIALLY_SHIPPED":
+            color = "volcano";
+            break;
+          // Add more cases as needed...
+
+          default:
+            color = "default";
+        }
+        return (
+          <div className="action_column">
+            <div className="action_status">
+              <Tag color={color}>{status}</Tag>
+            </div>
+            <select
+              name=""
+              id=""
+              className="form-control form-select"
+              // defaultValue={orderState && orderState?.status}
+              defaultValue="ORDER STATUS"
+              onChange={(event) => handleUpdateOrderStatus(event.target.value)}
+            >
+              <option value="ORDER STATUS" disabled>
+                ORDER STATUS
+              </option>
+              <option value="PENDING">PENDING</option>
+              <option value="CANCELED">CANCELED</option>
+              <option value="DELIVERED">DELIVERED</option>
+              <option value="HOLD">HOLD</option>
+              <option value="COMPLETED">COMPLETED</option>
+              <option value="PROCESSING">PROCESSING</option>
+              <option value="SHIPPED">SHIPPED</option>
+              <option value="REFUNDED">REFUNDED</option>
+              <option value="ON_HOLD">ON_HOLD</option>
+              <option value="PARTIALLY_SHIPPED">PARTIALLY_SHIPPED</option>
+            </select>
+          </div>
+        );
+      },
     },
   ];
 
