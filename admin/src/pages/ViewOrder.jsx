@@ -1,148 +1,139 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Table, Tag } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { getAOrder } from "../features/order/OrderSlice";
-import { getAColor } from "../features/color/ColorSlice";
-import { useState } from "react";
+import { getAOrder, updateOrderStatus } from "../features/order/OrderSlice";
 
-const columns = [
-  {
-    title: "S_No",
-    dataIndex: "key",
-  },
-  // PaymentId
-  {
-    title: "Product",
-    dataIndex: "product",
-  },
-  //   Quantity
-  {
-    title: "Quantity",
-    dataIndex: "quantity",
-  },
-  //   Brand
-  {
-    title: "Brand",
-    dataIndex: "brand",
-  },
-  //   Color
-  {
-    title: "Color",
-    dataIndex: "color",
-    // render an array of colors in tags, each on a new line
-    render: (colors) => (
-      <div className="colors_column">
-        <ul className="colors ps-0">
-          {colors &&
-            colors?.map((color, index) => {
-              return (
-                <li
-                  key={index}
-                  style={{
-                    backgroundColor: color?.name,
-                    cursor: "pointer",
-                  }}
-                ></li>
-              );
-            })}
-        </ul>
-      </div>
-    ),
-  },
-  //   Category
-  {
-    title: "Category",
-    dataIndex: "category",
-    // render a category inside tag...
-    render: (categories) => (
-      <>
-        {categories.map((category, index) => (
-          <div key={index}>
-            <Tag
-              key={index}
-              style={{
-                cursor: "pointer",
-              }}
-              color="green"
-            >
-              {category?.name}
-            </Tag>
-          </div>
-        ))}
-      </>
-    ),
-  },
-  //   Tags
-  {
-    title: "Tags",
-    dataIndex: "tags",
-    // render an array of tags in tags, each on a new line
-    render: (tags) => (
-      <div className="tags_column">
-        <ul className="tags ps-0">
-          {tags &&
-            tags.map((tag, index) => {
-              return (
-                <Tag
-                  key={index}
-                  style={{
-                    cursor: "pointer",
-                  }}
-                >
-                  {tag}
-                </Tag>
-              );
-            })}
-        </ul>
-      </div>
-    ),
-  },
-  //   Price
-  {
-    title: "Price",
-    dataIndex: "price",
-  },
-  // Action
-  {
-    title: "Action",
-    dataIndex: "action",
-    render: () => (
-      <>
-        {/* PENDING: "orange",
-        PENDING
-      CANCELED: "red",
-      DELIVERED: "purple",
-      HOLD: "blue",
-      COMPLETED: "green",
-      PROCESSING: "cyan",
-      SHIPPED: "geekblue",
-      REFUNDED: "magenta",
-      ON_HOLD: "gold",
-      PARTIALLY_SHIPPED: "volcano", */}
-        <select name="" id="" className="form-control form-select">
-          <option value="ORDER STATUS" disabled selected>
-            ORDER STATUS
-          </option>
-          <option value="PENDING">PENDING</option>
-          <option value="CANCELED">CANCELED</option>
-          <option value="DELIVERED">DELIVERED</option>
-          <option value="HOLD">HOLD</option>
-          <option value="COMPLETED">COMPLETED</option>
-          <option value="PROCESSING">PROCESSING</option>
-          <option value="SHIPPED">SHIPPED</option>
-          <option value="REFUNDED">REFUNDED</option>
-          <option value="ON_HOLD">ON_HOLD</option>
-          <option value="PARTIALLY_SHIPPED">PARTIALLY_SHIPPED</option>
-        </select>
-      </>
-    ),
-  },
-];
+// const columns = [
+//   {
+//     title: "S_No",
+//     dataIndex: "key",
+//   },
+//   // PaymentId
+//   {
+//     title: "Product",
+//     dataIndex: "product",
+//   },
+//   //   Quantity
+//   {
+//     title: "Quantity",
+//     dataIndex: "quantity",
+//   },
+//   //   Brand
+//   {
+//     title: "Brand",
+//     dataIndex: "brand",
+//   },
+//   //   Color
+//   {
+//     title: "Color",
+//     dataIndex: "color",
+//     // render an array of colors in tags, each on a new line
+//     render: (colors) => (
+//       <div className="colors_column">
+//         <ul className="colors ps-0">
+//           {colors &&
+//             colors?.map((color, index) => {
+//               return (
+//                 <li
+//                   key={index}
+//                   style={{
+//                     backgroundColor: color?.name,
+//                     cursor: "pointer",
+//                   }}
+//                 ></li>
+//               );
+//             })}
+//         </ul>
+//       </div>
+//     ),
+//   },
+//   //   Category
+//   {
+//     title: "Category",
+//     dataIndex: "category",
+//     // render a category inside tag...
+//     render: (categories) => (
+//       <>
+//         {categories.map((category, index) => (
+//           <div key={index}>
+//             <Tag
+//               key={index}
+//               style={{
+//                 cursor: "pointer",
+//               }}
+//               color="green"
+//             >
+//               {category?.name}
+//             </Tag>
+//           </div>
+//         ))}
+//       </>
+//     ),
+//   },
+//   //   Tags
+//   {
+//     title: "Tags",
+//     dataIndex: "tags",
+//     // render an array of tags in tags, each on a new line
+//     render: (tags) => (
+//       <div className="tags_column">
+//         <ul className="tags ps-0">
+//           {tags &&
+//             tags.map((tag, index) => {
+//               return (
+//                 <Tag
+//                   key={index}
+//                   style={{
+//                     cursor: "pointer",
+//                   }}
+//                 >
+//                   {tag}
+//                 </Tag>
+//               );
+//             })}
+//         </ul>
+//       </div>
+//     ),
+//   },
+//   //   Price
+//   {
+//     title: "Price",
+//     dataIndex: "price",
+//   },
+//   // Action
+//   {
+//     title: "Action",
+//     dataIndex: "action",
+//     render: () => (
+//       <>
+//         <select
+//           name=""
+//           id=""
+//           className="form-control form-select"
+//           onChange={(event) => handleUpdateOrderStatus(event.target.value)}
+//         >
+//           <option value="ORDER STATUS" disabled selected>
+//             ORDER STATUS
+//           </option>
+//           <option value="PENDING">PENDING</option>
+//           <option value="CANCELED">CANCELED</option>
+//           <option value="DELIVERED">DELIVERED</option>
+//           <option value="HOLD">HOLD</option>
+//           <option value="COMPLETED">COMPLETED</option>
+//           <option value="PROCESSING">PROCESSING</option>
+//           <option value="SHIPPED">SHIPPED</option>
+//           <option value="REFUNDED">REFUNDED</option>
+//           <option value="ON_HOLD">ON_HOLD</option>
+//           <option value="PARTIALLY_SHIPPED">PARTIALLY_SHIPPED</option>
+//         </select>
+//       </>
+//     ),
+//   },
+// ];
 
 const ViewOrder = () => {
   const location = useLocation();
@@ -232,6 +223,141 @@ const ViewOrder = () => {
     console.log("data1 in ViewOrder is : ", data1);
     setOrderedProducts(data1);
   }, [orderState]);
+
+  const handleUpdateOrderStatus = (e) => {
+    console.log("e.target.value in ViewOrder is : ", e.target.value);
+    dispatch(
+      updateOrderStatus({ orderId: getOrderId, status: e.target.value })
+    );
+  };
+
+  const columns = [
+    {
+      title: "S_No",
+      dataIndex: "key",
+    },
+    // PaymentId
+    {
+      title: "Product",
+      dataIndex: "product",
+    },
+    //   Quantity
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+    },
+    //   Brand
+    {
+      title: "Brand",
+      dataIndex: "brand",
+    },
+    //   Color
+    {
+      title: "Color",
+      dataIndex: "color",
+      // render an array of colors in tags, each on a new line
+      render: (colors) => (
+        <div className="colors_column">
+          <ul className="colors ps-0">
+            {colors &&
+              colors?.map((color, index) => {
+                return (
+                  <li
+                    key={index}
+                    style={{
+                      backgroundColor: color?.name,
+                      cursor: "pointer",
+                    }}
+                  ></li>
+                );
+              })}
+          </ul>
+        </div>
+      ),
+    },
+    //   Category
+    {
+      title: "Category",
+      dataIndex: "category",
+      // render a category inside tag...
+      render: (categories) => (
+        <>
+          {categories.map((category, index) => (
+            <div key={index}>
+              <Tag
+                key={index}
+                style={{
+                  cursor: "pointer",
+                }}
+                color="green"
+              >
+                {category?.name}
+              </Tag>
+            </div>
+          ))}
+        </>
+      ),
+    },
+    //   Tags
+    {
+      title: "Tags",
+      dataIndex: "tags",
+      // render an array of tags in tags, each on a new line
+      render: (tags) => (
+        <div className="tags_column">
+          <ul className="tags ps-0">
+            {tags &&
+              tags.map((tag, index) => {
+                return (
+                  <Tag
+                    key={index}
+                    style={{
+                      cursor: "pointer",
+                    }}
+                  >
+                    {tag}
+                  </Tag>
+                );
+              })}
+          </ul>
+        </div>
+      ),
+    },
+    //   Price
+    {
+      title: "Price",
+      dataIndex: "price",
+    },
+    // Action
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: () => (
+        <>
+          <select
+            name=""
+            id=""
+            className="form-control form-select"
+            onChange={(event) => handleUpdateOrderStatus(event.target.value)}
+          >
+            <option value="ORDER STATUS" disabled selected>
+              ORDER STATUS
+            </option>
+            <option value="PENDING">PENDING</option>
+            <option value="CANCELED">CANCELED</option>
+            <option value="DELIVERED">DELIVERED</option>
+            <option value="HOLD">HOLD</option>
+            <option value="COMPLETED">COMPLETED</option>
+            <option value="PROCESSING">PROCESSING</option>
+            <option value="SHIPPED">SHIPPED</option>
+            <option value="REFUNDED">REFUNDED</option>
+            <option value="ON_HOLD">ON_HOLD</option>
+            <option value="PARTIALLY_SHIPPED">PARTIALLY_SHIPPED</option>
+          </select>
+        </>
+      ),
+    },
+  ];
 
   return (
     <div>
