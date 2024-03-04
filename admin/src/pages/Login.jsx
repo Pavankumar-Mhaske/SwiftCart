@@ -38,6 +38,7 @@ const Login = () => {
   useEffect(() => {
     if (isSuccess) {
       navigate("/admin");
+      window.location.reload();
     } else if (isError && !isSuccess) {
       setAdminValidation(true);
     } else {
