@@ -36,7 +36,7 @@ const Login = () => {
   console.log("authState in Login is : 🌹🌹", authState.auth);
   const { user, isLoading, isError, isSuccess, message } = authState.auth;
   useEffect(() => {
-    if (isSuccess) {
+    if (user !== null && isSuccess) {
       navigate("/admin");
       window.location.reload();
     } else if (isError && !isSuccess) {
