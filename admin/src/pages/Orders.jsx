@@ -56,16 +56,37 @@ const columns = [
 
       switch (status) {
         case "PENDING":
-          color = "blue";
+          color = "orange";
           break;
-
-        case "CANCELLED":
+        case "CANCELED":
           color = "red";
           break;
-
         case "DELIVERED":
+          color = "purple";
+          break;
+        case "HOLD":
+          color = "blue";
+          break;
+        case "COMPLETED":
           color = "green";
           break;
+        case "PROCESSING":
+          color = "cyan";
+          break;
+        case "SHIPPED":
+          color = "geekblue";
+          break;
+
+        case "REFUNDED":
+          color = "magenta";
+          break;
+        case "ON_HOLD":
+          color = "gold";
+          break;
+        case "PARTIALLY_SHIPPED":
+          color = "volcano";
+          break;
+        // Add more cases as needed...
 
         default:
           color = "default";
