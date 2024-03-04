@@ -141,13 +141,11 @@ const ViewOrder = () => {
   console.log("getOrderId in ViewOrder is : ", getOrderId);
   const [orderedProducts, setOrderedProducts] = useState([]);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAOrder(getOrderId));
-  }, []);
 
-  const orderState = useSelector((state) => state.order.order);
+  const orderState = useSelector((state) => state.order);
   console.log("orderState in ViewOrder is : ", orderState);
-  const { items, customer } = orderState;
+  const { order, updatedOrder } = orderState;
+  const { items, customer } = order;
   console.log("items in ViewOrder is : 🌹🌹🌹 ", items);
   console.log("customer in ViewOrder: 🌹🌹🌹 ", customer);
   console.log("orderedProducts in ViewOrder is : ", orderedProducts);
@@ -182,9 +180,13 @@ const ViewOrder = () => {
   //   };
 
   useEffect(() => {
+    dispatch(getAOrder(getOrderId));
+  }, [updatedOrder]);
+
+  useEffect(() => {
     const data1 = [];
 
-    orderState &&
+    order &&
       items &&
       items.length > 0 &&
       items.map((item, index) => {
@@ -197,15 +199,15 @@ const ViewOrder = () => {
           category: item.product.category,
           tags: item.product.tags,
           price: `${item.product.price}.00`,
-          action: orderState?.status,
+          action: order?.status,
         });
       });
     // for (let i = 0; i < items?.length; i++) {
     //   // console.log(
-    //   //   "orderState[i].product.color in ViewOrder is : ",
-    //   //   orderState[i].product.colors
+    //   //   "order[i].product.color in ViewOrder is : ",
+    //   //   order[i].product.colors
     //   // );
-    //   // const colors = getColorsHelper(orderState[i].product.colors);
+    //   // const colors = getColorsHelper(order[i].product.colors);
     //   // console.log("colors in ViewOrder is : ", colors);
     //   data1.push({
     //     key: i + 1,
@@ -222,12 +224,11 @@ const ViewOrder = () => {
 
     console.log("data1 in ViewOrder is : ", data1);
     setOrderedProducts(data1);
-  }, [orderState]);
+  }, [order]);
 
   const handleUpdateOrderStatus = (status) => {
     console.log("e.target.value in ViewOrder is : ", status);
     dispatch(updateOrderStatus({ orderId: getOrderId, status: status }));
-    
   };
 
   const columns = [
@@ -380,7 +381,7 @@ const ViewOrder = () => {
               name=""
               id=""
               className="form-control form-select"
-              // defaultValue={orderState && orderState?.status}
+              // defaultValue={order && order?.status}
               defaultValue="ORDER STATUS"
               onChange={(event) => handleUpdateOrderStatus(event.target.value)}
             >
