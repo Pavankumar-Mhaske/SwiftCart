@@ -14,6 +14,6 @@ export const OpenRoutes = ({ children }) => {
     getUserFromLocalStorage?.accessToken === undefined ? (
     children
   ) : (
-    <Navigate to="/" replace={true} />
+    <Navigate to="/admin" replace={true} />
   );
 };
