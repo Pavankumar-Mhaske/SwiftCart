@@ -162,7 +162,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const loginAdmin = asyncHandler(async (req, res) => {
   try {
-    const { email, password, mobile = "1234567890" } = req.body;
+    const { email, password, mobile = "1234567891" } = req.body;
     console.log("req.body: ", req.body);
 
     if (!email || !mobile) {
@@ -222,7 +222,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
     console.log("ERROR: ", error);
     res.status(500).json({
       success: false,
-      message: `Internal Server Error - ${error}}`,
+      message: `Internal Server Error - ${error}`,
       error: error,
     });
   }
