@@ -82,12 +82,13 @@ const Login = () => {
               <div>{formik.errors.password}</div>
             ) : null}
           </div>
-          <div className="mb-3 text-end">
+          {/* Forgot Password? */}
+          {/* <div className="mb-3 text-end">
             <Link to="forgot-password" className="text-decoration-none">
               {" "}
               Forgot Password?
             </Link>
-          </div>
+          </div> */}
           <button
             // to="/admin"
             className="border-0 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5"
