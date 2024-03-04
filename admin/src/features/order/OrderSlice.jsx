@@ -27,10 +27,24 @@ export const getAOrder = createAsyncThunk(
   }
 );
 
+export const updateOrderStatus = createAsyncThunk(
+  "orders/update-order-status",
+  async (orderData, thunkAPI) => {
+    try {
+      console.log("thunkAPI in OrderSlice is : ", thunkAPI);
+      const response = await OrderService.updateOrderStatus(orderData);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const resetState = createAction("reset_all");
 const initialState = {
   orders: [],
   order: {},
+  updatedOrder: {},
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -46,7 +60,6 @@ export const orderSlice = createSlice({
       .addCase(getOrders.pending, (state) => {
         state.isLoading = true;
       })
-      // ;builder
       .addCase(getOrders.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
@@ -57,7 +70,6 @@ export const orderSlice = createSlice({
           action.payload.data.orders
         );
       })
-      // ;builder
       .addCase(getOrders.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
@@ -65,11 +77,9 @@ export const orderSlice = createSlice({
         // state.user = null;
         state.message = action.error;
       })
-      // ;builder
       .addCase(getAOrder.pending, (state) => {
         state.isLoading = true;
       })
-      // ;builder
       .addCase(getAOrder.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
@@ -80,12 +90,29 @@ export const orderSlice = createSlice({
           action.payload.data.order
         );
       })
-      // ;builder
       .addCase(getAOrder.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
-        // state.user = null;
+        state.message = action.error;
+      })
+      .addCase(updateOrderStatus.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateOrderStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.updatedOrder = action.payload.data;
+        console.log(
+          "action.payload in orderSlice is :💚💚💚 ",
+          action.payload.data
+        );
+      })
+      .addCase(updateOrderStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
         state.message = action.error;
       })
       .addCase(resetState, () => initialState);
