@@ -224,11 +224,9 @@ const ViewOrder = () => {
     setOrderedProducts(data1);
   }, [orderState]);
 
-  const handleUpdateOrderStatus = (e) => {
-    console.log("e.target.value in ViewOrder is : ", e.target.value);
-    dispatch(
-      updateOrderStatus({ orderId: getOrderId, status: e.target.value })
-    );
+  const handleUpdateOrderStatus = (status) => {
+    console.log("e.target.value in ViewOrder is : ", status);
+    dispatch(updateOrderStatus({ orderId: getOrderId, status: status }));
   };
 
   const columns = [
