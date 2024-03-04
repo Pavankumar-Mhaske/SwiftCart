@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
+import { useState } from "react";
 
 let schema = yup.object().shape({
   email: yup
@@ -17,6 +18,7 @@ let schema = yup.object().shape({
 const Login = () => {
   const displatch = useDispatch();
   const navigate = useNavigate();
+  const [adminValidation, setAdminValidation] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -31,11 +33,13 @@ const Login = () => {
   });
 
   const authState = useSelector((state) => state);
-
+  console.log("authState in Login is : 🌹🌹", authState.auth);
   const { user, isLoading, isError, isSuccess, message } = authState.auth;
   useEffect(() => {
     if (isSuccess) {
       navigate("/admin");
+    } else if (isError && !isSuccess) {
+      setAdminValidation(true);
     } else {
       navigate("");
     }
@@ -50,7 +54,19 @@ const Login = () => {
       <br />
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
         <h3 className="text-center  title">Login</h3>
-        <p className="text-center">Login to your account to continue</p>
+
+        {adminValidation ? (
+          <p
+            className="text-center"
+            style={{
+              color: "red",
+            }}
+          >
+            Make sure you are Admin to login !
+          </p>
+        ) : (
+          <p className="text-center">Login to your account to continue</p>
+        )}
         <div className="error text-center">
           {message.message == "Rejected" ? "You are not an Admin" : ""}
         </div>
@@ -91,7 +107,7 @@ const Login = () => {
           </div> */}
           <button
             // to="/admin"
-            className="border-0 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5"
+            className="border-0 px-3 py-2 mt-3 text-white fw-bold w-100 text-center text-decoration-none fs-5"
             style={{ background: "#ffd333" }}
             type="submit"
           >
