@@ -25,6 +25,7 @@ import { BiListUl } from "react-icons/bi";
 import { FaRegListAlt } from "react-icons/fa";
 import { BsChatDots } from "react-icons/bs";
 import { IoIosNotifications } from "react-icons/io";
+import { BiLogOut } from "react-icons/bi";
 // images
 import person from "../assets/person.jpg";
 import male from "../assets/male.jpg";
@@ -55,7 +56,11 @@ const MainLayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            if (key === "signout") {
+            if (key === "logout") {
+              localStorage.removeItem("user");
+              alert("You have been logged out successfully!");
+              window.location.reload();
+              // navigate("/");
             } else {
               navigate(key);
               // navigate(`/admin/${key}`);
@@ -178,16 +183,12 @@ const MainLayout = () => {
               icon: <BsChatDots className="fs-4" />,
               label: "Enquiries",
             },
-            // {
-            //   key: "2",
-            //   icon: <VideoCameraOutlined />,
-            //   label: "nav 2",
-            // },
-            // {
-            //   key: "3",
-            //   icon: <UploadOutlined />,
-            //   label: "nav 3",
-            // },
+            {
+              key: "logout",
+              // icon: <UserOutlined />,
+              icon: <BiLogOut className="fs-3" />,
+              label: "Logout",
+            },
           ]}
         />
       </Sider>
