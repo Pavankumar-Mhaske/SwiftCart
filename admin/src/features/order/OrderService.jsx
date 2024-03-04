@@ -21,9 +21,20 @@ const getAOrder = async (orderId) => {
   return response.data;
 };
 
+// updateOrderStatus
+const updateOrderStatus = async (orderData) => {
+  const { orderId, status } = orderData;
+  const url = `${base_url}orders/status/${orderId}`;
+  const response = await axios.patch(url, { status: status }, config);
+  console.log("Response in OrderService is : ", response);
+
+  return response.data;
+};
+
 const OrderService = {
   getOrders,
   getAOrder,
+  updateOrderStatus,
 };
 
 export default OrderService; // export the service
