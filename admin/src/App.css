@@ -139,6 +139,15 @@ Table {
   padding: 9px 9px 0px 9px;
 }
 
+.action_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 9px 9px 0px 9px;
+  gap: 20px;
+}
+
 
 .categories {
   list-style-type: none;
