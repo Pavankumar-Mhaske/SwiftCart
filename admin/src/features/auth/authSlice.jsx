@@ -78,6 +78,9 @@ export const authSlice = createSlice({
         state.isSuccess = false;
         state.user = null;
         state.message = action.payload.message;
+        if (state.isError === true) {
+          alert(action.payload.response.data.message);
+        }
       })
       .addCase(getMonthwiseOrdersInfo.pending, (state) => {
         state.isLoading = true;
