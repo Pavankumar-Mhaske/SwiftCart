@@ -146,14 +146,14 @@ const Login = () => {
     <>
       {/* <Toast /> */}
 
-      <Meta title={"Login"} />
+      <Meta title={"Admin Login"} />
       <BreadCrumb title="Admin-Login" />
       {/* 📃📃📄📄 Login 📃📃📄📄 */}
       <Container class1="login-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="auth-card">
-              <h3 className="title text-center mb-3">Login</h3>
+              <h3 className="title text-center mb-3">Admin Login</h3>
 
               {/* Validation */}
               {adminValidation ? (
