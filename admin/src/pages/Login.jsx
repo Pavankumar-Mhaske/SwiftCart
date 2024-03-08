@@ -155,6 +155,22 @@ const Login = () => {
             <div className="auth-card">
               <h3 className="title text-center mb-3">Login</h3>
 
+              {/* Validation */}
+              {adminValidation ? (
+                <p
+                  className="text-center"
+                  style={{
+                    color: "red",
+                  }}
+                >
+                  Make sure you are Admin to login !
+                </p>
+              ) : (
+                <p className="text-center">Login to your account to continue</p>
+              )}
+              {/* <div className="error text-center">
+                {message.message == "Rejected" ? "You are not an Admin" : ""}
+              </div> */}
               {/* 📜📜📜 Form 📜📜📜 */}
               <form
                 action=""
