@@ -42,8 +42,8 @@ export const getOrderListAdmin = createAsyncThunk(
   }
 );
 
-const getUserFromLocalStorage = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
+const getUserFromLocalStorage = localStorage.getItem("adminUser")
+  ? JSON.parse(localStorage.getItem("adminUser"))
   : null;
 
 export const resetState = createAction("reset_all");
