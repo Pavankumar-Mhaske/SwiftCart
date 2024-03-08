@@ -57,7 +57,7 @@ const MainLayout = () => {
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
             if (key === "logout") {
-              localStorage.removeItem("user");
+              localStorage.removeItem("adminUser");
               alert("You have been logged out successfully!");
               window.location.reload();
               // navigate("/");
