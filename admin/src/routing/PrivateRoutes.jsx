@@ -14,6 +14,6 @@ export const PrivateRoutes = ({ children }) => {
     getUserFromLocalStorage?.accessToken !== undefined ? (
     children
   ) : (
-    <Navigate to="/" replace={true} />
+    <Navigate to="/admin-login" replace={true} />
   );
 };

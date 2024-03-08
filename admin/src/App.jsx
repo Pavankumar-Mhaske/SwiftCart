@@ -1,5 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Login from "./pages/Login";
 // import ResetPassword from "./pages/ResetPassword";
 // import ForgotPassword from "./pages/ForgotPassword";
@@ -31,8 +36,9 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Navigate to="/admin-login" replace />} />
         <Route
-          path="/"
+          path="/admin-login"
           element={
             <OpenRoutes>
               <Login />
