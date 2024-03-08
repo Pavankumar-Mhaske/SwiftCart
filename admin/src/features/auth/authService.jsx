@@ -9,7 +9,7 @@ const login = async (userData) => {
   console.log("user in auth is : ", response.data.data.user);
   console.log("Response in login auth is : ", response);
   if (response.data.data.user.accessToken) {
-    localStorage.setItem("user", JSON.stringify(response.data.data.user));
+    localStorage.setItem("adminUser", JSON.stringify(response.data.data.user));
     console.log(
       "response.data.data.user.accessToken in login auth is : ",
       response.data.data.user
