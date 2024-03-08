@@ -162,7 +162,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const loginAdmin = asyncHandler(async (req, res) => {
   try {
-    const { email, password, mobile = "1234567891" } = req.body;
+    const { email, password, mobile } = req.body;
     console.log("req.body: ", req.body);
 
     if (!email || !mobile) {
