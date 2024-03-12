@@ -99,7 +99,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
    * page: which page to show ( only Products respective to that page will be fetched )
    * limit: how many products to show in a page
    */
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 1000 } = req.query;
   // Filtering
   const queryObj = { ...req.query };
   console.log("queryObj", queryObj);
@@ -376,7 +376,7 @@ const getProductById = asyncHandler(async (req, res) => {
 const getProductsByCategory = asyncHandler(async (req, res) => {
   const { categoryId } = req.params;
 
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 1000 } = req.query;
 
   const category = await ProductCategory.findById(categoryId).select(
     "name _id"

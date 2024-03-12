@@ -25,7 +25,7 @@ const createColor = asyncHandler(async (req, res) => {
 });
 
 const getAllColors = asyncHandler(async (req, res) => {
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 1000 } = req.query;
   // $match operation is using an empty object {} as the condition, which means that it will match all documents in the Color collection.
   const colorAggregate = Color.aggregate([{ $match: {} }]);
 

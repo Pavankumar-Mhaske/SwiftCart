@@ -109,7 +109,7 @@ const getAllBlogs = asyncHandler(async (req, res) => {
      or
     */
 
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 1000 } = req.query;
     // $match operation is using an empty object {} as the condition, which means that it will match all documents in the Blog collection.
     const blogAggregate = Blog.aggregate([{ $match: {} }]);
 

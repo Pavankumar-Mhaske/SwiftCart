@@ -59,7 +59,7 @@ const createCoupon = asyncHandler(async (req, res) => {
 });
 
 const getAllCoupons = asyncHandler(async (req, res) => {
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 1000 } = req.query;
   const couponAggregate = Coupon.aggregate([{ $match: {} }]);
 
   const coupons = await Coupon.aggregatePaginate(
@@ -313,7 +313,7 @@ const updateCouponActiveStatus = asyncHandler(async (req, res) => {
 });
 
 const getValidCouponsForCustomer = asyncHandler(async (req, res) => {
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 1000 } = req.query;
 
   const userCart = await getCart(req.user._id);
   console.log("userCart - 🛒:", userCart);
