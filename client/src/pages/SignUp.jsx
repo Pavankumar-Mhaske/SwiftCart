@@ -21,10 +21,12 @@ let schema = yup.object().shape({
   email: yup
     .string()
     .email("Invalid email address")
-    .required("Email is required")
+    .required("Email is required"),
+  mobile: yup
+    .string()
+    .required("Mobile Number is required")
     .min(10, "Mobile number must be of 10 digits")
     .max(10, "Mobile number must be of 10 digits"),
-  mobile: yup.string().required("Mobile Number is required"),
   password: yup.string().required("Password is required"),
 });
 
@@ -41,7 +43,7 @@ const SignUp = () => {
     // console.log("inside of the useEffect for success or error message 💥💥");
     if (isSuccess && user && Object.keys(user).length > 0) {
       showToastSuccess("User Registered Successfully!", loadingRegisterToastId);
-      navigate("/");
+      navigate("/login");
     } else if (isError) {
       showToastError("Something went wrong");
     }
