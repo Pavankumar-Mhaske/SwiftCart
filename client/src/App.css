@@ -1366,3 +1366,7 @@ footer .input-group-text {
 }
 
 /* 🌺🌺 Checkout Page Ends here 🌺🌺 */
+
+.role-lables {
+  background-color: var(--color-f5f5f7);
+}

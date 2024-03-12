@@ -28,12 +28,15 @@ let schema = yup.object().shape({
     .min(10, "Mobile number must be of 10 digits")
     .max(10, "Mobile number must be of 10 digits"),
   password: yup.string().required("Password is required"),
+  role: yup.string().required("Role is required"),
 });
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loadingRegisterToastId, setLoadingRegisterToastId] = useState(null);
+  const [isUser, setIsUser] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const newAuth = useSelector((state) => state.auth);
   const { isSuccess, isError, user } = newAuth;
@@ -65,6 +68,7 @@ const SignUp = () => {
       email: "",
       password: "",
       mobile: "",
+      role: "USER",
     },
     validationSchema: schema,
     onSubmit: async (values) => {
@@ -84,6 +88,20 @@ const SignUp = () => {
       // }, 500);
     },
   });
+
+  console.log("formik.values 😍: ", formik.values);
+
+  const handleBoxClick = (buttonType) => {
+    if (buttonType === "USER") {
+      setIsUser(true);
+      setIsAdmin(false);
+      formik.setFieldValue("role", "USER");
+    } else if (buttonType === "ADMIN") {
+      setIsUser(false);
+      setIsAdmin(true);
+      formik.setFieldValue("role", "ADMIN");
+    }
+  };
 
   return (
     <>
@@ -180,6 +198,52 @@ const SignUp = () => {
                   {formik.touched.password && formik.errors.password ? (
                     <div className="error">{formik.errors.password}</div>
                   ) : null}
+                </div>
+                <div className="form-control d-flex justify-content-between border border-gray-200 ">
+                  {/* User */}
+                  <button
+                    className="d-flex align-items-center ps-4 border border-2 border-gray-200 rounded dark:border-gray-700 w-50 m-2 bg-white"
+                    onClick={() => handleBoxClick("USER")}
+                    type="button"
+                  >
+                    <input
+                      className="w-4 h-4 text-primary  border border-secondary focus:ring-primary dark:focus:ring-primary dark:ring-offset-dark focus:ring-2 dark:bg-dark dark:border-dark"
+                      type="radio"
+                      name="flexRadioActive"
+                      id="flexRadioActive"
+                      checked={isUser}
+                    />
+                    <label
+                      className="role-lables form-check-label w-10 ps-1 pe-1 ms-5  text-small font-weight-medium text-dark dark:text-gray-300"
+                      htmlFor="flexRadioActive"
+                    >
+                      User
+                    </label>
+                  </button>
+                  {/* Admin */}
+                  <button
+                    className=" d-flex align-items-center ps-4 border border-2 border-gray-200 rounded dark:border-gray-700 w-50 m-2 bg-white"
+                    onClick={() => handleBoxClick("ADMIN")}
+                    type="button"
+                  >
+                    <input
+                      className="w-4 h-4 text-primary bg-light border border-secondary focus:ring-primary dark:focus:ring-primary dark:ring-offset-dark focus:ring-2 dark:bg-dark dark:border-dark"
+                      type="radio"
+                      name="flexRadioActive"
+                      id="flexRadioInActive"
+                      checked={isAdmin}
+                    />
+                    <label
+                      className="role-lables form-check-label w-10 ps-1 pe-1 ms-5 text-small font-weight-medium text-dark dark:text-gray-300"
+                      htmlFor="flexRadioInActive"
+                    >
+                      Admin
+                    </label>
+                  </button>
+                </div>
+
+                <div className="error">
+                  {formik.touched.role && formik.errors.role}
                 </div>
                 {/* 🔘🔘🔘 Buttons 🔘🔘🔘 */}
                 <div className="form-group">
