@@ -96,12 +96,24 @@ const AddProduct = () => {
 
   useEffect(() => {
     if (formik.isSubmitting) {
-      if (isSuccess && createdProduct) {
+      // if (isSuccess && createdBrand && Object.keys(createdBrand).length > 0) {
+      if (
+        isSuccess &&
+        createdProduct &&
+        Object.keys(createdProduct).length > 0
+      ) {
         console.log("loadingToastId : ", loadingToastId);
         showToastSuccess("Product Created Successfully", loadingToastId);
-      }
-      if (isError) {
+        alert("Product Created Successfully");
+        setTimeout(() => {
+          navigate("/admin/product-list");
+        }, 500);
+      } else if (isError) {
         showToastError("Product Creation Failed");
+        alert("Product Creation Failed");
+        // setTimeout(() => {
+        //   navigate("/admin/product-list");
+        // }, 500);
       }
     }
   }, [createdProduct, isSuccess, isLoading, isError]);
