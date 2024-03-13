@@ -172,6 +172,10 @@ const SingleProduct = () => {
         },
       };
       dispatch(addReviewsAndRating(data));
+      setTimeout(() => {
+        setstars(null);
+        setComment(null);
+      }, 1000);
     }
   };
 
