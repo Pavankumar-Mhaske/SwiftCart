@@ -29,12 +29,28 @@ const BlogCard = (props) => {
       </div>
       <div className="blog-content">
         <p className="date">{date}</p>
-        <h5 className="title">{title}</h5>
+        <h5
+          className="title"
+          style={{
+            maxHeight: "3em", // Adjust the height as per your requirement
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {title}
+        </h5>
         <p
           className="description mb-3"
           // dangerouslySetInnerHTML={{
           //   __html: description?.substring(0, 70) + "...",
           // }}
+          style={{
+            maxHeight: "3em", // Adjust the height as per your requirement
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
         >
           {description && description?.length > 70
             ? description?.substring(0, 70) + "..."
