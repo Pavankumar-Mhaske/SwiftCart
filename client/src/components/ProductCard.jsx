@@ -68,7 +68,17 @@ const ProductCard = (props) => {
               </div>
               <div className="product-details">
                 <h6 className="brand">{item.brand}</h6>
-                <h5 className="product-title">{item?.name}</h5>
+                <h5
+                  className="product-title"
+                  style={{
+                    maxHeight: "3em", // Adjust the height as per your requirement
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {item?.name}
+                </h5>
                 <ReactStars
                   count={5}
                   size={24}
