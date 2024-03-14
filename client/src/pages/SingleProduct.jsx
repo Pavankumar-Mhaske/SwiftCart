@@ -159,6 +159,7 @@ const SingleProduct = () => {
   const [comment, setComment] = useState(null);
   const handleAddReviewsAndRating = (event) => {
     event.preventDefault();
+
     if (stars === null) {
       alert("Please give rating");
     } else if (comment === null) {
@@ -173,8 +174,11 @@ const SingleProduct = () => {
       };
       dispatch(addReviewsAndRating(data));
       setTimeout(() => {
-        setstars(null);
-        setComment(null);
+        const message = `                             Review Added Successfully❗✅
+                    🙏 Thank you for sharing your review. 🙏
+                    💖 We appreciate your feedback. 💖
+        `;
+        alert(message);
       }, 1000);
     }
   };
