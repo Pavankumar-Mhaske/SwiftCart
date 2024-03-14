@@ -39,6 +39,7 @@ const Login = () => {
     if (isSuccess && user && Object.keys(user).length > 0) {
       showToastSuccess("User Loged In Successfully!", loadingLoginToastId);
       navigate("/");
+      window.location.reload();
     } else if (isError) {
       showToastError("Something went wrong");
     }
