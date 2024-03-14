@@ -14,9 +14,24 @@ const getUserWishList = async () => {
 //  getUserCart
 const getUserCart = async () => {
   const url = `${base_url}users/cart/`;
-  const response = await axios.get(url, config);
-  console.log("Response in userService is : ", response);
-  return response.data;
+  try {
+    const response = await axios.get(url, config);
+    // console.log("Response in userService is :💖 ", response);
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const addItemOrUpdateItemQuantity = async (cartData) => {
