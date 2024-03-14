@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserCart } from "../features/user/userSlice";
@@ -11,6 +11,12 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const pathname = location.pathname;
+  console.log(
+    "location in Header is 🛒 🎧🤕🤕💖💖💖💖💖💖💖💖💖💖 : ",
+    pathname
+  );
   const [paginate, setPaginate] = useState(true);
   const [options, setOptions] = useState([]);
   // const options = range(0, 1000).map((o) => `Item ${o}`);
@@ -56,7 +62,9 @@ const Header = () => {
     });
 
   useEffect(() => {
-    dispatch(getUserCart());
+    if (pathname !== "/login") {
+      dispatch(getUserCart());
+    }
   }, [userCart?.discountedCartPrice, cart]);
 
   // console.log("totalItemsInCart in Header is 🛒 🎧🤕🤕 : ", totalItemsInCart);
