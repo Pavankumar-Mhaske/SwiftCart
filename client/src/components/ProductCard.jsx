@@ -52,6 +52,7 @@ const ProductCard = (props) => {
                   <img src="/images/wish.svg" alt="wishlist" />
                 </button>
               </div>
+              {/* <div className="product-section"> */}
               <div className="product-image product-image-container">
                 <img
                   className="img-fluid"
@@ -77,7 +78,10 @@ const ProductCard = (props) => {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {item?.name}
+                  {/* {item?.name} */}
+                  {item?.name && item?.name?.length > 70
+                    ? item?.name?.substring(0, 60) + "..."
+                    : item?.name}
                 </h5>
                 <ReactStars
                   count={5}
@@ -93,11 +97,16 @@ const ProductCard = (props) => {
                   }`}
                 >
                   {/* dangerouslySetInnerHTML={{ __html: item?.description }} */}
-                  {item?.description}
+                  {/* {item?.description} */}
+                  {item?.description && item?.description?.length > 70
+                    ? item?.description?.substring(0, 80) + "..."
+                    : item?.description}
                 </p>
 
                 <p className="price">${item.price}</p>
               </div>
+              {/* </div> */}
+              {/* More Options */}
               <div className="action-bar position-absolute">
                 <div className="d-flex flex-column gap-15">
                   <button className="border-0 bg-transparent">
