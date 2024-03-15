@@ -350,13 +350,13 @@ const Dashboard = () => {
       </div>
       {/* </div> */}
       {/* 📝📝📝 Recent Reviews 📝📝📝 */}
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <h3 className="mb-4">Recent Reviews</h3>
         <div className="d-flex">
           <div className=""></div>
           <div></div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
