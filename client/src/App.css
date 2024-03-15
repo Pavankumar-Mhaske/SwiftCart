@@ -394,12 +394,13 @@ footer .input-group-text {
 }
 
 .product-card .product-image {
-  /* height: 180px;
-  width: 280px; */
+  /* height: 180px; */
+  /* width: 380px; */
 }
 
 .product-card .product-image-container {
   height: 300px; /* Set a fixed height for the container */
+  /* width: 300px; */
   display: flex;
   overflow: hidden; /* Hide any overflowing content */
 }
@@ -411,7 +412,7 @@ footer .input-group-text {
 }
 
 .product-card .product-image img {
-  object-fit: contain;
+  /* object-fit: contain; */
 }
 
 .product-card .product-image > img:last-child {
