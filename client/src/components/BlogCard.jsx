@@ -53,7 +53,7 @@ const BlogCard = (props) => {
           }}
         >
           {description && description?.length > 70
-            ? description?.substring(0, 70) + "..."
+            ? description?.substring(0, 68) + "..."
             : description}
         </p>
         {/* <p className="description mb-3">{description}</p> */}
