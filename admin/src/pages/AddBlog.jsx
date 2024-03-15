@@ -328,7 +328,7 @@ const AddBlog = () => {
                 // console.log("plainText : 💖💖💖💖", plainText);
                 formik.setFieldValue("description", htmlValue);
               }}
-              value={formik.values.description}
+              // value={formik.values.description}
 
               // onChange={(htmlValue) => {
               //   // Extract text without HTML tags
