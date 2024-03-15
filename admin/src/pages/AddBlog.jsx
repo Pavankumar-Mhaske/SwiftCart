@@ -323,12 +323,12 @@ const AddBlog = () => {
               theme="snow"
               name="description"
               onChange={(htmlValue) => {
-                console.log("htmlValue : ", htmlValue);
-                const plainText = extractTextFromHTML(htmlValue).trim();
-                console.log("plainText : ", plainText);
-                formik.setFieldValue("description", plainText);
+                console.log("htmlValue : ✅✅✅✅", htmlValue);
+                // const plainText = extractTextFromHTML(htmlValue).trim();
+                // console.log("plainText : 💖💖💖💖", plainText);
+                formik.setFieldValue("description", htmlValue);
               }}
-              // value={formik.values.description}
+              value={formik.values.description}
 
               // onChange={(htmlValue) => {
               //   // Extract text without HTML tags
