@@ -4,30 +4,74 @@ import { config } from "../../utils/AxiosConfig";
 
 const getBlogCategories = async () => {
   const url = `${base_url}blog-categories/`;
-  const response = await axios.get(url, config);
-  //   const response = await axios.get(url);
-  console.log("Response in BlogCategoryService is : ", response);
-
-  return response.data;
+  try {
+    const response = await axios.get(url, config);
+    //   const response = await axios.get(url);
+    console.log("Response in BlogCategoryService is : ", response);
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const createBlogCategory = async (BlogCategory) => {
   console.log("BlogCategory in BlogCategoryService is : ", BlogCategory);
   const url = `${base_url}blog-categories/`;
-  const response = await axios.post(url, BlogCategory, config);
+  try {
+    const response = await axios.post(url, BlogCategory, config);
 
-  console.log("Response in BlogCategoryService is : ", response);
+    console.log("Response in BlogCategoryService is : ", response);
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const getABlogCategory = async (blogCategoryId) => {
   const url = `${base_url}blog-categories/${blogCategoryId}`;
-  const response = await axios.get(url, config);
-  //   const response = await axios.get(url);
-  console.log("Response in BlogCategoryService is : ", response);
+  try {
+    const response = await axios.get(url, config);
+    //   const response = await axios.get(url);
+    console.log("Response in BlogCategoryService is : ", response);
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const updateBlogCategory = async (data) => {
@@ -39,24 +83,49 @@ const updateBlogCategory = async (data) => {
     name
   );
   const url = `${base_url}blog-categories/${blogCategoryId}`;
-  const response = await axios.patch(
-    url,
-    { name: name },
-    config
-  );
+  try {
+    const response = await axios.patch(url, { name: name }, config);
 
-  console.log("Response in blogCategoryService is : ", response);
+    console.log("Response in blogCategoryService is : ", response);
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const deleteBlogCategory = async (blogCategoryId) => {
   const url = `${base_url}blog-categories/${blogCategoryId}`;
-  const response = await axios.delete(url, config);
-  //   const response = await axios.get(url);
-  console.log("Response in BlogCategoryService is : ", response);
-
-  return response.data;
+  try {
+    const response = await axios.delete(url, config);
+    //   const response = await axios.get(url);
+    console.log("Response in BlogCategoryService is : ", response);
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const BlogCategoryService = {
