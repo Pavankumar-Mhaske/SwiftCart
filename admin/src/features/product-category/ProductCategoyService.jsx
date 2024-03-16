@@ -4,11 +4,26 @@ import { config } from "../../utils/AxiosConfig";
 
 const getProductCategories = async () => {
   const url = `${base_url}product-categories/`;
-  const response = await axios.get(url, config);
-  //   const response = await axios.get(url);
-  console.log("Response in ProductCategoryService is : ", response);
+  try {
+    const response = await axios.get(url, config);
+    //   const response = await axios.get(url);
+    console.log("Response in ProductCategoryService is : ", response);
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const createProductCategory = async (productCategory) => {
@@ -17,21 +32,50 @@ const createProductCategory = async (productCategory) => {
     productCategory
   );
   const url = `${base_url}product-categories/`;
+  try {
+    const response = await axios.post(url, productCategory, config);
 
-  const response = await axios.post(url, productCategory, config);
+    console.log("Response in productCategoryService is : ", response);
 
-  console.log("Response in productCategoryService is : ", response);
-
-  return response.data;
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const getAProductCategory = async (productCategoryId) => {
   const url = `${base_url}product-categories/${productCategoryId}`;
-  const response = await axios.get(url, config);
-  //   const response = await axios.get(url);
-  console.log("Response in ProductCategoryService is : ", response);
+  try {
+    const response = await axios.get(url, config);
+    //   const response = await axios.get(url);
+    console.log("Response in ProductCategoryService is : ", response);
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const updateProductCategory = async (data) => {
@@ -43,24 +87,50 @@ const updateProductCategory = async (data) => {
     name
   );
   const url = `${base_url}product-categories/${productCategoryId}`;
-  const response = await axios.patch(
-    url,
-    { name: name },
-    config
-  );
+  try {
+    const response = await axios.patch(url, { name: name }, config);
 
-  console.log("Response in ProductCategoryService is : ", response);
+    console.log("Response in ProductCategoryService is : ", response);
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const deleteProductCategory = async (productCategoryId) => {
   const url = `${base_url}product-categories/${productCategoryId}`;
-  const response = await axios.delete(url, config);
-  //   const response = await axios.get(url);
-  console.log("Response in ProductCategoryService is : ", response);
+  try {
+    const response = await axios.delete(url, config);
+    //   const response = await axios.get(url);
+    console.log("Response in ProductCategoryService is : ", response);
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const ProductCategoryService = {
