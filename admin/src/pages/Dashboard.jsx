@@ -117,7 +117,7 @@ const Dashboard = () => {
       });
 
     setOrders(data1);
-  }, [ordersInfo]);
+  }, [ordersInfo, allOrders]);
 
   const data = [
     {
