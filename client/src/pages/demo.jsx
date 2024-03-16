@@ -8,23 +8,29 @@
 
 
 
+  // date
+  {
+    title: "Date (IST)",
+    dataIndex: "date",
+    // convert in the form of 29/10/2023, 24:41:25 IST
+    render: (date) => {
+      const originalDate = new Date(date);
 
-try {
-} catch (error) {
-  // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
-  // console.log(
-  //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
-  //   error?.response?.data?.statusCode
-  // );
-  const statusCode = error?.response?.data?.statusCode;
-  if ([401, 403].includes(statusCode)) {
-    alert(`JWT Expired, Please login again!`);
-    localStorage.clear(); // Clear local storage on authentication issues
-    window.location.href = "/admin-login"; // Redirect to login page
-    // window.location.reload();
-  }
-}
+      // Convert to IST (UTC+5:30)
+      const istDate = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true, // Use 24-hour format
+      });
 
+      const formattedDate = `${istDate.format(originalDate)}`;
 
-
+      return <>{formattedDate}</>;
+    },
+  },
  

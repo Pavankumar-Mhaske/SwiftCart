@@ -23,8 +23,8 @@ const Dashboard = () => {
   const ordersState = useSelector((state) => state.auth);
   const { ordersInfo, allOrders, isLoading, isSuccess, isError, message } =
     ordersState;
-  console.log("ordersInfo in Dashboard is 🍔🍔 : ", ordersInfo);
-  console.log("allOrders in Dashboard is 🍔🍔 : ", allOrders);
+  // console.log("ordersInfo in Dashboard is 🍔🍔 : ", ordersInfo);
+  // console.log("allOrders in Dashboard is 🍔🍔 : ", allOrders);
   const [monthlyOrdersData, setMonthlyOrdersData] = useState([]);
   const [orders, setOrders] = useState([]);
   // console.log("monthlyOrdersData: ", monthlyOrdersData);
@@ -271,9 +271,35 @@ const Dashboard = () => {
       title: "Customer",
       dataIndex: "name",
     },
+    // {
+    //   title: "Date",
+    //   dataIndex: "date",
+    // },
+
+    // date
     {
-      title: "Date",
+      title: "Date (IST)",
       dataIndex: "date",
+      // convert in the form of 29/10/2023, 24:41:25 IST
+      render: (date) => {
+        const originalDate = new Date(date);
+
+        // Convert to IST (UTC+5:30)
+        const istDate = new Intl.DateTimeFormat("en-IN", {
+          timeZone: "Asia/Kolkata",
+          day: "numeric",
+          month: "numeric",
+          year: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          hour12: true, // Use 24-hour format
+        });
+
+        const formattedDate = `${istDate.format(originalDate)}`;
+
+        return <>{formattedDate}</>;
+      },
     },
 
     {
