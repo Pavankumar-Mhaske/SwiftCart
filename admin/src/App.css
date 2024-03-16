@@ -170,7 +170,6 @@ Table {
 
 /* 🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹 */
 
-
 * {
   margin: 0;
   padding: 0;
@@ -445,7 +444,10 @@ footer .input-group-text {
 .categories {
   background-color: var(--color-ffffff);
   box-shadow: 0px 0px 10px #0000001a;
-  padding: 15px;
+  border-radius: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  cursor: pointer;
 }
 
 .categories > div {
@@ -1539,4 +1541,3 @@ footer .input-group-text {
 }
 
 /* 🌺🌺 Checkout Page Ends here 🌺🌺 */
-
