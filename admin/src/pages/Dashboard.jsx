@@ -224,34 +224,35 @@ const Dashboard = () => {
         let color = "";
 
         switch (status) {
-          case "Pending":
+          case "PENDING":
             color = "orange";
             break;
-          case "Hold":
-            color = "blue";
-            break;
-          case "Canceled":
+          case "CANCELED":
             color = "red";
             break;
-          case "Completed":
-            color = "green";
-            break;
-          case "Processing":
-            color = "cyan";
-            break;
-          case "Shipped":
-            color = "geekblue";
-            break;
-          case "Delivered":
+          case "DELIVERED":
             color = "purple";
             break;
-          case "Refunded":
+          case "HOLD":
+            color = "blue";
+            break;
+          case "COMPLETED":
+            color = "green";
+            break;
+          case "PROCESSING":
+            color = "cyan";
+            break;
+          case "SHIPPED":
+            color = "geekblue";
+            break;
+
+          case "REFUNDED":
             color = "magenta";
             break;
-          case "On Hold":
+          case "ON_HOLD":
             color = "gold";
             break;
-          case "Partially Shipped":
+          case "PARTIALLY_SHIPPED":
             color = "volcano";
             break;
           // Add more cases as needed...
