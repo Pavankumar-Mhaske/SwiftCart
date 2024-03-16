@@ -19,15 +19,15 @@ export const AvailableCouponTypes = Object.values(CouponTypeEnum);
  */
 export const OrderStatusEnum = {
   PENDING: "PENDING",
-  CANCELLED: "CANCELLED",
-  DELIVERED: "DELIVERED",
-  HOLD: "HOLD",
-  COMPLETED: "COMPLETED",
   PROCESSING: "PROCESSING",
   SHIPPED: "SHIPPED",
-  REFUNDED: "REFUNDED",
-  ON_HOLD: "ON_HOLD",
   PARTIALLY_SHIPPED: "PARTIALLY_SHIPPED",
+  ON_HOLD: "ON_HOLD",
+  DELIVERED: "DELIVERED",
+  COMPLETED: "COMPLETED",
+  REFUNDED: "REFUNDED",
+  HOLD: "HOLD",
+  CANCELLED: "CANCELLED",
 };
 
 export const AvailableOrderStatuses = Object.values(OrderStatusEnum);

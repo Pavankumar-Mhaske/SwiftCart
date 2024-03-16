@@ -399,7 +399,7 @@ const ViewOrder = () => {
               <option value="COMPLETED">COMPLETED</option>
               <option value="REFUNDED">REFUNDED</option>
               <option value="HOLD">HOLD</option>
-              <option value="CANCELED">CANCELED</option>
+              <option value="CANCELLED">CANCELLED</option>
             </select>
           </div>
         );
