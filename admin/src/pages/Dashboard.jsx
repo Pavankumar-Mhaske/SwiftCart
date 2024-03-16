@@ -298,6 +298,11 @@ const Dashboard = () => {
               index
             );
             if (index === recentMonthsArrayLength - 1) return;
+
+            // Get the index of the next month
+            const nextMonthIndex = (index + 1) % latestFourMonthsData.length;
+            const nextMonthYear =
+              latestFourMonthsData[nextMonthIndex]?._id?.year;
             return (
               <div
                 className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3"
@@ -329,7 +334,7 @@ const Dashboard = () => {
                   <p className="mb-0 description">
                     {`Compared To ${
                       monthNames[(month?._id?.month - 2 + 12) % 12]
-                    } ${month?._id?.year}`}{" "}
+                    } ${nextMonthYear}`}{" "}
                   </p>
                 </div>
               </div>
