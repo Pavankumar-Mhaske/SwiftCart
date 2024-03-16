@@ -31,17 +31,47 @@ const login = async (userData) => {
 // getMonthwiseOrderIncome
 const getMonthwiseOrdersIncome = async () => {
   const url = `${base_url}users/get-monthwise-orders-info`;
-  const response = await axios.get(url, config);
-  console.log("Response in userService is : ", response);
-  return response.data;
+  try {
+    const response = await axios.get(url, config);
+    console.log("Response in userService is : ", response);
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 // getOrderListAdmin
 const getOrderListAdmin = async () => {
   const url = `${base_url}orders/list/admin`;
-  const response = await axios.get(url, config);
-  console.log("Response in userService is : ", response);
-  return response.data;
+  try {
+    const response = await axios.get(url, config);
+    console.log("Response in userService is : ", response);
+    return response.data;
+  } catch (error) {
+    // console.log("error in userService is 💖💖💖💖💖💖💖💖💖💖: ", error);
+    // console.log(
+    //   "statusCode in userService is ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐: ",
+    //   error?.response?.data?.statusCode
+    // );
+    const statusCode = error?.response?.data?.statusCode;
+    if ([401, 403].includes(statusCode)) {
+      alert(`JWT Expired, Please login again!`);
+      localStorage.clear(); // Clear local storage on authentication issues
+      window.location.href = "/admin-login"; // Redirect to login page
+      // window.location.reload();
+    }
+  }
 };
 
 const authService = {
