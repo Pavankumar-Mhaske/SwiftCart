@@ -12,8 +12,27 @@ const Blog = () => {
     dispatch(getBlogs());
   }, []);
 
+  const [categories, setCategories] = useState([]);
+  console.log("categories in blog is 🔥🔥 : ", categories);
   const blogState = useSelector((state) => state?.blog?.blogs);
   console.log("blogState in blog is 🔥🔥 : ", blogState);
+
+  useEffect(() => {
+    let blogCategories = [];
+    if (blogState && blogState?.length > 0) {
+      for (let index = 0; index < blogState.length; index++) {
+        const blog = blogState[index];
+        if (blog.category && blog.category.length > 0) {
+          for (let i = 0; i < blog.category.length; i++) {
+            blogCategories.push(blog.category[i]?.name);
+          }
+        }
+      }
+      setCategories(blogCategories);
+    }
+  }, [blogState]);
+
+  console.log("categories in Blog is : ", [...new Set(categories)]);
 
   return (
     <>
@@ -28,12 +47,20 @@ const Blog = () => {
               <h3 className="filter-title">Find by Categories</h3>
               <div>
                 <ul className="ps-0">
+                  {categories &&
+                    [...new Set(categories)].map((category, index) => {
+                      return <li key={index}>{category}</li>;
+                    })}
+                </ul>
+              </div>
+              {/* <div>
+                <ul className="ps-0">
                   <li>Watch</li>
                   <li>Tv</li>
                   <li>Camera</li>
                   <li>Laptop</li>
                 </ul>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* 📄📃📃 Blog Cards 📄📃📃  */}
@@ -57,8 +84,6 @@ const Blog = () => {
                   </div>
                 );
               })}
-
-              
             </div>
           </div>
         </div>
