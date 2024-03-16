@@ -4,8 +4,9 @@ import { Table, Tag } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getAOrder, updateOrderStatus } from "../features/order/OrderSlice";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 // const columns = [
 //   {
@@ -137,6 +138,7 @@ import { getAOrder, updateOrderStatus } from "../features/order/OrderSlice";
 
 const ViewOrder = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const getOrderId = location.pathname.split("/")[3];
   console.log("getOrderId in ViewOrder is : ", getOrderId);
   const [orderedProducts, setOrderedProducts] = useState([]);
@@ -404,10 +406,22 @@ const ViewOrder = () => {
       },
     },
   ];
+  const goBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div>
-      <h3 className="mb-4 title">View Order</h3>
+      <div className="d-flex justify-content-between align-items-center">
+        <h3 className="mb-4 title">View Order</h3>
+        <button
+          className="bg-transparent border-0 fs-6 mb-0 d-flex align-items-center gap-2 "
+          onClick={goBack}
+        >
+          <IoMdArrowRoundBack className="fs-5" /> Go Back
+        </button>
+      </div>
+
       <div>
         <Table columns={columns} dataSource={orderedProducts} />
       </div>
