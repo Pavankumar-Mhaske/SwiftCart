@@ -11,7 +11,7 @@ import {
   cloudinaryUploadImg,
   cloudinaryDeleteImg,
 } from "../../utils/cloudinary.js";
-import fs from "fs";
+import { BlogCategory } from "../../models/ecommerce/blogCategory.models.js";
 
 const createBlog = asyncHandler(async (req, res) => {
   try {
@@ -110,8 +110,34 @@ const getAllBlogs = asyncHandler(async (req, res) => {
     */
 
     const { page = 1, limit = 1000 } = req.query;
+    const queryObj = { ...req.query };
+    console.log("queryObj", queryObj);
+
+    let queryStr = JSON.stringify(queryObj);
+
+    const blogsCriteria = JSON.parse(queryStr);
+    console.log(blogsCriteria);
+    // Find all categories with the given name
+    if (priceCriteria.category) {
+      const categoryName = priceCriteria.category;
+      const categories = await BlogCategory.find({ name: categoryName });
+      console.log("categories", categories);
+      if (categories.length > 0) {
+        // Extract the IDs of the matching categories
+        const categoryIds = categories.map((category) => category._id);
+        // Update the priceCriteria to include the category IDs
+        blogsCriteria.category = { $in: categoryIds };
+      } else {
+        // Handle case where category name does not exist
+        return res
+          .status(400)
+          .json(new ApiResponse(400, null, "Category name does not exist"));
+      }
+    }
+
     // $match operation is using an empty object {} as the condition, which means that it will match all documents in the Blog collection.
-    let blogAggregate = Blog.aggregate([{ $match: {} }]);
+    // let blogAggregate = Blog.aggregate([{ $match: {} }]);
+    let blogAggregate = Blog.aggregate([{ $match: blogsCriteria }]);
 
     // Populate the category field
     blogAggregate = blogAggregate.lookup({
