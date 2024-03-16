@@ -391,15 +391,15 @@ const ViewOrder = () => {
                 ORDER STATUS
               </option>
               <option value="PENDING">PENDING</option>
-              <option value="CANCELED">CANCELED</option>
-              <option value="DELIVERED">DELIVERED</option>
-              <option value="HOLD">HOLD</option>
-              <option value="COMPLETED">COMPLETED</option>
               <option value="PROCESSING">PROCESSING</option>
               <option value="SHIPPED">SHIPPED</option>
-              <option value="REFUNDED">REFUNDED</option>
-              <option value="ON_HOLD">ON_HOLD</option>
               <option value="PARTIALLY_SHIPPED">PARTIALLY_SHIPPED</option>
+              <option value="ON_HOLD">ON_HOLD</option>
+              <option value="DELIVERED">DELIVERED</option>
+              <option value="COMPLETED">COMPLETED</option>
+              <option value="REFUNDED">REFUNDED</option>
+              <option value="HOLD">HOLD</option>
+              <option value="CANCELED">CANCELED</option>
             </select>
           </div>
         );
