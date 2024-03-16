@@ -92,19 +92,10 @@ const columns = [
     dataIndex: "category",
     render: (categories) => (
       <>
-        <ul className="categories d-flex flex-column ps-0">
+        <ul className=" categories text-center d-flex flex-column ps-0">
           {categories &&
             categories.map((category, index) => {
-              return (
-                <li
-                  key={index}
-                  style={{
-                    cursor: "pointer",
-                  }}
-                >
-                  {category?.name}
-                </li>
-              );
+              return <li key={index}>{category?.name}</li>;
             })}
         </ul>
       </>
