@@ -7,30 +7,59 @@
 </div>
 
 
+import { Blog, BlogCategory } from "./models.js";
+import asyncHandler from "express-async-handler";
 
-  // date
-  {
-    title: "Date (IST)",
-    dataIndex: "date",
-    // convert in the form of 29/10/2023, 24:41:25 IST
-    render: (date) => {
-      const originalDate = new Date(date);
+const getAllBlogs = asyncHandler(async (req, res) => {
+  try {
+    const { page = 1, limit = 1000 } = req.query;
+    
+    const blogs = await Blog.aggregatePaginate(
+      Blog.aggregate([
+        { $match: {} },
+        {
+          $lookup: {
+            from: "BlogCategory",
+            localField: "category",
+            foreignField: "_id",
+            as: "categoryData",
+          },
+        },
+        { $unwind: "$categoryData" },
+        {
+          $project: {
+            _id: 1,
+            title: 1,
+            description: 1,
+            categoryData: { name: 1 }, // Include only the name field from categoryData
+            numberOfViews: 1,
+            isLiked: 1,
+            isDisliked: 1,
+            likes: 1,
+            dislikes: 1,
+            images: 1,
+            author: 1,
+            createdAt: 1,
+            updatedAt: 1,
+          },
+        },
+      ]),
+      {
+        page,
+        limit,
+        customLabels: {
+          totalDocs: "totalBlogs",
+          docs: "blogs",
+        },
+      }
+    );
 
-      // Convert to IST (UTC+5:30)
-      const istDate = new Intl.DateTimeFormat("en-IN", {
-        timeZone: "Asia/Kolkata",
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-        hour12: true, // Use 24-hour format
-      });
+    return res
+      .status(200)
+      .json({ status: 200, data: blogs, message: "Blogs fetched successfully" });
+  } catch (error) {
+    return res.status(400).json({ status: 400, error: error.message });
+  }
+});
 
-      const formattedDate = `${istDate.format(originalDate)}`;
-
-      return <>{formattedDate}</>;
-    },
-  },
- 
+export { getAllBlogs };

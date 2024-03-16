@@ -111,7 +111,18 @@ const getAllBlogs = asyncHandler(async (req, res) => {
 
     const { page = 1, limit = 1000 } = req.query;
     // $match operation is using an empty object {} as the condition, which means that it will match all documents in the Blog collection.
-    const blogAggregate = Blog.aggregate([{ $match: {} }]);
+    let blogAggregate = Blog.aggregate([{ $match: {} }]);
+
+    // Populate the category field
+    blogAggregate = blogAggregate.lookup({
+      from: "blogcategories", // name of the collection to join with
+      // (for your information see in Database - how the ProductCategory model is stored as collection )
+      //  in general all collection are stored in there plural form
+      // for example - Product => products, ProductCategory => productcategories, etc...
+      localField: "category", // field from the input documents (Product collection)
+      foreignField: "_id", // field from the documents of the "from" collection (ProductCategory collection)
+      as: "category", // output array field
+    });
 
     const blogs = await Blog.aggregatePaginate(
       blogAggregate,
