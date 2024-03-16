@@ -23,6 +23,21 @@ const columns = [
     title: "Color",
     dataIndex: "color",
     sorter: (a, b) => a.color.length - b.color.length,
+    render: (color) => (
+      <div className="colors_column gap-10">
+        <ul className="colors ps-0">
+          {color && (
+            <li
+              style={{
+                backgroundColor: color,
+                cursor: "pointer",
+              }}
+            ></li>
+          )}
+        </ul>
+        <p>{color}</p>
+      </div>
+    ),
   },
   {
     title: "Owner",
