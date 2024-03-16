@@ -291,6 +291,12 @@ const Dashboard = () => {
         {latestFourMonthsData &&
           latestFourMonthsData.length > 0 &&
           latestFourMonthsData.map((month, index) => {
+            console.log(
+              "Month 💖💖💖💖💖💖💖💖💖💖: ",
+              month,
+              "index: ",
+              index
+            );
             if (index === recentMonthsArrayLength - 1) return;
             return (
               <div
