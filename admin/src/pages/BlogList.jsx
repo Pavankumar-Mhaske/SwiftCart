@@ -27,8 +27,19 @@ const columns = [
   {
     title: "Category",
     dataIndex: "category",
-    sorter: (a, b) => a.category.length - b.category.length,
+    // sorter: (a, b) => a.category.length - b.category.length,
+    render: (categories) => (
+      <>
+        <ul className=" categories text-center d-flex flex-column ps-0">
+          {categories &&
+            categories.map((category, index) => {
+              return <li key={index}>{category?.name}</li>;
+            })}
+        </ul>
+      </>
+    ),
   },
+
   // numberOfViews
   {
     title: "Views",
