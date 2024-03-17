@@ -45,10 +45,10 @@ const Wishlist = () => {
           {wishListState &&
             wishListState?.map((item, index) => {
               return (
-                <div className="col-3" key={index}>
-                  <div className="wishlist-card position-relative ">
+                <div className="col-3 " key={index}>
+                  <div className="wishlist-card position-relative mb-3 border">
                     <img
-                      onClick={(event) => removeProductFromWishList(item._id)}
+                      onClick={() => removeProductFromWishList(item._id)}
                       src="images/cross.svg"
                       alt="cross"
                       className="position-absolute cross img-fluid"
@@ -65,7 +65,17 @@ const Wishlist = () => {
                       />
                     </div>
                     <div className="py-3 px-3">
-                      <h5 className="title">{item.name} </h5>
+                      <h5
+                        className="title"
+                        style={{
+                          maxHeight: "3em", // Adjust the height as per your requirement
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {item.name}{" "}
+                      </h5>
                       <h6 className="price">$ {item.price}</h6>
                     </div>
                   </div>
