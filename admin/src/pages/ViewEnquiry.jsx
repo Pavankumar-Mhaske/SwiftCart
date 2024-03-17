@@ -149,9 +149,9 @@ const ViewEnquiry = () => {
               <option value="IN_PROGRESS">IN_PROGRESS</option>
               <option value="ON_HOLD">ON_HOLD</option>
               <option value="COMPLETED">COMPLETED</option>
-              <option value="CANCELED">CANCELED</option>
-              <option value="CLOSED">CLOSED</option>
               <option value="ARCHIVED">ARCHIVED</option>
+              <option value="CLOSED">CLOSED</option>
+              <option value="CANCELED">CANCELED</option>
             </select>
           </div>
         </div>
