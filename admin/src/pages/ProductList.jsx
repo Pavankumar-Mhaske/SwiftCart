@@ -21,11 +21,35 @@ const columns = [
     title: "S_No",
     dataIndex: "key",
   },
+  // {
+  //   title: "Name",
+  //   dataIndex: "name",
+  //   // defaultSortOrder: "descend",
+  //   // sorter: (a, b) => a.name.length - b.name.length,
+  // },
   {
     title: "Name",
-    dataIndex: "name",
+    dataIndex: "nameNimage",
     // defaultSortOrder: "descend",
-    sorter: (a, b) => a.name.length - b.name.length,
+    // sorter: (a, b) => a.name.length - b.name.length,
+    render: (nameNimage) => (
+      console.log("nameNimage in productlist is 🍌🍌🍌 : ", nameNimage),
+      (
+        <div
+          className="d-flex align-items-center"
+          style={{ marginLeft: "-40px" }}
+        >
+          <img
+            src={nameNimage?.image}
+            className="img-fluid me-2"
+            alt="Product Image"
+            style={{ width: "100px" }}
+            // style={{ width: "50px", height: "50px" }}
+          />
+          <p>{nameNimage?.name}</p>
+        </div>
+      )
+    ),
   },
   {
     title: "Price",
@@ -106,14 +130,14 @@ const columns = [
     title: "Action",
     dataIndex: "action",
     render: () => (
-      <>
+      <div style={{ width: "50px", border: "1px solid black" }}>
         <Link to="#">
           <BiEdit className="fs-5 me-2 " />
         </Link>
         <Link to="#">
           <MdDelete className="fs-5 text-danger" />
         </Link>
-      </>
+      </div>
     ),
   },
 ];
@@ -131,7 +155,10 @@ const ProductList = () => {
   for (let i = 0; i < productState.length; i++) {
     data1.push({
       key: i + 1,
-      name: productState[i].name,
+      nameNimage: {
+        name: productState[i].name,
+        image: productState[i].mainImages[0]?.url,
+      },
       price: productState[i].price,
       brand: productState[i].brand,
       color: productState[i].colors,
@@ -147,7 +174,7 @@ const ProductList = () => {
   return (
     <div>
       <h3 className="mb-4 title">ProductList</h3>
-      <div>
+      <div className="max-width-table">
         <Table columns={columns} dataSource={data1} />
       </div>
     </div>
