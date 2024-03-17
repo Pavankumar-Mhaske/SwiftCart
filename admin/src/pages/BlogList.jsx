@@ -20,8 +20,29 @@ const columns = [
   },
   {
     title: "Title",
-    dataIndex: "title",
-    sorter: (a, b) => a.title.length - b.title.length,
+    // dataIndex: "title",
+    // sorter: (a, b) => a.title.length - b.title.length,
+    dataIndex: "nameNimage",
+    // defaultSortOrder: "descend",
+    // sorter: (a, b) => a.name.length - b.name.length,
+    render: (nameNimage) => (
+      console.log("nameNimage in productlist is 🍌🍌🍌 : ", nameNimage),
+      (
+        <div
+          className="d-flex align-items-center border"
+          style={{ marginLeft: "-20px", maxWidth: "500px" }}
+        >
+          <img
+            src={nameNimage?.image}
+            className="img-fluid me-2"
+            alt="Product Image"
+            style={{ width: "100px" }}
+            // style={{ width: "50px", height: "50px" }}
+          />
+          <p>{nameNimage?.name}</p>
+        </div>
+      )
+    ),
   },
   // Category
   {
@@ -112,13 +133,17 @@ const BlogList = () => {
   }, [deletedBlog]);
 
   const blogState = useSelector((state) => state.blog.blogs);
-  console.log("blogState in blogList is : ", blogState);
+  console.log("blogState in blogList is 🍌🍌🍌: ", blogState);
 
   const data1 = [];
   for (let i = 0; i < blogState.length; i++) {
     data1.push({
       key: i + 1,
-      title: blogState[i].title,
+      // title: blogState[i].title,
+      nameNimage: {
+        name: blogState[i]?.title,
+        image: blogState[i]?.images[0]?.url,
+      },
       category: blogState[i].category,
       views: blogState[i].numberOfViews,
       likes: blogState[i].likes.length,
