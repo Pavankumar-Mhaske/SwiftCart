@@ -130,7 +130,7 @@ const columns = [
     title: "Action",
     dataIndex: "action",
     render: () => (
-      <div style={{ width: "50px", border: "1px solid black" }}>
+      <div style={{ width: "50px" }}>
         <Link to="#">
           <BiEdit className="fs-5 me-2 " />
         </Link>
