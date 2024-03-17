@@ -850,6 +850,7 @@ footer .input-group-text {
   border-radius: 10px;
   overflow: hidden;
   width: 100%;
+  cursor: pointer;
 }
 
 /* 🌺🌺 Wishlist Ends here 🌺🌺 */

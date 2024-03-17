@@ -5,8 +5,10 @@ import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserWishList } from "../features/user/UserSlice";
 import { addRemoveProductInWishList } from "../features/product/ProductSlice";
+import { useNavigate } from "react-router-dom";
 
 const Wishlist = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserWishList());
@@ -46,7 +48,12 @@ const Wishlist = () => {
             wishListState?.map((item, index) => {
               return (
                 <div className="col-3 " key={index}>
-                  <div className="wishlist-card position-relative mb-3 border">
+                  <div
+                    className="wishlist-card position-relative mb-3 border"
+                    onClick={() => {
+                      navigate(`/product/${item?._id}`);
+                    }}
+                  >
                     <img
                       onClick={() => removeProductFromWishList(item._id)}
                       src="images/cross.svg"
