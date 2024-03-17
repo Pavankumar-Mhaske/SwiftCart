@@ -39,9 +39,9 @@ export const EnquiryStatusEnum = {
   IN_PROGRESS: "IN_PROGRESS",
   ON_HOLD: "ON_HOLD",
   COMPLETED: "COMPLETED",
-  CANCELED: "CANCELED",
-  CLOSED: "CLOSED",
   ARCHIVED: "ARCHIVED",
+  CLOSED: "CLOSED",
+  CANCELED: "CANCELED",
 };
 
 export const AvailableEnquiryStatuses = Object.values(EnquiryStatusEnum);
