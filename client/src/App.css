@@ -613,6 +613,24 @@ footer .input-group-text {
   margin-top: 20px;
 }
 
+.tags {
+  /* list-style-type: none; */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tags .product-data {
+  border: 1px solid var(--color-828599);
+  padding: 5px 10px;
+  border-radius: 25px;
+  background: linear-gradient(
+    90deg,
+    rgb(223, 223, 223) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+
 .colors {
   list-style-type: none;
   display: flex;
