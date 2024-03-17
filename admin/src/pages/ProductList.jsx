@@ -8,6 +8,7 @@ import { base_url } from "../utils/base_url";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getProducts } from "../features/product/ProductSlice";
+import Meta from "../components/Meta";
 
 // const getColorById = async (colorId) => {
 //   const url = `${base_url}colors/${colorId}`;
@@ -172,12 +173,15 @@ const ProductList = () => {
   }
 
   return (
-    <div>
-      <h3 className="mb-4 title">ProductList</h3>
-      <div className="max-width-table">
-        <Table columns={columns} dataSource={data1} />
+    <>
+      <Meta title={"Product List"} />
+      <div>
+        <h3 className="mb-4 title">ProductList</h3>
+        <div className="max-width-table">
+          <Table columns={columns} dataSource={data1} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

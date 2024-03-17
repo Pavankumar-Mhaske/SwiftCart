@@ -16,6 +16,7 @@ import {
   resetState,
   updateBrand,
 } from "../features/brand/BrandSlice";
+import Meta from "../components/Meta";
 
 // ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
@@ -118,34 +119,38 @@ const AddBrand = () => {
   });
 
   return (
-    <div>
-      <Toast />
-      <h3 className="mb-4 title">
-        {getBrandId !== undefined ? `Edit` : `Add`} Brand
-      </h3>
+    <>
+      <Meta title={"Add Brand"} />
+
       <div>
-        <form action="" onSubmit={formik.handleSubmit}>
-          <CustomInput
-            id="brand"
-            type="text"
-            label="Enter Brand Category"
-            name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange("name")}
-            onBlur={formik.handleBlur("name")}
-          />
-          <div className="error">
-            {formik.touched.name && formik.errors.name}
-          </div>
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            {getBrandId !== undefined ? `Edit` : `Add`} Brand
-          </button>
-        </form>
+        <Toast />
+        <h3 className="mb-4 title">
+          {getBrandId !== undefined ? `Edit` : `Add`} Brand
+        </h3>
+        <div>
+          <form action="" onSubmit={formik.handleSubmit}>
+            <CustomInput
+              id="brand"
+              type="text"
+              label="Enter Brand Category"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange("name")}
+              onBlur={formik.handleBlur("name")}
+            />
+            <div className="error">
+              {formik.touched.name && formik.errors.name}
+            </div>
+            <button
+              className="btn btn-success border-0 rounded-3 my-5"
+              type="submit"
+            >
+              {getBrandId !== undefined ? `Edit` : `Add`} Brand
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

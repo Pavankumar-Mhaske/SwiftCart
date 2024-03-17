@@ -3,6 +3,7 @@ import { Table, Tag } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../features/customers/CustomerSlice";
 import male from "../assets/male.jpg";
+import Meta from "../components/Meta";
 const columns = [
   {
     title: "S_No",
@@ -67,13 +68,17 @@ const Customers = () => {
   }
 
   return (
-    <div>
-      {" "}
-      <h3 className="mb-4 title">Customers</h3>
+    <>
+      <Meta title={"Customers"} />
+
       <div>
-        <Table columns={columns} dataSource={data1} />
+        {" "}
+        <h3 className="mb-4 title">Customers</h3>
+        <div>
+          <Table columns={columns} dataSource={data1} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

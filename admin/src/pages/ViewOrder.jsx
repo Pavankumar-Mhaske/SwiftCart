@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAOrder, updateOrderStatus } from "../features/order/OrderSlice";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import Meta from "../components/Meta";
 
 // const columns = [
 //   {
@@ -433,21 +434,24 @@ const ViewOrder = () => {
   };
 
   return (
-    <div>
-      <div className="d-flex justify-content-between align-items-center">
-        <h3 className="mb-4 title">View Order</h3>
-        <button
-          className="bg-transparent border-0 fs-6 mb-0 d-flex align-items-center gap-2 "
-          onClick={goBack}
-        >
-          <IoMdArrowRoundBack className="fs-5" /> Go Back
-        </button>
-      </div>
-
+    <>
+      <Meta title={"View Order"} />
       <div>
-        <Table columns={columns} dataSource={orderedProducts} />
+        <div className="d-flex justify-content-between align-items-center">
+          <h3 className="mb-4 title">View Order</h3>
+          <button
+            className="bg-transparent border-0 fs-6 mb-0 d-flex align-items-center gap-2 "
+            onClick={goBack}
+          >
+            <IoMdArrowRoundBack className="fs-5" /> Go Back
+          </button>
+        </div>
+
+        <div>
+          <Table columns={columns} dataSource={orderedProducts} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

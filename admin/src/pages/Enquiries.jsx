@@ -12,6 +12,7 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
+import Meta from "../components/Meta";
 
 const columns = [
   {
@@ -189,22 +190,25 @@ const Enquiries = () => {
   }
 
   return (
-    <div>
-      <Toast />
-
-      <h3 className="mb-4 title">Enquiries</h3>
+    <>
+      <Meta title={"Enquiries"} />
       <div>
-        <Table columns={columns} dataSource={data1} />
+        <Toast />
+
+        <h3 className="mb-4 title">Enquiries</h3>
+        <div>
+          <Table columns={columns} dataSource={data1} />
+        </div>
+        <CustomModal
+          title="Are You Sure to Delete This Brand?"
+          hideModal={hideModal}
+          open={open}
+          performAction={() => {
+            deleteEnquiryHelper(deleteEnquiryId);
+          }}
+        />
       </div>
-      <CustomModal
-        title="Are You Sure to Delete This Brand?"
-        hideModal={hideModal}
-        open={open}
-        performAction={() => {
-          deleteEnquiryHelper(deleteEnquiryId);
-        }}
-      />
-    </div>
+    </>
   );
 };
 

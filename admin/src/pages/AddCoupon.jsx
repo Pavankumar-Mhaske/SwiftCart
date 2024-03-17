@@ -16,6 +16,7 @@ import {
   resetState,
   updateCoupon,
 } from "../features/coupon/CouponSlice";
+import Meta from "../components/Meta";
 
 // ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
@@ -237,99 +238,103 @@ const AddCoupon = () => {
   };
 
   return (
-    <div>
-      <Toast />
-      <h3 className="mb-4 title">Add Coupon Category</h3>
+    <>
+      <Meta title={"Add Coupon"} />
+
       <div>
-        <form action="" onSubmit={formik.handleSubmit}>
-          {/*  name */}
-          <CustomInput
-            id="coupon"
-            type="text"
-            label="Enter Coupon Name"
-            name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange("name")}
-            onBlur={formik.handleBlur("name")}
-          />
-          <div className="error">
-            {formik.touched.name && formik.errors.name}
-          </div>
+        <Toast />
+        <h3 className="mb-4 title">Add Coupon Category</h3>
+        <div>
+          <form action="" onSubmit={formik.handleSubmit}>
+            {/*  name */}
+            <CustomInput
+              id="coupon"
+              type="text"
+              label="Enter Coupon Name"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange("name")}
+              onBlur={formik.handleBlur("name")}
+            />
+            <div className="error">
+              {formik.touched.name && formik.errors.name}
+            </div>
 
-          {/* couponCode */}
-          <h5 className="coupon-headings">
-            <span className="example">
-              (Coupon code must be at least 4 characters long)
-            </span>
-          </h5>
-          <CustomInput
-            id="couponCode"
-            type="text"
-            label="Enter Coupon Code"
-            name="couponCode"
-            value={formik.values.couponCode}
-            onChange={formik.handleChange("couponCode")}
-            onBlur={formik.handleBlur("couponCode")}
-          />
-          <div className="error">
-            {formik.touched.couponCode && formik.errors.couponCode}
-          </div>
+            {/* couponCode */}
+            <h5 className="coupon-headings">
+              <span className="example">
+                (Coupon code must be at least 4 characters long)
+              </span>
+            </h5>
+            <CustomInput
+              id="couponCode"
+              type="text"
+              label="Enter Coupon Code"
+              name="couponCode"
+              value={formik.values.couponCode}
+              onChange={formik.handleChange("couponCode")}
+              onBlur={formik.handleBlur("couponCode")}
+            />
+            <div className="error">
+              {formik.touched.couponCode && formik.errors.couponCode}
+            </div>
 
-          {/* type */}
+            {/* type */}
 
-          <CustomInput
-            id="type"
-            type="text"
-            label="Enter Coupon Type"
-            name="type"
-            value={formik.values.type}
-            onChange={formik.handleChange("type")}
-            onBlur={formik.handleBlur("type")}
-          />
-          <div className="error">
-            {formik.touched.type && formik.errors.type}
-          </div>
+            <CustomInput
+              id="type"
+              type="text"
+              label="Enter Coupon Type"
+              name="type"
+              value={formik.values.type}
+              onChange={formik.handleChange("type")}
+              onBlur={formik.handleBlur("type")}
+            />
+            <div className="error">
+              {formik.touched.type && formik.errors.type}
+            </div>
 
-          {/* discountValue */}
-          <h5 className="coupon-headings">
-            <span className="example">
-              (Discount value must be greater than 0 )
-            </span>
-          </h5>
-          <CustomInput
-            id="discountValue"
-            type="number"
-            label="Enter Discount Value"
-            name="discountValue"
-            value={formik.values.discountValue}
-            onChange={formik.handleChange("discountValue")}
-            onBlur={formik.handleBlur("discountValue")}
-          />
-          <div className="error">
-            {formik.touched.discountValue && formik.errors.discountValue}
-          </div>
+            {/* discountValue */}
+            <h5 className="coupon-headings">
+              <span className="example">
+                (Discount value must be greater than 0 )
+              </span>
+            </h5>
+            <CustomInput
+              id="discountValue"
+              type="number"
+              label="Enter Discount Value"
+              name="discountValue"
+              value={formik.values.discountValue}
+              onChange={formik.handleChange("discountValue")}
+              onBlur={formik.handleBlur("discountValue")}
+            />
+            <div className="error">
+              {formik.touched.discountValue && formik.errors.discountValue}
+            </div>
 
-          {/* minimumCartValue */}
-          <h5 className="coupon-headings">
-            <span className="example">
-              (Minimum cart value must be greater than 0)
-            </span>
-          </h5>
-          <CustomInput
-            id="minimumCartValue"
-            type="number"
-            label="Enter Minimum Cart Value"
-            name="minimumCartValue"
-            value={formik.values.minimumCartValue}
-            onChange={formik.handleChange("minimumCartValue")}
-            onBlur={formik.handleBlur("minimumCartValue")}
-          />
-          <div className="error">
-            {formik.touched.minimumCartValue && formik.errors.minimumCartValue}
-          </div>
+            {/* minimumCartValue */}
+            <h5 className="coupon-headings">
+              <span className="example">
+                (Minimum cart value must be greater than 0)
+              </span>
+            </h5>
+            <CustomInput
+              id="minimumCartValue"
+              type="number"
+              label="Enter Minimum Cart Value"
+              name="minimumCartValue"
+              value={formik.values.minimumCartValue}
+              onChange={formik.handleChange("minimumCartValue")}
+              onBlur={formik.handleBlur("minimumCartValue")}
+            />
+            <div className="error">
+              {formik.touched.minimumCartValue &&
+                formik.errors.minimumCartValue}
+            </div>
 
-          {/* startDate */}
-          {/* <h5 className="coupon-headings-date">
+            {/* startDate */}
+            {/* <h5 className="coupon-headings-date">
             <span className="example-date-1">
               {formik.values.startDate !== undefined ? `Selected date : ` : ""}
             </span>
@@ -339,21 +344,21 @@ const AddCoupon = () => {
                 : ""}
             </span>
           </h5> */}
-          <CustomInput
-            id="startDate"
-            type="date"
-            label="Enter Start Date"
-            name="startDate"
-            value={formik.values.startDate}
-            onChange={formik.handleChange("startDate")}
-            onBlur={formik.handleBlur("startDate")}
-          />
-          <div className="error">
-            {formik.touched.startDate && formik.errors.startDate}
-          </div>
+            <CustomInput
+              id="startDate"
+              type="date"
+              label="Enter Start Date"
+              name="startDate"
+              value={formik.values.startDate}
+              onChange={formik.handleChange("startDate")}
+              onBlur={formik.handleBlur("startDate")}
+            />
+            <div className="error">
+              {formik.touched.startDate && formik.errors.startDate}
+            </div>
 
-          {/* expiryDate */}
-          {/* <h5 className="coupon-headings-date">
+            {/* expiryDate */}
+            {/* <h5 className="coupon-headings-date">
             <span className="example-date-1">
               {formik.values.expiryDate !== undefined ? `Selected date : ` : ""}
             </span>
@@ -363,74 +368,75 @@ const AddCoupon = () => {
                 : ""}
             </span>
           </h5> */}
-          <CustomInput
-            id="expiryDate"
-            type="date"
-            label="Enter Expiry Date"
-            name="expiryDate"
-            value={formik.values.expiryDate}
-            onChange={formik.handleChange("expiryDate")}
-            onBlur={formik.handleBlur("expiryDate")}
-          />
-          <div className="error">
-            {formik.touched.expiryDate && formik.errors.expiryDate}
-          </div>
+            <CustomInput
+              id="expiryDate"
+              type="date"
+              label="Enter Expiry Date"
+              name="expiryDate"
+              value={formik.values.expiryDate}
+              onChange={formik.handleChange("expiryDate")}
+              onBlur={formik.handleBlur("expiryDate")}
+            />
+            <div className="error">
+              {formik.touched.expiryDate && formik.errors.expiryDate}
+            </div>
 
-          {/* isActive */}
-          <div className="d-flex justify-content-between border border-gray-200 mt-4 ">
-            <button
-              className=" d-flex align-items-center ps-4 border border-2 border-gray-200 rounded dark:border-gray-700 w-50 m-2 bg-white"
-              onClick={() => handleBoxClick("active")}
-              type="button"
-            >
-              <input
-                className=" w-4 h-4 text-primary bg-light border border-secondary focus:ring-primary dark:focus:ring-primary dark:ring-offset-dark focus:ring-2 dark:bg-dark dark:border-dark"
-                type="radio"
-                name="flexRadioActive"
-                id="flexRadioActive"
-                checked={isActive}
-              />
-              <label
-                className="form-check-label w-100 py-4 ms-2 text-small font-weight-medium text-dark dark:text-gray-300"
-                htmlFor="flexRadioActive"
+            {/* isActive */}
+            <div className="d-flex justify-content-between border border-gray-200 mt-4 ">
+              <button
+                className=" d-flex align-items-center ps-4 border border-2 border-gray-200 rounded dark:border-gray-700 w-50 m-2 bg-white"
+                onClick={() => handleBoxClick("active")}
+                type="button"
               >
-                Active
-              </label>
-            </button>
-            <button
-              className=" d-flex align-items-center ps-4 border border-2 border-gray-200 rounded dark:border-gray-700 w-50 m-2 bg-white"
-              onClick={() => handleBoxClick("inactive")}
-              type="button"
-            >
-              <input
-                className=" w-4 h-4 text-primary bg-light border border-secondary focus:ring-primary dark:focus:ring-primary dark:ring-offset-dark focus:ring-2 dark:bg-dark dark:border-dark"
-                type="radio"
-                name="flexRadioActive"
-                id="flexRadioInActive"
-                checked={isInactive}
-              />
-              <label
-                className="form-check-label w-100 py-4 ms-2 text-small font-weight-medium text-dark dark:text-gray-300"
-                htmlFor="flexRadioInActive"
+                <input
+                  className=" w-4 h-4 text-primary bg-light border border-secondary focus:ring-primary dark:focus:ring-primary dark:ring-offset-dark focus:ring-2 dark:bg-dark dark:border-dark"
+                  type="radio"
+                  name="flexRadioActive"
+                  id="flexRadioActive"
+                  checked={isActive}
+                />
+                <label
+                  className="form-check-label w-100 py-4 ms-2 text-small font-weight-medium text-dark dark:text-gray-300"
+                  htmlFor="flexRadioActive"
+                >
+                  Active
+                </label>
+              </button>
+              <button
+                className=" d-flex align-items-center ps-4 border border-2 border-gray-200 rounded dark:border-gray-700 w-50 m-2 bg-white"
+                onClick={() => handleBoxClick("inactive")}
+                type="button"
               >
-                Inactive
-              </label>
+                <input
+                  className=" w-4 h-4 text-primary bg-light border border-secondary focus:ring-primary dark:focus:ring-primary dark:ring-offset-dark focus:ring-2 dark:bg-dark dark:border-dark"
+                  type="radio"
+                  name="flexRadioActive"
+                  id="flexRadioInActive"
+                  checked={isInactive}
+                />
+                <label
+                  className="form-check-label w-100 py-4 ms-2 text-small font-weight-medium text-dark dark:text-gray-300"
+                  htmlFor="flexRadioInActive"
+                >
+                  Inactive
+                </label>
+              </button>
+            </div>
+
+            <div className="error">
+              {formik.touched.isActive && formik.errors.isActive}
+            </div>
+
+            <button
+              className="btn btn-success border-0 rounded-3 my-5"
+              type="submit"
+            >
+              Add Coupon
             </button>
-          </div>
-
-          <div className="error">
-            {formik.touched.isActive && formik.errors.isActive}
-          </div>
-
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            Add Coupon
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

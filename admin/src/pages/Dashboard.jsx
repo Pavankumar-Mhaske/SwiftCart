@@ -17,6 +17,7 @@ import {
   getMonthwiseOrdersInfo,
   getOrderListAdmin,
 } from "../features/auth/authSlice";
+import Meta from "../components/Meta";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -310,92 +311,98 @@ const Dashboard = () => {
   ];
 
   return (
-    <div>
-      <h3 className="mb-4 title">Dashboard</h3>
-      {/* 📈📉📊 Three months Analysis Graphs 📈📉📊 */}
-      <div className="d-flex justify-content-between align-items-center gap-3">
-        {/* 📅📅📅 Month 1️⃣ 📅📅📅 */}
-        {latestFourMonthsData &&
-          latestFourMonthsData.length > 0 &&
-          latestFourMonthsData.map((month, index) => {
-            console.log(
-              "Month 💖💖💖💖💖💖💖💖💖💖: ",
-              month,
-              "index: ",
-              index
-            );
-            if (index === recentMonthsArrayLength - 1) return;
+    <>
+      <Meta title={"Dashboard"} />
+      <div>
+        <h3 className="mb-4 title">Dashboard</h3>
+        {/* 📈📉📊 Three months Analysis Graphs 📈📉📊 */}
+        <div className="d-flex justify-content-between align-items-center gap-3">
+          {/* 📅📅📅 Month 1️⃣ 📅📅📅 */}
+          {latestFourMonthsData &&
+            latestFourMonthsData.length > 0 &&
+            latestFourMonthsData.map((month, index) => {
+              console.log(
+                "Month 💖💖💖💖💖💖💖💖💖💖: ",
+                month,
+                "index: ",
+                index
+              );
+              if (index === recentMonthsArrayLength - 1) return;
 
-            // Get the index of the next month
-            const nextMonthIndex = (index + 1) % latestFourMonthsData.length;
-            const nextMonthYear =
-              latestFourMonthsData[nextMonthIndex]?._id?.year;
-            return (
-              <div
-                className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3"
-                style={{ fontSize: "14px" }}
-                key={index}
-              >
+              // Get the index of the next month
+              const nextMonthIndex = (index + 1) % latestFourMonthsData.length;
+              const nextMonthYear =
+                latestFourMonthsData[nextMonthIndex]?._id?.year;
+              return (
                 <div
-                  className=""
-                  style={{ width: "125px", overflow: "hidden" }}
+                  className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3"
+                  style={{ fontSize: "14px" }}
+                  key={index}
                 >
-                  <p className=" description">Total</p>{" "}
-                  <h4 className="mb-0 sub-title" style={{ fontSize: "1.3rem" }}>
-                    ${month?.sales}.00
-                  </h4>
+                  <div
+                    className=""
+                    style={{ width: "125px", overflow: "hidden" }}
+                  >
+                    <p className=" description">Total</p>{" "}
+                    <h4
+                      className="mb-0 sub-title"
+                      style={{ fontSize: "1.3rem" }}
+                    >
+                      ${month?.sales}.00
+                    </h4>
+                  </div>
+                  <div className="d-flex flex-column align-items-end">
+                    {grothRatesForLatestThreeMonths[index] > 0 ? (
+                      <h6 className="green">
+                        <FaArrowTrendUp />{" "}
+                        {grothRatesForLatestThreeMonths[index]}%
+                      </h6>
+                    ) : (
+                      <h6 className="red">
+                        <FaArrowTrendDown />{" "}
+                        {grothRatesForLatestThreeMonths[index]}%
+                      </h6>
+                    )}
+
+                    <p className="mb-0 description">
+                      {`Compared To ${
+                        monthNames[(month?._id?.month - 2 + 12) % 12]
+                      } ${nextMonthYear}`}{" "}
+                    </p>
+                  </div>
                 </div>
-                <div className="d-flex flex-column align-items-end">
-                  {grothRatesForLatestThreeMonths[index] > 0 ? (
-                    <h6 className="green">
-                      <FaArrowTrendUp /> {grothRatesForLatestThreeMonths[index]}
-                      %
-                    </h6>
-                  ) : (
-                    <h6 className="red">
-                      <FaArrowTrendDown />{" "}
-                      {grothRatesForLatestThreeMonths[index]}%
-                    </h6>
-                  )}
-
-                  <p className="mb-0 description">
-                    {`Compared To ${
-                      monthNames[(month?._id?.month - 2 + 12) % 12]
-                    } ${nextMonthYear}`}{" "}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-      </div>
-
-      {/* <div className="d-flex justify-content-between align-items-center gap-3"> */}
-      {/* 💸💸💸💰 Income Statestics 💰💸💸💸*/}
-      <div className="mt-4 flex-grow-1">
-        <h3 className="mb-5">Income Statics</h3>
-        <div className="">
-          <Column {...config} />
+              );
+            })}
         </div>
-      </div>
 
-      {/* 📦📦📦 Recent Orders 📦📦📦 */}
-      <div className="mt-4">
-        <h3 className="mb-5">Recent Orders</h3>
-        <div>
-          {" "}
-          <Table columns={columns} dataSource={orders} />
+        {/* <div className="d-flex justify-content-between align-items-center gap-3"> */}
+        {/* 💸💸💸💰 Income Statestics 💰💸💸💸*/}
+        <div className="mt-4 flex-grow-1">
+          <h3 className="mb-5">Income Statics</h3>
+          <div className="">
+            <Column {...config} />
+          </div>
         </div>
-      </div>
-      {/* </div> */}
-      {/* 📝📝📝 Recent Reviews 📝📝📝 */}
-      {/* <div className="mt-4">
+
+        {/* 📦📦📦 Recent Orders 📦📦📦 */}
+        <div className="mt-4">
+          <h3 className="mb-5">Recent Orders</h3>
+          <div>
+            {" "}
+            <Table columns={columns} dataSource={orders} />
+          </div>
+        </div>
+        {/* </div> */}
+        {/* 📝📝📝 Recent Reviews 📝📝📝 */}
+        {/* <div className="mt-4">
         <h3 className="mb-4">Recent Reviews</h3>
         <div className="d-flex">
           <div className=""></div>
           <div></div>
         </div>
       </div> */}
-    </div>
+      </div>
+    </>
   );
 };
 

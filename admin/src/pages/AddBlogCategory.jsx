@@ -16,6 +16,7 @@ import {
   resetState,
   updateBlogCategory,
 } from "../features/blog-category/BlogCategorySlice";
+import Meta from "../components/Meta";
 
 // ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
@@ -138,34 +139,37 @@ const AddBlogCategory = () => {
   });
 
   return (
-    <div>
-      <Toast />
-      <h3 className="mb-4 title">
-        {getBlogCategoryId !== undefined ? `Edit` : `Add`} BlogCategory
-      </h3>
+    <>
+      <Meta title={"Add Blog Category"} />
       <div>
-        <form action="" onSubmit={formik.handleSubmit}>
-          <CustomInput
-            id="blog-category"
-            type="text"
-            label="Enter Blog Category"
-            name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange("name")}
-            onBlur={formik.handleBlur("name")}
-          />
-          <div className="error">
-            {formik.touched.name && formik.errors.name}
-          </div>
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            {getBlogCategoryId !== undefined ? `Edit` : `Add`} BlogCategory
-          </button>
-        </form>
+        <Toast />
+        <h3 className="mb-4 title">
+          {getBlogCategoryId !== undefined ? `Edit` : `Add`} BlogCategory
+        </h3>
+        <div>
+          <form action="" onSubmit={formik.handleSubmit}>
+            <CustomInput
+              id="blog-category"
+              type="text"
+              label="Enter Blog Category"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange("name")}
+              onBlur={formik.handleBlur("name")}
+            />
+            <div className="error">
+              {formik.touched.name && formik.errors.name}
+            </div>
+            <button
+              className="btn btn-success border-0 rounded-3 my-5"
+              type="submit"
+            >
+              {getBlogCategoryId !== undefined ? `Edit` : `Add`} BlogCategory
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

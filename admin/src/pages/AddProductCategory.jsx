@@ -16,6 +16,7 @@ import {
   resetState,
   updateProductCategory,
 } from "../features/product-category/ProductCategorySlice";
+import Meta from "../components/Meta";
 
 // ❗❗❗❗❗❗❗❗❗❗   yup Validations          ❗❗❗❗❗❗❗❗❗❗
 let schema = yup.object().shape({
@@ -140,36 +141,39 @@ const AddProductCategory = () => {
   });
 
   return (
-    <div>
-      <Toast />
-      <h3 className="mb-4 title">
-        {getProductCategoryId !== undefined ? "Update" : "Add"}
-        ProductCategory
-      </h3>
+    <>
+      <Meta title={"Add Product Category"} />
       <div>
-        <form action="" onSubmit={formik.handleSubmit}>
-          <CustomInput
-            id="product-category"
-            type="text"
-            label="Enter Product Category"
-            name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange("name")}
-            onBlur={formik.handleBlur("name")}
-          />
-          <div className="error">
-            {formik.touched.name && formik.errors.name}
-          </div>
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            {getProductCategoryId !== undefined ? "Update" : "Add"}
-            ProductCategory
-          </button>
-        </form>
+        <Toast />
+        <h3 className="mb-4 title">
+          {getProductCategoryId !== undefined ? "Update" : "Add"}
+          ProductCategory
+        </h3>
+        <div>
+          <form action="" onSubmit={formik.handleSubmit}>
+            <CustomInput
+              id="product-category"
+              type="text"
+              label="Enter Product Category"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange("name")}
+              onBlur={formik.handleBlur("name")}
+            />
+            <div className="error">
+              {formik.touched.name && formik.errors.name}
+            </div>
+            <button
+              className="btn btn-success border-0 rounded-3 my-5"
+              type="submit"
+            >
+              {getProductCategoryId !== undefined ? "Update" : "Add"}
+              ProductCategory
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

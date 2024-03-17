@@ -12,6 +12,7 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
+import Meta from "../components/Meta";
 
 const columns = [
   {
@@ -201,21 +202,24 @@ const CouponList = () => {
   console.log("all the values initially are 😍😍", couponState);
 
   return (
-    <div>
-      <Toast />
-      <h3 className="mb-4 title">CouponList</h3>
+    <>
+      <Meta title={"Coupon List"} />
       <div>
-        <Table columns={columns} dataSource={data1} />
+        <Toast />
+        <h3 className="mb-4 title">CouponList</h3>
+        <div>
+          <Table columns={columns} dataSource={data1} />
+        </div>
+        <CustomModal
+          title="Are You Sure to Delete This Coupon?"
+          hideModal={hideModal}
+          open={open}
+          performAction={() => {
+            deleteCouponHelper(deleteCouponId);
+          }}
+        />
       </div>
-      <CustomModal
-        title="Are You Sure to Delete This Coupon?"
-        hideModal={hideModal}
-        open={open}
-        performAction={() => {
-          deleteCouponHelper(deleteCouponId);
-        }}
-      />
-    </div>
+    </>
   );
 };
 

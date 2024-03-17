@@ -23,6 +23,7 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
+import Meta from "../components/Meta";
 
 const validMongoDBIdRegex = /^[0-9a-fA-F]{24}$/;
 const validTagValues = Object.values(ProductTagsEnum);
@@ -253,85 +254,87 @@ const AddProduct = () => {
   };
 
   return (
-    <div>
-      <Toast />
-      <h3 className="mb-4 title">Add Product</h3>
+    <>
+      <Meta title={"Add Product"} />
       <div>
-        <form
-          action=""
-          onSubmit={formik.handleSubmit}
-          className="d-flex flex-column gap-3"
-        >
-          {/* name, description, price, category, color, brand, stock, images, */}
-          {/* 🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻 name 🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻 */}
-          <CustomInput
-            type="text"
-            label="Enter Product name"
-            name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange("name")}
-            onBlur={formik.handleBlur("name")}
-          />
-          <div className="error">
-            {formik.touched.name && formik.errors.name}
-          </div>
-          {/* 📝📝📝✍🏻✍🏻✍🏻 Description ✍🏻✍🏻✍🏻📝📝📝 */}
-          <div className="mb-0">
-            <ReactQuill
-              theme="snow"
-              name="description"
-              // value={formik.values.description}
-              // onChange={formik.handleChange("description")}
-              onChange={(htmlValue) => {
-                // Extract text without HTML tags
-                console.log("htmlValue : ", htmlValue);
-                const plainText = extractTextFromHTML(htmlValue).trim();
-                console.log("plainText : ", plainText);
-                // Set the plain text value to formik
-                formik.setFieldValue("description", plainText);
-                // formik.handleChange("description")
-              }}
-            />
-          </div>
-          <div className="error">
-            {formik.touched.description && formik.errors.description}
-          </div>
-          {/* 💸💸💸💰💰💰  Price 💸💸💸💰💰💰  */}
-          <CustomInput
-            type="number"
-            label="Enter Product Price"
-            name="price"
-            value={formik.values.price}
-            onChange={formik.handleChange("price")}
-            onBlur={formik.handleBlur("price")}
-          />
-          <div className="error">
-            {formik.touched.price && formik.errors.price}
-          </div>
-          {/* 👑👑👑 Category, Color, Brand, Tag❓👑👑👑 */}
-          {/*✅✅✅ Select Category ✅✅✅ */}
-          <select
-            name="category"
-            value={formik.values.category}
-            onChange={formik.handleChange("category")}
-            onBlur={formik.handleBlur("category")}
-            className="form-control py-3 mb-3"
-            id=""
+        <Toast />
+        <h3 className="mb-4 title">Add Product</h3>
+        <div>
+          <form
+            action=""
+            onSubmit={formik.handleSubmit}
+            className="d-flex flex-column gap-3"
           >
-            <option value="">Select Category</option>
-            {productCategoryState.map((category, key) => {
-              return (
-                <option key={key} value={category._id}>
-                  {category.name}
-                </option>
-              );
-            })}
-          </select>
-          <div className="error">
-            {formik.touched.category && formik.errors.category}
-          </div>
-          {/*✅✅✅🔴🟠🟡🟢🔵🟣🟤⚫🔘⬛⬜ Select Color 🔴🟠🟡🟢🔵🟣🟤⚫🔘⬛⬜ ✅✅✅ */}
-          {/* <Multiselect
+            {/* name, description, price, category, color, brand, stock, images, */}
+            {/* 🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻 name 🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻 */}
+            <CustomInput
+              type="text"
+              label="Enter Product name"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange("name")}
+              onBlur={formik.handleBlur("name")}
+            />
+            <div className="error">
+              {formik.touched.name && formik.errors.name}
+            </div>
+            {/* 📝📝📝✍🏻✍🏻✍🏻 Description ✍🏻✍🏻✍🏻📝📝📝 */}
+            <div className="mb-0">
+              <ReactQuill
+                theme="snow"
+                name="description"
+                // value={formik.values.description}
+                // onChange={formik.handleChange("description")}
+                onChange={(htmlValue) => {
+                  // Extract text without HTML tags
+                  console.log("htmlValue : ", htmlValue);
+                  const plainText = extractTextFromHTML(htmlValue).trim();
+                  console.log("plainText : ", plainText);
+                  // Set the plain text value to formik
+                  formik.setFieldValue("description", plainText);
+                  // formik.handleChange("description")
+                }}
+              />
+            </div>
+            <div className="error">
+              {formik.touched.description && formik.errors.description}
+            </div>
+            {/* 💸💸💸💰💰💰  Price 💸💸💸💰💰💰  */}
+            <CustomInput
+              type="number"
+              label="Enter Product Price"
+              name="price"
+              value={formik.values.price}
+              onChange={formik.handleChange("price")}
+              onBlur={formik.handleBlur("price")}
+            />
+            <div className="error">
+              {formik.touched.price && formik.errors.price}
+            </div>
+            {/* 👑👑👑 Category, Color, Brand, Tag❓👑👑👑 */}
+            {/*✅✅✅ Select Category ✅✅✅ */}
+            <select
+              name="category"
+              value={formik.values.category}
+              onChange={formik.handleChange("category")}
+              onBlur={formik.handleBlur("category")}
+              className="form-control py-3 mb-3"
+              id=""
+            >
+              <option value="">Select Category</option>
+              {productCategoryState.map((category, key) => {
+                return (
+                  <option key={key} value={category._id}>
+                    {category.name}
+                  </option>
+                );
+              })}
+            </select>
+            <div className="error">
+              {formik.touched.category && formik.errors.category}
+            </div>
+            {/*✅✅✅🔴🟠🟡🟢🔵🟣🟤⚫🔘⬛⬜ Select Color 🔴🟠🟡🟢🔵🟣🟤⚫🔘⬛⬜ ✅✅✅ */}
+            {/* <Multiselect
             name="colors"
             dataKey="id"
             textField="color"
@@ -356,123 +359,124 @@ const AddProduct = () => {
               // formik.setFieldValue("colors", event);
             }}
           /> */}
-          <Select
-            mode="multiple"
-            allowClear
-            className="w-100"
-            style={{ width: "100%" }}
-            placeholder="Select Colors"
-            onChange={(event) => {
-              handleColorsChange(event);
-            }}
-            options={colorOptions}
-          />
-          <div className="error">
-            {formik.touched.colors && formik.errors.colors}
-          </div>
-          {/* 💊💊💊 Select Tag 💊💊💊*/}
-          <Select
-            mode="multiple"
-            allowClear
-            className="w-100"
-            style={{ width: "100%" }}
-            placeholder="Select Tag"
-            onChange={(event) => {
-              handleTagsChange(event);
-            }}
-            options={tagOptions}
-          />
-          <div className="error">
-            {formik.touched.colors && formik.errors.colors}
-          </div>
-          {/* ✅✅✅ Select Brand ✅✅✅ */}
-          <select
-            name="brand"
-            value={formik.values.brand}
-            onChange={formik.handleChange("brand")}
-            onBlur={formik.handleBlur("brand")}
-            className="form-control py-3 mb-3"
-            id=""
-          >
-            <option value="">Select Brand</option>
-            {brandState.map((brand, key) => {
-              return (
-                <option key={key} value={brand.name}>
-                  {brand.name}
-                </option>
-              );
-            })}
-          </select>
-          <div className="error">
-            {formik.touched.brand && formik.errors.brand}
-          </div>
-          {/*📈📈📈📈📈📈📈📈 stock 📈📈📈📈📈📈📈📈 */}
-          <CustomInput
-            type="number"
-            label="Enter Product stock"
-            name="stock"
-            value={formik.values.stock}
-            onChange={formik.handleChange("stock")}
-            onBlur={formik.handleBlur("stock")}
-          />
-          <div className="error">
-            {formik.touched.stock && formik.errors.stock}
-          </div>
-          {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
-
-          <div className="bg-white border-1 p-5 text-center">
-            <Dropzone
-              onDrop={async (acceptedFiles) => {
-                const response = await dispatch(uploadImages(acceptedFiles));
-                console.log("response in dropzone is 🔥🔥 : ", response);
+            <Select
+              mode="multiple"
+              allowClear
+              className="w-100"
+              style={{ width: "100%" }}
+              placeholder="Select Colors"
+              onChange={(event) => {
+                handleColorsChange(event);
               }}
+              options={colorOptions}
+            />
+            <div className="error">
+              {formik.touched.colors && formik.errors.colors}
+            </div>
+            {/* 💊💊💊 Select Tag 💊💊💊*/}
+            <Select
+              mode="multiple"
+              allowClear
+              className="w-100"
+              style={{ width: "100%" }}
+              placeholder="Select Tag"
+              onChange={(event) => {
+                handleTagsChange(event);
+              }}
+              options={tagOptions}
+            />
+            <div className="error">
+              {formik.touched.colors && formik.errors.colors}
+            </div>
+            {/* ✅✅✅ Select Brand ✅✅✅ */}
+            <select
+              name="brand"
+              value={formik.values.brand}
+              onChange={formik.handleChange("brand")}
+              onBlur={formik.handleBlur("brand")}
+              className="form-control py-3 mb-3"
+              id=""
             >
-              {({ getRootProps, getInputProps }) => (
-                <section>
-                  <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <p>
-                      Drag 'n' drop some files here, or click to select files
-                    </p>
+              <option value="">Select Brand</option>
+              {brandState.map((brand, key) => {
+                return (
+                  <option key={key} value={brand.name}>
+                    {brand.name}
+                  </option>
+                );
+              })}
+            </select>
+            <div className="error">
+              {formik.touched.brand && formik.errors.brand}
+            </div>
+            {/*📈📈📈📈📈📈📈📈 stock 📈📈📈📈📈📈📈📈 */}
+            <CustomInput
+              type="number"
+              label="Enter Product stock"
+              name="stock"
+              value={formik.values.stock}
+              onChange={formik.handleChange("stock")}
+              onBlur={formik.handleBlur("stock")}
+            />
+            <div className="error">
+              {formik.touched.stock && formik.errors.stock}
+            </div>
+            {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
+
+            <div className="bg-white border-1 p-5 text-center">
+              <Dropzone
+                onDrop={async (acceptedFiles) => {
+                  const response = await dispatch(uploadImages(acceptedFiles));
+                  console.log("response in dropzone is 🔥🔥 : ", response);
+                }}
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <section>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <p>
+                        Drag 'n' drop some files here, or click to select files
+                      </p>
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
+            </div>
+            <div className="showImages d-flex flex-wrap ">
+              {newImageState?.map((image, key) => {
+                {
+                  /* console.log("Image in the imageState : ", image); */
+                }
+                return (
+                  <div
+                    key={key}
+                    className="uploadedImage p-1 col-4 position-relative "
+                  >
+                    <button
+                      onClick={() => removeImageFromContainer(image.public_id)}
+                      className="removeImage btn-close position-absolute rounded-circle "
+                      style={{ top: "10px", right: "10px" }}
+                      type="button"
+                    ></button>
+                    <img
+                      src={image.url}
+                      alt="Uploaded Image"
+                      className="img-fluid border  "
+                    />
                   </div>
-                </section>
-              )}
-            </Dropzone>
-          </div>
-          <div className="showImages d-flex flex-wrap ">
-            {newImageState?.map((image, key) => {
-              {
-                /* console.log("Image in the imageState : ", image); */
-              }
-              return (
-                <div
-                  key={key}
-                  className="uploadedImage p-1 col-4 position-relative "
-                >
-                  <button
-                    onClick={() => removeImageFromContainer(image.public_id)}
-                    className="removeImage btn-close position-absolute rounded-circle "
-                    style={{ top: "10px", right: "10px" }}
-                    type="button"
-                  ></button>
-                  <img
-                    src={image.url}
-                    alt="Uploaded Image"
-                    className="img-fluid border  "
-                  />
-                </div>
-              );
-            })}
-          </div>
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            Add Product
-          </button>
-        </form>
+                );
+              })}
+            </div>
+            <button
+              className="btn btn-success border-0 rounded-3 my-5"
+              type="submit"
+            >
+              Add Product
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

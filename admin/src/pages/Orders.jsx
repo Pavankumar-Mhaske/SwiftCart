@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getOrders } from "../features/order/OrderSlice";
+import Meta from "../components/Meta";
 
 const columns = [
   {
@@ -168,12 +169,15 @@ const Orders = () => {
   }
 
   return (
-    <div>
-      <h3 className="mb-4 title">Orders</h3>
+    <>
+      <Meta title={"Orders"} />
       <div>
-        <Table columns={columns} dataSource={data1} />
+        <h3 className="mb-4 title">Orders</h3>
+        <div>
+          <Table columns={columns} dataSource={data1} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

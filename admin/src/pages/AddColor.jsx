@@ -24,6 +24,7 @@ let schema = yup.object().shape({
   name: yup.string().required("Color name is required"),
 });
 import { ProductColorsEnum } from "../features/color/ProductColorsEnum";
+import Meta from "../components/Meta";
 
 const AddColor = () => {
   useEffect(() => {
@@ -147,85 +148,90 @@ const AddColor = () => {
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
   return (
-    <div>
-      <Toast />
+    <>
+      <Meta title={"Add Color"} />
 
-      <h3 className="mb-4 title">
-        {getColorId !== undefined ? `Edit` : `Add`} Color
-      </h3>
       <div>
-        <form action="" onSubmit={formik.handleSubmit}>
-          <h5 className="color-headings ">
-            Choose Color{" "}
-            <span className="example">
-              (Choose from Color picker- RGB / HSL / HEX )
-            </span>
-          </h5>
+        <Toast />
 
-          <CustomInput
-            id="color"
-            type="color"
-            label="Enter Color"
-            name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange("name")}
-            onBlur={formik.handleBlur("name")}
-          />
-          <div className="error mt-3">
-            {formik.touched.name && formik.errors.name}
-          </div>
+        <h3 className="mb-4 title">
+          {getColorId !== undefined ? `Edit` : `Add`} Color
+        </h3>
+        <div>
+          <form action="" onSubmit={formik.handleSubmit}>
+            <h5 className="color-headings ">
+              Choose Color{" "}
+              <span className="example">
+                (Choose from Color picker- RGB / HSL / HEX )
+              </span>
+            </h5>
 
-          {/* Another way to choossing the color by manual word choice */}
-          <h5 className="color-headings ">
-            Enter Color Name or HEX Code{" "}
-            <span className="example">(ex. RED / #FF0000)</span>
-          </h5>
-          <CustomInput
-            id="color"
-            type="text"
-            label="Enter Color"
-            name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange("name")}
-            onBlur={formik.handleBlur("name")}
-          />
-          <div className="error mt-3">
-            {formik.touched.name && formik.errors.name}
-          </div>
+            <CustomInput
+              id="color"
+              type="color"
+              label="Enter Color"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange("name")}
+              onBlur={formik.handleBlur("name")}
+            />
+            <div className="error mt-3">
+              {formik.touched.name && formik.errors.name}
+            </div>
 
-          {/* Another way to choossing the color by manual word choice */}
-          <h5 className="color-headings ">
-            Select Color From Dropdown{" "}
-            <span className="example">
-              (Choose from a Selection of Sample Colors, yet to be incorporated)
-            </span>
-          </h5>
-          <Select
-            showSearch
-            className="w-100 "
-            style={{ width: "100%" }}
-            placeholder="Select a Color"
-            optionFilterProp="children"
-            // onChange={onChange}
-            onChange={(event) => {
-              handleColorsChange(event);
-            }}
-            onSearch={onSearch}
-            filterOption={filterOption}
-            options={colorOptions}
-          />
-          <div className="error mt-3">
-            {formik.touched.name && formik.errors.name}
-          </div>
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            {getColorId !== undefined ? `Edit` : `Add`} Color
-          </button>
-        </form>
+            {/* Another way to choossing the color by manual word choice */}
+            <h5 className="color-headings ">
+              Enter Color Name or HEX Code{" "}
+              <span className="example">(ex. RED / #FF0000)</span>
+            </h5>
+            <CustomInput
+              id="color"
+              type="text"
+              label="Enter Color"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange("name")}
+              onBlur={formik.handleBlur("name")}
+            />
+            <div className="error mt-3">
+              {formik.touched.name && formik.errors.name}
+            </div>
+
+            {/* Another way to choossing the color by manual word choice */}
+            <h5 className="color-headings ">
+              Select Color From Dropdown{" "}
+              <span className="example">
+                (Choose from a Selection of Sample Colors, yet to be
+                incorporated)
+              </span>
+            </h5>
+            <Select
+              showSearch
+              className="w-100 "
+              style={{ width: "100%" }}
+              placeholder="Select a Color"
+              optionFilterProp="children"
+              // onChange={onChange}
+              onChange={(event) => {
+                handleColorsChange(event);
+              }}
+              onSearch={onSearch}
+              filterOption={filterOption}
+              options={colorOptions}
+            />
+            <div className="error mt-3">
+              {formik.touched.name && formik.errors.name}
+            </div>
+            <button
+              className="btn btn-success border-0 rounded-3 my-5"
+              type="submit"
+            >
+              {getColorId !== undefined ? `Edit` : `Add`} Color
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

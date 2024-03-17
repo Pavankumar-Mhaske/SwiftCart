@@ -15,6 +15,7 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
+import Meta from "../components/Meta";
 
 const columns = [
   {
@@ -126,21 +127,24 @@ const ProductCategoryList = () => {
   }
 
   return (
-    <div>
-      <Toast />
-      <h3 className="mb-4 title">ProductCategoryList</h3>
+    <>
+      <Meta title={"Product Category List"} />
       <div>
-        <Table columns={columns} dataSource={data1} />
+        <Toast />
+        <h3 className="mb-4 title">ProductCategoryList</h3>
+        <div>
+          <Table columns={columns} dataSource={data1} />
+        </div>
+        <CustomModal
+          title="Are You Sure to Delete This ProductCategory?"
+          hideModal={hideModal}
+          open={open}
+          performAction={() => {
+            deleteProductCategoryHelper(deleteProductCategoryId);
+          }}
+        />
       </div>
-      <CustomModal
-        title="Are You Sure to Delete This ProductCategory?"
-        hideModal={hideModal}
-        open={open}
-        performAction={() => {
-          deleteProductCategoryHelper(deleteProductCategoryId);
-        }}
-      />
-    </div>
+    </>
   );
 };
 

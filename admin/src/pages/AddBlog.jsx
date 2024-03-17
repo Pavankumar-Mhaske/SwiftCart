@@ -23,6 +23,7 @@ import {
   showToastError,
   Toast,
 } from "../utils/HotToastHandler";
+import Meta from "../components/Meta";
 
 const validMongoDBIdRegex = /^[0-9a-fA-F]{24}$/;
 
@@ -225,135 +226,139 @@ const AddBlog = () => {
     return tempElement.textContent || tempElement.innerText;
   };
   return (
-    <div>
-      <h3 className="mb-4 title">
-        {getBlogId !== undefined ? `Edit` : `Add`} Blog
-      </h3>
-      <Toast />
-      <div>
-        <form
-          action=""
-          onSubmit={formik.handleSubmit}
-          className="d-flex flex-column gap-3"
-        >
-          {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
-          <div className="bg-white border-1 p-5 text-center">
-            <Dropzone
-              onDrop={async (acceptedFiles) => {
-                const response = await dispatch(uploadImages(acceptedFiles));
-                console.log("response 😂😂 : ", response);
-              }}
-            >
-              {({ getRootProps, getInputProps }) => (
-                <section>
-                  <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <p>
-                      Drag 'n' drop some files here, or click to select files
-                    </p>
-                  </div>
-                </section>
-              )}
-            </Dropzone>
-          </div>
-          <div className="showImages d-flex flex-wrap ">
-            {newImageState?.map((image, key) => {
-              {
-                /* console.log("Image in the imageState : ", image); */
-              }
-              return (
-                <div
-                  key={key}
-                  className="uploadedImage p-1 col-4 position-relative "
-                >
-                  <button
-                    onClick={() => removeImageFromContainer(image.public_id)}
-                    className="removeImage btn-close position-absolute rounded-circle "
-                    style={{ top: "10px", right: "10px" }}
-                    type="button"
-                  ></button>
-                  <img
-                    src={image.url}
-                    alt="Uploaded Image"
-                    className="img-fluid border  "
-                  />
-                </div>
-              );
-            })}
-          </div>
-          {/* ✔✔✔ Input ✔✔✔ */}
-          <div className="mt-4">
-            <CustomInput
-              type="text"
-              label="Enter Blog title"
-              name="title"
-              value={formik.values.title}
-              onChange={formik.handleChange("title")}
-              onBlur={formik.handleBlur("title")}
-            />
-            <div className="error">
-              {formik.touched.title && formik.errors.title}
-            </div>
-          </div>
-          {/*✅✅✅ Select blog Category ✅✅✅ */}
-          <select
-            name="category"
-            value={formik.values.category}
-            onChange={formik.handleChange("category")}
-            onBlur={formik.handleBlur("category")}
-            className="form-control py-3 mb-3"
-            id=""
-          >
-            <option value="">Select Category</option>
-            {blogCategoryState.map((category, key) => {
-              return (
-                <option key={key} value={category._id}>
-                  {category.name}
-                </option>
-              );
-            })}
-          </select>
-          <div className="error">
-            {formik.touched.category && formik.errors.category}
-          </div>
-          {/* 📝📝📝✍🏻
-          ✍🏻✍🏻 Description ✍🏻✍🏻✍🏻📝📝📝 */}
-          <div className="mb-0">
-            <ReactQuill
-              theme="snow"
-              name="description"
-              onChange={(htmlValue) => {
-                console.log("htmlValue : ✅✅✅✅", htmlValue);
-                // const plainText = extractTextFromHTML(htmlValue).trim();
-                // console.log("plainText : 💖💖💖💖", plainText);
-                formik.setFieldValue("description", htmlValue);
-              }}
-              // value={formik.values.description}
+    <>
+      <Meta title={"Add Blog"} />
 
-              // onChange={(htmlValue) => {
-              //   // Extract text without HTML tags
-              //   console.log("htmlValue : ", htmlValue);
-              //   const plainText = extractTextFromHTML(htmlValue).trim();
-              //   console.log("plainText : ", plainText);
-              //   // Set the plain text value to formik
-              //   // formik.setFieldValue("description", plainText);
-              //   // formik.handleChange("description")
-              //   // formik.setFieldValue("description", htmlValue);
-              // }}
-            />
-          </div>
-          <div className="error">
-            {formik.touched.description && formik.errors.description}
-          </div>
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
+      <div>
+        <h3 className="mb-4 title">
+          {getBlogId !== undefined ? `Edit` : `Add`} Blog
+        </h3>
+        <Toast />
+        <div>
+          <form
+            action=""
+            onSubmit={formik.handleSubmit}
+            className="d-flex flex-column gap-3"
           >
-            {getBlogId !== undefined ? `Edit` : `Add`} Blog{" "}
-          </button>
-        </form>
+            {/*🔼🔼📂📂📂📁 Images upload 📂📂📂📁🔼🔼  */}
+            <div className="bg-white border-1 p-5 text-center">
+              <Dropzone
+                onDrop={async (acceptedFiles) => {
+                  const response = await dispatch(uploadImages(acceptedFiles));
+                  console.log("response 😂😂 : ", response);
+                }}
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <section>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <p>
+                        Drag 'n' drop some files here, or click to select files
+                      </p>
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
+            </div>
+            <div className="showImages d-flex flex-wrap ">
+              {newImageState?.map((image, key) => {
+                {
+                  /* console.log("Image in the imageState : ", image); */
+                }
+                return (
+                  <div
+                    key={key}
+                    className="uploadedImage p-1 col-4 position-relative "
+                  >
+                    <button
+                      onClick={() => removeImageFromContainer(image.public_id)}
+                      className="removeImage btn-close position-absolute rounded-circle "
+                      style={{ top: "10px", right: "10px" }}
+                      type="button"
+                    ></button>
+                    <img
+                      src={image.url}
+                      alt="Uploaded Image"
+                      className="img-fluid border  "
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            {/* ✔✔✔ Input ✔✔✔ */}
+            <div className="mt-4">
+              <CustomInput
+                type="text"
+                label="Enter Blog title"
+                name="title"
+                value={formik.values.title}
+                onChange={formik.handleChange("title")}
+                onBlur={formik.handleBlur("title")}
+              />
+              <div className="error">
+                {formik.touched.title && formik.errors.title}
+              </div>
+            </div>
+            {/*✅✅✅ Select blog Category ✅✅✅ */}
+            <select
+              name="category"
+              value={formik.values.category}
+              onChange={formik.handleChange("category")}
+              onBlur={formik.handleBlur("category")}
+              className="form-control py-3 mb-3"
+              id=""
+            >
+              <option value="">Select Category</option>
+              {blogCategoryState.map((category, key) => {
+                return (
+                  <option key={key} value={category._id}>
+                    {category.name}
+                  </option>
+                );
+              })}
+            </select>
+            <div className="error">
+              {formik.touched.category && formik.errors.category}
+            </div>
+            {/* 📝📝📝✍🏻
+          ✍🏻✍🏻 Description ✍🏻✍🏻✍🏻📝📝📝 */}
+            <div className="mb-0">
+              <ReactQuill
+                theme="snow"
+                name="description"
+                onChange={(htmlValue) => {
+                  console.log("htmlValue : ✅✅✅✅", htmlValue);
+                  // const plainText = extractTextFromHTML(htmlValue).trim();
+                  // console.log("plainText : 💖💖💖💖", plainText);
+                  formik.setFieldValue("description", htmlValue);
+                }}
+                // value={formik.values.description}
+
+                // onChange={(htmlValue) => {
+                //   // Extract text without HTML tags
+                //   console.log("htmlValue : ", htmlValue);
+                //   const plainText = extractTextFromHTML(htmlValue).trim();
+                //   console.log("plainText : ", plainText);
+                //   // Set the plain text value to formik
+                //   // formik.setFieldValue("description", plainText);
+                //   // formik.handleChange("description")
+                //   // formik.setFieldValue("description", htmlValue);
+                // }}
+              />
+            </div>
+            <div className="error">
+              {formik.touched.description && formik.errors.description}
+            </div>
+            <button
+              className="btn btn-success border-0 rounded-3 my-5"
+              type="submit"
+            >
+              {getBlogId !== undefined ? `Edit` : `Add`} Blog{" "}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
