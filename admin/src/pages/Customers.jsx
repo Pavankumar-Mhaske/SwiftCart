@@ -49,7 +49,7 @@ const Customers = () => {
     dispatch(getUsers());
   }, []);
   const customerState = useSelector((state) => state.customer.customers);
-  console.log("customerState in customer is : 🍌🍌🍌", customerState);
+  console.log("customerState in customer is :", customerState);
 
   const data1 = [];
   for (let i = 0; i < customerState.length; i++) {
