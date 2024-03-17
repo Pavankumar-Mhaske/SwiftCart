@@ -32,7 +32,17 @@ const SpecialProduct = (props) => {
             style={{ width: "45%", height: "auto" }}
           >
             <h5 className="brand">{brand}</h5>
-            <h6 className="title">{title}</h6>
+            <h6
+              className="title"
+              style={{
+                maxHeight: "3em", // Adjust the height as per your requirement
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {title}
+            </h6>
             <ReactStars
               count={5}
               size={24}
