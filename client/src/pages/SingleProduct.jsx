@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
+
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ProductCard from "../components/ProductCard";
@@ -334,11 +334,29 @@ const SingleProduct = () => {
                   </p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
-                  <h3 className="product-heading">Tags :</h3>
-                  <p className="product-data">
+                  <h3 className="product-heading" style={{ width: "150px" }}>
+                    Tags :
+                  </h3>
+                  {/* <p className="product-data">
                     {product?.tags}
-                    {/* headphones laptops mobile oppo speaker */}
-                  </p>
+                  </p> */}
+
+                  <div className="tags">
+                    {product?.tags &&
+                      product?.tags.map((tag, index) => {
+                        return (
+                          <tag
+                            className="product-data"
+                            key={index}
+                            style={{
+                              cursor: "pointer",
+                            }}
+                          >
+                            {tag}
+                          </tag>
+                        );
+                      })}
+                  </div>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2 ">
                   <h3 className="product-heading">SKU :</h3>
