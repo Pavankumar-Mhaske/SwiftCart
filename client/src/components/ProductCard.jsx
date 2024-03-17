@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsFillHandbagFill, BsEye } from "react-icons/bs";
@@ -7,6 +7,7 @@ import { addRemoveProductInWishList } from "../features/product/ProductSlice";
 const ProductCard = (props) => {
   const { data, grid } = props;
   let location = useLocation();
+  const [updatingWishList, setUpdatingWishList] = useState(false);
   // console.log(location);
   // console.log(location.pathname === "/store");
   // console.log(`col-${grid}`);
@@ -17,7 +18,33 @@ const ProductCard = (props) => {
   const addProductToWishList = async (productId) => {
     console.log("productId in addRemoveProductInWishList is : ", productId);
     dispatch(addRemoveProductInWishList(productId));
+    console.log(
+      "updatingWishList in addRemoveProductInWishList is : 🍠🍠🍠🍠🍠🍠"
+    );
+    setUpdatingWishList(true);
   };
+
+  const wishListState = useSelector((state) => state.user.wishlist);
+  console.log("wishListState in Wishlist is : 😺😺😺😺😺😺", wishListState);
+
+  const updatedWishlist = useSelector((state) => state.product.wishlist);
+  console.log("wishlist in Wishlist is 😺😺😺😺😺😺 : ", updatedWishlist);
+
+  useEffect(() => {
+    console.log(`😺😺😺😺😺😺
+    updatingWishList : ${updatingWishList}
+    updatedWishlist : ${updatedWishlist}
+    updatedWishlist?.length : ${updatedWishlist?.length}
+    `);
+    if (
+      updatingWishList === true &&
+      updatedWishlist &&
+      updatedWishlist?.length > 0
+    ) {
+      navigate("/wishlist");
+      setUpdatingWishList(false);
+    }
+  }, [updatedWishlist?.length]);
 
   return (
     <>
