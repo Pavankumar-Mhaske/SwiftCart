@@ -48,12 +48,7 @@ const Wishlist = () => {
             wishListState?.map((item, index) => {
               return (
                 <div className="col-3 " key={index}>
-                  <div
-                    className="wishlist-card position-relative mb-3 border"
-                    onClick={() => {
-                      navigate(`/product/${item?._id}`);
-                    }}
-                  >
+                  <div className="wishlist-card position-relative mb-3 border">
                     <img
                       onClick={() => removeProductFromWishList(item._id)}
                       src="images/cross.svg"
@@ -71,7 +66,7 @@ const Wishlist = () => {
                         alt="watch"
                       />
                     </div>
-                    <div className="py-3 px-3">
+                    <div className="py-3 px-3 product-card-details">
                       <h5
                         className="title"
                         style={{
@@ -80,10 +75,20 @@ const Wishlist = () => {
                           textOverflow: "ellipsis",
                           whiteSpace: "nowrap",
                         }}
+                        onClick={() => {
+                          navigate(`/product/${item?._id}`);
+                        }}
                       >
                         {item.name}{" "}
                       </h5>
-                      <h6 className="price">$ {item.price}</h6>
+                      <h6
+                        className="price"
+                        onClick={() => {
+                          navigate(`/product/${item?._id}`);
+                        }}
+                      >
+                        $ {item.price}
+                      </h6>
                     </div>
                   </div>
                 </div>
