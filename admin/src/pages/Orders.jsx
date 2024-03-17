@@ -117,7 +117,7 @@ const columns = [
   // },
   // product
   {
-    title: "Product",
+    title: "Products",
     dataIndex: "product",
     render: (orderId) => {
       // return <Tag color="blue">{product}</Tag>;
