@@ -8,14 +8,25 @@ import { getBlogs } from "../features/blog/BlogSlice";
 import moment from "moment";
 const Blog = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getBlogs());
-  }, []);
 
   const [categories, setCategories] = useState([]);
-  console.log("categories in blog is 🔥🔥 : ", categories);
+
+  // Filter States
+  const [category, setCategory] = useState([]);
+
   const blogState = useSelector((state) => state?.blog?.blogs);
-  console.log("blogState in blog is 🔥🔥 : ", blogState);
+  // console.log("blogState in blog is 🔥🔥 : ", blogState);
+
+  const resetAllFilters = () => {
+    setCategory([]);
+  };
+
+  console.log("categories in blog is : 💖", categories);
+  console.log("category in OurStore is : 💖", category);
+
+  useEffect(() => {
+    dispatch(getBlogs({ category }));
+  }, [category]);
 
   useEffect(() => {
     let blogCategories = [];
@@ -42,6 +53,11 @@ const Blog = () => {
         <div className="row">
           {/* 🍓🍒🍓 Filter-Card 🍓🍒🍓 */}
           <div className="col-3">
+            <div className="mb-3 d-flex flex-column justify-content-center align-items-center">
+              <button className="button" onClick={resetAllFilters}>{`${
+                category.length ? "Clear Filters" : "No Filters Applied"
+              } `}</button>
+            </div>
             {/* 🍓🍒🍓 Filter-Card -1 🍓🍒🍓 */}
             <div className="filter-card mb-3">
               <h3 className="filter-title">Find by Categories</h3>
@@ -49,7 +65,11 @@ const Blog = () => {
                 <ul className="ps-0">
                   {categories &&
                     [...new Set(categories)].map((category, index) => {
-                      return <li key={index}>{category}</li>;
+                      return (
+                        <li key={index} onClick={() => setCategory(category)}>
+                          {category}
+                        </li>
+                      );
                     })}
                 </ul>
               </div>
