@@ -840,6 +840,39 @@ footer .input-group-text {
   object-fit: cover; /* Cover the container while maintaining aspect ratio */
 }
 
+.wishlist-card .product-card-details {
+  cursor: pointer;
+}
+
+.wishlist-card .title {
+  font-weight: bold;
+  color: black;
+  /* transition: color 0.9s ease !important;  */
+  transition: color 0.3s ease, transform 0.3s ease;
+  transform-origin: center;
+}
+
+.wishlist-card .price {
+  font-size: 1em;
+  transition: color 0.3s ease, transform 0.3s ease;
+  transform-origin: center;
+}
+
+/* Hover effect for title */
+.wishlist-card .title:hover {
+  color: blue;
+  /* font-size: 1.1em !important; */
+  /* transform: scale(1.2) translateX(20px); */
+  transform: scale(1.2);
+}
+
+/* Hover effect for price */
+.wishlist-card .price:hover {
+  color: green;
+  font-weight: bold;
+  transform: scale(1.3) translateX(19px);
+}
+
 /* 🌺🌺 Compare Product and some Wishlist Ends here 🌺🌺 */
 
 /* 🌹🌹 Wishlist 🌹🌹 */
@@ -850,7 +883,6 @@ footer .input-group-text {
   border-radius: 10px;
   overflow: hidden;
   width: 100%;
-  cursor: pointer;
 }
 
 /* 🌺🌺 Wishlist Ends here 🌺🌺 */
