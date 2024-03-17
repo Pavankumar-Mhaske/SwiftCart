@@ -194,7 +194,11 @@ const ViewOrder = () => {
       items.map((item, index) => {
         data1.push({
           key: index + 1,
-          product: item.product.name,
+          // product: item.product.name,
+          nameNimage: {
+            name: item?.product?.name,
+            image: item?.product?.mainImages[0]?.url,
+          },
           quantity: item.quantity,
           brand: item.product.brand,
           color: item.product.colors,
@@ -241,7 +245,25 @@ const ViewOrder = () => {
     // PaymentId
     {
       title: "Product",
-      dataIndex: "product",
+      dataIndex: "nameNimage",
+      render: (nameNimage) => (
+        console.log("nameNimage in productlist is 🍌🍌🍌 : ", nameNimage),
+        (
+          <div
+            className="d-flex align-items-center"
+            style={{ marginLeft: "-40px" }}
+          >
+            <img
+              src={nameNimage?.image}
+              className="img-fluid me-2"
+              alt="Product Image"
+              style={{ width: "120px" }}
+              // style={{ width: "50px", height: "50px" }}
+            />
+            <p>{nameNimage?.name}</p>
+          </div>
+        )
+      ),
     },
     //   Quantity
     {
