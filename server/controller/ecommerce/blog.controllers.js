@@ -118,14 +118,14 @@ const getAllBlogs = asyncHandler(async (req, res) => {
     const blogsCriteria = JSON.parse(queryStr);
     console.log(blogsCriteria);
     // Find all categories with the given name
-    if (priceCriteria.category) {
-      const categoryName = priceCriteria.category;
+    if (blogsCriteria.category) {
+      const categoryName = blogsCriteria.category;
       const categories = await BlogCategory.find({ name: categoryName });
       console.log("categories", categories);
       if (categories.length > 0) {
         // Extract the IDs of the matching categories
         const categoryIds = categories.map((category) => category._id);
-        // Update the priceCriteria to include the category IDs
+        // Update the blogsCriteria to include the category IDs
         blogsCriteria.category = { $in: categoryIds };
       } else {
         // Handle case where category name does not exist
