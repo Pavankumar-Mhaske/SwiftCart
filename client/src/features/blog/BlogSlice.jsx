@@ -3,10 +3,10 @@ import BlogService from "./BlogService";
 
 export const getBlogs = createAsyncThunk(
   "blogs/get-blogs",
-  async (thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
       console.log("thunkAPI in blogSlice is : ", thunkAPI);
-      const response = await BlogService.getBlogs();
+      const response = await BlogService.getBlogs(data);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
