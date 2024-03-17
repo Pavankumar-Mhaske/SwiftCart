@@ -422,7 +422,7 @@ const Checkout = () => {
                   return (
                     <div
                       key={index}
-                      className="d-flex gap-10 mb-2 justify-content-between align-items-center"
+                      className="d-flex gap-10 mb-5 justify-content-between align-items-center"
                     >
                       <div className="w-75 d-flex gap-10">
                         <div className="w-25 position-relative">
