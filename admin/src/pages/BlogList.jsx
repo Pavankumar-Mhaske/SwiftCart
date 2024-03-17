@@ -29,7 +29,7 @@ const columns = [
       console.log("nameNimage in productlist is 🍌🍌🍌 : ", nameNimage),
       (
         <div
-          className="d-flex align-items-center border"
+          className="d-flex align-items-center"
           style={{ marginLeft: "-20px", maxWidth: "500px" }}
         >
           <img
