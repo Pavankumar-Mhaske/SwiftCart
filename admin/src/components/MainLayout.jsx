@@ -47,8 +47,8 @@ const MainLayout = () => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical">
           <h2 className="text-white fs-5 text-center py-4 mb-0">
-            <span className="sm-logo">DC</span>
-            <span className="lg-logo">Dev Corder</span>
+            <span className="sm-logo">SC</span>
+            <span className="lg-logo">SwiftCart</span>
           </h2>
         </div>
         <Menu

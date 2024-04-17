@@ -188,7 +188,7 @@ const Checkout = () => {
           {/* ⛪⛪⛪ Customer Information ⛪⛪⛪ */}
           <div className="col-7 py-5">
             <div className="checkout-left-data">
-              <h3 className="website-name">Dev Corner</h3>
+              <h3 className="website-name">SwiftCart</h3>
               {/* Progress Breadcrumb */}
               <div className="my-4">
                 <nav
