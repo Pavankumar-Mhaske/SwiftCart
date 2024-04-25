@@ -14,11 +14,15 @@
   <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![1](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/3e42c302-bf11-431e-b175-1ef23139e132)
+
 ![Home](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/c120cc85-a128-4eb0-b06f-0d336eef242e)
 
 <p align="center">
   <b> 🌴🎄🌳🌲 ⭐💖 - Explore - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
+
+![2](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/142a4cf7-a9dd-4f2f-98b1-76fec3b45a29)
 
 ![Explore](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/c83b5337-8640-4fd4-b70c-bf2cf7150858)
 
@@ -26,11 +30,15 @@
   <b> 🌴🎄🌳🌲 ⭐💖 - People - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![3](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/b580c084-a326-4417-b6f6-5e14984f2bb8)
+
 ![People](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/2646a0fd-6c48-40f8-bcc2-fee9e3bbc27b)
 
 <p align="center">
   <b> 🌴🎄🌳🌲 ⭐💖 - Saved - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
+
+![4](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/e2434535-769a-453b-8850-7010cc0723de)
 
 ![Saved](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/0a42f57c-08d2-4bb8-9b0c-7b3850787c09)
 
@@ -38,11 +46,15 @@
   <b> 🌴🎄🌳🌲 ⭐💖 - Create Post - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![5](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/43eac696-75c0-43ff-bd9f-2fc935dded1a)
+
 ![Create Post](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/23278eec-6ad4-463f-8b4d-523d8f218078)
 
 <p align="center">
   <b> 🌴🎄🌳🌲 ⭐💖 - Profile - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
+
+![6](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/daa20967-2cca-4d39-9497-9f46eb01ab41)
 
 ![Profile](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/b25df67c-7631-4bb7-8633-3fd970dccd35)
 
@@ -50,11 +62,15 @@
   <b> 🌴🎄🌳🌲 ⭐💖 - Detailed Post - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![7](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/160a12e7-ebec-4586-9dfe-75926cc65811)
+
 ![Detailed Post](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/72d8e720-2255-49ae-8bae-31f663652a7d)
 
 <p align="center">
   <b> 🌴🎄🌳🌲 ⭐💖 - Users Account - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
+
+![8](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/8122a9ca-f9e5-4313-b9ea-5536d7836a07)
 
 ![Users Account](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/05c66fae-d3e7-41a3-9959-50c91ec96c1b)
 
@@ -62,11 +78,15 @@
   <b> 🌴🎄🌳🌲 ⭐💖 - LogIn - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![9](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/2e0c5bf1-9c09-4ec3-9908-cfc0c2070588)
+
 ![LogIn](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/5aba06b1-0944-4a98-89fd-ed151dce27af)
 
 <p align="center">
   <b> 🌴🎄🌳🌲 ⭐💖 - SignUp - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
+
+![10](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/b623bf7a-722a-46e7-aa1e-91c6f729a848)
 
 ![SignUp](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/e84b7a9e-1dfe-41d9-a428-6ac8ad33a2d0)
 
@@ -74,7 +94,61 @@
   <b> 🌴🎄🌳🌲 ⭐💖 - Loading - 💖⭐ 🌲🌳🎄🌴  </b>
 </p>
 
+![11](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/450c34a2-ec13-4171-a8f9-6ebb30e63cd5)
+
 ![Loading](https://github.com/Pavankumar-Mhaske/SnapGram/assets/104865937/3bab4f7b-5f61-4ab4-a433-b69835ed2b7e)
+
+p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Loading - 💖⭐ 🌲🌳🎄🌴  </b>
+</p>
+
+![12](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/dc403d7a-e6d7-4c7e-bafa-cc263c841ea6)
+
+
+p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Loading - 💖⭐ 🌲🌳🎄🌴  </b>
+</p>
+
+![13](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/cde1e219-07f1-4d1e-9559-3e36fbc5f446)
+
+p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Loading - 💖⭐ 🌲🌳🎄🌴  </b>
+</p>
+
+![14](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/d6f0b9c3-4aee-418a-9245-e3f106771a14)
+
+p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Loading - 💖⭐ 🌲🌳🎄🌴  </b>
+</p>
+
+![15](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/4407e0e1-5f4a-467e-a2e5-e88ec745e0a2)
+
+p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Loading - 💖⭐ 🌲🌳🎄🌴  </b>
+</p>
+
+
+![16](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/166a302c-1490-48a1-8750-ecb7837594d6)
+
+p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Loading - 💖⭐ 🌲🌳🎄🌴  </b>
+</p>
+
+![17](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/6f1c41ef-07c1-49db-a33d-d941b5c24bd3)
+
+p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Loading - 💖⭐ 🌲🌳🎄🌴  </b>
+</p>
+
+![18](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/369d3bbe-faaf-4b1d-a4ef-642dcecd35d6)
+
+
+p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Loading - 💖⭐ 🌲🌳🎄🌴  </b>
+</p>
+
+![19](https://github.com/Pavankumar-Mhaske/SwiftCart/assets/104865937/1fcd1812-42d6-4881-9f5a-7895d373c283)
+
 
 ## Badges
 
