@@ -27,7 +27,6 @@ import { BsChatDots } from "react-icons/bs";
 import { IoIosNotifications } from "react-icons/io";
 import { BiLogOut } from "react-icons/bi";
 // images
-import person from "../assets/person.jpg";
 import male from "../assets/male.jpg";
 import { useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
